@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>لغز الربوع - قضية اليوم</title>
+  <title>لغز الربوع - لغز اليوم</title>
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -19,7 +19,6 @@
     body {
       margin: 0; min-height: 100vh;
       font-family: 'Tajawal', sans-serif;
-      /* خلفية بنقوش بوليسية سينمائية خفيفة */
       background: 
         radial-gradient(circle at 50% 30%, rgba(168, 85, 247, 0.25) 0%, transparent 60%),
         radial-gradient(circle at center, #230542 0%, var(--bg-dark) 100%),
@@ -31,36 +30,37 @@
       position: relative;
     }
 
-    /* أشرطة مسرح الجريمة البوليسية المتقاطعة */
+    /* أشرطة مسرح الجريمة البوليسية في أعلى وأسفل الصفحة فقط */
     .police-tape-bottom {
-      position: fixed; bottom: -12px; left: -10%; width: 120%; height: 42px;
+      position: fixed; bottom: -10px; left: -10%; width: 120%; height: 38px;
       background: repeating-linear-gradient(-45deg, #f59e0b, #f59e0b 18px, #111 18px, #111 36px);
-      color: #000; font-weight: 900; font-size: 15px; line-height: 42px; text-align: center;
-      letter-spacing: 2px; transform: rotate(-2deg); box-shadow: 0 0 25px rgba(0,0,0,0.9);
+      color: #000; font-weight: 900; font-size: 14px; line-height: 38px; text-align: center;
+      letter-spacing: 2px; transform: rotate(-1.5deg); box-shadow: 0 0 25px rgba(0,0,0,0.9);
       z-index: 10; pointer-events: none; border-top: 2px solid #fbbf24; border-bottom: 2px solid #fbbf24;
     }
 
     .police-tape-top {
-      position: fixed; top: -12px; right: -10%; width: 120%; height: 35px;
+      position: fixed; top: -10px; right: -10%; width: 120%; height: 32px;
       background: repeating-linear-gradient(45deg, #f59e0b, #f59e0b 18px, #111 18px, #111 36px);
-      color: #000; font-weight: 900; font-size: 13px; line-height: 35px; text-align: center;
-      transform: rotate(2deg); opacity: 0.85; z-index: 10; pointer-events: none;
+      color: #000; font-weight: 900; font-size: 12px; line-height: 32px; text-align: center;
+      transform: rotate(1.5deg); opacity: 0.85; z-index: 10; pointer-events: none;
     }
 
-    /* شريط انتقال سينمائي يتحرك فوراً عند فتح اللغز */
+    /* شريط الانتقال مخفي تماماً ولن يعلق بالنص */
     .transition-tape {
-      position: fixed; top: 50%; left: -120%; width: 140%; height: 80px;
+      position: fixed; top: 50%; left: -150%; width: 140%; height: 70px;
       background: repeating-linear-gradient(-45deg, #f59e0b, #f59e0b 25px, #000 25px, #000 50px);
-      z-index: 99; transform: translateY(-50%) rotate(-12deg);
+      z-index: 999; transform: translateY(-50%) rotate(-10deg);
       box-shadow: 0 0 50px rgba(0,0,0,0.9);
       display: flex; align-items: center; justify-content: center;
-      color: #000; font-size: 26px; font-weight: 900; letter-spacing: 3px;
-      transition: left 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+      color: #000; font-size: 24px; font-weight: 900; letter-spacing: 3px;
+      transition: left 0.5s ease-in-out;
       pointer-events: none;
+      visibility: hidden;
     }
-    .transition-tape.active { left: -10%; }
+    .transition-tape.active { left: -10%; visibility: visible; }
 
-    /* حاوية التطبيق */
+    /* حاوية الكارت والواجهة */
     .app-wrapper {
       position: relative;
       width: 100%; max-width: 480px;
@@ -77,22 +77,21 @@
       box-shadow: 0 0 45px rgba(168, 85, 247, 0.3), inset 0 0 20px rgba(168, 85, 247, 0.2);
       position: relative;
       z-index: 2;
-      transition: transform 0.4s ease, opacity 0.4s ease;
     }
 
-    /* تكبير الشعار بشكل ضخم وملفت جداً */
+    /* الشعار بشكل أنيق وواضح وفي المنتصف */
     .club-logo-container {
       text-align: center;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
     .real-logo {
-      width: 310px;
-      max-width: 100%;
+      width: 220px;
+      max-width: 85%;
       height: auto;
-      filter: drop-shadow(0 0 20px rgba(216, 180, 254, 0.95));
-      transition: transform 0.3s;
+      filter: drop-shadow(0 0 15px rgba(216, 180, 254, 0.85));
+      display: block;
+      margin: 0 auto;
     }
-    .real-logo:hover { transform: scale(1.03); }
 
     h1.main-title {
       margin: 8px 0 4px;
@@ -120,7 +119,6 @@
     }
     textarea { resize: vertical; height: 75px; }
 
-    /* زر الرئيسية التفاعلي */
     .btn {
       width: 100%; padding: 15px; border: none; border-radius: 14px;
       background: linear-gradient(135deg, #9333ea, #6b21a8);
@@ -133,25 +131,21 @@
       transform: translateY(-2px);
       box-shadow: 0 8px 25px rgba(168, 85, 247, 0.7);
     }
-    .btn:active { transform: translateY(1px); }
 
-    /* أزرار خيارات الإجابة مع تأثير الاهتزاز والضوء */
+    /* خيارات الإجابة واهتزازها عند الاختيار */
     .opt-btn {
       width: 100%; padding: 15px; margin-bottom: 14px; border-radius: 14px;
       border: 1.5px solid rgba(216, 180, 254, 0.35);
       background: rgba(255, 255, 255, 0.05);
       color: #fff; font-size: 16.5px; font-weight: 700; cursor: pointer; text-align: center;
       font-family: inherit; transition: all 0.3s ease;
-      position: relative; overflow: hidden;
     }
     .opt-btn:hover {
       background: rgba(168, 85, 247, 0.3);
       border-color: var(--purple-glow);
-      transform: scale(1.02);
-      box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
+      transform: scale(1.01);
     }
 
-    /* أنيميشن الاهتزاز عند التخمين */
     @keyframes shake {
       0% { transform: translateX(0); }
       20% { transform: translateX(-8px); }
@@ -173,9 +167,7 @@
       box-shadow: 0 0 20px rgba(239, 68, 68, 0.6) !important;
     }
 
-    .result-box { margin-top: 20px; padding: 18px; border-radius: 16px; text-align: center; line-height: 1.6; animation: fadeIn 0.5s ease; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-    
+    .result-box { margin-top: 20px; padding: 18px; border-radius: 16px; text-align: center; line-height: 1.6; }
     .success { background: rgba(34, 197, 94, 0.2); border: 1.5px solid #22c55e; box-shadow: 0 0 20px rgba(34, 197, 94, 0.3); }
     .error { background: rgba(239, 68, 68, 0.2); border: 1.5px solid #ef4444; box-shadow: 0 0 20px rgba(239, 68, 68, 0.3); }
     .hidden { display: none !important; }
@@ -201,17 +193,21 @@
       margin-top: 22px; letter-spacing: 0.8px; font-family: sans-serif;
     }
 
-    /* المحققة واقفة خارج المربع بالكامل وبشكل كبير واحترافي */
+    /* موقع المحققة الجانبي المستقل عن الكارت تماماً لتفادي أي تغطية للنصوص */
     .outer-detective {
       position: absolute;
-      left: -125px;
-      top: 50px;
-      width: 200px;
+      left: -190px; /* مسافة بعيدة تضمن عدم التغطية نهائياً */
+      top: 20px;
+      width: 175px;
       height: auto;
       transform: scaleX(-1);
-      filter: drop-shadow(0 0 20px rgba(168, 85, 247, 0.9));
+      filter: drop-shadow(0 0 20px rgba(168, 85, 247, 0.85));
       pointer-events: none;
-      z-index: 5;
+      z-index: 1;
+    }
+
+    @media (max-width: 850px) {
+      .outer-detective { display: none; } /* إخفاء المحققة في الجوال لكي لا تغطي الشاشة */
     }
 
     .magnifier-lens {
@@ -236,7 +232,6 @@
 </head>
 <body>
 
-  <!-- أشرطة مسرح الجريمة البوليسية الثابتة -->
   <div class="police-tape-bottom">
     <span>⚖️ لغز اليوم • لغز الربوع • وحدة الإرشاد الأكاديمي ⚖️</span>
   </div>
@@ -244,7 +239,6 @@
     <span>CRIME SCENE • DO NOT CROSS • DETECTIVE UNIT</span>
   </div>
 
-  <!-- شريط الانتقال التفاعلي عند بدء اللغز -->
   <div class="transition-tape" id="transitionTape">
     🔍 جاري فتح ملف اللغز...
   </div>
@@ -280,11 +274,11 @@
       <div class="signature">Design & Production: Nouf Alawad 2026</div>
     </div>
 
-    <!-- واجهة اللغز والتفاعل -->
+    <!-- واجهة اللغز -->
     <div class="card hidden" id="quizStep">
       <button class="admin-toggle hidden" id="adminBtn" title="لوحة التحكم" onclick="toggleAdmin()">⚙️</button>
       
-      <!-- صورة المحققة الكبيرة خارج الكارت -->
+      <!-- المحققة على الجانب الأيسر الخارجي المستقل بالكامل -->
       <img src="Lawyer.png" alt="المحققة" class="outer-detective">
 
       <div class="club-logo-container">
@@ -407,7 +401,6 @@
     }
   }
 
-  /* حركة انتقالية عبر الشريط السينمائي عند البدء */
   function startQuizWithTransition() {
     const name = document.getElementById('userName').value.trim();
     const phone = document.getElementById('userPhone').value.trim();
@@ -431,21 +424,19 @@
       } else {
         adminBtn.classList.add('hidden');
       }
-    }, 400);
+    }, 450);
 
     setTimeout(() => {
       tape.classList.remove('active');
     }, 900);
   }
 
-  /* الإجابة التفاعلية مع الاهتزاز والألوان */
   function submitAnswerInteractive(selectedIndex) {
     const isCorrect = (selectedIndex === parseInt(config.corrIndex));
     const resultDiv = document.getElementById('result');
     const optionsDiv = document.getElementById('options');
     const btn = document.getElementById('opt' + selectedIndex);
 
-    // إضافة تأثير الاهتزاز
     btn.classList.add('shaking');
 
     setTimeout(() => {
