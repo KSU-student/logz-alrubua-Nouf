@@ -11,8 +11,8 @@
       --purple-glow: #a855f7;
       --purple-neon: #d8b4fe;
       --gold-police: #fbbf24;
-      --card-bg: rgba(20, 10, 38, 0.75);
-      --line: rgba(168, 85, 247, 0.3);
+      --card-bg: rgba(20, 10, 38, 0.82);
+      --line: rgba(168, 85, 247, 0.35);
     }
     * { box-sizing: border-box; }
     body {
@@ -26,11 +26,11 @@
       position: relative;
     }
 
-    /* خلفية هالة النيون البنفسجية خلف الكارت */
+    /* خلفية هالة النيون البنفسجية */
     body::before {
       content: '';
       position: absolute;
-      width: 350px; height: 350px;
+      width: 380px; height: 380px;
       background: radial-gradient(circle, rgba(168, 85, 247, 0.35) 0%, rgba(0,0,0,0) 70%);
       border-radius: 50%;
       top: 50%; left: 50%;
@@ -43,7 +43,7 @@
       100% { transform: translate(-50%, -50%) scale(1.15); opacity: 1; }
     }
 
-    /* أشرطة مسرح الجريمة الصفراء البوليسية */
+    /* أشرطة مسرح الجريمة البوليسية */
     .police-tape {
       position: fixed;
       bottom: -10px;
@@ -70,13 +70,8 @@
       border-top: 2px solid #fbbf24;
       border-bottom: 2px solid #fbbf24;
     }
-    .police-tape-text {
-      background: #f59e0b;
-      padding: 0 15px;
-      color: #000;
-    }
 
-    /* الكارت الرئيسي بتصميم العدسة */
+    /* الكارت الرئيسي */
     .card {
       background: var(--card-bg);
       border: 2px solid var(--line);
@@ -89,18 +84,27 @@
       z-index: 2;
     }
 
-    /* شعار الميزان والكلية في الأعلى */
-    .header-logo {
+    /* شعار وحدة الإرشاد الأكاديمي المقتبس من الصورة */
+    .club-logo-container {
       text-align: center;
-      margin-bottom: 5px;
-      font-size: 12px;
-      color: var(--purple-neon);
-      opacity: 0.9;
+      margin-bottom: 12px;
     }
-    .header-logo span {
-      display: block;
+    .scale-logo {
+      width: 70px;
+      height: auto;
+      filter: drop-shadow(0 0 8px rgba(216, 180, 254, 0.6));
+    }
+    .logo-text-title {
+      font-size: 15px;
       font-weight: 800;
-      font-size: 13px;
+      color: #fff;
+      margin-top: 4px;
+      letter-spacing: 0.5px;
+    }
+    .logo-text-sub {
+      font-size: 11px;
+      color: var(--purple-neon);
+      opacity: 0.95;
     }
 
     h1.main-title {
@@ -110,7 +114,6 @@
       font-weight: 900;
       color: #fff;
       text-shadow: 0 0 12px var(--purple-glow), 0 0 25px var(--purple-glow);
-      letter-spacing: 1px;
     }
 
     p.sub { text-align: center; color: rgba(255,255,255,0.7); margin-bottom: 22px; font-size: 13px; }
@@ -145,7 +148,6 @@
       box-shadow: 0 6px 20px rgba(168, 85, 247, 0.6);
     }
 
-    /* خيارات الإجابة داخل العدسة */
     .opt-btn {
       width: 100%; padding: 14px; margin-bottom: 12px; border-radius: 12px;
       border: 1px solid rgba(216, 180, 254, 0.3);
@@ -183,32 +185,45 @@
     .row { display: flex; gap: 10px; }
     .row > div { flex: 1; }
 
-    /* توقيع الحقوق والإنجليزي */
     .signature {
       text-align: center; font-size: 11px; color: rgba(255,255,255,0.45);
       margin-top: 22px; letter-spacing: 0.8px; font-family: sans-serif;
     }
 
-    /* إطار العدسة البوليسي وتكبير النص داخلها */
+    /* تصميم العدسة المكبرة وظل المحققة التفاعلي */
+    .detective-container {
+      position: relative;
+      margin-bottom: 20px;
+    }
+    
+    /* ظل المحققة بالمعطف والقبعة */
+    .detective-silhouette {
+      position: absolute;
+      right: -15px;
+      bottom: -10px;
+      font-size: 50px;
+      opacity: 0.35;
+      transform: scaleX(-1);
+      filter: drop-shadow(0 0 10px rgba(168, 85, 247, 0.8));
+      pointer-events: none;
+    }
+
     .magnifier-lens {
       border: 2px solid var(--purple-glow);
-      border-radius: 16px;
-      padding: 15px;
-      background: rgba(168, 85, 247, 0.08);
-      box-shadow: inset 0 0 20px rgba(168, 85, 247, 0.2);
-      margin-bottom: 20px;
-      animation: floatLens 3.5s ease-in-out infinite alternate;
+      border-radius: 18px;
+      padding: 18px;
+      background: rgba(168, 85, 247, 0.1);
+      box-shadow: inset 0 0 25px rgba(168, 85, 247, 0.25), 0 0 15px rgba(168, 85, 247, 0.2);
+      position: relative;
+      z-index: 1;
     }
-    @keyframes floatLens {
-      0% { transform: translateY(0px); }
-      100% { transform: translateY(-5px); }
-    }
+
     .question-zoom {
       font-size: 17px;
       font-weight: 700;
       line-height: 1.6;
       color: #fff;
-      text-shadow: 0 0 5px rgba(255,255,255,0.3);
+      text-shadow: 0 0 6px rgba(255,255,255,0.4);
     }
   </style>
 </head>
@@ -216,14 +231,18 @@
 
   <!-- شريط مسرح الجريمة البوليسي السفلي -->
   <div class="police-tape">
-    <span class="police-tape-text">⚖️ قضية اليوم • لغز الربوع • وحدة الإرشاد الأكاديمي ⚖️</span>
+    <span>⚖️ قضية اليوم • لغز الربوع • وحدة الإرشاد الأكاديمي ⚖️</span>
   </div>
 
   <!-- واجهة إدخال البيانات للجميع -->
   <div class="card" id="userInfoStep">
-    <div class="header-logo">
-      <span>⚖️ وحدة الإرشاد الأكاديمي</span>
-      كلية الحقوق والعلوم السياسية
+    <!-- الشعار الرسمي -->
+    <div class="club-logo-container">
+      <svg class="scale-logo" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 3v18M3 7h18M6 7l-3 7h6l-3-7zM18 7l-3 7h6l-3-7zM12 21a2 2 0 0 0 2-2h-4a2 2 0 0 0 2 2z"/>
+      </svg>
+      <div class="logo-text-title">وحدة الإرشاد الأكاديمي</div>
+      <div class="logo-text-sub">كلية الحقوق والعلوم السياسية</div>
     </div>
     
     <h1 class="main-title">لغز الربوع 🕵️‍♀️</h1>
@@ -249,20 +268,26 @@
     <div class="signature">Design & Production: Nouf Alawad 2026</div>
   </div>
 
-  <!-- واجهة اللغز البوليسية (يظهر فيها زر التعديل لكِ وحدكِ في الزاوية عند التطابق) -->
+  <!-- واجهة اللغز البوليسية -->
   <div class="card hidden" id="quizStep">
     <button class="admin-toggle hidden" id="adminBtn" title="لوحة التحكم" onclick="toggleAdmin()">⚙️</button>
     
-    <div class="header-logo">
-      <span>⚖️ وحدة الإرشاد الأكاديمي</span>
+    <div class="club-logo-container">
+      <svg class="scale-logo" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 3v18M3 7h18M6 7l-3 7h6l-3-7zM18 7l-3 7h6l-3-7zM12 21a2 2 0 0 0 2-2h-4a2 2 0 0 0 2 2z"/>
+      </svg>
+      <div class="logo-text-title">وحدة الإرشاد الأكاديمي</div>
     </div>
     
     <h1 class="main-title" id="qTitle">قضية اليوم</h1>
     <p class="sub">تحت عدسة المحققة 🕵️‍♀️</p>
     
-    <!-- العدسة المكبرة للنص -->
-    <div class="magnifier-lens">
-      <div class="question-zoom" id="qText"></div>
+    <!-- العدسة المكبرة مع ظل المحققة المباشر -->
+    <div class="detective-container">
+      <div class="detective-silhouette">🕵️‍♀️</div>
+      <div class="magnifier-lens">
+        <div class="question-zoom" id="qText"></div>
+      </div>
     </div>
     
     <div id="options">
@@ -274,7 +299,7 @@
     <div class="signature">Design & Production: Nouf Alawad 2026</div>
   </div>
 
-  <!-- لوحة التحكم الخاصة بكِ فقط -->
+  <!-- لوحة التحكم الإدارية الخاصة بكِ -->
   <div class="card hidden admin-panel" id="adminPanel">
     <h2 style="margin-top:0; text-align:center; color:var(--purple-neon);">🛠️ لوحة تحكم الفعالية</h2>
     
@@ -327,6 +352,11 @@
     </div>
 
     <div class="field">
+      <label>عنوان الإجابة الصحيحة:</label>
+      <input type="text" id="p_successMsg">
+    </div>
+
+    <div class="field">
       <label>عبارة الإجابة الخاطئة:</label>
       <input type="text" id="p_wrongMsg">
     </div>
@@ -345,6 +375,7 @@
     opts: ["نعم، يحق له", "لا، لا يحق له"],
     corrIndex: 1,
     ruling: "وفقاً للنظام، العقود الشفهية في بعض التصرفات تحتاج لإثبات، ولا يعتد بالعربون دون عقد مكتوب ومكتمل الشروط.",
+    successMsg: "إجابة صحيحة! 🎉",
     wrongMsg: "للأسف الإجابة خاطئة.. حاول الأربعاء القادم! 🌸",
     promoCode: "حقوق_2026"
   };
@@ -376,7 +407,7 @@
     userData.name = name;
     userData.phone = phone;
     
-    // إظهار زر التحكم الخاص بكِ فقط
+    // التحقق الفردي لإظهار زر التحكم
     const adminBtn = document.getElementById('adminBtn');
     if (phone === "0542961918" || name.includes("نوف")) {
       adminBtn.classList.remove('hidden');
@@ -399,7 +430,7 @@
     if(isCorrect) {
       resultDiv.className = "result-box success";
       resultDiv.innerHTML = `
-        <h3>إجابة صحيحة! 🎉</h3>
+        <h3>${config.successMsg}</h3>
         <p>${config.ruling}</p>
         <div style="background: rgba(168,85,247,0.25); border: 1px dashed var(--purple-glow); padding: 10px; border-radius: 8px; margin-top: 10px;">
           كود الخصم الهديّة: <strong>${config.promoCode}</strong>
@@ -438,6 +469,7 @@
       document.getElementById('p_corr').value = config.corrIndex;
       document.getElementById('p_code').value = config.promoCode;
       document.getElementById('p_ruling').value = config.ruling;
+      document.getElementById('p_successMsg').value = config.successMsg || "إجابة صحيحة! 🎉";
       document.getElementById('p_wrongMsg').value = config.wrongMsg;
       panel.classList.remove('hidden');
     } else {
@@ -454,6 +486,7 @@
     config.corrIndex = parseInt(document.getElementById('p_corr').value);
     config.promoCode = document.getElementById('p_code').value.trim();
     config.ruling = document.getElementById('p_ruling').value.trim();
+    config.successMsg = document.getElementById('p_successMsg').value.trim();
     config.wrongMsg = document.getElementById('p_wrongMsg').value.trim();
 
     localStorage.setItem('wednesday_config', JSON.stringify(config));
