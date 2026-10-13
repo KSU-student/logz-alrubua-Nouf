@@ -7,253 +7,313 @@
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-dark: #090214;
-      --purple-glow: #a855f7;
+      --bg-dark: #07010f;
+      --purple: #a855f7;
+      --purple-deep: #6b21a8;
       --purple-neon: #e9d5ff;
-      --gold-police: #fbbf24;
-      --card-bg: rgba(18, 7, 36, 0.92);
+      --gold: #f5c542;
+      --gold-soft: #fde68a;
+      --gold-dark: #b8860b;
+      --card-bg: rgba(14, 5, 28, 0.94);
       --line: rgba(168, 85, 247, 0.45);
     }
-    * { box-sizing: border-box; }
-    
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
     body {
       margin: 0; min-height: 100vh;
       font-family: 'Tajawal', sans-serif;
-      background: 
-        radial-gradient(circle at 50% 30%, rgba(168, 85, 247, 0.25) 0%, transparent 60%),
-        radial-gradient(circle at center, #230542 0%, var(--bg-dark) 100%),
-        repeating-linear-gradient(45deg, rgba(255,255,255,0.01) 0px, rgba(255,255,255,0.01) 2px, transparent 2px, transparent 8px);
       color: #fff;
+      background:
+        radial-gradient(ellipse 60% 45% at 50% 0%, rgba(245, 197, 66, 0.14) 0%, transparent 70%),
+        radial-gradient(circle at 50% 35%, rgba(168, 85, 247, 0.28) 0%, transparent 60%),
+        radial-gradient(circle at center, #1d0438 0%, var(--bg-dark) 100%);
+      background-attachment: fixed;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
-      padding: 20px;
+      padding: 70px 16px 80px;
       overflow-x: hidden;
       position: relative;
     }
 
-    /* أشرطة مسرح الجريمة البوليسية في أعلى وأسفل الصفحة فقط */
+    /* نقش خفيف + خطوط مسح مثل شاشات التحقيق */
+    body::before {
+      content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+      background:
+        repeating-linear-gradient(0deg, rgba(255,255,255,0.025) 0, rgba(255,255,255,0.025) 1px, transparent 1px, transparent 4px),
+        repeating-linear-gradient(45deg, rgba(255,255,255,0.012) 0, rgba(255,255,255,0.012) 2px, transparent 2px, transparent 10px);
+    }
+    /* فينيت يعطي عمق سينمائي */
+    body::after {
+      content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 1;
+      background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.75) 100%);
+    }
+
+    /* أشرطة مسرح الجريمة */
     .police-tape-bottom {
-      position: fixed; bottom: -10px; left: -10%; width: 120%; height: 38px;
-      background: repeating-linear-gradient(-45deg, #f59e0b, #f59e0b 18px, #111 18px, #111 36px);
-      color: #000; font-weight: 900; font-size: 14px; line-height: 38px; text-align: center;
-      letter-spacing: 2px; transform: rotate(-1.5deg); box-shadow: 0 0 25px rgba(0,0,0,0.9);
-      z-index: 10; pointer-events: none; border-top: 2px solid #fbbf24; border-bottom: 2px solid #fbbf24;
+      position: fixed; bottom: -8px; left: -10%; width: 120%; height: 40px;
+      background: repeating-linear-gradient(-45deg, #f59e0b, #f59e0b 18px, #0b0b0b 18px, #0b0b0b 36px);
+      transform: rotate(-1.2deg); box-shadow: 0 0 25px rgba(0,0,0,0.9);
+      z-index: 10; pointer-events: none;
+      border-top: 2px solid #fbbf24; border-bottom: 2px solid #fbbf24;
+      display: flex; align-items: center; justify-content: center;
     }
-
+    .police-tape-bottom span {
+      background: #fbbf24; color: #000; font-weight: 900; font-size: 13px;
+      padding: 2px 16px; letter-spacing: 1px; white-space: nowrap;
+    }
     .police-tape-top {
-      position: fixed; top: -10px; right: -10%; width: 120%; height: 32px;
-      background: repeating-linear-gradient(45deg, #f59e0b, #f59e0b 18px, #111 18px, #111 36px);
-      color: #000; font-weight: 900; font-size: 12px; line-height: 32px; text-align: center;
-      transform: rotate(1.5deg); opacity: 0.85; z-index: 10; pointer-events: none;
+      position: fixed; top: -8px; right: -10%; width: 120%; height: 34px;
+      background: repeating-linear-gradient(45deg, #f59e0b, #f59e0b 18px, #0b0b0b 18px, #0b0b0b 36px);
+      transform: rotate(1.2deg); opacity: 0.95; z-index: 10; pointer-events: none;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.8);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .police-tape-top span {
+      background: #fbbf24; color: #000; font-weight: 900; font-size: 11px;
+      padding: 1px 14px; letter-spacing: 2px; white-space: nowrap; font-family: sans-serif;
     }
 
-    /* شريط الانتقال مخفي تماماً ولن يعلق بالنص */
+    /* شريط الانتقال */
     .transition-tape {
-      position: fixed; top: 50%; left: -150%; width: 140%; height: 70px;
+      position: fixed; top: 50%; left: -150%; width: 140%; height: 74px;
       background: repeating-linear-gradient(-45deg, #f59e0b, #f59e0b 25px, #000 25px, #000 50px);
-      z-index: 999; transform: translateY(-50%) rotate(-10deg);
+      z-index: 999; transform: translateY(-50%) rotate(-8deg);
       box-shadow: 0 0 50px rgba(0,0,0,0.9);
       display: flex; align-items: center; justify-content: center;
-      color: #000; font-size: 24px; font-weight: 900; letter-spacing: 3px;
       transition: left 0.5s ease-in-out;
-      pointer-events: none;
-      visibility: hidden;
+      pointer-events: none; visibility: hidden;
+    }
+    .transition-tape span {
+      background: #fbbf24; color: #000; font-size: 22px; font-weight: 900;
+      padding: 4px 22px; letter-spacing: 2px;
     }
     .transition-tape.active { left: -10%; visibility: visible; }
 
-    /* حاوية الكارت والواجهة */
-    .app-wrapper {
-      position: relative;
-      width: 100%; max-width: 480px;
-      z-index: 2;
-    }
+    .app-wrapper { position: relative; width: 100%; max-width: 480px; z-index: 2; }
 
+    /* ===== بطاقة ملف القضية ===== */
     .card {
-      background: var(--card-bg);
-      border: 2px solid var(--line);
-      backdrop-filter: blur(20px);
-      border-radius: 28px;
-      padding: 30px 24px 24px;
+      background:
+        linear-gradient(180deg, rgba(168,85,247,0.10) 0%, transparent 30%),
+        var(--card-bg);
+      border: 1.5px solid rgba(245, 197, 66, 0.55);
+      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+      border-radius: 22px;
+      padding: 30px 24px 22px;
       width: 100%;
-      box-shadow: 0 0 45px rgba(168, 85, 247, 0.3), inset 0 0 20px rgba(168, 85, 247, 0.2);
-      position: relative;
-      z-index: 2;
+      box-shadow:
+        0 0 0 4px rgba(245, 197, 66, 0.07),
+        0 0 50px rgba(168, 85, 247, 0.35),
+        0 25px 60px rgba(0,0,0,0.7),
+        inset 0 0 30px rgba(168, 85, 247, 0.15);
+      position: relative; z-index: 2;
+    }
+    /* زوايا ذهبية */
+    .corner { position: absolute; width: 22px; height: 22px; border: 3px solid var(--gold); pointer-events: none; }
+    .corner.tl { top: 10px; right: 10px; border-left: none; border-bottom: none; border-top-right-radius: 8px; }
+    .corner.tr { top: 10px; left: 10px; border-right: none; border-bottom: none; border-top-left-radius: 8px; }
+    .corner.bl { bottom: 10px; right: 10px; border-left: none; border-top: none; border-bottom-right-radius: 8px; }
+    .corner.br { bottom: 10px; left: 10px; border-right: none; border-top: none; border-bottom-left-radius: 8px; }
+
+    /* ختم سري */
+    .case-stamp {
+      position: absolute; top: 18px; right: 22px;
+      border: 2px solid rgba(239, 68, 68, 0.75); color: rgba(239, 68, 68, 0.85);
+      font-size: 11px; font-weight: 900; letter-spacing: 1px;
+      padding: 2px 10px; border-radius: 4px; transform: rotate(6deg);
+      font-family: sans-serif; pointer-events: none;
     }
 
-    /* الشعار بشكل أنيق وواضح وفي المنتصف */
+    /* ===== الشعار: أكبر وأوضح ===== */
     .club-logo-container {
-      text-align: center;
-      margin-bottom: 12px;
+      text-align: center; margin: 4px 0 6px; position: relative;
+    }
+    .club-logo-container::before {
+      content: ""; position: absolute; left: 50%; top: 50%;
+      width: 300px; height: 300px; max-width: 100%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(233, 213, 255, 0.28) 0%, rgba(168,85,247,0.12) 45%, transparent 70%);
+      pointer-events: none;
     }
     .real-logo {
-      width: 220px;
-      max-width: 85%;
-      height: auto;
-      filter: drop-shadow(0 0 15px rgba(216, 180, 254, 0.85));
-      display: block;
-      margin: 0 auto;
+      position: relative;
+      width: 300px; max-width: 92%; height: auto;
+      display: block; margin: 0 auto;
+      filter:
+        drop-shadow(0 0 2px rgba(255,255,255,0.9))
+        drop-shadow(0 0 14px rgba(216, 180, 254, 0.75));
+    }
+
+    .gold-divider {
+      height: 2px; margin: 10px auto 12px; width: 70%;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      position: relative;
+    }
+    .gold-divider::after {
+      content: "⚖"; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -52%);
+      background: #12061f; padding: 0 10px; color: var(--gold); font-size: 15px;
     }
 
     h1.main-title {
-      margin: 8px 0 4px;
-      text-align: center;
-      font-size: 34px;
-      font-weight: 900;
-      color: #fff;
-      text-shadow: 0 0 15px var(--purple-glow), 0 0 30px var(--purple-glow);
+      margin: 6px 0 4px; text-align: center;
+      font-size: 34px; font-weight: 900;
+      background: linear-gradient(180deg, #fff 30%, var(--gold-soft) 100%);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      filter: drop-shadow(0 0 12px rgba(168,85,247,0.9));
     }
-
-    p.sub { text-align: center; color: rgba(255,255,255,0.75); margin-bottom: 22px; font-size: 13.5px; }
+    p.sub { text-align: center; color: rgba(255,255,255,0.78); margin: 0 0 20px; font-size: 13.5px; }
 
     .field { margin-bottom: 16px; }
-    label { display: block; margin-bottom: 6px; font-weight: 700; font-size: 14px; color: var(--purple-neon); }
+    label { display: block; margin-bottom: 6px; font-weight: 700; font-size: 14px; color: var(--gold-soft); }
     input[type="text"], input[type="tel"], textarea, select {
-      width: 100%; padding: 13px; border-radius: 14px;
+      width: 100%; padding: 13px; border-radius: 12px;
       border: 1.5px solid var(--line);
-      background: rgba(10, 3, 20, 0.7);
-      color: #fff; font-size: 15px; font-family: inherit;
+      background: rgba(8, 2, 18, 0.8);
+      color: #fff; font-size: 16px; font-family: inherit;
       outline: none; transition: 0.3s;
     }
-    input:focus, textarea:focus {
-      border-color: var(--purple-glow);
-      box-shadow: 0 0 15px rgba(168, 85, 247, 0.6);
+    input:focus, textarea:focus, select:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 16px rgba(245, 197, 66, 0.45);
     }
     textarea { resize: vertical; height: 75px; }
 
     .btn {
-      width: 100%; padding: 15px; border: none; border-radius: 14px;
-      background: linear-gradient(135deg, #9333ea, #6b21a8);
-      color: #fff; font-size: 18px; font-weight: 800;
+      width: 100%; padding: 15px; border: none; border-radius: 12px;
+      background: linear-gradient(135deg, #9333ea, #5b1a94);
+      border-bottom: 3px solid var(--gold-dark);
+      color: #fff; font-size: 18px; font-weight: 800; font-family: inherit;
       cursor: pointer; margin-top: 10px; transition: 0.3s;
-      box-shadow: 0 5px 20px rgba(147, 51, 234, 0.5);
+      box-shadow: 0 6px 22px rgba(147, 51, 234, 0.5);
+      position: relative; overflow: hidden;
     }
-    .btn:hover {
-      background: linear-gradient(135deg, #a855f7, #7e22ce);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(168, 85, 247, 0.7);
+    .btn::after {
+      content: ""; position: absolute; top: 0; left: -80%; width: 50%; height: 100%;
+      background: linear-gradient(100deg, transparent, rgba(255,255,255,0.35), transparent);
+      transform: skewX(-20deg); animation: shine 3.2s infinite;
+    }
+    @keyframes shine { 0%, 60% { left: -80%; } 100% { left: 160%; } }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(168, 85, 247, 0.75); }
+
+    /* ===== ملف القضية ===== */
+    .case-meta {
+      display: flex; justify-content: center; gap: 8px; margin-bottom: 4px;
+      font-family: sans-serif; font-size: 11px; letter-spacing: 1.5px; color: var(--gold);
     }
 
-    /* خيارات الإجابة واهتزازها عند الاختيار */
+    .magnifier-lens {
+      border: 1.5px solid var(--purple);
+      border-right: 4px solid var(--gold);
+      border-radius: 16px; padding: 20px;
+      background: linear-gradient(135deg, rgba(168, 85, 247, 0.18), rgba(168, 85, 247, 0.05));
+      box-shadow: inset 0 0 30px rgba(168, 85, 247, 0.25), 0 0 20px rgba(168, 85, 247, 0.2);
+      margin-bottom: 20px; position: relative;
+    }
+    .magnifier-lens::before {
+      content: "ملف القضية"; position: absolute; top: -10px; right: 16px;
+      background: var(--gold); color: #1a0b00; font-size: 11px; font-weight: 900;
+      padding: 1px 10px; border-radius: 4px;
+    }
+    .question-zoom { font-size: 17px; font-weight: 700; line-height: 1.75; color: #fff; text-shadow: 0 0 8px rgba(255,255,255,0.35); }
+
     .opt-btn {
-      width: 100%; padding: 15px; margin-bottom: 14px; border-radius: 14px;
-      border: 1.5px solid rgba(216, 180, 254, 0.35);
+      width: 100%; padding: 15px; margin-bottom: 12px; border-radius: 12px;
+      border: 1.5px solid rgba(245, 197, 66, 0.35);
       background: rgba(255, 255, 255, 0.05);
       color: #fff; font-size: 16.5px; font-weight: 700; cursor: pointer; text-align: center;
       font-family: inherit; transition: all 0.3s ease;
     }
-    .opt-btn:hover {
-      background: rgba(168, 85, 247, 0.3);
-      border-color: var(--purple-glow);
-      transform: scale(1.01);
-    }
+    .opt-btn:hover { background: rgba(168, 85, 247, 0.3); border-color: var(--gold); transform: scale(1.01); }
 
     @keyframes shake {
-      0% { transform: translateX(0); }
-      20% { transform: translateX(-8px); }
-      40% { transform: translateX(8px); }
-      60% { transform: translateX(-8px); }
-      80% { transform: translateX(8px); }
-      100% { transform: translateX(0); }
+      0% { transform: translateX(0); } 20% { transform: translateX(-8px); }
+      40% { transform: translateX(8px); } 60% { transform: translateX(-8px); }
+      80% { transform: translateX(8px); } 100% { transform: translateX(0); }
     }
     .shaking { animation: shake 0.4s ease-in-out; }
 
-    .opt-btn.selected-correct {
-      background: rgba(34, 197, 94, 0.35) !important;
-      border-color: #22c55e !important;
-      box-shadow: 0 0 20px rgba(34, 197, 94, 0.6) !important;
-    }
-    .opt-btn.selected-wrong {
-      background: rgba(239, 68, 68, 0.35) !important;
-      border-color: #ef4444 !important;
-      box-shadow: 0 0 20px rgba(239, 68, 68, 0.6) !important;
-    }
+    .opt-btn.selected-correct { background: rgba(34, 197, 94, 0.35) !important; border-color: #22c55e !important; box-shadow: 0 0 20px rgba(34, 197, 94, 0.6) !important; }
+    .opt-btn.selected-wrong { background: rgba(239, 68, 68, 0.35) !important; border-color: #ef4444 !important; box-shadow: 0 0 20px rgba(239, 68, 68, 0.6) !important; }
 
-    .result-box { margin-top: 20px; padding: 18px; border-radius: 16px; text-align: center; line-height: 1.6; }
-    .success { background: rgba(34, 197, 94, 0.2); border: 1.5px solid #22c55e; box-shadow: 0 0 20px rgba(34, 197, 94, 0.3); }
-    .error { background: rgba(239, 68, 68, 0.2); border: 1.5px solid #ef4444; box-shadow: 0 0 20px rgba(239, 68, 68, 0.3); }
+    .result-box { margin-top: 20px; padding: 22px 18px 18px; border-radius: 14px; text-align: center; line-height: 1.7; position: relative; }
+    .result-box h3 { margin: 6px 0; }
+    .success { background: rgba(34, 197, 94, 0.16); border: 1.5px solid #22c55e; box-shadow: 0 0 20px rgba(34, 197, 94, 0.3); }
+    .error { background: rgba(239, 68, 68, 0.16); border: 1.5px solid #ef4444; box-shadow: 0 0 20px rgba(239, 68, 68, 0.3); }
+
+    /* ختم الحكم */
+    .verdict-stamp {
+      display: inline-block; font-weight: 900; font-size: 15px; letter-spacing: 1px;
+      padding: 3px 16px; border: 3px solid; border-radius: 6px;
+      transform: rotate(-5deg); margin-bottom: 4px;
+      animation: stampIn 0.45s cubic-bezier(.2,1.6,.4,1);
+    }
+    .success .verdict-stamp { color: #4ade80; border-color: #4ade80; }
+    .error .verdict-stamp { color: #f87171; border-color: #f87171; }
+    @keyframes stampIn { 0% { transform: rotate(-5deg) scale(2.6); opacity: 0; } 100% { transform: rotate(-5deg) scale(1); opacity: 1; } }
+
+    .promo-box {
+      background: rgba(245, 197, 66, 0.12); border: 1.5px dashed var(--gold);
+      padding: 12px; border-radius: 10px; margin-top: 12px;
+    }
+    .promo-box strong { color: var(--gold-soft); font-size: 19px; letter-spacing: 1px; }
+
     .hidden { display: none !important; }
 
     .admin-toggle {
-      position: absolute; top: 15px; left: 15px;
-      background: rgba(168, 85, 247, 0.2); border: 1px solid var(--purple-glow);
+      position: absolute; top: 14px; left: 14px;
+      background: rgba(168, 85, 247, 0.2); border: 1px solid var(--gold);
       color: #fff; border-radius: 50%; width: 38px; height: 38px;
       cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center;
       box-shadow: 0 0 10px rgba(168, 85, 247, 0.4); z-index: 10;
     }
-
-    .admin-panel {
-      background: rgba(10, 3, 20, 0.96);
-      border: 2px solid var(--purple-glow);
-      border-radius: 20px; padding: 20px; margin-top: 15px;
-    }
+    .admin-panel { background: rgba(10, 3, 20, 0.97); border: 2px solid var(--purple); margin-top: 15px; }
     .row { display: flex; gap: 10px; }
     .row > div { flex: 1; }
 
-    .signature {
-      text-align: center; font-size: 11px; color: rgba(255,255,255,0.45);
-      margin-top: 22px; letter-spacing: 0.8px; font-family: sans-serif;
+    .signature { text-align: center; font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 20px; letter-spacing: 0.8px; font-family: sans-serif; }
+
+    /* المحققة: عمود جانبي مستقل عن البطاقة، ما تغطي أي نص */
+    .outer-detective { display: none; }
+    @media (min-width: 1050px) {
+      .outer-detective {
+        display: block; position: fixed; z-index: 3;
+        bottom: 40px; left: calc(50% - 240px - 270px);
+        width: 250px; height: auto; transform: scaleX(-1);
+        filter: drop-shadow(0 0 22px rgba(168, 85, 247, 0.9));
+        pointer-events: none;
+      }
     }
 
-    /* موقع المحققة الجانبي المستقل عن الكارت تماماً لتفادي أي تغطية للنصوص */
-    .outer-detective {
-      position: absolute;
-      left: -190px; /* مسافة بعيدة تضمن عدم التغطية نهائياً */
-      top: 20px;
-      width: 175px;
-      height: auto;
-      transform: scaleX(-1);
-      filter: drop-shadow(0 0 20px rgba(168, 85, 247, 0.85));
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    @media (max-width: 850px) {
-      .outer-detective { display: none; } /* إخفاء المحققة في الجوال لكي لا تغطي الشاشة */
-    }
-
-    .magnifier-lens {
-      border: 2px solid var(--purple-glow);
-      border-radius: 20px;
-      padding: 22px;
-      background: rgba(168, 85, 247, 0.12);
-      box-shadow: inset 0 0 30px rgba(168, 85, 247, 0.3), 0 0 20px rgba(168, 85, 247, 0.25);
-      margin-bottom: 22px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .question-zoom {
-      font-size: 17px;
-      font-weight: 700;
-      line-height: 1.6;
-      color: #fff;
-      text-shadow: 0 0 8px rgba(255,255,255,0.5);
+    @media (max-width: 480px) {
+      .real-logo { width: 260px; }
+      h1.main-title { font-size: 30px; }
     }
   </style>
 </head>
 <body>
 
-  <div class="police-tape-bottom">
-    <span>⚖️ لغز اليوم • لغز الربوع • وحدة الإرشاد الأكاديمي ⚖️</span>
-  </div>
-  <div class="police-tape-top">
-    <span>CRIME SCENE • DO NOT CROSS • DETECTIVE UNIT</span>
-  </div>
+  <div class="police-tape-top"><span>CRIME SCENE • DO NOT CROSS • DETECTIVE UNIT</span></div>
+  <div class="police-tape-bottom"><span>⚖️ لغز اليوم • لغز الربوع • وحدة الإرشاد الأكاديمي ⚖️</span></div>
 
-  <div class="transition-tape" id="transitionTape">
-    🔍 جاري فتح ملف اللغز...
-  </div>
+  <div class="transition-tape" id="transitionTape"><span>🔍 جاري فتح ملف اللغز...</span></div>
+
+  <!-- المحققة (خارج البطاقة تماماً) -->
+  <img src="Lawyer.png" alt="المحققة" class="outer-detective" id="detective" style="display:none;">
 
   <div class="app-wrapper">
-    
+
     <!-- واجهة إدخال البيانات -->
     <div class="card" id="userInfoStep">
+      <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+      <div class="case-stamp">سري • CONFIDENTIAL</div>
+
       <div class="club-logo-container">
         <img src="Logo.png" alt="وحدة الإرشاد الأكاديمي" class="real-logo">
       </div>
-      
+      <div class="gold-divider"></div>
+
       <h1 class="main-title">لغز الربوع 🕵️‍♀️</h1>
       <p class="sub">شاركي معنا حل لغز اليوم واحصلي على هديتك</p>
-      
+
       <div id="closedMsg" class="hidden" style="text-align: center; color: #fca5a5; padding: 20px 0;">
         <h3>الفعالية مغلقة حالياً 🌸</h3>
         <p>انتظرونا الأربعاء القادم لفتح قضية جديدة!</p>
@@ -262,13 +322,13 @@
       <div id="formFields">
         <div class="field">
           <label>الاسم الثلاثي:</label>
-          <input type="text" id="userName" placeholder="أدخلي اسمك الكامل">
+          <input type="text" id="userName" placeholder="أدخلي اسمك الكامل" autocomplete="name">
         </div>
         <div class="field">
           <label>رقم الجوال:</label>
-          <input type="tel" id="userPhone" placeholder="05xxxxxxxx">
+          <input type="tel" id="userPhone" placeholder="05xxxxxxxx" inputmode="numeric" autocomplete="tel">
         </div>
-        <button class="btn" onclick="startQuizWithTransition()">الانتقال للغز 🔍</button>
+        <button class="btn" onclick="startQuizWithTransition()">🔍 فتح ملف القضية</button>
       </div>
 
       <div class="signature">Design & Production: Nouf Alawad 2026</div>
@@ -276,22 +336,22 @@
 
     <!-- واجهة اللغز -->
     <div class="card hidden" id="quizStep">
+      <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
       <button class="admin-toggle hidden" id="adminBtn" title="لوحة التحكم" onclick="toggleAdmin()">⚙️</button>
-      
-      <!-- المحققة على الجانب الأيسر الخارجي المستقل بالكامل -->
-      <img src="Lawyer.png" alt="المحققة" class="outer-detective">
 
       <div class="club-logo-container">
         <img src="Logo.png" alt="وحدة الإرشاد الأكاديمي" class="real-logo">
       </div>
-      
+      <div class="gold-divider"></div>
+
+      <div class="case-meta"><span>CASE FILE</span><span>•</span><span>TOP SECRET</span></div>
       <h1 class="main-title" id="qTitle">قضية اليوم</h1>
       <p class="sub">تحت عدسة المحققة 🔍</p>
-      
+
       <div class="magnifier-lens">
         <div class="question-zoom" id="qText"></div>
       </div>
-      
+
       <div id="options">
         <button class="opt-btn" id="opt0" onclick="submitAnswerInteractive(0)"></button>
         <button class="opt-btn" id="opt1" onclick="submitAnswerInteractive(1)"></button>
@@ -303,8 +363,8 @@
 
     <!-- لوحة التحكم الإدارية -->
     <div class="card hidden admin-panel" id="adminPanel">
-      <h2 style="margin-top:0; text-align:center; color:var(--purple-neon);">🛠️ لوحة تحكم الفعالية</h2>
-      
+      <h2 style="margin-top:0; text-align:center; color:var(--gold-soft);">🛠️ لوحة تحكم الفعالية</h2>
+
       <div class="field">
         <label>حالة الفعالية:</label>
         <select id="p_isOpen">
@@ -312,26 +372,12 @@
           <option value="false">مغلقة حالياً</option>
         </select>
       </div>
-
-      <div class="field">
-        <label>عنوان القضية:</label>
-        <input type="text" id="p_no">
-      </div>
-
-      <div class="field">
-        <label>نص القضية/اللغز:</label>
-        <textarea id="p_text"></textarea>
-      </div>
+      <div class="field"><label>عنوان القضية:</label><input type="text" id="p_no"></div>
+      <div class="field"><label>نص القضية/اللغز:</label><textarea id="p_text"></textarea></div>
 
       <div class="row">
-        <div class="field">
-          <label>الخيار الأول (0):</label>
-          <input type="text" id="p_o0">
-        </div>
-        <div class="field">
-          <label>الخيار الثاني (1):</label>
-          <input type="text" id="p_o1">
-        </div>
+        <div class="field"><label>الخيار الأول (0):</label><input type="text" id="p_o0"></div>
+        <div class="field"><label>الخيار الثاني (1):</label><input type="text" id="p_o1"></div>
       </div>
 
       <div class="row">
@@ -342,26 +388,12 @@
             <option value="1">الخيار الثاني (1)</option>
           </select>
         </div>
-        <div class="field">
-          <label>كود الخصم (الهديّة):</label>
-          <input type="text" id="p_code">
-        </div>
+        <div class="field"><label>كود الخصم (الهديّة):</label><input type="text" id="p_code"></div>
       </div>
 
-      <div class="field">
-        <label>التسبيب/الشرح النظامي:</label>
-        <textarea id="p_ruling"></textarea>
-      </div>
-
-      <div class="field">
-        <label>عنوان الإجابة الصحيحة:</label>
-        <input type="text" id="p_successMsg">
-      </div>
-
-      <div class="field">
-        <label>عبارة الإجابة الخاطئة:</label>
-        <input type="text" id="p_wrongMsg">
-      </div>
+      <div class="field"><label>التسبيب/الشرح النظامي:</label><textarea id="p_ruling"></textarea></div>
+      <div class="field"><label>عنوان الإجابة الصحيحة:</label><input type="text" id="p_successMsg"></div>
+      <div class="field"><label>عبارة الإجابة الخاطئة:</label><input type="text" id="p_wrongMsg"></div>
 
       <button class="btn" style="background:#22c55e;" onclick="saveAdminSettings()">حفظ وتحديث الفعالية</button>
       <button class="btn" style="background:#ef4444; margin-top:6px;" onclick="toggleAdmin()">إغلاق اللوحة</button>
@@ -392,7 +424,7 @@
     document.getElementById('opt0').textContent = config.opts[0];
     document.getElementById('opt1').textContent = config.opts[1];
 
-    if(!config.isOpen) {
+    if (!config.isOpen) {
       document.getElementById('formFields').classList.add('hidden');
       document.getElementById('closedMsg').classList.remove('hidden');
     } else {
@@ -404,20 +436,21 @@
   function startQuizWithTransition() {
     const name = document.getElementById('userName').value.trim();
     const phone = document.getElementById('userPhone').value.trim();
-    if(!name || !phone) {
+    if (!name || !phone) {
       alert('لطفاً أدخلي الاسم ورقم الجوال للمتابعة');
       return;
     }
     userData.name = name;
     userData.phone = phone;
-    
+
     const tape = document.getElementById('transitionTape');
     tape.classList.add('active');
 
     setTimeout(() => {
       document.getElementById('userInfoStep').classList.add('hidden');
       document.getElementById('quizStep').classList.remove('hidden');
-      
+      document.getElementById('detective').style.display = '';
+
       const adminBtn = document.getElementById('adminBtn');
       if (phone === "0542961918" || name.includes("نوف")) {
         adminBtn.classList.remove('hidden');
@@ -426,9 +459,7 @@
       }
     }, 450);
 
-    setTimeout(() => {
-      tape.classList.remove('active');
-    }, 900);
+    setTimeout(() => { tape.classList.remove('active'); }, 900);
   }
 
   function submitAnswerInteractive(selectedIndex) {
@@ -437,31 +468,34 @@
     const optionsDiv = document.getElementById('options');
     const btn = document.getElementById('opt' + selectedIndex);
 
+    optionsDiv.style.pointerEvents = 'none';
     btn.classList.add('shaking');
 
     setTimeout(() => {
       btn.classList.remove('shaking');
-      optionsDiv.style.pointerEvents = 'none';
 
-      if(isCorrect) {
+      if (isCorrect) {
         btn.classList.add('selected-correct');
         resultDiv.className = "result-box success";
         resultDiv.innerHTML = `
+          <div class="verdict-stamp">✔ حُلّت القضية</div>
           <h3>${config.successMsg}</h3>
           <p>${config.ruling}</p>
-          <div style="background: rgba(168,85,247,0.25); border: 1px dashed var(--purple-glow); padding: 10px; border-radius: 8px; margin-top: 10px;">
-            كود الخصم الهديّة: <strong>${config.promoCode}</strong>
+          <div class="promo-box">
+            كود الخصم الهديّة:<br><strong>${config.promoCode}</strong>
           </div>
         `;
       } else {
         btn.classList.add('selected-wrong');
         resultDiv.className = "result-box error";
         resultDiv.innerHTML = `
+          <div class="verdict-stamp">✖ قضية مغلقة</div>
           <h3>${config.wrongMsg}</h3>
           <p>${config.ruling}</p>
         `;
       }
       resultDiv.classList.remove('hidden');
+      resultDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }, 400);
 
     fetch(SCRIPT_URL, {
@@ -479,7 +513,7 @@
 
   function toggleAdmin() {
     const panel = document.getElementById('adminPanel');
-    if(panel.classList.contains('hidden')) {
+    if (panel.classList.contains('hidden')) {
       document.getElementById('p_isOpen').value = config.isOpen ? "true" : "false";
       document.getElementById('p_no').value = config.title;
       document.getElementById('p_text').value = config.text;
