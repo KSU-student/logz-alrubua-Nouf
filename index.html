@@ -59,12 +59,12 @@
     .error { background: rgba(239, 68, 68, 0.2); border: 1px solid #ef4444; }
     .hidden { display: none; }
     
-    /* زر الإعدادات المخفي الخاص بكِ */
     .admin-toggle {
       position: absolute; top: 15px; left: 15px;
-      background: rgba(255,255,255,0.1); border: none;
-      color: #fff; border-radius: 50%; width: 35px; height: 35px;
-      cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center;
+      background: rgba(255,255,255,0.2); border: 1px solid #fff;
+      color: #fff; border-radius: 50%; width: 38px; height: 38px;
+      cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
     }
     .admin-panel {
       background: rgba(15, 7, 26, 0.95);
@@ -73,13 +73,19 @@
     }
     .row { display: flex; gap: 10px; }
     .row > div { flex: 1; }
+    .signature {
+      text-align: center; font-size: 11px; color: rgba(255,255,255,0.4);
+      margin-top: 20px; letter-spacing: 0.5px; font-family: sans-serif;
+    }
   </style>
 </head>
 <body>
 
   <!-- واجهة الطالبة: الخطوة 1 -->
   <div class="card" id="userInfoStep">
-    <button class="admin-toggle" title="لوحة التحكم" onclick="toggleAdmin()">⚙️</button>
+    <!-- زر التحكم الخاص بكِ (يظهر فقط إذا تم التحقق من هويتك) -->
+    <button class="admin-toggle hidden" id="adminBtn" title="لوحة التحكم" onclick="toggleAdmin()">⚙️</button>
+    
     <h1 id="displayTitle">لغز الأربعاء ⚖️</h1>
     <p class="sub">وحدة الإرشاد الأكاديمي - كلية الحقوق والعلوم السياسية</p>
     
@@ -91,14 +97,16 @@
     <div id="formFields">
       <div class="field">
         <label>الاسم الثلاثي:</label>
-        <input type="text" id="userName" placeholder="أدخلي اسمك الكامل">
+        <input type="text" id="userName" placeholder="أدخلي اسمك الكامل" oninput="checkAdminAccess()">
       </div>
       <div class="field">
         <label>رقم الجوال:</label>
-        <input type="tel" id="userPhone" placeholder="05xxxxxxxx">
+        <input type="tel" id="userPhone" placeholder="05xxxxxxxx" oninput="checkAdminAccess()">
       </div>
       <button class="btn" onclick="startQuiz()">الانتقال للغز</button>
     </div>
+
+    <div class="signature">Design & Production: Nouf Alawad 2026</div>
   </div>
 
   <!-- واجهة الطالبة: الخطوة 2 -->
@@ -112,6 +120,7 @@
     </div>
 
     <div id="result" class="result-box hidden"></div>
+    <div class="signature">Design & Production: Nouf Alawad 2026</div>
   </div>
 
   <!-- لوحة التحكم الخاصة بكِ فقط -->
@@ -143,4 +152,172 @@
       </div>
       <div class="field">
         <label>الخيار الثاني (1):</label>
-        <input type="text" id="p_o1
+        <input type="text" id="p_o1">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label>رقم الخيار الصحيح:</label>
+        <select id="p_corr">
+          <option value="0">الخيار الأول (0)</option>
+          <option value="1">الخيار الثاني (1)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>كود الخصم (الهديّة):</label>
+        <input type="text" id="p_code">
+      </div>
+    </div>
+
+    <div class="field">
+      <label>التسبيب/الشرح النظامي:</label>
+      <textarea id="p_ruling"></textarea>
+    </div>
+
+    <div class="field">
+      <label>عبارة الإجابة الخاطئة:</label>
+      <input type="text" id="p_wrongMsg">
+    </div>
+
+    <button class="btn" style="background:#22c55e;" onclick="saveAdminSettings()">حفظ وتحديث الفعالية</button>
+    <button class="btn" style="background:#ef4444; margin-top:5px;" onclick="toggleAdmin()">إغلاق اللوحة</button>
+  </div>
+
+<script>
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxzNh85mkH-DISqJRFJXDyMFR0V9inslF8CUWTJ4MVwjwPCWLIvmp2hkAKKVEiz6tmt/exec";
+
+  let config = JSON.parse(localStorage.getItem('wednesday_config')) || {
+    isOpen: true,
+    title: "القضية الأولى",
+    text: "اتفق سعد مع خالد شفهياً على بيع سيارته، واستلم منه عربوناً.. هل يحق لخالد إلزامه بإتمام البيع؟",
+    opts: ["نعم، يحق له", "لا، لا يحق له"],
+    corrIndex: 1,
+    ruling: "وفقاً للنظام، العقود الشفهية في بعض التصرفات تحتاج لإثبات، ولا يعتد بالعربون دون عقد مكتوب ومكتمل الشروط.",
+    wrongMsg: "للأسف الإجابة خاطئة.. حاول الأربعاء القادم! 🌸",
+    promoCode: "حقوق_2026"
+  };
+
+  let userData = { name: "", phone: "" };
+
+  function initUI() {
+    document.getElementById('qTitle').textContent = config.title;
+    document.getElementById('qText').textContent = config.text;
+    document.getElementById('opt0').textContent = config.opts[0];
+    document.getElementById('opt1').textContent = config.opts[1];
+
+    if(!config.isOpen) {
+      document.getElementById('formFields').classList.add('hidden');
+      document.getElementById('closedMsg').classList.remove('hidden');
+    } else {
+      document.getElementById('formFields').classList.remove('hidden');
+      document.getElementById('closedMsg').classList.add('hidden');
+    }
+  }
+
+  // التحقق الفوري من رقم جوالك أو اسمك لإظهار زر التحكم سراً
+  function checkAdminAccess() {
+    const name = document.getElementById('userName').value.trim();
+    const phone = document.getElementById('userPhone').value.trim();
+    const adminBtn = document.getElementById('adminBtn');
+
+    // مطابقة رقم الجوال أو الاسم المطلوب
+    if (phone === "0542961918" || name.includes("نوف")) {
+      adminBtn.classList.remove('hidden');
+    } else {
+      adminBtn.classList.add('hidden');
+    }
+  }
+
+  function startQuiz() {
+    const name = document.getElementById('userName').value.trim();
+    const phone = document.getElementById('userPhone').value.trim();
+    if(!name || !phone) {
+      alert('لطفاً أدخلي الاسم ورقم الجوال للمتابعة');
+      return;
+    }
+    userData.name = name;
+    userData.phone = phone;
+    document.getElementById('userInfoStep').classList.add('hidden');
+    document.getElementById('quizStep').classList.remove('hidden');
+  }
+
+  function submitAnswer(selectedIndex) {
+    const isCorrect = (selectedIndex === parseInt(config.corrIndex));
+    const resultDiv = document.getElementById('result');
+    const optionsDiv = document.getElementById('options');
+    
+    optionsDiv.style.pointerEvents = 'none';
+    optionsDiv.style.opacity = '0.6';
+
+    if(isCorrect) {
+      resultDiv.className = "result-box success";
+      resultDiv.innerHTML = `
+        <h3>إجابة صحيحة! 🎉</h3>
+        <p>${config.ruling}</p>
+        <div style="background: rgba(255,255,255,0.2); padding: 10px; border-radius: 8px; margin-top: 10px;">
+          كود الخصم الهديّة: <strong>${config.promoCode}</strong>
+        </div>
+      `;
+    } else {
+      resultDiv.className = "result-box error";
+      resultDiv.innerHTML = `
+        <h3>${config.wrongMsg}</h3>
+        <p>${config.ruling}</p>
+      `;
+    }
+    resultDiv.classList.remove('hidden');
+
+    fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: userData.name,
+        phone: userData.phone,
+        selectedOption: config.opts[selectedIndex],
+        isCorrect: isCorrect
+      })
+    });
+  }
+
+  function toggleAdmin() {
+    const panel = document.getElementById('adminPanel');
+    if(panel.classList.contains('hidden')) {
+      document.getElementById('p_isOpen').value = config.isOpen ? "true" : "false";
+      document.getElementById('p_no').value = config.title;
+      document.getElementById('p_text').value = config.text;
+      document.getElementById('p_o0').value = config.opts[0];
+      document.getElementById('p_o1').value = config.opts[1];
+      document.getElementById('p_corr').value = config.corrIndex;
+      document.getElementById('p_code').value = config.promoCode;
+      document.getElementById('p_ruling').value = config.ruling;
+      document.getElementById('p_wrongMsg').value = config.wrongMsg;
+      panel.classList.remove('hidden');
+    } else {
+      panel.classList.add('hidden');
+    }
+  }
+
+  function saveAdminSettings() {
+    config.isOpen = (document.getElementById('p_isOpen').value === 'true');
+    config.title = document.getElementById('p_no').value.trim();
+    config.text = document.getElementById('p_text').value.trim();
+    config.opts[0] = document.getElementById('p_o0').value.trim();
+    config.opts[1] = document.getElementById('p_o1').value.trim();
+    config.corrIndex = parseInt(document.getElementById('p_corr').value);
+    config.promoCode = document.getElementById('p_code').value.trim();
+    config.ruling = document.getElementById('p_ruling').value.trim();
+    config.wrongMsg = document.getElementById('p_wrongMsg').value.trim();
+
+    localStorage.setItem('wednesday_config', JSON.stringify(config));
+    alert('تم حفظ التعديلات بنجاح!');
+    toggleAdmin();
+    initUI();
+  }
+
+  initUI();
+</script>
+
+</body>
+</html>
