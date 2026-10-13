@@ -3,88 +3,231 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>قضية اليوم - لغز الأربعاء</title>
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <title>لغز الربوع - قضية اليوم</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg1: #2a1245; --bg2: #6b3f9c;
-      --ink: #fff; --soft: rgba(255,255,255,.72);
-      --card: rgba(255,255,255,.09);
-      --line: rgba(255,255,255,.22);
+      --bg-dark: #0f051d;
+      --purple-glow: #a855f7;
+      --purple-neon: #d8b4fe;
+      --gold-police: #fbbf24;
+      --card-bg: rgba(20, 10, 38, 0.75);
+      --line: rgba(168, 85, 247, 0.3);
     }
     * { box-sizing: border-box; }
     body {
       margin: 0; min-height: 100vh;
       font-family: 'Tajawal', sans-serif;
-      background: linear-gradient(135deg, var(--bg1), var(--bg2));
-      color: var(--ink);
+      background: radial-gradient(circle at center, #2e0854 0%, var(--bg-dark) 100%);
+      color: #fff;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
       padding: 20px;
-    }
-    .card {
-      background: var(--card);
-      border: 1px solid var(--line);
-      backdrop-filter: blur(10px);
-      border-radius: 20px;
-      padding: 24px;
-      width: 100%; max-width: 500px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      overflow-x: hidden;
       position: relative;
     }
-    h1 { margin: 0 0 10px; text-align: center; font-size: 26px; }
-    p.sub { text-align: center; color: var(--soft); margin-bottom: 20px; font-size: 14px; }
-    .field { margin-bottom: 15px; }
-    label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 14px; }
+
+    /* خلفية هالة النيون البنفسجية خلف الكارت */
+    body::before {
+      content: '';
+      position: absolute;
+      width: 350px; height: 350px;
+      background: radial-gradient(circle, rgba(168, 85, 247, 0.35) 0%, rgba(0,0,0,0) 70%);
+      border-radius: 50%;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 0;
+      animation: pulseGlow 4s infinite alternate ease-in-out;
+    }
+    @keyframes pulseGlow {
+      0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.6; }
+      100% { transform: translate(-50%, -50%) scale(1.15); opacity: 1; }
+    }
+
+    /* أشرطة مسرح الجريمة الصفراء البوليسية */
+    .police-tape {
+      position: fixed;
+      bottom: -10px;
+      left: -10%;
+      width: 120%;
+      height: 38px;
+      background: repeating-linear-gradient(
+        -45deg,
+        #f59e0b,
+        #f59e0b 15px,
+        #111 15px,
+        #111 30px
+      );
+      color: #000;
+      font-weight: 900;
+      font-size: 14px;
+      line-height: 38px;
+      text-align: center;
+      letter-spacing: 2px;
+      transform: rotate(-3deg);
+      box-shadow: 0 5px 20px rgba(0,0,0,0.8);
+      z-index: 10;
+      pointer-events: none;
+      border-top: 2px solid #fbbf24;
+      border-bottom: 2px solid #fbbf24;
+    }
+    .police-tape-text {
+      background: #f59e0b;
+      padding: 0 15px;
+      color: #000;
+    }
+
+    /* الكارت الرئيسي بتصميم العدسة */
+    .card {
+      background: var(--card-bg);
+      border: 2px solid var(--line);
+      backdrop-filter: blur(15px);
+      border-radius: 24px;
+      padding: 30px 24px 24px;
+      width: 100%; max-width: 460px;
+      box-shadow: 0 0 35px rgba(168, 85, 247, 0.25), inset 0 0 15px rgba(168, 85, 247, 0.15);
+      position: relative;
+      z-index: 2;
+    }
+
+    /* شعار الميزان والكلية في الأعلى */
+    .header-logo {
+      text-align: center;
+      margin-bottom: 5px;
+      font-size: 12px;
+      color: var(--purple-neon);
+      opacity: 0.9;
+    }
+    .header-logo span {
+      display: block;
+      font-weight: 800;
+      font-size: 13px;
+    }
+
+    h1.main-title {
+      margin: 10px 0 5px;
+      text-align: center;
+      font-size: 34px;
+      font-weight: 900;
+      color: #fff;
+      text-shadow: 0 0 12px var(--purple-glow), 0 0 25px var(--purple-glow);
+      letter-spacing: 1px;
+    }
+
+    p.sub { text-align: center; color: rgba(255,255,255,0.7); margin-bottom: 22px; font-size: 13px; }
+
+    /* حقول الإدخال */
+    .field { margin-bottom: 16px; }
+    label { display: block; margin-bottom: 6px; font-weight: 700; font-size: 14px; color: var(--purple-neon); }
     input[type="text"], input[type="tel"], textarea, select {
-      width: 100%; padding: 10px; border-radius: 8px;
-      border: 1px solid var(--line); background: rgba(0,0,0,0.25);
+      width: 100%; padding: 12px; border-radius: 12px;
+      border: 1px solid var(--line);
+      background: rgba(10, 3, 20, 0.6);
       color: #fff; font-size: 15px; font-family: inherit;
+      outline: none; transition: 0.3s;
     }
-    textarea { resize: vertical; height: 70px; }
+    input:focus, textarea:focus {
+      border-color: var(--purple-glow);
+      box-shadow: 0 0 12px rgba(168, 85, 247, 0.5);
+    }
+    textarea { resize: vertical; height: 75px; }
+
+    /* أزرار الفعالية */
     .btn {
-      width: 100%; padding: 12px; border: none; border-radius: 10px;
-      background: #8b5cf6; color: #fff; font-size: 16px; font-weight: bold;
-      cursor: pointer; margin-top: 10px; transition: 0.2s;
+      width: 100%; padding: 14px; border: none; border-radius: 12px;
+      background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+      color: #fff; font-size: 17px; font-weight: 800;
+      cursor: pointer; margin-top: 10px; transition: 0.3s;
+      box-shadow: 0 4px 15px rgba(109, 40, 217, 0.4);
     }
-    .btn:hover { background: #7c3aed; }
+    .btn:hover {
+      background: linear-gradient(135deg, #9d72ff, #7c3aed);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(168, 85, 247, 0.6);
+    }
+
+    /* خيارات الإجابة داخل العدسة */
     .opt-btn {
-      width: 100%; padding: 12px; margin-bottom: 10px; border-radius: 10px;
-      border: 1px solid var(--line); background: rgba(255,255,255,0.05);
-      color: #fff; font-size: 15px; cursor: pointer; text-align: center;
-      font-family: inherit; transition: 0.2s;
+      width: 100%; padding: 14px; margin-bottom: 12px; border-radius: 12px;
+      border: 1px solid rgba(216, 180, 254, 0.3);
+      background: rgba(255, 255, 255, 0.04);
+      color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; text-align: center;
+      font-family: inherit; transition: 0.3s;
     }
-    .opt-btn:hover { background: rgba(255,255,255,0.15); }
-    .result-box { margin-top: 15px; padding: 15px; border-radius: 10px; text-align: center; }
-    .success { background: rgba(34, 197, 94, 0.2); border: 1px solid #22c55e; }
-    .error { background: rgba(239, 68, 68, 0.2); border: 1px solid #ef4444; }
-    .hidden { display: none; }
-    
+    .opt-btn:hover {
+      background: rgba(168, 85, 247, 0.25);
+      border-color: var(--purple-glow);
+      transform: scale(1.02);
+    }
+
+    /* نتائج الإجابة */
+    .result-box { margin-top: 18px; padding: 16px; border-radius: 14px; text-align: center; line-height: 1.6; }
+    .success { background: rgba(34, 197, 94, 0.2); border: 1.5px solid #22c55e; box-shadow: 0 0 15px rgba(34, 197, 94, 0.3); }
+    .error { background: rgba(239, 68, 68, 0.2); border: 1.5px solid #ef4444; box-shadow: 0 0 15px rgba(239, 68, 68, 0.3); }
+    .hidden { display: none !important; }
+
+    /* زر الأدمن المخفي في الزاوية */
     .admin-toggle {
       position: absolute; top: 15px; left: 15px;
-      background: rgba(255,255,255,0.2); border: 1px solid #fff;
+      background: rgba(168, 85, 247, 0.2); border: 1px solid var(--purple-glow);
       color: #fff; border-radius: 50%; width: 38px; height: 38px;
       cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      box-shadow: 0 0 10px rgba(168, 85, 247, 0.4);
+      z-index: 10;
     }
+
     .admin-panel {
-      background: rgba(15, 7, 26, 0.95);
-      border: 1px solid #8b5cf6;
-      border-radius: 15px; padding: 20px; margin-top: 15px;
+      background: rgba(10, 3, 20, 0.95);
+      border: 2px solid var(--purple-glow);
+      border-radius: 18px; padding: 20px; margin-top: 15px;
     }
     .row { display: flex; gap: 10px; }
     .row > div { flex: 1; }
+
+    /* توقيع الحقوق والإنجليزي */
     .signature {
-      text-align: center; font-size: 11px; color: rgba(255,255,255,0.4);
-      margin-top: 20px; letter-spacing: 0.5px; font-family: sans-serif;
+      text-align: center; font-size: 11px; color: rgba(255,255,255,0.45);
+      margin-top: 22px; letter-spacing: 0.8px; font-family: sans-serif;
+    }
+
+    /* إطار العدسة البوليسي وتكبير النص داخلها */
+    .magnifier-lens {
+      border: 2px solid var(--purple-glow);
+      border-radius: 16px;
+      padding: 15px;
+      background: rgba(168, 85, 247, 0.08);
+      box-shadow: inset 0 0 20px rgba(168, 85, 247, 0.2);
+      margin-bottom: 20px;
+      animation: floatLens 3.5s ease-in-out infinite alternate;
+    }
+    @keyframes floatLens {
+      0% { transform: translateY(0px); }
+      100% { transform: translateY(-5px); }
+    }
+    .question-zoom {
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 1.6;
+      color: #fff;
+      text-shadow: 0 0 5px rgba(255,255,255,0.3);
     }
   </style>
 </head>
 <body>
 
+  <!-- شريط مسرح الجريمة البوليسي السفلي -->
+  <div class="police-tape">
+    <span class="police-tape-text">⚖️ قضية اليوم • لغز الربوع • وحدة الإرشاد الأكاديمي ⚖️</span>
+  </div>
+
   <!-- واجهة إدخال البيانات للجميع -->
   <div class="card" id="userInfoStep">
-    <h1 id="displayTitle">لغز الأربعاء ⚖️</h1>
-    <p class="sub">وحدة الإرشاد الأكاديمي - كلية الحقوق والعلوم السياسية</p>
+    <div class="header-logo">
+      <span>⚖️ وحدة الإرشاد الأكاديمي</span>
+      كلية الحقوق والعلوم السياسية
+    </div>
+    
+    <h1 class="main-title">لغز الربوع 🕵️‍♀️</h1>
+    <p class="sub">شاركي معنا حل قضية اليوم واحصلي على هديتك</p>
     
     <div id="closedMsg" class="hidden" style="text-align: center; color: #fca5a5; padding: 20px 0;">
       <h3>الفعالية مغلقة حالياً 🌸</h3>
@@ -100,18 +243,27 @@
         <label>رقم الجوال:</label>
         <input type="tel" id="userPhone" placeholder="05xxxxxxxx">
       </div>
-      <button class="btn" onclick="startQuiz()">الانتقال للغز</button>
+      <button class="btn" onclick="startQuiz()">الانتقال للغز 🔍</button>
     </div>
 
     <div class="signature">Design & Production: Nouf Alawad 2026</div>
   </div>
 
-  <!-- واجهة اللغز (يظهر فيها زر التعديل لكِ وحدكِ في الزاوية إذا كان رقمكِ أو اسمكِ مطابقاً) -->
+  <!-- واجهة اللغز البوليسية (يظهر فيها زر التعديل لكِ وحدكِ في الزاوية عند التطابق) -->
   <div class="card hidden" id="quizStep">
     <button class="admin-toggle hidden" id="adminBtn" title="لوحة التحكم" onclick="toggleAdmin()">⚙️</button>
     
-    <h1 id="qTitle">القضية الأولى</h1>
-    <p class="sub" id="qText"></p>
+    <div class="header-logo">
+      <span>⚖️ وحدة الإرشاد الأكاديمي</span>
+    </div>
+    
+    <h1 class="main-title" id="qTitle">قضية اليوم</h1>
+    <p class="sub">تحت عدسة المحققة 🕵️‍♀️</p>
+    
+    <!-- العدسة المكبرة للنص -->
+    <div class="magnifier-lens">
+      <div class="question-zoom" id="qText"></div>
+    </div>
     
     <div id="options">
       <button class="opt-btn" id="opt0" onclick="submitAnswer(0)"></button>
@@ -124,7 +276,7 @@
 
   <!-- لوحة التحكم الخاصة بكِ فقط -->
   <div class="card hidden admin-panel" id="adminPanel">
-    <h2 style="margin-top:0; text-align:center;">🛠️ لوحة تحكم الفعالية</h2>
+    <h2 style="margin-top:0; text-align:center; color:var(--purple-neon);">🛠️ لوحة تحكم الفعالية</h2>
     
     <div class="field">
       <label>حالة الفعالية:</label>
@@ -180,7 +332,7 @@
     </div>
 
     <button class="btn" style="background:#22c55e;" onclick="saveAdminSettings()">حفظ وتحديث الفعالية</button>
-    <button class="btn" style="background:#ef4444; margin-top:5px;" onclick="toggleAdmin()">إغلاق اللوحة</button>
+    <button class="btn" style="background:#ef4444; margin-top:6px;" onclick="toggleAdmin()">إغلاق اللوحة</button>
   </div>
 
 <script>
@@ -224,7 +376,7 @@
     userData.name = name;
     userData.phone = phone;
     
-    // التحقق من هويتكِ عند الانتقال للغز لإظهار زر الإعدادات في الزاوية
+    // إظهار زر التحكم الخاص بكِ فقط
     const adminBtn = document.getElementById('adminBtn');
     if (phone === "0542961918" || name.includes("نوف")) {
       adminBtn.classList.remove('hidden');
@@ -249,7 +401,7 @@
       resultDiv.innerHTML = `
         <h3>إجابة صحيحة! 🎉</h3>
         <p>${config.ruling}</p>
-        <div style="background: rgba(255,255,255,0.2); padding: 10px; border-radius: 8px; margin-top: 10px;">
+        <div style="background: rgba(168,85,247,0.25); border: 1px dashed var(--purple-glow); padding: 10px; border-radius: 8px; margin-top: 10px;">
           كود الخصم الهديّة: <strong>${config.promoCode}</strong>
         </div>
       `;
