@@ -29,7 +29,7 @@
         radial-gradient(circle at center, #1d0438 0%, var(--bg-dark) 100%);
       background-attachment: fixed;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
-      padding: 70px 16px 80px;
+      padding: 40px 16px;
       overflow-x: hidden;
       position: relative;
     }
@@ -46,32 +46,7 @@
       background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.75) 100%);
     }
 
-    /* أشرطة مسرح الجريمة */
-    .police-tape-bottom {
-      position: fixed; bottom: -8px; left: -10%; width: 120%; height: 40px;
-      background: repeating-linear-gradient(-45deg, #f59e0b, #f59e0b 18px, #0b0b0b 18px, #0b0b0b 36px);
-      transform: rotate(-1.2deg); box-shadow: 0 0 25px rgba(0,0,0,0.9);
-      z-index: 10; pointer-events: none;
-      border-top: 2px solid #fbbf24; border-bottom: 2px solid #fbbf24;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .police-tape-bottom span {
-      background: #fbbf24; color: #000; font-weight: 900; font-size: 13px;
-      padding: 2px 16px; letter-spacing: 1px; white-space: nowrap;
-    }
-    .police-tape-top {
-      position: fixed; top: -8px; right: -10%; width: 120%; height: 34px;
-      background: repeating-linear-gradient(45deg, #f59e0b, #f59e0b 18px, #0b0b0b 18px, #0b0b0b 36px);
-      transform: rotate(1.2deg); opacity: 0.95; z-index: 10; pointer-events: none;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.8);
-      display: flex; align-items: center; justify-content: center;
-    }
-    .police-tape-top span {
-      background: #fbbf24; color: #000; font-weight: 900; font-size: 11px;
-      padding: 1px 14px; letter-spacing: 2px; white-space: nowrap; font-family: sans-serif;
-    }
-
-    /* شريط الانتقال */
+    /* شريط الانتقال الفخم */
     .transition-tape {
       position: fixed; top: 50%; left: -150%; width: 140%; height: 74px;
       background: repeating-linear-gradient(-45deg, #f59e0b, #f59e0b 25px, #000 25px, #000 50px);
@@ -277,9 +252,6 @@
   </style>
 </head>
 <body>
-
-  <div class="police-tape-top"><span>CRIME SCENE • DO NOT CROSS • DETECTIVE UNIT</span></div>
-  <div class="police-tape-bottom"><span>⚖️ لغز اليوم • لغز الربوع • وحدة الإرشاد الأكاديمي ⚖️</span></div>
 
   <div class="transition-tape" id="transitionTape"><span>🔍 جاري فتح ملف اللغز...</span></div>
 
