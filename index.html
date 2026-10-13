@@ -81,11 +81,8 @@
 </head>
 <body>
 
-  <!-- واجهة الطالبة: الخطوة 1 -->
+  <!-- واجهة إدخال البيانات للجميع -->
   <div class="card" id="userInfoStep">
-    <!-- زر التحكم الخاص بكِ (يظهر فقط إذا تم التحقق من هويتك) -->
-    <button class="admin-toggle hidden" id="adminBtn" title="لوحة التحكم" onclick="toggleAdmin()">⚙️</button>
-    
     <h1 id="displayTitle">لغز الأربعاء ⚖️</h1>
     <p class="sub">وحدة الإرشاد الأكاديمي - كلية الحقوق والعلوم السياسية</p>
     
@@ -97,11 +94,11 @@
     <div id="formFields">
       <div class="field">
         <label>الاسم الثلاثي:</label>
-        <input type="text" id="userName" placeholder="أدخلي اسمك الكامل" oninput="checkAdminAccess()">
+        <input type="text" id="userName" placeholder="أدخلي اسمك الكامل">
       </div>
       <div class="field">
         <label>رقم الجوال:</label>
-        <input type="tel" id="userPhone" placeholder="05xxxxxxxx" oninput="checkAdminAccess()">
+        <input type="tel" id="userPhone" placeholder="05xxxxxxxx">
       </div>
       <button class="btn" onclick="startQuiz()">الانتقال للغز</button>
     </div>
@@ -109,8 +106,10 @@
     <div class="signature">Design & Production: Nouf Alawad 2026</div>
   </div>
 
-  <!-- واجهة الطالبة: الخطوة 2 -->
+  <!-- واجهة اللغز (يظهر فيها زر التعديل لكِ وحدكِ في الزاوية إذا كان رقمكِ أو اسمكِ مطابقاً) -->
   <div class="card hidden" id="quizStep">
+    <button class="admin-toggle hidden" id="adminBtn" title="لوحة التحكم" onclick="toggleAdmin()">⚙️</button>
+    
     <h1 id="qTitle">القضية الأولى</h1>
     <p class="sub" id="qText"></p>
     
@@ -215,20 +214,6 @@
     }
   }
 
-  // التحقق الفوري من رقم جوالك أو اسمك لإظهار زر التحكم سراً
-  function checkAdminAccess() {
-    const name = document.getElementById('userName').value.trim();
-    const phone = document.getElementById('userPhone').value.trim();
-    const adminBtn = document.getElementById('adminBtn');
-
-    // مطابقة رقم الجوال أو الاسم المطلوب
-    if (phone === "0542961918" || name.includes("نوف")) {
-      adminBtn.classList.remove('hidden');
-    } else {
-      adminBtn.classList.add('hidden');
-    }
-  }
-
   function startQuiz() {
     const name = document.getElementById('userName').value.trim();
     const phone = document.getElementById('userPhone').value.trim();
@@ -238,6 +223,15 @@
     }
     userData.name = name;
     userData.phone = phone;
+    
+    // التحقق من هويتكِ عند الانتقال للغز لإظهار زر الإعدادات في الزاوية
+    const adminBtn = document.getElementById('adminBtn');
+    if (phone === "0542961918" || name.includes("نوف")) {
+      adminBtn.classList.remove('hidden');
+    } else {
+      adminBtn.classList.add('hidden');
+    }
+
     document.getElementById('userInfoStep').classList.add('hidden');
     document.getElementById('quizStep').classList.remove('hidden');
   }
