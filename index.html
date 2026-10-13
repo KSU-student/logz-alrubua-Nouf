@@ -41,7 +41,6 @@
         repeating-linear-gradient(0deg, rgba(255,255,255,0.025) 0, rgba(255,255,255,0.025) 1px, transparent 1px, transparent 4px),
         repeating-linear-gradient(45deg, rgba(255,255,255,0.012) 0, rgba(255,255,255,0.012) 2px, transparent 2px, transparent 10px);
     }
-    /* فينيت يعطي عمق سينمائي */
     body::after {
       content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 1;
       background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.75) 100%);
@@ -123,7 +122,7 @@
       font-family: sans-serif; pointer-events: none;
     }
 
-    /* ===== الشعار: أكبر وأوضح ===== */
+    /* ===== الشعار ===== */
     .club-logo-container {
       text-align: center; margin: 4px 0 6px; position: relative;
     }
@@ -271,18 +270,6 @@
 
     .signature { text-align: center; font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 20px; letter-spacing: 0.8px; font-family: sans-serif; }
 
-    /* المحققة: عمود جانبي مستقل عن البطاقة، ما تغطي أي نص */
-    .outer-detective { display: none; }
-    @media (min-width: 1050px) {
-      .outer-detective {
-        display: block; position: fixed; z-index: 3;
-        bottom: 40px; left: calc(50% - 240px - 270px);
-        width: 250px; height: auto; transform: scaleX(-1);
-        filter: drop-shadow(0 0 22px rgba(168, 85, 247, 0.9));
-        pointer-events: none;
-      }
-    }
-
     @media (max-width: 480px) {
       .real-logo { width: 260px; }
       h1.main-title { font-size: 30px; }
@@ -295,9 +282,6 @@
   <div class="police-tape-bottom"><span>⚖️ لغز اليوم • لغز الربوع • وحدة الإرشاد الأكاديمي ⚖️</span></div>
 
   <div class="transition-tape" id="transitionTape"><span>🔍 جاري فتح ملف اللغز...</span></div>
-
-  <!-- المحققة (خارج البطاقة تماماً) -->
-  <img src="Lawyer.png" alt="المحققة" class="outer-detective" id="detective" style="display:none;">
 
   <div class="app-wrapper">
 
@@ -449,7 +433,6 @@
     setTimeout(() => {
       document.getElementById('userInfoStep').classList.add('hidden');
       document.getElementById('quizStep').classList.remove('hidden');
-      document.getElementById('detective').style.display = '';
 
       const adminBtn = document.getElementById('adminBtn');
       if (phone === "0542961918" || name.includes("نوف")) {
