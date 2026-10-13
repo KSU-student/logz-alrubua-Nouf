@@ -3,22 +3,27 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>لغز الربوع - لغز اليوم</title>
+  <title>لغز الربوع - قضية اليوم</title>
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-dark: #0f051d;
+      --bg-dark: #090214;
       --purple-glow: #a855f7;
-      --purple-neon: #d8b4fe;
+      --purple-neon: #e9d5ff;
       --gold-police: #fbbf24;
-      --card-bg: rgba(20, 10, 38, 0.88);
-      --line: rgba(168, 85, 247, 0.35);
+      --card-bg: rgba(18, 7, 36, 0.92);
+      --line: rgba(168, 85, 247, 0.45);
     }
     * { box-sizing: border-box; }
+    
     body {
       margin: 0; min-height: 100vh;
       font-family: 'Tajawal', sans-serif;
-      background: radial-gradient(circle at center, #2e0854 0%, var(--bg-dark) 100%);
+      /* خلفية بنقوش بوليسية سينمائية خفيفة */
+      background: 
+        radial-gradient(circle at 50% 30%, rgba(168, 85, 247, 0.25) 0%, transparent 60%),
+        radial-gradient(circle at center, #230542 0%, var(--bg-dark) 100%),
+        repeating-linear-gradient(45deg, rgba(255,255,255,0.01) 0px, rgba(255,255,255,0.01) 2px, transparent 2px, transparent 8px);
       color: #fff;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
       padding: 20px;
@@ -26,137 +31,153 @@
       position: relative;
     }
 
-    body::before {
-      content: '';
-      position: absolute;
-      width: 450px; height: 450px;
-      background: radial-gradient(circle, rgba(168, 85, 247, 0.35) 0%, rgba(0,0,0,0) 70%);
-      border-radius: 50%;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 0;
-      animation: pulseGlow 4s infinite alternate ease-in-out;
-    }
-    @keyframes pulseGlow {
-      0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.6; }
-      100% { transform: translate(-50%, -50%) scale(1.15); opacity: 1; }
+    /* أشرطة مسرح الجريمة البوليسية المتقاطعة */
+    .police-tape-bottom {
+      position: fixed; bottom: -12px; left: -10%; width: 120%; height: 42px;
+      background: repeating-linear-gradient(-45deg, #f59e0b, #f59e0b 18px, #111 18px, #111 36px);
+      color: #000; font-weight: 900; font-size: 15px; line-height: 42px; text-align: center;
+      letter-spacing: 2px; transform: rotate(-2deg); box-shadow: 0 0 25px rgba(0,0,0,0.9);
+      z-index: 10; pointer-events: none; border-top: 2px solid #fbbf24; border-bottom: 2px solid #fbbf24;
     }
 
-    .police-tape {
-      position: fixed;
-      bottom: -10px;
-      left: -10%;
-      width: 120%;
-      height: 38px;
-      background: repeating-linear-gradient(
-        -45deg,
-        #f59e0b,
-        #f59e0b 15px,
-        #111 15px,
-        #111 30px
-      );
-      color: #000;
-      font-weight: 900;
-      font-size: 14px;
-      line-height: 38px;
-      text-align: center;
-      letter-spacing: 2px;
-      transform: rotate(-3deg);
-      box-shadow: 0 5px 20px rgba(0,0,0,0.8);
-      z-index: 10;
+    .police-tape-top {
+      position: fixed; top: -12px; right: -10%; width: 120%; height: 35px;
+      background: repeating-linear-gradient(45deg, #f59e0b, #f59e0b 18px, #111 18px, #111 36px);
+      color: #000; font-weight: 900; font-size: 13px; line-height: 35px; text-align: center;
+      transform: rotate(2deg); opacity: 0.85; z-index: 10; pointer-events: none;
+    }
+
+    /* شريط انتقال سينمائي يتحرك فوراً عند فتح اللغز */
+    .transition-tape {
+      position: fixed; top: 50%; left: -120%; width: 140%; height: 80px;
+      background: repeating-linear-gradient(-45deg, #f59e0b, #f59e0b 25px, #000 25px, #000 50px);
+      z-index: 99; transform: translateY(-50%) rotate(-12deg);
+      box-shadow: 0 0 50px rgba(0,0,0,0.9);
+      display: flex; align-items: center; justify-content: center;
+      color: #000; font-size: 26px; font-weight: 900; letter-spacing: 3px;
+      transition: left 0.6s cubic-bezier(0.77, 0, 0.175, 1);
       pointer-events: none;
-      border-top: 2px solid #fbbf24;
-      border-bottom: 2px solid #fbbf24;
     }
+    .transition-tape.active { left: -10%; }
 
-    /* حاوية تضمن بقاء المحققة الكبيرة متصلة بجانب الكارت */
+    /* حاوية التطبيق */
     .app-wrapper {
       position: relative;
-      width: 100%;
-      max-width: 480px;
+      width: 100%; max-width: 480px;
       z-index: 2;
     }
 
     .card {
       background: var(--card-bg);
       border: 2px solid var(--line);
-      backdrop-filter: blur(15px);
-      border-radius: 24px;
-      padding: 25px 24px 24px;
+      backdrop-filter: blur(20px);
+      border-radius: 28px;
+      padding: 30px 24px 24px;
       width: 100%;
-      box-shadow: 0 0 35px rgba(168, 85, 247, 0.25), inset 0 0 15px rgba(168, 85, 247, 0.15);
+      box-shadow: 0 0 45px rgba(168, 85, 247, 0.3), inset 0 0 20px rgba(168, 85, 247, 0.2);
       position: relative;
       z-index: 2;
+      transition: transform 0.4s ease, opacity 0.4s ease;
     }
 
-    /* الشعار كبير جداً ويمتد حتى قريب العنوان */
+    /* تكبير الشعار بشكل ضخم وملفت جداً */
     .club-logo-container {
       text-align: center;
-      margin-bottom: 5px;
+      margin-bottom: 10px;
     }
     .real-logo {
-      width: 320px; /* تكبير الشعار بشكل ضخم ممتاز */
-      max-width: 95%;
+      width: 310px;
+      max-width: 100%;
       height: auto;
-      filter: drop-shadow(0 0 18px rgba(216, 180, 254, 0.95));
-      margin-bottom: 0px;
+      filter: drop-shadow(0 0 20px rgba(216, 180, 254, 0.95));
+      transition: transform 0.3s;
     }
+    .real-logo:hover { transform: scale(1.03); }
 
     h1.main-title {
-      margin: 10px 0 5px;
+      margin: 8px 0 4px;
       text-align: center;
       font-size: 34px;
       font-weight: 900;
       color: #fff;
-      text-shadow: 0 0 12px var(--purple-glow), 0 0 25px var(--purple-glow);
+      text-shadow: 0 0 15px var(--purple-glow), 0 0 30px var(--purple-glow);
     }
 
-    p.sub { text-align: center; color: rgba(255,255,255,0.7); margin-bottom: 22px; font-size: 13px; }
+    p.sub { text-align: center; color: rgba(255,255,255,0.75); margin-bottom: 22px; font-size: 13.5px; }
 
     .field { margin-bottom: 16px; }
     label { display: block; margin-bottom: 6px; font-weight: 700; font-size: 14px; color: var(--purple-neon); }
     input[type="text"], input[type="tel"], textarea, select {
-      width: 100%; padding: 12px; border-radius: 12px;
-      border: 1px solid var(--line);
-      background: rgba(10, 3, 20, 0.6);
+      width: 100%; padding: 13px; border-radius: 14px;
+      border: 1.5px solid var(--line);
+      background: rgba(10, 3, 20, 0.7);
       color: #fff; font-size: 15px; font-family: inherit;
       outline: none; transition: 0.3s;
     }
     input:focus, textarea:focus {
       border-color: var(--purple-glow);
-      box-shadow: 0 0 12px rgba(168, 85, 247, 0.5);
+      box-shadow: 0 0 15px rgba(168, 85, 247, 0.6);
     }
     textarea { resize: vertical; height: 75px; }
 
+    /* زر الرئيسية التفاعلي */
     .btn {
-      width: 100%; padding: 14px; border: none; border-radius: 12px;
-      background: linear-gradient(135deg, #8b5cf6, #6d28d9);
-      color: #fff; font-size: 17px; font-weight: 800;
+      width: 100%; padding: 15px; border: none; border-radius: 14px;
+      background: linear-gradient(135deg, #9333ea, #6b21a8);
+      color: #fff; font-size: 18px; font-weight: 800;
       cursor: pointer; margin-top: 10px; transition: 0.3s;
-      box-shadow: 0 4px 15px rgba(109, 40, 217, 0.4);
+      box-shadow: 0 5px 20px rgba(147, 51, 234, 0.5);
     }
     .btn:hover {
-      background: linear-gradient(135deg, #9d72ff, #7c3aed);
+      background: linear-gradient(135deg, #a855f7, #7e22ce);
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(168, 85, 247, 0.6);
+      box-shadow: 0 8px 25px rgba(168, 85, 247, 0.7);
     }
+    .btn:active { transform: translateY(1px); }
 
+    /* أزرار خيارات الإجابة مع تأثير الاهتزاز والضوء */
     .opt-btn {
-      width: 100%; padding: 14px; margin-bottom: 12px; border-radius: 12px;
-      border: 1px solid rgba(216, 180, 254, 0.3);
-      background: rgba(255, 255, 255, 0.04);
-      color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; text-align: center;
-      font-family: inherit; transition: 0.3s;
+      width: 100%; padding: 15px; margin-bottom: 14px; border-radius: 14px;
+      border: 1.5px solid rgba(216, 180, 254, 0.35);
+      background: rgba(255, 255, 255, 0.05);
+      color: #fff; font-size: 16.5px; font-weight: 700; cursor: pointer; text-align: center;
+      font-family: inherit; transition: all 0.3s ease;
+      position: relative; overflow: hidden;
     }
     .opt-btn:hover {
-      background: rgba(168, 85, 247, 0.25);
+      background: rgba(168, 85, 247, 0.3);
       border-color: var(--purple-glow);
       transform: scale(1.02);
+      box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
     }
 
-    .result-box { margin-top: 18px; padding: 16px; border-radius: 14px; text-align: center; line-height: 1.6; }
-    .success { background: rgba(34, 197, 94, 0.2); border: 1.5px solid #22c55e; box-shadow: 0 0 15px rgba(34, 197, 94, 0.3); }
-    .error { background: rgba(239, 68, 68, 0.2); border: 1.5px solid #ef4444; box-shadow: 0 0 15px rgba(239, 68, 68, 0.3); }
+    /* أنيميشن الاهتزاز عند التخمين */
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      20% { transform: translateX(-8px); }
+      40% { transform: translateX(8px); }
+      60% { transform: translateX(-8px); }
+      80% { transform: translateX(8px); }
+      100% { transform: translateX(0); }
+    }
+    .shaking { animation: shake 0.4s ease-in-out; }
+
+    .opt-btn.selected-correct {
+      background: rgba(34, 197, 94, 0.35) !important;
+      border-color: #22c55e !important;
+      box-shadow: 0 0 20px rgba(34, 197, 94, 0.6) !important;
+    }
+    .opt-btn.selected-wrong {
+      background: rgba(239, 68, 68, 0.35) !important;
+      border-color: #ef4444 !important;
+      box-shadow: 0 0 20px rgba(239, 68, 68, 0.6) !important;
+    }
+
+    .result-box { margin-top: 20px; padding: 18px; border-radius: 16px; text-align: center; line-height: 1.6; animation: fadeIn 0.5s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    
+    .success { background: rgba(34, 197, 94, 0.2); border: 1.5px solid #22c55e; box-shadow: 0 0 20px rgba(34, 197, 94, 0.3); }
+    .error { background: rgba(239, 68, 68, 0.2); border: 1.5px solid #ef4444; box-shadow: 0 0 20px rgba(239, 68, 68, 0.3); }
     .hidden { display: none !important; }
 
     .admin-toggle {
@@ -164,14 +185,13 @@
       background: rgba(168, 85, 247, 0.2); border: 1px solid var(--purple-glow);
       color: #fff; border-radius: 50%; width: 38px; height: 38px;
       cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 0 10px rgba(168, 85, 247, 0.4);
-      z-index: 10;
+      box-shadow: 0 0 10px rgba(168, 85, 247, 0.4); z-index: 10;
     }
 
     .admin-panel {
-      background: rgba(10, 3, 20, 0.95);
+      background: rgba(10, 3, 20, 0.96);
       border: 2px solid var(--purple-glow);
-      border-radius: 18px; padding: 20px; margin-top: 15px;
+      border-radius: 20px; padding: 20px; margin-top: 15px;
     }
     .row { display: flex; gap: 10px; }
     .row > div { flex: 1; }
@@ -181,43 +201,52 @@
       margin-top: 22px; letter-spacing: 0.8px; font-family: sans-serif;
     }
 
-    /* المحققة خارج المربع بالكامل وبحجم كبير جداً */
+    /* المحققة واقفة خارج المربع بالكامل وبشكل كبير واحترافي */
     .outer-detective {
       position: absolute;
-      left: -130px; /* الخروج خارج الكارت بالكامل للجهة اليسرى */
-      top: 40px;
-      width: 210px; /* حجم كبير وبارز جداً للمحققة */
+      left: -125px;
+      top: 50px;
+      width: 200px;
       height: auto;
-      transform: scaleX(-1); /* النزر نحو الكارت والسؤال */
-      filter: drop-shadow(0 0 18px rgba(168, 85, 247, 0.85));
+      transform: scaleX(-1);
+      filter: drop-shadow(0 0 20px rgba(168, 85, 247, 0.9));
       pointer-events: none;
       z-index: 5;
     }
 
     .magnifier-lens {
       border: 2px solid var(--purple-glow);
-      border-radius: 18px;
-      padding: 20px;
-      background: rgba(168, 85, 247, 0.1);
-      box-shadow: inset 0 0 25px rgba(168, 85, 247, 0.25), 0 0 15px rgba(168, 85, 247, 0.2);
-      margin-bottom: 20px;
+      border-radius: 20px;
+      padding: 22px;
+      background: rgba(168, 85, 247, 0.12);
+      box-shadow: inset 0 0 30px rgba(168, 85, 247, 0.3), 0 0 20px rgba(168, 85, 247, 0.25);
+      margin-bottom: 22px;
       position: relative;
       z-index: 1;
     }
 
     .question-zoom {
-      font-size: 16.5px;
+      font-size: 17px;
       font-weight: 700;
       line-height: 1.6;
       color: #fff;
-      text-shadow: 0 0 6px rgba(255,255,255,0.4);
+      text-shadow: 0 0 8px rgba(255,255,255,0.5);
     }
   </style>
 </head>
 <body>
 
-  <div class="police-tape">
+  <!-- أشرطة مسرح الجريمة البوليسية الثابتة -->
+  <div class="police-tape-bottom">
     <span>⚖️ لغز اليوم • لغز الربوع • وحدة الإرشاد الأكاديمي ⚖️</span>
+  </div>
+  <div class="police-tape-top">
+    <span>CRIME SCENE • DO NOT CROSS • DETECTIVE UNIT</span>
+  </div>
+
+  <!-- شريط الانتقال التفاعلي عند بدء اللغز -->
+  <div class="transition-tape" id="transitionTape">
+    🔍 جاري فتح ملف اللغز...
   </div>
 
   <div class="app-wrapper">
@@ -245,17 +274,17 @@
           <label>رقم الجوال:</label>
           <input type="tel" id="userPhone" placeholder="05xxxxxxxx">
         </div>
-        <button class="btn" onclick="startQuiz()">الانتقال للغز 🔍</button>
+        <button class="btn" onclick="startQuizWithTransition()">الانتقال للغز 🔍</button>
       </div>
 
       <div class="signature">Design & Production: Nouf Alawad 2026</div>
     </div>
 
-    <!-- واجهة اللغز مع المحققة الخارجية الكبيرة -->
+    <!-- واجهة اللغز والتفاعل -->
     <div class="card hidden" id="quizStep">
       <button class="admin-toggle hidden" id="adminBtn" title="لوحة التحكم" onclick="toggleAdmin()">⚙️</button>
       
-      <!-- المحققة واقفة خارج المربع كلياً وحجمها كبير جداً -->
+      <!-- صورة المحققة الكبيرة خارج الكارت -->
       <img src="Lawyer.png" alt="المحققة" class="outer-detective">
 
       <div class="club-logo-container">
@@ -270,15 +299,15 @@
       </div>
       
       <div id="options">
-        <button class="opt-btn" id="opt0" onclick="submitAnswer(0)"></button>
-        <button class="opt-btn" id="opt1" onclick="submitAnswer(1)"></button>
+        <button class="opt-btn" id="opt0" onclick="submitAnswerInteractive(0)"></button>
+        <button class="opt-btn" id="opt1" onclick="submitAnswerInteractive(1)"></button>
       </div>
 
       <div id="result" class="result-box hidden"></div>
       <div class="signature">Design & Production: Nouf Alawad 2026</div>
     </div>
 
-    <!-- لوحة التحكم -->
+    <!-- لوحة التحكم الإدارية -->
     <div class="card hidden admin-panel" id="adminPanel">
       <h2 style="margin-top:0; text-align:center; color:var(--purple-neon);">🛠️ لوحة تحكم الفعالية</h2>
       
@@ -378,7 +407,8 @@
     }
   }
 
-  function startQuiz() {
+  /* حركة انتقالية عبر الشريط السينمائي عند البدء */
+  function startQuizWithTransition() {
     const name = document.getElementById('userName').value.trim();
     const phone = document.getElementById('userPhone').value.trim();
     if(!name || !phone) {
@@ -388,42 +418,60 @@
     userData.name = name;
     userData.phone = phone;
     
-    const adminBtn = document.getElementById('adminBtn');
-    if (phone === "0542961918" || name.includes("نوف")) {
-      adminBtn.classList.remove('hidden');
-    } else {
-      adminBtn.classList.add('hidden');
-    }
+    const tape = document.getElementById('transitionTape');
+    tape.classList.add('active');
 
-    document.getElementById('userInfoStep').classList.add('hidden');
-    document.getElementById('quizStep').classList.remove('hidden');
+    setTimeout(() => {
+      document.getElementById('userInfoStep').classList.add('hidden');
+      document.getElementById('quizStep').classList.remove('hidden');
+      
+      const adminBtn = document.getElementById('adminBtn');
+      if (phone === "0542961918" || name.includes("نوف")) {
+        adminBtn.classList.remove('hidden');
+      } else {
+        adminBtn.classList.add('hidden');
+      }
+    }, 400);
+
+    setTimeout(() => {
+      tape.classList.remove('active');
+    }, 900);
   }
 
-  function submitAnswer(selectedIndex) {
+  /* الإجابة التفاعلية مع الاهتزاز والألوان */
+  function submitAnswerInteractive(selectedIndex) {
     const isCorrect = (selectedIndex === parseInt(config.corrIndex));
     const resultDiv = document.getElementById('result');
     const optionsDiv = document.getElementById('options');
-    
-    optionsDiv.style.pointerEvents = 'none';
-    optionsDiv.style.opacity = '0.6';
+    const btn = document.getElementById('opt' + selectedIndex);
 
-    if(isCorrect) {
-      resultDiv.className = "result-box success";
-      resultDiv.innerHTML = `
-        <h3>${config.successMsg}</h3>
-        <p>${config.ruling}</p>
-        <div style="background: rgba(168,85,247,0.25); border: 1px dashed var(--purple-glow); padding: 10px; border-radius: 8px; margin-top: 10px;">
-          كود الخصم الهديّة: <strong>${config.promoCode}</strong>
-        </div>
-      `;
-    } else {
-      resultDiv.className = "result-box error";
-      resultDiv.innerHTML = `
-        <h3>${config.wrongMsg}</h3>
-        <p>${config.ruling}</p>
-      `;
-    }
-    resultDiv.classList.remove('hidden');
+    // إضافة تأثير الاهتزاز
+    btn.classList.add('shaking');
+
+    setTimeout(() => {
+      btn.classList.remove('shaking');
+      optionsDiv.style.pointerEvents = 'none';
+
+      if(isCorrect) {
+        btn.classList.add('selected-correct');
+        resultDiv.className = "result-box success";
+        resultDiv.innerHTML = `
+          <h3>${config.successMsg}</h3>
+          <p>${config.ruling}</p>
+          <div style="background: rgba(168,85,247,0.25); border: 1px dashed var(--purple-glow); padding: 10px; border-radius: 8px; margin-top: 10px;">
+            كود الخصم الهديّة: <strong>${config.promoCode}</strong>
+          </div>
+        `;
+      } else {
+        btn.classList.add('selected-wrong');
+        resultDiv.className = "result-box error";
+        resultDiv.innerHTML = `
+          <h3>${config.wrongMsg}</h3>
+          <p>${config.ruling}</p>
+        `;
+      }
+      resultDiv.classList.remove('hidden');
+    }, 400);
 
     fetch(SCRIPT_URL, {
       method: 'POST',
