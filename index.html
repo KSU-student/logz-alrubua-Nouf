@@ -11,7 +11,6 @@
       --ink: #fff; --soft: rgba(255,255,255,.72);
       --card: rgba(255,255,255,.09);
       --line: rgba(255,255,255,.22);
-      --gold: #e9d5ff;
     }
     * { box-sizing: border-box; }
     body {
@@ -30,133 +29,118 @@
       padding: 24px;
       width: 100%; max-width: 500px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      position: relative;
     }
-    h1 { margin: 0 0 10px; text-align: center; font-size: 28px; }
+    h1 { margin: 0 0 10px; text-align: center; font-size: 26px; }
     p.sub { text-align: center; color: var(--soft); margin-bottom: 20px; font-size: 14px; }
     .field { margin-bottom: 15px; }
-    label { display: block; margin-bottom: 5px; font-weight: bold; }
-    input[type="text"], input[type="tel"] {
-      width: 100%; padding: 12px; border-radius: 10px;
-      border: 1px solid var(--line); background: rgba(0,0,0,0.2);
-      color: #fff; font-size: 16px; font-family: inherit;
+    label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 14px; }
+    input[type="text"], input[type="tel"], textarea, select {
+      width: 100%; padding: 10px; border-radius: 8px;
+      border: 1px solid var(--line); background: rgba(0,0,0,0.25);
+      color: #fff; font-size: 15px; font-family: inherit;
     }
+    textarea { resize: vertical; height: 70px; }
     .btn {
-      width: 100%; padding: 14px; border: none; border-radius: 12px;
-      background: #8b5cf6; color: #fff; font-size: 18px; font-weight: bold;
+      width: 100%; padding: 12px; border: none; border-radius: 10px;
+      background: #8b5cf6; color: #fff; font-size: 16px; font-weight: bold;
       cursor: pointer; margin-top: 10px; transition: 0.2s;
     }
     .btn:hover { background: #7c3aed; }
     .opt-btn {
-      width: 100%; padding: 14px; margin-bottom: 10px; border-radius: 12px;
+      width: 100%; padding: 12px; margin-bottom: 10px; border-radius: 10px;
       border: 1px solid var(--line); background: rgba(255,255,255,0.05);
-      color: #fff; font-size: 16px; cursor: pointer; text-align: center;
+      color: #fff; font-size: 15px; cursor: pointer; text-align: center;
       font-family: inherit; transition: 0.2s;
     }
     .opt-btn:hover { background: rgba(255,255,255,0.15); }
-    .result-box {
-      margin-top: 20px; padding: 15px; border-radius: 12px; text-align: center;
-    }
+    .result-box { margin-top: 15px; padding: 15px; border-radius: 10px; text-align: center; }
     .success { background: rgba(34, 197, 94, 0.2); border: 1px solid #22c55e; }
     .error { background: rgba(239, 68, 68, 0.2); border: 1px solid #ef4444; }
     .hidden { display: none; }
+    
+    /* زر الإعدادات المخفي الخاص بكِ */
+    .admin-toggle {
+      position: absolute; top: 15px; left: 15px;
+      background: rgba(255,255,255,0.1); border: none;
+      color: #fff; border-radius: 50%; width: 35px; height: 35px;
+      cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center;
+    }
+    .admin-panel {
+      background: rgba(15, 7, 26, 0.95);
+      border: 1px solid #8b5cf6;
+      border-radius: 15px; padding: 20px; margin-top: 15px;
+    }
+    .row { display: flex; gap: 10px; }
+    .row > div { flex: 1; }
   </style>
 </head>
 <body>
 
-  <!-- الخطوة الأولى: جمع البيانات -->
+  <!-- واجهة الطالبة: الخطوة 1 -->
   <div class="card" id="userInfoStep">
-    <h1>لغز الأربعاء ⚖️</h1>
+    <button class="admin-toggle" title="لوحة التحكم" onclick="toggleAdmin()">⚙️</button>
+    <h1 id="displayTitle">لغز الأربعاء ⚖️</h1>
     <p class="sub">وحدة الإرشاد الأكاديمي - كلية الحقوق والعلوم السياسية</p>
-    <div class="field">
-      <label>الاسم الثلاثي:</label>
-      <input type="text" id="userName" placeholder="أدخلي اسمك الكامل">
+    
+    <div id="closedMsg" class="hidden" style="text-align: center; color: #fca5a5; padding: 20px 0;">
+      <h3>الفعالية مغلقة حالياً 🌸</h3>
+      <p>انتظرونا الأربعاء القادم لفتح قضية جديدة!</p>
     </div>
-    <div class="field">
-      <label>رقم الجوال:</label>
-      <input type="tel" id="userPhone" placeholder="05xxxxxxxx">
+
+    <div id="formFields">
+      <div class="field">
+        <label>الاسم الثلاثي:</label>
+        <input type="text" id="userName" placeholder="أدخلي اسمك الكامل">
+      </div>
+      <div class="field">
+        <label>رقم الجوال:</label>
+        <input type="tel" id="userPhone" placeholder="05xxxxxxxx">
+      </div>
+      <button class="btn" onclick="startQuiz()">الانتقال للغز</button>
     </div>
-    <button class="btn" onclick="startQuiz()">الانتقال للغز</button>
   </div>
 
-  <!-- الخطوة الثانية: القضية والخيارات -->
+  <!-- واجهة الطالبة: الخطوة 2 -->
   <div class="card hidden" id="quizStep">
     <h1 id="qTitle">القضية الأولى</h1>
-    <p class="sub" id="qText">اتفق سعد مع خالد شفهياً على بيع سيارته، واستلم منه عربوناً.. هل يحق لخالد إلزامه بإتمام البيع؟</p>
+    <p class="sub" id="qText"></p>
     
     <div id="options">
-      <button class="opt-btn" onclick="submitAnswer(0)">نعم، يحق له</button>
-      <button class="opt-btn" onclick="submitAnswer(1)">لا، لا يحق له</button>
+      <button class="opt-btn" id="opt0" onclick="submitAnswer(0)"></button>
+      <button class="opt-btn" id="opt1" onclick="submitAnswer(1)"></button>
     </div>
 
     <div id="result" class="result-box hidden"></div>
   </div>
 
-<script>
-  // رابط التطبيق المباشر الخاص بـ Apps Script
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxzNh85mkH-DISqJRFJXDyMFR0V9inslF8CUWTJ4MVwjwPCWLIvmp2hkAKKVEiz6tmt/exec";
-
-  const quizData = {
-    correctIndex: 1, // الخيار الخاطئ هو 0، والخيار الصحيح هو 1 ("لا، لا يحق له")
-    ruling: "وفقاً للنظام، العقود الشفهية في بعض التصرفات تحتاج لإثبات، ولا يعتد بالعربون دون عقد مكتوب ومكتمل الشروط.",
-    promoCode: "حقوق_2026"
-  };
-
-  let userData = { name: "", phone: "" };
-
-  function startQuiz() {
-    const name = document.getElementById('userName').value.trim();
-    const phone = document.getElementById('userPhone').value.trim();
-    if(!name || !phone) {
-      alert('لطفاً أدخلي الاسم ورقم الجوال للمتابعة');
-      return;
-    }
-    userData.name = name;
-    userData.phone = phone;
-    document.getElementById('userInfoStep').classList.add('hidden');
-    document.getElementById('quizStep').classList.remove('hidden');
-  }
-
-  function submitAnswer(selectedIndex) {
-    const isCorrect = (selectedIndex === quizData.correctIndex);
-    const resultDiv = document.getElementById('result');
-    const optionsDiv = document.getElementById('options');
+  <!-- لوحة التحكم الخاصة بكِ فقط -->
+  <div class="card hidden admin-panel" id="adminPanel">
+    <h2 style="margin-top:0; text-align:center;">🛠️ لوحة تحكم الفعالية</h2>
     
-    // تعطيل الخيارات لمنع الضغط المكرر
-    optionsDiv.style.pointerEvents = 'none';
-    optionsDiv.style.opacity = '0.6';
+    <div class="field">
+      <label>حالة الفعالية:</label>
+      <select id="p_isOpen">
+        <option value="true">مفتوحة للجميع</option>
+        <option value="false">مغلقة حالياً</option>
+      </select>
+    </div>
 
-    if(isCorrect) {
-      resultDiv.className = "result-box success";
-      resultDiv.innerHTML = `
-        <h3>إجابة صحيحة! 🎉</h3>
-        <p>${quizData.ruling}</p>
-        <div style="background: rgba(255,255,255,0.2); padding: 10px; border-radius: 8px; margin-top: 10px;">
-          كود الخصم الهديّة: <strong>${quizData.promoCode}</strong>
-        </div>
-      `;
-    } else {
-      resultDiv.className = "result-box error";
-      resultDiv.innerHTML = `
-        <h3>للأسف الإجابة خاطئة.. حاول الأربعاء القادم! 🌸</h3>
-        <p>${quizData.ruling}</p>
-      `;
-    }
-    resultDiv.classList.remove('hidden');
+    <div class="field">
+      <label>عنوان القضية:</label>
+      <input type="text" id="p_no">
+    </div>
 
-    // إرسال البيانات فوراً لجدول قوقل شيت
-    fetch(SCRIPT_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        name: userData.name,
-        phone: userData.phone,
-        selectedOption: selectedIndex === 0 ? "نعم، يحق له" : "لا، لا يحق له",
-        isCorrect: isCorrect
-      })
-    });
-  }
-</script>
+    <div class="field">
+      <label>نص القضية/اللغز:</label>
+      <textarea id="p_text"></textarea>
+    </div>
 
-</body>
-</html>
+    <div class="row">
+      <div class="field">
+        <label>الخيار الأول (0):</label>
+        <input type="text" id="p_o0">
+      </div>
+      <div class="field">
+        <label>الخيار الثاني (1):</label>
+        <input type="text" id="p_o1
