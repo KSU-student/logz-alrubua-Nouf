@@ -252,22 +252,13 @@
     }
     .poster-img { width: 100%; height: auto; display: block; }
     
-    .poster-user-badge {
-      position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%);
-      background: rgba(14, 5, 28, 0.92); border: 1px solid var(--gold);
-      color: var(--gold-light); font-weight: 800; font-size: 13px;
-      padding: 4px 16px; border-radius: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.8);
-      white-space: nowrap;
+    /* اسم المحققة خارج البوستر تماماً في الأسفل */
+    .poster-user-box {
+      background: rgba(250, 204, 21, 0.1); border: 1px solid var(--gold);
+      color: var(--gold-light); font-weight: 800; font-size: 14px;
+      padding: 8px 14px; border-radius: 10px; margin-bottom: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5); text-align: center;
     }
-
-    .share-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 12px; }
-    .share-btn {
-      padding: 11px 4px; border-radius: 8px; border: 1.5px solid var(--gold);
-      background: rgba(250,204,21,0.1); color: #fff; font-size: 12.5px; font-weight: 800;
-      cursor: pointer; font-family: inherit; transition: 0.2s; text-decoration: none;
-      display: flex; align-items: center; justify-content: center; gap: 4px;
-    }
-    .share-btn:hover { background: var(--gold); color: #000; transform: translateY(-2px); }
 
     .hidden { display: none !important; }
 
@@ -364,7 +355,7 @@
 
       <div id="result" class="result-box hidden"></div>
       
-      <!-- زر يدخلك لصفحة البوستر بشكل منفصل -->
+      <!-- زر الانتقال لصفحة البوستر المستقلة -->
       <button id="goToPosterBtn" class="btn hidden" style="background: linear-gradient(135deg, #eab308, #a16207); margin-top: 14px;" onclick="goToPosterPage()">
         📸 عرض بوستر التحدي والمشاركة
       </button>
@@ -382,24 +373,21 @@
 
       <div class="poster-img-container">
         <img src="Moo.PNG" alt="بوستر لغز الربوع" class="poster-img" id="posterImageElement">
-        <div class="poster-user-badge" id="posterUserName">المحققة: </div>
       </div>
 
-      <p style="font-size: 13px; color: var(--gold-light); margin: 0 0 10px; font-weight: 700;">
+      <!-- اسم المحققة تحت البوستر بوضوح -->
+      <div class="poster-user-box" id="posterUserName">المحققة: </div>
+
+      <p style="font-size: 12.5px; color: var(--gold-light); margin: 0 0 10px; font-weight: 700;">
         شاركي بوستر إنجازكِ وتحدّي زميلاتكِ في الكلية:
       </p>
 
-      <div class="share-grid">
-        <button class="share-btn" onclick="sharePosterFile('twitter')">𝕏 إكس</button>
-        <button class="share-btn" onclick="sharePosterFile('whatsapp')">💬 واتساب</button>
-        <button class="share-btn" onclick="sharePosterFile('threads')">🧵 ثريدز</button>
-        <button class="share-btn" onclick="sharePosterFile('snapchat')">👻 سناب</button>
-        <button class="share-btn" onclick="sharePosterFile('instagram')">📸 إنستا</button>
+      <!-- زر موحد للمشاركة أو الحفظ -->
+      <button class="btn" style="background: linear-gradient(135deg, #eab308, #a16207);" onclick="sharePosterFile()">
+        🔗 مشاركة أو حفظ البوستر
+      </button>
 
-        <button class="share-btn" onclick="sharePosterFile('general')">🔗 مشاركة/حفظ</button>
-      </div>
-
-      <button class="btn" style="background: rgba(255,255,255,0.1); border: 1px solid var(--line); margin-top: 14px;" onclick="backToQuiz()">
+      <button class="btn" style="background: rgba(255,255,255,0.1); border: 1px solid var(--line); margin-top: 8px;" onclick="backToQuiz()">
         ↩️ العودة للإجابة
       </button>
 
@@ -462,7 +450,7 @@
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxzNh85mkH-DISqJRFJXDyMFR0V9inslF8CUWTJ4MVwjwPCWLIvmp2hkAKKVEiz6tmt/exec";
   const ADMIN_PHONE = "0542961918";
 
-  const CONFIG_VERSION = 8;
+  const CONFIG_VERSION = 9;
   const CONFIG_KEY = 'wednesday_config_v' + CONFIG_VERSION;
 
   const defaultConfig = {
@@ -666,18 +654,16 @@
     setTimeout(() => { tape.classList.remove('active'); }, 900);
   }
 
-  // مشاركة البوستر كصورة ملف موثوقة لمختلف التطبيقات
-  async function sharePosterFile(platform) {
-    const shareText = `حليت لغز اليوم في كلية الحقوق والعلوم السياسية! ⚖️🔍\n#لغز_الربوع`;
+  // زر موحد لمشاركة البوستر أو حفظه مع النص والهاشتاق
+  async function sharePosterFile() {
+    const shareText = `حلّيت لغز اليوم في كلية الحقوق والعلوم السياسية! ⚖️🔍\n#لغز_الربوع`;
     const currentUrl = window.location.href;
 
     try {
-      // جلب صورة Moo.PNG وتحويلها لملف قابل للمشاركة
       const response = await fetch('Moo.PNG');
       const blob = await response.blob();
       const file = new File([blob], 'لغز_الربوع.png', { type: 'image/png' });
 
-      // استخدام مشاركة ملفات النظام الذكية إن دُعمت
       if (navigator.canShare && navigator.canShare({ files: [file] })) {
         await navigator.share({
           files: [file],
@@ -687,24 +673,16 @@
         return;
       }
     } catch (e) {
-      console.log('مشاركة الملف غير مدعومة مباشرة، سيتم التبديل للرابط التلقائي');
+      console.log('المشاركة المباشرة غير مدعومة');
     }
 
-    // تنزيل الصورة وتحضير المشاركة
-    if (platform === 'twitter') {
-      window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(currentUrl)}`, '_blank');
-    } else if (platform === 'whatsapp') {
-      window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(shareText + ' ' + currentUrl)}`, '_blank');
-    } else if (platform === 'threads') {
-      window.open(`https://www.threads.net/intent/post?text=${encodeURIComponent(shareText + ' ' + currentUrl)}`, '_blank');
-    } else {
-      navigator.clipboard.writeText(shareText + '\n' + currentUrl);
-      const link = document.createElement('a');
-      link.href = 'Moo.PNG';
-      link.download = 'بوستر_لغز_الربوع.png';
-      link.click();
-      alert('تم تحميل بوستر الإنجاز ونسخ النص والهاشتاق! يمكنك الآن إرفاق الصورة ونشرها في قصتك 📸✨');
-    }
+    // الطريقة الاحتياطية (تنزيل الصورة ونسخ النص والهاشتاق)
+    navigator.clipboard.writeText(shareText + '\n' + currentUrl);
+    const link = document.createElement('a');
+    link.href = 'Moo.PNG';
+    link.download = 'بوستر_لغز_الربوع.png';
+    link.click();
+    alert('تم تحميل بوستر الإنجاز ونسخ النص والهاشتاق (#لغز_الربوع)! يمكنك الآن لصقها في قصتك بسناب شات أو أي تطبيق 📸✨');
   }
 
   function toggleAdmin() {
