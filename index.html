@@ -252,7 +252,7 @@
     }
     .poster-img { width: 100%; height: auto; display: block; }
     
-    /* اسم المحققة خارج البوستر تماماً في الأسفل */
+    /* اسم المحققة تحت البوستر بوضوح */
     .poster-user-box {
       background: rgba(250, 204, 21, 0.1); border: 1px solid var(--gold);
       color: var(--gold-light); font-weight: 800; font-size: 14px;
@@ -366,10 +366,9 @@
       </div>
     </div>
 
-    <!-- 3. صفحة البوستر والمشاركة المستقلة بالكامل -->
+    <!-- 3. صفحة البوستر والمشاركة المستقلة بالكامل (بدون ختم سري العالق فوق الكارت) -->
     <div class="card poster-page-card hidden" id="posterStep">
       <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
-      <div class="case-stamp">POSTER • بوستر التحدي</div>
 
       <div class="poster-img-container">
         <img src="Moo.PNG" alt="بوستر لغز الربوع" class="poster-img" id="posterImageElement">
@@ -450,7 +449,7 @@
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxzNh85mkH-DISqJRFJXDyMFR0V9inslF8CUWTJ4MVwjwPCWLIvmp2hkAKKVEiz6tmt/exec";
   const ADMIN_PHONE = "0542961918";
 
-  const CONFIG_VERSION = 9;
+  const CONFIG_VERSION = 10;
   const CONFIG_KEY = 'wednesday_config_v' + CONFIG_VERSION;
 
   const defaultConfig = {
@@ -654,7 +653,6 @@
     setTimeout(() => { tape.classList.remove('active'); }, 900);
   }
 
-  // زر موحد لمشاركة البوستر أو حفظه مع النص والهاشتاق
   async function sharePosterFile() {
     const shareText = `حلّيت لغز اليوم في كلية الحقوق والعلوم السياسية! ⚖️🔍\n#لغز_الربوع`;
     const currentUrl = window.location.href;
@@ -676,7 +674,6 @@
       console.log('المشاركة المباشرة غير مدعومة');
     }
 
-    // الطريقة الاحتياطية (تنزيل الصورة ونسخ النص والهاشتاق)
     navigator.clipboard.writeText(shareText + '\n' + currentUrl);
     const link = document.createElement('a');
     link.href = 'Moo.PNG';
