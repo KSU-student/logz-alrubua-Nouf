@@ -97,7 +97,6 @@
     }
     @keyframes blink { 50% { opacity: 0.25; } }
 
-    /* الشعار */
     .club-logo-container {
       text-align: center; margin: 0 auto 8px; position: relative; width: 100%;
       display: flex; justify-content: center; align-items: center;
@@ -242,18 +241,20 @@
     .promo-box { background: rgba(250, 204, 21, 0.1); border: 1.5px dashed var(--gold); padding: 10px; border-radius: 8px; margin-top: 10px; font-size: 13.5px; }
     .promo-box strong { color: var(--gold-light); font-size: 17px; letter-spacing: 1px; }
 
-    /* تصميم بوستر المشاركة */
+    /* تصميم بوستر المشاركة باستخدام صورة Moo.PNG */
     .poster-preview {
-      background: linear-gradient(135deg, rgba(20, 5, 38, 0.98), rgba(7, 1, 15, 0.98));
-      border: 2px solid var(--gold); border-radius: 16px; padding: 22px 16px;
-      text-align: center; margin-top: 12px; position: relative;
+      background: rgba(10, 3, 20, 0.98);
+      border: 2px solid var(--gold); border-radius: 16px; padding: 14px;
+      text-align: center; margin-top: 14px; position: relative;
       box-shadow: 0 0 30px rgba(250,204,21,0.25);
     }
-    .poster-tag { font-size: 12px; font-weight: 800; color: var(--gold); margin-bottom: 6px; letter-spacing: 1px; }
-    .poster-title { font-size: 20px; font-weight: 900; color: #fff; margin-bottom: 8px; text-shadow: 0 0 10px rgba(250,204,21,0.5); }
-    .poster-user { font-size: 14px; color: var(--gold-light); font-weight: 700; margin-bottom: 14px; background: rgba(250,204,21,0.1); padding: 4px 10px; border-radius: 6px; display: inline-block; }
+    .poster-img {
+      width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--gold);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.8); margin-bottom: 10px; display: block;
+    }
+    .poster-user { font-size: 13.5px; color: var(--gold-light); font-weight: 700; margin-bottom: 10px; background: rgba(250,204,21,0.1); padding: 4px 10px; border-radius: 6px; display: inline-block; }
     
-    .share-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 14px; }
+    .share-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 8px; }
     .share-btn {
       padding: 10px 6px; border-radius: 8px; border: 1px solid var(--gold);
       background: rgba(250,204,21,0.08); color: #fff; font-size: 12px; font-weight: 700;
@@ -357,12 +358,11 @@
 
       <div id="result" class="result-box hidden"></div>
       
-      <!-- بوستر المشاركة التفاعلي -->
+      <!-- بوستر المشاركة عبر Moo.PNG -->
       <div id="posterBox" class="poster-preview hidden">
-        <div class="poster-tag">⚖️ كلية الحقوق والعلوم السياسية</div>
-        <div class="poster-title">«لغز الربوع» حُلّ بنجاح! 🔍</div>
+        <img src="Moo.PNG" alt="بوستر لغز الربوع" class="poster-img">
         <div class="poster-user" id="posterUserName">المحققة: </div>
-        <p style="font-size: 12.5px; color: rgba(255,255,255,0.85); margin: 0 0 10px;">شاركي إنجازك الآن وتحدّي زميلاتك في الكلية:</p>
+        <p style="font-size: 12px; color: rgba(255,255,255,0.85); margin: 0 0 8px;">شاركي البوستر وتحدّي زميلاتك في الكلية:</p>
         <div class="share-grid">
           <a href="#" class="share-btn" onclick="shareTo('twitter')" target="_blank">𝕏 إكس</a>
           <a href="#" class="share-btn" onclick="shareTo('whatsapp')" target="_blank">💬 واتساب</a>
@@ -432,7 +432,7 @@
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxzNh85mkH-DISqJRFJXDyMFR0V9inslF8CUWTJ4MVwjwPCWLIvmp2hkAKKVEiz6tmt/exec";
   const ADMIN_PHONE = "0542961918";
 
-  const CONFIG_VERSION = 5;
+  const CONFIG_VERSION = 7;
   const CONFIG_KEY = 'wednesday_config_v' + CONFIG_VERSION;
 
   const defaultConfig = {
@@ -515,8 +515,13 @@
   }
 
   function startQuizWithTransition() {
-    const name = document.getElementById('userName'].value.trim().replace(/\s+/g, ' ');
-    const phone = normalizeDigits(document.getElementById('userPhone'].value.trim());
+    const nameInput = document.getElementById('userName');
+    const phoneInput = document.getElementById('userPhone');
+    
+    if (!nameInput || !phoneInput) return;
+
+    const name = nameInput.value.trim().replace(/\s+/g, ' ');
+    const phone = normalizeDigits(phoneInput.value.trim());
     const isAdmin = (phone === ADMIN_PHONE);
 
     if (name.split(' ').length < 2 || name.length < 5) {
@@ -619,7 +624,6 @@
     } else if (platform === 'linkedin') {
       window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(currentUrl)}`, '_blank');
     } else {
-      // للسناب والإنستا يتم نسخ النص للقصاصة
       navigator.clipboard.writeText(shareText + '\n' + currentUrl).then(() => {
         alert('تم نسخ نص المشاركة ورابط الفعالية! يمكنك لصقه مباشرة في قصتك 📸✨');
       });
@@ -678,9 +682,12 @@
   }
 
   ['userName', 'userPhone'].forEach(id => {
-    document.getElementById(id).addEventListener('keydown', e => {
-      if (e.key === 'Enter') startQuizWithTransition();
-    });
+    const el = document.getElementById(id);
+    if (el) {
+      el.addEventListener('keydown', e => {
+        if (e.key === 'Enter') startQuizWithTransition();
+      });
+    }
   });
 
   initUI();
