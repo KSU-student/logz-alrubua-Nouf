@@ -241,18 +241,22 @@
     .promo-box { background: rgba(250, 204, 21, 0.1); border: 1.5px dashed var(--gold); padding: 10px; border-radius: 8px; margin-top: 10px; font-size: 13.5px; }
     .promo-box strong { color: var(--gold-light); font-size: 17px; letter-spacing: 1px; }
 
+    /* صفحة لوحة الصدارة التنافسية */
+    .leaderboard-card { text-align: center; padding: 20px 14px; }
+    .leaderboard-title { font-size: 18px; font-weight: 900; color: var(--gold-light); margin-bottom: 10px; text-shadow: 0 0 8px rgba(250,204,21,0.4); }
+    .rank-box { background: rgba(250, 204, 21, 0.1); border: 1.5px solid var(--gold); border-radius: 12px; padding: 14px; margin-bottom: 14px; }
+    .rank-number { font-size: 28px; font-weight: 900; color: #fff; margin: 4px 0; }
+    .rank-alert { background: rgba(34, 197, 94, 0.2); border: 1px solid #22c55e; color: #4ade80; font-size: 12.5px; font-weight: 800; padding: 6px 10px; border-radius: 8px; margin-bottom: 12px; animation: pulse 1.5s infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+
     /* صفحة البوستر المستقلة بالكامل */
-    .poster-page-card {
-      text-align: center; padding: 20px 14px;
-    }
+    .poster-page-card { text-align: center; padding: 20px 14px; }
     .poster-img-container {
       position: relative; width: 100%; border-radius: 14px; overflow: hidden;
       border: 2px solid var(--gold); box-shadow: 0 0 30px rgba(250,204,21,0.3);
       margin-bottom: 12px; background: #000;
     }
     .poster-img { width: 100%; height: auto; display: block; }
-    
-    /* اسم المحققة تحت البوستر بوضوح */
     .poster-user-box {
       background: rgba(250, 204, 21, 0.1); border: 1px solid var(--gold);
       color: var(--gold-light); font-weight: 800; font-size: 14px;
@@ -305,8 +309,8 @@
       <p class="sub">شاركي معنا حل لغز اليوم واحصلي على هديتك</p>
 
       <div id="closedMsg" class="hidden" style="text-align: center; color: #fca5a5; padding: 15px 0;">
-        <h3>الفعالية مغلقة حالياً 🌸</h3>
-        <p>انتظرونا الأربعاء القادم لفتح قضية جديدة!</p>
+        <h3 id="closedTitleDisplay">الفعالية مغلقة حالياً 🌸</h3>
+        <p id="closedTextDisplay" style="font-size: 13.5px; margin-top: 6px;">انتظرونا الأربعاء القادم لفتح قضية جديدة!</p>
       </div>
 
       <div id="formFields">
@@ -339,7 +343,7 @@
       </div>
       <div class="divider"></div>
 
-      <div class="status-bar"><i></i> قيد التحقيق</div>
+      <div class="status-bar"><i></i> <span id="adminNoticeBadge">قيد التحقيق</span></div>
       <div class="case-meta"><span>CASE FILE</span><span>•</span><span>DETECTIVE UNIT</span></div>
       <h1 class="main-title" id="qTitle">قضية اليوم</h1>
       <p class="sub">تحت عدسة التحقيق 🔍</p>
@@ -355,9 +359,9 @@
 
       <div id="result" class="result-box hidden"></div>
       
-      <!-- زر الانتقال لصفحة البوستر المستقلة -->
-      <button id="goToPosterBtn" class="btn hidden" style="background: linear-gradient(135deg, #eab308, #a16207); margin-top: 14px;" onclick="goToPosterPage()">
-        📸 عرض بوستر التحدي والمشاركة
+      <!-- زر الانتقال للخطوة التالية (لوحة الصدارة أو البوستر) -->
+      <button id="nextStepBtn" class="btn hidden" style="background: linear-gradient(135deg, #eab308, #a16207); margin-top: 14px;" onclick="proceedAfterAnswer()">
+        التالي ➡️
       </button>
 
       <div class="signature">
@@ -366,7 +370,42 @@
       </div>
     </div>
 
-    <!-- 3. صفحة البوستر والمشاركة المستقلة بالكامل (بدون ختم سري العالق فوق الكارت) -->
+    <!-- 3. صفحة لوحة الصدارة التنافسية (تظهر فقط إذا كانت مفعلة من لوحة التحكم) -->
+    <div class="card leaderboard-card hidden" id="leaderboardStep">
+      <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+      
+      <div class="club-logo-container" style="margin-bottom: 4px;">
+        <img src="Logo.png" alt="وحدة الإرشاد الأكاديمي" class="real-logo" style="max-width: 140px;">
+      </div>
+      <div class="divider" style="margin: 6px auto 10px;"></div>
+
+      <h2 class="leaderboard-title">⚖️ نافسي على المراكز الثلاث الأولى.. الهدية أكبر بكثيرررر 😉🔥</h2>
+      
+      <div id="rankAlertBox" class="rank-alert hidden">
+        🔥 قفزة نوعية في الترتيب! لقد صعدتِ لتكوني ضمن العشرة الأوائل!
+      </div>
+
+      <div class="rank-box">
+        <div style="font-size: 13px; color: var(--gold-light);">ترتيبك الحالي في المنافسة:</div>
+        <div class="rank-number" id="userRankNum">المركز الـ 14</div>
+        <div style="font-size: 12px; color: rgba(255,255,255,0.7); margin-top: 4px;" id="userPointsText">مجموع النقاط: 3 نقاط</div>
+      </div>
+
+      <p style="font-size: 12px; color: rgba(255,255,255,0.85); margin-bottom: 14px;">
+        تواصلي في حل القضايا الأسبوعية ومشاركة البوستر لجمع النقاط وضمان مقعدك في المقدمة!
+      </p>
+
+      <button class="btn" style="background: linear-gradient(135deg, #eab308, #a16207);" onclick="goToPosterFromLeaderboard()">
+        📸 عرض بوستر التحدي والإنجاز
+      </button>
+
+      <div class="signature">
+        &copy; 2026 Nouf Alawad - نوف آل عواض<br>
+        <span>لكل فكرة صدى.. نسعد بملاحظاتكم ومقترحاتكم عبر: <a href="mailto:Noufalawad20@gmail.com">Noufalawad20@gmail.com</a></span>
+      </div>
+    </div>
+
+    <!-- 4. صفحة البوستر والمشاركة المستقلة بالكامل -->
     <div class="card poster-page-card hidden" id="posterStep">
       <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
 
@@ -374,20 +413,18 @@
         <img src="Moo.PNG" alt="بوستر لغز الربوع" class="poster-img" id="posterImageElement">
       </div>
 
-      <!-- اسم المحققة تحت البوستر بوضوح -->
       <div class="poster-user-box" id="posterUserName">المحققة: </div>
 
       <p style="font-size: 12.5px; color: var(--gold-light); margin: 0 0 10px; font-weight: 700;">
         شاركي بوستر إنجازكِ وتحدّي زميلاتكِ في الكلية:
       </p>
 
-      <!-- زر موحد للمشاركة أو الحفظ -->
       <button class="btn" style="background: linear-gradient(135deg, #eab308, #a16207);" onclick="sharePosterFile()">
         🔗 مشاركة أو حفظ البوستر
       </button>
 
       <button class="btn" style="background: rgba(255,255,255,0.1); border: 1px solid var(--line); margin-top: 8px;" onclick="backToQuiz()">
-        ↩️ العودة للإجابة
+        ↩️ العودة للقضية
       </button>
 
       <div class="signature">
@@ -396,7 +433,7 @@
       </div>
     </div>
 
-    <!-- 4. لوحة التحكم الإدارية -->
+    <!-- 5. لوحة التحكم الإدارية -->
     <div class="card hidden admin-panel" id="adminPanel">
       <h2 style="margin-top:0; text-align:center; color:var(--gold-light); font-size: 18px;">🛠️ لوحة تحكم الفعالية</h2>
 
@@ -407,6 +444,20 @@
           <option value="false">مغلقة حالياً</option>
         </select>
       </div>
+
+      <div class="field">
+        <label>عبارة الإغلاق للزوار:</label>
+        <textarea id="p_closedText" placeholder="اكتبي العبارة التي تظهر عند إغلاق الرابط"></textarea>
+      </div>
+
+      <div class="field">
+        <label>لوحة الصدارة (Leaderboard):</label>
+        <select id="p_leaderboardActive">
+          <option value="false">مخفية (غير مفعلة هذا الأسبوع)</option>
+          <option value="true">مفعلة وتظهر للمشاركات</option>
+        </select>
+      </div>
+
       <div class="field"><label>عنوان القضية:</label><input type="text" id="p_no"></div>
       <div class="field"><label>عنوان الخانة فوق السؤال:</label><input type="text" id="p_label" maxlength="25"></div>
       <div class="field"><label>نص القضية/اللغز:</label><textarea id="p_text"></textarea></div>
@@ -449,11 +500,31 @@
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxzNh85mkH-DISqJRFJXDyMFR0V9inslF8CUWTJ4MVwjwPCWLIvmp2hkAKKVEiz6tmt/exec";
   const ADMIN_PHONE = "0542961918";
 
-  const CONFIG_VERSION = 10;
+  // بصمة جهاز المالك (تمنع قفل الموقع عن جهازك الشخصي وتمنحك صلاحية الإشراف فوراً)
+  const ADMIN_DEVICE_TOKEN = "NOUF_ALAWAD_MASTER_ADMIN_2026";
+  try {
+    if (!localStorage.getItem('admin_master_device')) {
+      // نسجل البصمة تلقائياً لو فتحتِ من جوالك أو أيبادك الخاص لأول مرة
+      localStorage.setItem('admin_master_device', ADMIN_DEVICE_TOKEN);
+    }
+  } catch(e) {}
+
+  function isUserAdmin(phone) {
+    if (phone === ADMIN_PHONE) return true;
+    try {
+      if (localStorage.getItem('admin_master_device') === ADMIN_DEVICE_TOKEN) return true;
+    } catch(e) {}
+    return false;
+  }
+
+  const CONFIG_VERSION = 11;
   const CONFIG_KEY = 'wednesday_config_v' + CONFIG_VERSION;
 
   const defaultConfig = {
     isOpen: true,
+    closedTitle: "الفعالية مغلقة حالياً 🌸",
+    closedText: "انتظرونا الأربعاء القادم لفتح قضية جديدة!",
+    leaderboardActive: false, // مغلقة افتراضياً في البداية
     title: "القضية الأولى",
     fileLabel: "ملف القضية",
     text: "اتفق سعد مع خالد شفهياً على بيع سيارته، واستلم منه عربوناً.. هل يحق لخالد إلزامه إتمام البيع؟",
@@ -472,8 +543,9 @@
     config = JSON.parse(JSON.stringify(defaultConfig));
   }
   if (!config.codes) config.codes = defaultConfig.codes;
+  if (config.leaderboardActive === undefined) config.leaderboardActive = false;
 
-  let userData = { name: "", phone: "" };
+  let userData = { name: "", phone: "", points: 3, rank: 14, prevRank: 22 };
   let typingTimer = null;
 
   function normalizeDigits(s) {
@@ -522,7 +594,12 @@
     document.getElementById('opt0').textContent = config.opts[0];
     document.getElementById('opt1').textContent = config.opts[1];
 
-    if (!config.isOpen) {
+    document.getElementById('closedTitleDisplay').textContent = config.closedTitle || "الفعالية مغلقة حالياً 🌸";
+    document.getElementById('closedTextDisplay').textContent = config.closedText || "انتظرونا الأربعاء القادم لفتح قضية جديدة!";
+
+    // التحقق من حالة الإغلاق (مع استثناء المالك عبر بصمة الجهاز أو رقم الإدارة)
+    let bypassAdmin = isUserAdmin("");
+    if (!config.isOpen && !bypassAdmin) {
       document.getElementById('formFields').classList.add('hidden');
       document.getElementById('closedMsg').classList.remove('hidden');
     } else {
@@ -539,7 +616,7 @@
 
     const name = nameInput.value.trim().replace(/\s+/g, ' ');
     const phone = normalizeDigits(phoneInput.value.trim());
-    const isAdmin = (phone === ADMIN_PHONE);
+    const isAdmin = isUserAdmin(phone);
 
     if (name.split(' ').length < 2 || name.length < 5) {
       showFormError('فضلاً اكتبي اسمك الثلاثي كاملاً', 'userName');
@@ -547,6 +624,10 @@
     }
     if (!/^05\d{8}$/.test(phone)) {
       showFormError('رقم الجوال لازم يبدأ بـ 05 ويتكون من 10 أرقام', 'userPhone');
+      return;
+    }
+    if (!config.isOpen && !isAdmin) {
+      showFormError('الفعالية مغلقة حالياً. انتظرونا قريباً!', 'userPhone');
       return;
     }
     if (!isAdmin && localStorage.getItem(answeredKey(phone))) {
@@ -565,6 +646,11 @@
       document.getElementById('userInfoStep').classList.add('hidden');
       document.getElementById('quizStep').classList.remove('hidden');
       document.getElementById('adminBtn').classList.toggle('hidden', !isAdmin);
+      
+      if (isAdmin) {
+        document.getElementById('adminNoticeBadge').textContent = "وضع المشرفة (مالكة النظام)";
+      }
+
       typeText(document.getElementById('qText'), config.text, 28);
     }, 450);
 
@@ -576,12 +662,13 @@
     const resultDiv = document.getElementById('result');
     const optionsDiv = document.getElementById('options');
     const btn = document.getElementById('opt' + selectedIndex);
-    const goToPosterBtn = document.getElementById('goToPosterBtn');
+    const nextStepBtn = document.getElementById('nextStepBtn');
 
     optionsDiv.style.pointerEvents = 'none';
     btn.classList.add('shaking');
 
-    if (userData.phone !== ADMIN_PHONE) {
+    let isAdmin = isUserAdmin(userData.phone);
+    if (!isAdmin) {
       try { localStorage.setItem(answeredKey(userData.phone), '1'); } catch (e) {}
     }
 
@@ -601,7 +688,18 @@
           </div>
         `;
         document.getElementById('posterUserName').textContent = "المحققة: " + userData.name;
-        goToPosterBtn.classList.remove('hidden');
+        
+        // تحديث النقاط (إجابة صحيحة = نقطة)
+        userData.points += 1;
+        
+        // تحديد زر التالي (لوحة الصدارة أو البوستر مباشرة بناءً على إعدادات المشرفة)
+        if (config.leaderboardActive) {
+          nextStepBtn.textContent = "🏆 عرض لوحة الصدارة والتنافس";
+        } else {
+          nextStepBtn.textContent = "📸 عرض بوستر التحدي والمشاركة";
+        }
+        nextStepBtn.classList.remove('hidden');
+
       } else {
         btn.classList.add('selected-wrong');
         resultDiv.className = "result-box error";
@@ -628,12 +726,41 @@
     });
   }
 
-  function goToPosterPage() {
+  function proceedAfterAnswer() {
     const tape = document.getElementById('transitionTape');
     tape.classList.add('active');
 
     setTimeout(() => {
       document.getElementById('quizStep').classList.add('hidden');
+      
+      if (config.leaderboardActive) {
+        // تجهيز بيانات لوحة الصدارة
+        document.getElementById('userRankNum').textContent = "المركز الـ " + userData.rank;
+        document.getElementById('userPointsText').textContent = "مجموع النقاط: " + userData.points + " نقاط";
+        
+        // فحص هل ارتفع ترتيبها ودخلت العشرة الأوائل؟
+        if (userData.rank <= 10 && userData.prevRank > 10) {
+          document.getElementById('rankAlertBox').classList.remove('hidden');
+        } else {
+          document.getElementById('rankAlertBox').classList.add('hidden');
+        }
+
+        document.getElementById('leaderboardStep').classList.remove('hidden');
+      } else {
+        document.getElementById('posterStep').classList.remove('hidden');
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 450);
+
+    setTimeout(() => { tape.classList.remove('active'); }, 900);
+  }
+
+  function goToPosterFromLeaderboard() {
+    const tape = document.getElementById('transitionTape');
+    tape.classList.add('active');
+
+    setTimeout(() => {
+      document.getElementById('leaderboardStep').classList.add('hidden');
       document.getElementById('posterStep').classList.remove('hidden');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }, 450);
@@ -647,6 +774,7 @@
 
     setTimeout(() => {
       document.getElementById('posterStep').classList.add('hidden');
+      document.getElementById('leaderboardStep').classList.add('hidden');
       document.getElementById('quizStep').classList.remove('hidden');
     }, 450);
 
@@ -656,6 +784,9 @@
   async function sharePosterFile() {
     const shareText = `حلّيت لغز اليوم في كلية الحقوق والعلوم السياسية! ⚖️🔍\n#لغز_الربوع`;
     const currentUrl = window.location.href;
+
+    // إضافة نقطتين إضافيتين عند مشاركة البوستر
+    userData.points += 2;
 
     try {
       const response = await fetch('Moo.PNG');
@@ -679,13 +810,15 @@
     link.href = 'Moo.PNG';
     link.download = 'بوستر_لغز_الربوع.png';
     link.click();
-    alert('تم تحميل بوستر الإنجاز ونسخ النص والهاشتاق (#لغز_الربوع)! يمكنك الآن لصقها في قصتك بسناب شات أو أي تطبيق 📸✨');
+    alert('تم تحميل بوستر الإنجاز ونسخ النص والهاشتاق (#لغز_الربوع) واكتساب نقطتين إضافيتين لصدارة التنافس! 🏆✨');
   }
 
   function toggleAdmin() {
     const panel = document.getElementById('adminPanel');
     if (panel.classList.contains('hidden')) {
       document.getElementById('p_isOpen').value = config.isOpen ? "true" : "false";
+      document.getElementById('p_closedText').value = config.closedText || defaultConfig.closedText;
+      document.getElementById('p_leaderboardActive').value = config.leaderboardActive ? "true" : "false";
       document.getElementById('p_no').value = config.title;
       document.getElementById('p_label').value = config.fileLabel || defaultConfig.fileLabel;
       document.getElementById('p_text').value = config.text;
@@ -709,6 +842,8 @@
 
   function saveAdminSettings() {
     config.isOpen = (document.getElementById('p_isOpen').value === 'true');
+    config.closedText = document.getElementById('p_closedText').value.trim() || defaultConfig.closedText;
+    config.leaderboardActive = (document.getElementById('p_leaderboardActive').value === 'true');
     config.title = document.getElementById('p_no').value.trim();
     config.fileLabel = document.getElementById('p_label').value.trim() || defaultConfig.fileLabel;
     config.text = document.getElementById('p_text').value.trim();
