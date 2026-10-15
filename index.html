@@ -91,10 +91,12 @@
     .club-logo-container {
       text-align: center; margin: 0 auto 6px; position: relative; width: 100%;
       display: flex; justify-content: center; align-items: center;
+      cursor: pointer; /* جعل الشعار قابل للضغط بشكل مخفي */
     }
     .real-logo {
       position: relative; width: 100%; max-width: 260px; height: auto; display: block; margin: 0 auto;
       filter: drop-shadow(0 0 10px rgba(250, 204, 21, 0.5)) brightness(1.08);
+      user-select: none; -webkit-user-drag: none;
     }
 
     .divider {
@@ -232,7 +234,8 @@
     <div class="card" id="userInfoStep">
       <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
 
-      <div class="club-logo-container">
+      <!-- الشعار الآن يعمل كزر مخفي للضغط من قبل المشرفة -->
+      <div class="club-logo-container" onclick="triggerSecretAdminField()">
         <img src="Logo.png" alt="وحدة الإرشاد الأكاديمي" class="real-logo">
       </div>
       <div class="divider"></div>
@@ -254,10 +257,13 @@
           <label>رقم الجوال:</label>
           <input type="tel" id="userPhone" placeholder="05xxxxxxxx" inputmode="numeric" maxlength="10" autocomplete="tel">
         </div>
-        <div class="field" style="margin-top: 8px;">
-          <label style="font-size: 11px; color: rgba(250,204,21,0.6);">كلمة سر الإدارة (خاصة بالمشرفة فقط):</label>
-          <input type="password" id="adminPassInput" placeholder="اكتبي كلمة السر إن كنتِ المشرفة">
+
+        <!-- خانة كلمة سر المشرفة المخفية (تظهر فقط عند الضغط على الشعار) -->
+        <div class="field hidden" id="secretAdminContainer" style="margin-top: 10px; background: rgba(250,204,21,0.08); padding: 8px; border-radius: 8px; border: 1px dashed var(--gold);">
+          <label style="font-size: 11.5px; color: var(--gold-light);">رمز الدخول الإداري (رقم الجوال):</label>
+          <input type="password" id="adminPassInput" placeholder="أدخلي رقم جوال المشرفة">
         </div>
+
         <div class="form-error" id="formError"></div>
         <button class="btn" onclick="startQuizWithTransition()">🔍 فتح ملف القضية</button>
       </div>
@@ -276,7 +282,7 @@
     <div class="card hidden" id="quizStep">
       <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
 
-      <div class="club-logo-container">
+      <div class="club-logo-container" onclick="triggerSecretAdminField()">
         <img src="Logo.png" alt="وحدة الإرشاد الأكاديمي" class="real-logo">
       </div>
       <div class="divider"></div>
@@ -301,7 +307,6 @@
         التالي ➡️
       </button>
 
-      <!-- زر رجوع خاص للمشرفة وللطالبات -->
       <button class="btn" style="background: rgba(255,255,255,0.1); border: 1px solid var(--line); margin-top: 8px;" onclick="returnToHome()">
         ↩️ العودة للرئيسية
       </button>
@@ -316,11 +321,11 @@
       </div>
     </div>
 
-    <!-- 3. صفحة لوحة الصدارة المرتبطة بشيت قوقل -->
+    <!-- 3. صفحة لوحة الصدارة -->
     <div class="card leaderboard-card hidden" id="leaderboardStep">
       <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
       
-      <div class="club-logo-container" style="margin-bottom: 4px;">
+      <div class="club-logo-container" style="margin-bottom: 4px;" onclick="triggerSecretAdminField()">
         <img src="Logo.png" alt="وحدة الإرشاد الأكاديمي" class="real-logo" style="max-width: 130px;">
       </div>
       <div class="divider" style="margin: 6px auto 10px;"></div>
@@ -382,7 +387,7 @@
       </div>
     </div>
 
-    <!-- 5. لوحة التحكم الإدارية -->
+    <!-- 5. لوحة التحكم الإدارية الشاملة -->
     <div class="card hidden admin-panel" id="adminPanel">
       <h2 style="margin-top:0; text-align:center; color:var(--gold-light); font-size: 17px;">🛠️ لوحة تحكم المشرفة</h2>
 
@@ -447,10 +452,9 @@
 
 <script>
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxzNh85mkH-DISqJRFJXDyMFR0V9inslF8CUWTJ4MVwjwPCWLIvmp2hkAKKVEiz6tmt/exec";
-  const ADMIN_PHONE = "0542961918";
-  const ADMIN_SECRET_PASS = "nouf2026";
+  const ADMIN_PHONE = "0542961918"; // رقم جوال المشرفة المعتمد
 
-  const CONFIG_VERSION = 16;
+  const CONFIG_VERSION = 17;
   const CONFIG_KEY = 'wednesday_config_v' + CONFIG_VERSION;
 
   const defaultConfig = {
@@ -482,14 +486,27 @@
 
   function normalizeDigits(s) {
     return s.replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d))
-            .replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d));
+            .replace(/[۰-۹]/g, d => '۰۱۲3456789'.indexOf(d));
   }
 
   function answeredKey(phone) { return 'answered_' + config.title + '_' + phone; }
   function lastCodeKey() { return 'last_given_code_' + config.title; }
 
+  // الضغط المخفي على الشعار لإظهار خانة الرمز السري
+  function triggerSecretAdminField() {
+    const container = document.getElementById('secretAdminContainer');
+    if (container) {
+      container.classList.toggle('hidden');
+      if (!container.classList.contains('hidden')) {
+        document.getElementById('adminPassInput').focus();
+      }
+    }
+  }
+
   function isUserAdmin(phone = "", pass = "") {
-    if (phone === ADMIN_PHONE || pass === ADMIN_SECRET_PASS) return true;
+    let cleanPass = normalizeDigits(pass.trim());
+    let cleanPhone = normalizeDigits(phone.trim());
+    if (cleanPhone === ADMIN_PHONE || cleanPass === ADMIN_PHONE) return true;
     try {
       if (localStorage.getItem('is_nouf_admin') === 'true') return true;
     } catch(e) {}
@@ -627,7 +644,6 @@
     btn.classList.add('shaking');
 
     let isAdmin = isUserAdmin();
-    // المشرفة يمكنها التجربة بأكثر من إجابة بدون حظر التكرار أو التأثير على السجلات العامة
     if (!isAdmin) {
       try { localStorage.setItem(answeredKey(userData.phone), '1'); } catch (e) {}
     }
@@ -649,7 +665,6 @@
         `;
         document.getElementById('posterUserName').textContent = "المحققة: " + userData.name;
         
-        // إرسال البيانات للرابط (إذا لم تكن المشرفة تجرب)
         if (!isAdmin) {
           userData.points += 1;
           sendDataToSheet(userData.name, userData.phone, config.opts[selectedIndex], true, 1);
@@ -839,7 +854,6 @@
     let newCodes = [];
     for (let i = 0; i < 5; i++) {
       let val = document.getElementById('p_code' + i).value.trim();
-      if (val) newCodes.val = val;
       if (val) newCodes.push(val);
     }
     config.codes = newCodes.length > 0 ? newCodes : ["حقوق_2026"];
