@@ -1,560 +1,959 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لغز الربوع القانوني</title>
-    <!-- خط تجوال الأنيق -->
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #4A148C;
-            --primary-light: #7B1FA1;
-            --accent: #E1BEE7;
-            --bg-color: #F3E5F5;
-            --card-bg: #FFFFFF;
-            --text-main: #2C2C2C;
-            --text-secondary: #666666;
-            --success: #2E7D32;
-            --error: #C62828;
-            --border-radius: 16px;
-        }
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
+  <title>لغز الربوع - لغز اليوم</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #07010f;
+      --purple: #a855f7;
+      --purple-deep: #6b21a8;
+      --purple-neon: #e9d5ff;
+      --white-pure: #ffffff;
+      --white-soft: #f3e8ff;
+      --gold: #facc15;
+      --gold-dark: #ca8a04;
+      --gold-light: #fef08a;
+      --card-bg: rgba(14, 5, 28, 0.95);
+      --line: rgba(250, 204, 21, 0.45);
+    }
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Tajawal', sans-serif;
-            transition: all 0.25s ease;
-        }
+    html {
+      background-color: var(--bg-dark);
+      height: 100%;
+      overscroll-behavior-y: none;
+    }
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px;
-        }
+    body {
+      margin: 0; padding: 0;
+      width: 100%; min-height: 100vh;
+      font-family: 'Tajawal', sans-serif;
+      color: #fff;
+      background-color: var(--bg-dark);
+      background-image:
+        radial-gradient(ellipse 60% 45% at 50% 0%, rgba(250, 204, 21, 0.08) 0%, transparent 70%),
+        radial-gradient(circle at 50% 35%, rgba(168, 85, 247, 0.28) 0%, transparent 60%),
+        radial-gradient(circle at center, #1d0438 0%, var(--bg-dark) 100%);
+      background-attachment: fixed;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+    }
 
-        .container {
-            width: 100%;
-            max-width: 480px;
-            background: var(--card-bg);
-            border-radius: var(--border-radius);
-            box-shadow: 0 10px 30px rgba(74, 20, 140, 0.08);
-            padding: 24px;
-            margin: auto 0;
-            position: relative;
-            overflow: hidden;
-        }
+    body::before {
+      content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+      background: repeating-linear-gradient(0deg, rgba(255,255,255,0.02) 0, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 4px);
+    }
 
-        /* رأس الصفحة والشعار */
-        .header {
-            text-align: center;
-            margin-bottom: 24px;
-            cursor: pointer;
-        }
+    .transition-tape {
+      position: fixed; top: 50%; left: -150%; width: 140%; height: 64px;
+      background: repeating-linear-gradient(-45deg, #facc15, #facc15 25px, #000 25px, #000 50px);
+      z-index: 999; transform: translateY(-50%) rotate(-8deg);
+      box-shadow: 0 0 50px rgba(0,0,0,0.9);
+      display: flex; align-items: center; justify-content: center;
+      transition: left 0.4s ease-in-out; pointer-events: none; visibility: hidden;
+    }
+    .transition-tape span { background: #000; color: #facc15; font-size: 18px; font-weight: 900; padding: 4px 18px; letter-spacing: 2px; }
+    .transition-tape.active { left: -10%; visibility: visible; }
 
-        .logo-img {
-            width: 70px;
-            height: 70px;
-            object-fit: contain;
-            margin-bottom: 12px;
-            border-radius: 50%;
-            box-shadow: 0 4px 12px rgba(74, 20, 140, 0.12);
-        }
+    .app-wrapper {
+      position: relative; width: 100%; max-width: 440px; z-index: 2;
+      padding: 20px 14px; display: flex; flex-direction: column; align-items: center;
+    }
 
-        .header h1 {
-            font-size: 1.5rem;
-            color: var(--primary);
-            font-weight: 800;
-            margin-bottom: 6px;
-        }
+    .card {
+      background: linear-gradient(180deg, rgba(250,204,21,0.07) 0%, transparent 25%), var(--card-bg);
+      border: 1.5px solid rgba(250, 204, 21, 0.5);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border-radius: 20px;
+      padding: 26px 18px 20px;
+      width: 100%;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.7), inset 0 0 25px rgba(250, 204, 21, 0.08);
+      position: relative; z-index: 2;
+    }
+    .corner { position: absolute; width: 16px; height: 16px; border: 2.5px solid var(--gold); pointer-events: none; }
+    .corner.tl { top: 10px; right: 10px; border-left: none; border-bottom: none; border-top-right-radius: 4px; }
+    .corner.tr { top: 10px; left: 10px; border-right: none; border-bottom: none; border-top-left-radius: 4px; }
+    .corner.bl { bottom: 10px; right: 10px; border-left: none; border-top: none; border-bottom-right-radius: 4px; }
+    .corner.br { bottom: 10px; left: 10px; border-right: none; border-top: none; border-bottom-left-radius: 4px; }
 
-        .header p {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            font-weight: 300;
-        }
+    .status-bar {
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      font-size: 11px; font-weight: 700; color: var(--gold-light); margin-bottom: 6px;
+    }
+    .status-bar i {
+      width: 7px; height: 7px; border-radius: 50%; background: #facc15;
+      box-shadow: 0 0 6px #facc15; animation: blink 1.2s infinite;
+    }
+    @keyframes blink { 50% { opacity: 0.25; } }
 
-        /* الحقول والنماذج */
-        .form-group {
-            margin-bottom: 16px;
-        }
+    .club-logo-container {
+      text-align: center; margin: 0 auto 6px; position: relative; width: 100%;
+      display: flex; justify-content: center; align-items: center;
+      cursor: pointer;
+    }
+    .real-logo {
+      position: relative; width: 100%; max-width: 260px; height: auto; display: block; margin: 0 auto;
+      filter: drop-shadow(0 0 10px rgba(250, 204, 21, 0.5)) brightness(1.08);
+      user-select: none; -webkit-user-drag: none;
+    }
 
-        label {
-            display: block;
-            margin-bottom: 6px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
+    .divider {
+      height: 2px; margin: 10px auto 14px; width: 70%;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
 
-        input[type="text"],
-        input[type="tel"],
-        textarea {
-            width: 100%;
-            padding: 12px 16px;
-            border: 2px solid #E0E0E0;
-            border-radius: 12px;
-            font-size: 0.95rem;
-            outline: none;
-            background: #FAFAFA;
-        }
+    h1.main-title {
+      margin: 2px 0 4px; text-align: center; font-size: 24px; font-weight: 900;
+      background: linear-gradient(180deg, #fff 30%, var(--gold-light) 100%);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    p.sub { text-align: center; color: rgba(255,255,255,0.78); margin: 0 0 16px; font-size: 12px; }
 
-        input:focus, textarea:focus {
-            border-color: var(--primary);
-            background: #FFF;
-            box-shadow: 0 0 0 3px rgba(74, 20, 140, 0.1);
-        }
+    .field { margin-bottom: 12px; }
+    label { display: block; margin-bottom: 4px; font-weight: 700; font-size: 12.5px; color: var(--gold-light); }
+    input[type="text"], input[type="tel"], input[type="password"], textarea, select {
+      width: 100%; padding: 10px 12px; border-radius: 10px; border: 1.5px solid var(--line);
+      background: rgba(8, 2, 18, 0.85); color: #fff; font-size: 16px; font-family: inherit;
+      outline: none; transition: 0.3s;
+    }
+    input:focus, textarea:focus, select:focus { border-color: var(--gold); box-shadow: 0 0 12px rgba(250, 204, 21, 0.35); }
+    input.invalid { border-color: #f87171; }
+    textarea { resize: vertical; height: 60px; }
 
-        /* الخيارات المتعددة */
-        .options-container {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
+    .form-error { color: #fca5a5; font-size: 12px; text-align: center; min-height: 16px; margin: 2px 0; }
 
-        .option-label {
-            display: flex;
-            align-items: center;
-            padding: 12px 16px;
-            border: 2px solid #E0E0E0;
-            border-radius: 12px;
-            cursor: pointer;
-            background: #FAFAFA;
-            font-size: 0.95rem;
-            font-weight: 500;
-        }
+    .btn {
+      width: 100%; padding: 12px; border: none; border-radius: 10px;
+      background: linear-gradient(135deg, #ca8a04, #854d0e);
+      border-bottom: 3px solid var(--gold);
+      color: #fff; font-size: 15px; font-weight: 800; font-family: inherit;
+      cursor: pointer; margin-top: 6px; transition: 0.3s;
+      box-shadow: 0 4px 16px rgba(202, 138, 4, 0.4);
+    }
+    .btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(250, 204, 21, 0.6); }
 
-        .option-label:hover {
-            border-color: var(--accent);
-            background: #F9F2FB;
-        }
+    .admin-luxury-nav {
+      margin-top: 14px; padding: 10px; border-radius: 12px;
+      background: linear-gradient(135deg, rgba(250,204,21,0.15), rgba(107,33,168,0.25));
+      border: 1.5px solid var(--gold);
+      display: flex; gap: 6px; justify-content: space-between; align-items: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    }
+    .admin-nav-btn {
+      flex: 1; padding: 8px 6px; border-radius: 8px; border: 1px solid rgba(250,204,21,0.5);
+      background: rgba(0,0,0,0.4); color: var(--gold-light); font-size: 11.5px; font-weight: 800;
+      cursor: pointer; font-family: inherit; text-align: center; transition: 0.25s;
+    }
+    .admin-nav-btn:hover { background: var(--gold); color: #000; box-shadow: 0 0 10px var(--gold); }
+    .admin-nav-btn.gold-hl { background: var(--gold); color: #000; border-color: #fff; }
 
-        input[type="radio"] {
-            margin-left: 12px;
-            accent-color: var(--primary);
-            transform: scale(1.2);
-        }
+    .case-meta {
+      display: flex; justify-content: center; gap: 8px; margin-bottom: 4px;
+      font-family: sans-serif; font-size: 10px; letter-spacing: 1px; color: var(--gold-light);
+    }
 
-        /* الأزرار الرئيسية */
-        .btn {
-            width: 100%;
-            padding: 14px;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(74, 20, 140, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
+    .magnifier-lens {
+      border: 1.5px solid var(--gold); border-right: 4px solid var(--white-pure);
+      border-radius: 12px; padding: 16px 14px 14px;
+      background: linear-gradient(135deg, rgba(250, 204, 21, 0.12), rgba(168, 85, 247, 0.04));
+      box-shadow: inset 0 0 20px rgba(250, 204, 21, 0.15);
+      margin: 4px 0 14px; position: relative; min-height: 85px;
+    }
+    .magnifier-lens::before {
+      content: attr(data-label); position: absolute; top: -9px; right: 14px;
+      background: var(--gold); color: #14081f; font-size: 10px; font-weight: 900;
+      padding: 1px 8px; border-radius: 4px;
+    }
+    .question-zoom { font-size: 15px; font-weight: 700; line-height: 1.6; color: #fff; }
+    .question-zoom.typing::after { content: "▌"; color: var(--gold); animation: blink 0.8s infinite; margin-right: 2px; }
 
-        .btn:hover {
-            background: var(--primary-light);
-            transform: translateY(-1px);
-        }
+    .opt-btn {
+      width: 100%; padding: 12px; margin-bottom: 9px; border-radius: 10px;
+      border: 1.5px solid rgba(250, 204, 21, 0.3); background: rgba(250, 204, 21, 0.04);
+      color: #fff; font-size: 14.5px; font-weight: 700; cursor: pointer; text-align: center;
+      font-family: inherit; transition: all 0.25s ease;
+    }
+    .opt-btn:hover { background: rgba(250, 204, 21, 0.15); border-color: var(--gold); }
 
-        .btn-secondary {
-            background: transparent;
-            color: var(--primary);
-            border: 2px solid var(--primary);
-            margin-top: 10px;
-            box-shadow: none;
-        }
+    @keyframes shake {
+      0% { transform: translateX(0); } 20% { transform: translateX(-6px); }
+      40% { transform: translateX(6px); } 60% { transform: translateX(-6px); }
+      80% { transform: translateX(6px); } 100% { transform: translateX(0); }
+    }
+    .shaking { animation: shake 0.4s ease-in-out; }
+    .opt-btn.selected-correct { background: rgba(34, 197, 94, 0.35) !important; border-color: #22c55e !important; box-shadow: 0 0 16px rgba(34, 197, 94, 0.6) !important; }
+    .opt-btn.selected-wrong { background: rgba(239, 68, 68, 0.35) !important; border-color: #ef4444 !important; box-shadow: 0 0 16px rgba(239, 68, 68, 0.6) !important; }
 
-        .btn-secondary:hover {
-            background: rgba(74, 20, 140, 0.05);
-        }
+    .result-box { margin-top: 14px; padding: 16px 12px; border-radius: 10px; text-align: center; line-height: 1.5; }
+    .result-box h3 { margin: 4px 0; font-size: 15px; }
+    .result-box p { font-size: 13px; }
+    .success { background: rgba(34, 197, 94, 0.15); border: 1.5px solid #22c55e; }
+    .error { background: rgba(239, 68, 68, 0.15); border: 1.5px solid #ef4444; }
 
-        /* لوحة الصدارة */
-        .leaderboard-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-            font-size: 0.9rem;
-        }
+    .verdict-stamp {
+      display: inline-block; font-weight: 900; font-size: 13px; letter-spacing: 1px;
+      padding: 2px 12px; border: 2px solid; border-radius: 6px; transform: rotate(-4deg); margin-bottom: 4px;
+    }
+    .success .verdict-stamp { color: #4ade80; border-color: #4ade80; }
+    .error .verdict-stamp { color: #f87171; border-color: #f87171; }
 
-        .leaderboard-table th, .leaderboard-table td {
-            padding: 10px;
-            text-align: center;
-            border-bottom: 1px solid #EEE;
-        }
+    .promo-box { background: rgba(250, 204, 21, 0.08); border: 1.5px dashed var(--gold); padding: 8px; border-radius: 8px; margin-top: 8px; font-size: 13px; }
+    .promo-box strong { color: var(--gold-light); font-size: 16px; letter-spacing: 1px; }
 
-        .leaderboard-table th {
-            background: var(--primary);
-            color: white;
-            font-weight: 600;
-        }
+    .poster-page-card, .leaderboard-card { text-align: center; padding: 18px 14px; }
+    .poster-img-container {
+      position: relative; width: 100%; border-radius: 12px; overflow: hidden;
+      border: 2px solid var(--gold); box-shadow: 0 0 25px rgba(250,204,21,0.25);
+      margin-bottom: 10px; background: #000;
+    }
+    .poster-img { width: 100%; height: auto; display: block; }
+    .poster-user-box {
+      background: rgba(250, 204, 21, 0.1); border: 1.5px solid var(--gold);
+      color: var(--gold-light); font-weight: 800; font-size: 13.5px;
+      padding: 7px 12px; border-radius: 8px; margin-bottom: 10px; text-align: center;
+    }
 
-        .leaderboard-table tr:nth-child(even) {
-            background: #FAF5FB;
-        }
+    .leaderboard-title { font-size: 17px; font-weight: 900; color: var(--gold-light); margin-bottom: 8px; }
+    .rank-box { background: rgba(250, 204, 21, 0.08); border: 1.5px solid var(--gold); border-radius: 10px; padding: 12px; margin-bottom: 10px; }
+    .rank-number { font-size: 26px; font-weight: 900; color: #fff; margin: 2px 0; }
 
-        .leaderboard-note {
-            font-size: 0.78rem;
-            color: var(--text-secondary);
-            text-align: center;
-            margin-top: 12px;
-            font-weight: 300;
-            line-height: 1.4;
-        }
+    .points-info-box {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px dashed rgba(250, 204, 21, 0.35);
+      border-radius: 10px;
+      padding: 10px 12px;
+      margin-bottom: 12px;
+      text-align: right;
+      font-size: 11.5px;
+      color: rgba(255, 255, 255, 0.82);
+      line-height: 1.6;
+      font-weight: 400;
+    }
+    .points-info-box strong { color: var(--gold-light); font-weight: 700; }
 
-        /* الشارة والبوستر */
-        .poster-card {
-            background: linear-gradient(135deg, #4A148C, #7B1FA1);
-            color: white;
-            border-radius: var(--border-radius);
-            padding: 24px;
-            text-align: center;
-            margin-bottom: 20px;
-            box-shadow: 0 8px 25px rgba(74, 20, 140, 0.25);
-        }
+    .hidden { display: none !important; }
 
-        .poster-logo {
-            width: 60px;
-            height: 60px;
-            object-fit: contain;
-            margin-bottom: 12px;
-            border-radius: 50%;
-            background: white;
-            padding: 4px;
-        }
+    .admin-panel { background: rgba(10, 3, 20, 0.97); border: 2px solid var(--gold); margin-top: 12px; }
+    .row { display: flex; gap: 6px; }
+    .row > div { flex: 1; }
 
-        /* التوقيع */
-        footer {
-            margin-top: 20px;
-            text-align: center;
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-        }
-
-        footer a {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        /* رسائل الحالة */
-        .alert {
-            padding: 12px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            font-size: 0.9rem;
-            text-align: center;
-            font-weight: 500;
-        }
-        .alert-success { background: #E8F5E9; color: var(--success); }
-        .alert-error { background: #FFEBEE; color: var(--error); }
-    </style>
+    .signature { text-align: center; font-size: 10px; color: rgba(255,255,255,0.55); margin-top: 14px; letter-spacing: 0.5px; line-height: 1.5; }
+    .signature a { color: var(--gold-light); text-decoration: none; border-bottom: 1px dashed rgba(254,240,138,0.5); }
+  </style>
 </head>
 <body>
 
-    <div class="container">
-        <!-- رأس الصفحة التفاعلي (الضغط عليه يفتح تسجيل الدخول للإدارة) -->
-        <div class="header" id="mainHeader" onclick="handleHeaderClick()">
-            <img src="Logo.png" alt="الشعار" class="logo-img" onerror="this.src='https://via.placeholder.50/70'">
-            <h1 id="headerTitle">لغز الربوع القانوني</h1>
-            <p id="headerSubtitle">اختبر معلوماتك القانونية واكسب النقاط الأسبوعية</p>
+  <div class="transition-tape" id="transitionTape"><span>🔍 جاري الانتقال...</span></div>
+
+  <div class="app-wrapper">
+
+    <!-- 1. واجهة إدخال البيانات -->
+    <div class="card" id="userInfoStep">
+      <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+
+      <!-- الشعار الأساسي المفتاح السري -->
+      <div class="club-logo-container" onclick="triggerSecretAdminField()">
+        <img src="Logo.png" alt="وحدة الإرشاد الأكاديمي" class="real-logo">
+      </div>
+      <div class="divider"></div>
+
+      <h1 class="main-title">لغز الربوع 🕵️‍♀️</h1>
+      <p class="sub">شاركي معنا حل لغز اليوم واحصلي على هديتك</p>
+
+      <!-- الخانة السريّة للمشرفة نوف -->
+      <div class="field hidden" id="secretAdminContainer" style="margin: 10px 0; background: rgba(250,204,21,0.08); padding: 12px; border-radius: 12px; border: 1.5px dashed var(--gold);">
+        <label style="font-size: 12.5px; color: var(--gold-light);">أدخلي كلمة السر الإدارية الخاصّة بكِ:</label>
+        <input type="password" id="adminPassInput" placeholder="••••••••••">
+        <button class="btn" style="margin-top: 8px; padding: 10px; font-size: 13.5px; background: linear-gradient(135deg, #a855f7, #6b21a8); border-color: #e9d5ff;" onclick="verifyAdminSecret()">🔓 تفعيل وضع المشرفة الملكة نوف</button>
+      </div>
+
+      <div id="closedMsg" class="hidden" style="text-align: center; color: #fca5a5; padding: 12px 0;">
+        <h3 id="closedTitleDisplay" style="font-weight: 900; font-size: 16px; margin: 0 0 4px;">الفعالية مغلقة حالياً 🌸</h3>
+        <p id="closedTextDisplay" style="font-size: 12.5px; margin: 0; opacity: 0.9;">انتظرونا الأربعاء القادم لفتح قضية جديدة!</p>
+      </div>
+
+      <div id="formFields">
+        <div class="field">
+          <label>الاسم الثلاثي:</label>
+          <input type="text" id="userName" placeholder="أدخلي اسمك الكامل" autocomplete="name">
+        </div>
+        <div class="field">
+          <label>رقم الجوال:</label>
+          <input type="tel" id="userPhone" placeholder="05xxxxxxxx" inputmode="numeric" maxlength="10" autocomplete="tel">
         </div>
 
-        <!-- محتوى التطبيق -->
-        <div id="appView">
-            <div id="quizSection">
-                <form id="puzzleForm" onsubmit="submitAnswer(event)">
-                    <div class="form-group">
-                        <label for="fullName">الاسم الكامل:</label>
-                        <input type="text" id="fullName" required placeholder="أدخل اسمك الكريم">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="phoneNumber">رقم الجوال:</label>
-                        <input type="tel" id="phoneNumber" required placeholder="05xxxxxxxx" pattern="05[0-9]{8}">
-                    </div>
+        <div class="form-error" id="formError"></div>
+        <button class="btn" onclick="startQuizWithTransition()">🔍 فتح ملف القضية</button>
+      </div>
 
-                    <div class="form-group">
-                        <label>اختر الإجابة الصحيحة:</label>
-                        <div class="options-container" id="optionsContainer">
-                            <!-- يتم تعبئة الخيارات ديناميكياً -->
-                        </div>
-                    </div>
+      <div class="admin-luxury-nav hidden" id="adminNavRowHome">
+        <button class="admin-nav-btn" onclick="navigateToStep('quizStep')">القضية ⬅️</button>
+        <button class="admin-nav-btn" onclick="navigateToStep('leaderboardStep')">الصدارة</button>
+        <button class="admin-nav-btn" onclick="navigateToStep('posterStep')">البوستر ➡️</button>
+        <button class="admin-nav-btn gold-hl" onclick="toggleAdminPanel()">⚙️ اللوحة</button>
+      </div>
 
-                    <button type="submit" class="btn">إرسال الإجابة 🚀</button>
-                </form>
-                <button class="btn btn-secondary" onclick="showLeaderboard()">لوحة الصدارة 🏆</button>
-            </div>
-
-            <!-- شاشة النتيجة والبوستر -->
-            <div id="resultSection" class="hidden">
-                <div class="poster-card" id="posterArea">
-                    <img src="Moo.PNG" alt="Moo Logo" class="poster-logo" onerror="this.style.display='none'">
-                    <h2>إنجاز متميز! 🎉</h2>
-                    <p id="resultMessageText" style="margin: 10px 0; font-size: 1.05rem;"></p>
-                    <div id="rewardCodeBox" style="background: rgba(255,255,255,0.15); padding: 8px; border-radius: 8px; margin-top: 10px; font-weight: bold;" class="hidden">
-                        كود المكافأة: <span id="codeValue"></span>
-                    </div>
-                </div>
-                <button class="btn" onclick="shareOnLeaderboard()">مشاركة الإنجاز على لوحة الصدارة 🌟</button>
-                <button class="btn btn-secondary" onclick="resetToHome()">العودة للرئيسية ↩️</button>
-            </div>
-
-            <!-- لوحة الصدارة -->
-            <div id="leaderboardSection" class="hidden">
-                <h3 style="color: var(--primary); text-align: center; margin-bottom: 10px;">لوحة صدارة المتسابقات 🏆</h3>
-                <div id="leaderboardContent">
-                    <table class="leaderboard-table">
-                        <thead>
-                            <tr>
-                                <th>المركز</th>
-                                <th>الاسم</th>
-                                <th>النقاط</th>
-                            </tr>
-                        </thead>
-                        <tbody id="leaderboardBody">
-                            <!-- بيانات المتصدرات -->
-                        </tbody>
-                    </table>
-                </div>
-                <p class="leaderboard-note">
-                  * تُحتسب النقاط تلقائياً: نقطة للإجابة الصحيحة، ونقطتان عند مشاركة البوستر. يرجى التأكد من استخدام نفس رقم الجوال في كل مشاركة.
-                </p>
-                <button class="btn btn-secondary" style="margin-top: 15px;" onclick="resetToHome()">↩️ العودة</button>
-            </div>
-
-            <!-- لوحة التحكم للإدارة -->
-            <div id="adminSection" class="hidden">
-                <h3 style="color: var(--primary); margin-bottom: 15px; text-align: center;">لوحة التحكم الإدارية ⚙️</h3>
-                <div id="adminAlert"></div>
-                <form id="adminForm" onsubmit="saveAdminConfig(event)">
-                    <div class="form-group">
-                        <label>عنوان الترويسة الرئيسي (الكبير):</label>
-                        <input type="text" id="cfgTitle" required>
-                    </div>
-                    <div class="form-group">
-                        <label>النص التفصيلي للترويسة (الصغير):</label>
-                        <input type="text" id="cfgSubtitle" required>
-                    </div>
-                    <div class="form-group">
-                        <label>نص السؤال القانوني:</label>
-                        <textarea id="cfgQuestion" rows="3" required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>الخيارات (مفصولة بفاصلة ,):</label>
-                        <input type="text" id="cfgOptions" required>
-                    </div>
-                    <div class="form-group">
-                        <label>الإجابة الصحيحة بالضبط:</label>
-                        <input type="text" id="cfgCorrect" required>
-                    </div>
-                    <div class="form-group">
-                        <label>كود المكافأة العشوائي (اختياري):</label>
-                        <input type="text" id="cfgReward">
-                    </div>
-                    <div class="form-group">
-                        <label>حالة الإغلاق والتفعيل:</label>
-                        <select id="cfgStatus" style="width: 100%; padding: 12px; border-radius: 12px; border: 2px solid #E0E0E0;">
-                            <option value="open">مفتوح للمشاركات</option>
-                            <option value="closed">مغلق</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn">حفظ وتحديث الإعدادات 💾</button>
-                    <button type="button" class="btn btn-secondary" onclick="resetToHome()">خروج من الإدارة ↩️</button>
-                </form>
-            </div>
-        </div>
+      <div class="signature">
+        &copy; 2026 Nouf Alawad - نوف آل عواض<br>
+        <span>لكل فكرة صدى.. نسعد بملاحظاتكم عبر: <a href="mailto:Noufalawad20@gmail.com?subject=%Dبشأن%20لغز%20الربوع">Noufalawad20@gmail.com</a></span>
+      </div>
     </div>
 
-    <footer>
-        تصميم وبرمجة <a href="mailto:nouf@ksu.edu.sa?subject=%D8%A8%D8%B4%D8%A3%D9%86%20%D9%84%D8%BA%D8%B2%20%D8%A7%D9%84%D8%B1%D8%A8%D9%88%D8%B9">نوف آل عواض</a>
-    </footer>
+    <!-- 2. واجهة اللغز -->
+    <div class="card hidden" id="quizStep">
+      <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
 
-    <script>
-        // رابط جوجل سكربت المحدث الخاص بكِ
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwiCqawkND2QY-Z7-O5e48vF1BAtxmcysYNrI5sUOZYiaV2QZAs6QgaIDNxVvFgTH2a/exec";
-        const ADMIN_PHONE = "0542961918";
+      <div class="club-logo-container" onclick="triggerSecretAdminField()">
+        <img src="Logo.png" alt="وحدة الإرشاد الأكاديمي" class="real-logo">
+      </div>
+      <div class="divider"></div>
 
-        // إعدادات افتراضية
-        let defaultConfig = {
-            title: "لغز الربوع القانوني",
-            subtitle: "اختبر معلوماتك القانونية واكسب النقاط الأسبوعية",
-            question: "ما هو الشرط الأساسي لصحة عقد العمل حسب نظام العمل السعودي؟",
-            options: ["التسجيل في التأمينات", "أن يكون مكتوباً ومن نسختين", "توثيقه عبر منصة قوى", "موافقة مكتب العمل"],
-            correct: "أن يكون مكتوباً ومن نسختين",
-            reward: "NUOF2026",
-            status: "open"
-        };
+      <div class="status-bar"><i></i> <span id="adminNoticeBadge">قيد التحقيق</span></div>
+      <div class="case-meta"><span>CASE FILE</span><span>•</span><span>DETECTIVE UNIT</span></div>
+      <h1 class="main-title" id="qTitle">قضية اليوم</h1>
+      <p class="sub">تحت عدسة التحقيق 🔍</p>
 
-        let currentConfig = JSON.parse(localStorage.getItem("wednesday_config_v28")) || defaultConfig;
-        let lastSubmission = null;
+      <div class="magnifier-lens" id="lens" data-label="ملف القضية">
+        <div class="question-zoom" id="qText"></div>
+      </div>
 
-        window.onload = function() {
-            applyConfigToUI();
-            renderOptions();
-        };
+      <div id="options">
+        <button class="opt-btn" id="opt0" onclick="submitAnswerInteractive(0)"></button>
+        <button class="opt-btn" id="opt1" onclick="submitAnswerInteractive(1)"></button>
+      </div>
 
-        function applyConfigToUI() {
-            document.getElementById("headerTitle").innerText = currentConfig.title;
-            document.getElementById("headerSubtitle").innerText = currentConfig.subtitle;
+      <div id="result" class="result-box hidden"></div>
+      
+      <button id="nextStepBtn" class="btn hidden" style="background: linear-gradient(135deg, #eab308, #a16207); margin-top: 12px;" onclick="proceedAfterAnswer()">
+        التالي ➡️
+      </button>
+
+      <div class="admin-luxury-nav hidden" id="adminNavRowQuiz">
+        <button class="admin-nav-btn" onclick="navigateToStep('userInfoStep')">⬅️ الرئيسية</button>
+        <button class="admin-nav-btn" onclick="navigateToStep('leaderboardStep')">الصدارة ➡️</button>
+        <button class="admin-nav-btn" onclick="navigateToStep('posterStep')">البوستر</button>
+        <button class="admin-nav-btn gold-hl" onclick="toggleAdminPanel()">⚙️ اللوحة</button>
+      </div>
+
+      <div class="signature">
+        &copy; 2026 Nouf Alawad - نوف آل عواض<br>
+        <span>لكل فكرة صدى.. نسعد بملاحظاتكم عبر: <a href="mailto:Noufalawad20@gmail.com?subject=%Dبشأن%20لغز%20الربوع">Noufalawad20@gmail.com</a></span>
+      </div>
+    </div>
+
+    <!-- 3. صفحة لوحة الصدارة -->
+    <div class="card leaderboard-card hidden" id="leaderboardStep">
+      <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+      
+      <div class="club-logo-container" style="margin-bottom: 4px;" onclick="triggerSecretAdminField()">
+        <img src="Logo.png" alt="وحدة الإرشاد الأكاديمي" class="real-logo" style="max-width: 130px;">
+      </div>
+      <div class="divider" style="margin: 6px auto 10px;"></div>
+
+      <h2 class="leaderboard-title">⚖️ نافسي على المراكز الثلاثة الأولى.. الهدية أكبر بكثيرررر 😉🔥</h2>
+
+      <div class="rank-box">
+        <div style="font-size: 12px; color: var(--gold-light);">نقاطك الحالية في المنافسة:</div>
+        <div class="rank-number" id="userPointsText">جاري جلب النقاط...</div>
+      </div>
+
+      <div class="points-info-box">
+        <strong>💡 آلية احتساب النقاط:</strong><br>
+        • <strong>نقطة واحدة</strong> لكل إجابة صحيحة.<br>
+        • <strong>نقطتان</strong> عند مشاركة بوستر الإنجاز.<br>
+        <span style="font-size: 10.5px; opacity: 0.8; display: block; margin-top: 4px;">*(يرجى الدخول بنفس رقم الجوال دائماً لضمان احتساب النقاط)*</span>
+      </div>
+
+      <button class="btn" style="background: linear-gradient(135deg, #eab308, #a16207);" onclick="goToPosterFromLeaderboard()">
+        📸 عرض بوستر التحدي والإنجاز
+      </button>
+
+      <div class="admin-luxury-nav hidden" id="adminNavRowBoard">
+        <button class="admin-nav-btn" onclick="navigateToStep('userInfoStep')">الرئيسية</button>
+        <button class="admin-nav-btn" onclick="navigateToStep('quizStep')">⬅️ القضية</button>
+        <button class="admin-nav-btn" onclick="navigateToStep('posterStep')">البوستر ➡️</button>
+        <button class="admin-nav-btn gold-hl" onclick="toggleAdminPanel()">⚙️ اللوحة</button>
+      </div>
+
+      <div class="signature">
+        &copy; 2026 Nouf Alawad - نوف آل عواض<br>
+        <span>لكل فكرة صدى.. نسعد بملاحظاتكم عبر: <a href="mailto:Noufalawad20@gmail.com?subject=%Dبشأن%20لغز%20الربوع">Noufalawad20@gmail.com</a></span>
+      </div>
+    </div>
+
+    <!-- 4. صفحة البوستر والمشاركة -->
+    <div class="card poster-page-card hidden" id="posterStep">
+      <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+
+      <div class="poster-img-container">
+        <img src="Moo.PNG" alt="بوستر لغز الربوع" class="poster-img" id="posterImageElement">
+      </div>
+
+      <div class="poster-user-box" id="posterUserName">المحققة: </div>
+
+      <p style="font-size: 12px; color: var(--gold-light); margin: 0 0 8px; font-weight: 700;">
+        شاركي بوستر إنجازكِ وتحدّي زميلاتكِ في الكلية على لوحة الصدارة:
+      </p>
+
+      <button class="btn" style="background: linear-gradient(135deg, #eab308, #a16207);" onclick="sharePosterFile()">
+        🔗 مشاركة أو حفظ البوستر
+      </button>
+
+      <button class="btn" id="userBackFromPosterBtn" style="background: rgba(255,255,255,0.1); border: 1px solid var(--line); margin-top: 6px;" onclick="returnFromPosterForUser()">
+        ↩️ العودة
+      </button>
+
+      <div class="admin-luxury-nav hidden" id="adminNavRowPoster">
+        <button class="admin-nav-btn" onclick="navigateToStep('userInfoStep')">الرئيسية</button>
+        <button class="admin-nav-btn" onclick="navigateToStep('quizStep')">القضية</button>
+        <button class="admin-nav-btn" onclick="navigateToStep('leaderboardStep')">⬅️ الصدارة</button>
+        <button class="admin-nav-btn gold-hl" onclick="toggleAdminPanel()">⚙️ اللوحة</button>
+      </div>
+
+      <div class="signature">
+        &copy; 2026 Nouf Alawad - نوف آل عواض<br>
+        <span>لكل فكرة صدى.. نسعد بملاحظاتكم عبر: <a href="mailto:Noufalawad20@gmail.com?subject=%Dبشأن%20لغز%20الربوع">Noufalawad20@gmail.com</a></span>
+      </div>
+    </div>
+
+    <!-- 5. لوحة التحكم الإدارية الشاملة -->
+    <div class="card hidden admin-panel" id="adminPanel">
+      <h2 style="margin-top:0; text-align:center; color:var(--gold-light); font-size: 17px;">🛠️ لوحة تحكم المشرفة الملكة نوف</h2>
+
+      <div class="field">
+        <label>حالة الفعالية للعامة:</label>
+        <select id="p_isOpen">
+          <option value="true">مفتوحة للجميع</option>
+          <option value="false">مغلقة حالياً (مغلقة تماماً عن الطالبات)</option>
+        </select>
+      </div>
+
+      <div class="field"><label>عنوان رسالة الإغلاق (الكبير):</label><input type="text" id="p_closedTitle"></div>
+      <div class="field"><label>نص تفاصيل الإغلاق (الصغير تحتها):</label><textarea id="p_closedText"></textarea></div>
+
+      <div class="field">
+        <label>لوحة الصدارة (Leaderboard):</label>
+        <select id="p_leaderboardActive">
+          <option value="false">مخفية (غير مفعلة هذا الأسبوع)</option>
+          <option value="true">مفعلة وتظهر للمشاركات</option>
+        </select>
+      </div>
+
+      <div class="field"><label>عنوان القضية:</label><input type="text" id="p_no"></div>
+      <div class="field"><label>عنوان الخانة فوق السؤال:</label><input type="text" id="p_label" maxlength="25"></div>
+      <div class="field"><label>نص القضية/اللغز:</label><textarea id="p_text"></textarea></div>
+
+      <div class="row">
+        <div class="field"><label>الخيار الأول (0):</label><input type="text" id="p_o0"></div>
+        <div class="field"><label>الخيار الثاني (1):</label><input type="text" id="p_o1"></div>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label>رقم الخيار الصحيح:</label>
+          <select id="p_corr">
+            <option value="0">الخيار الأول (0)</option>
+            <option value="1">الخيار الثاني (1)</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="background: rgba(250,204,21,0.08); border: 1px solid var(--line); border-radius: 8px; padding: 8px; margin-bottom: 12px;">
+        <label style="color:var(--gold-light); margin-bottom: 6px;">أكواد الخصم العشوائية (أدخلي حتى 5):</label>
+        <div class="field" style="margin-bottom: 4px;"><input type="text" id="p_code0" placeholder="الكود الأول"></div>
+        <div class="field" style="margin-bottom: 4px;"><input type="text" id="p_code1" placeholder="الكود الثاني"></div>
+        <div class="field" style="margin-bottom: 4px;"><input type="text" id="p_code2" placeholder="الكود الثالث"></div>
+        <div class="field" style="margin-bottom: 4px;"><input type="text" id="p_code3" placeholder="الكود الرابع"></div>
+        <div class="field" style="margin-bottom: 0;"><input type="text" id="p_code4" placeholder="الكود الخامس"></div>
+      </div>
+
+      <div class="field"><label>التسبيب/الشرح النظامي:</label><textarea id="p_ruling"></textarea></div>
+      <div class="field"><label>عبارة الإجابة الصحيحة:</label><input type="text" id="p_successMsg"></div>
+      <div class="field"><label>عبارة الإجابة الخاطئة:</label><input type="text" id="p_wrongMsg"></div>
+
+      <button class="btn" style="background:#ca8a04;" onclick="saveAdminSettings()">حفظ وتحديث الفعالية</button>
+      <button class="btn" style="background:#ef4444; margin-top:5px;" onclick="toggleAdminPanel()">إغلاق اللوحة</button>
+    </div>
+
+  </div>
+
+<script>
+  // تم تحديث الرابط بالرابط الجديد الصحيح الذي قمتِ بنشره
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwiCqawkND2QY-Z7-O5e48vF1BAtxmcysYNrI5sUOZYiaV2QZAs6QgaIDNxVvFgTH2a/exec";
+  const ADMIN_PHONE = "0542961918";
+
+  const CONFIG_VERSION = 28;
+  const CONFIG_KEY = 'wednesday_config_v' + CONFIG_VERSION;
+
+  const defaultConfig = {
+    isOpen: true,
+    closedTitle: "الفعالية مغلقة حالياً 🌸",
+    closedText: "انتظرونا الأربعاء القادم لفتح قضية جديدة!",
+    leaderboardActive: false,
+    title: "القضية الأولى",
+    fileLabel: "ملف القضية",
+    text: "اتفق سعد مع خالد شفهياً على بيع سيارته، واستلم منه عربوناً.. هل يحق لخالد إلزامه إتمام البيع؟",
+    opts: ["نعم، يحق له", "لا، لا يحق له"],
+    corrIndex: 1,
+    ruling: "وفقاً للنظام، العقود الشفهية في بعض التصرفات تحتاج لإثبات، ولا يعتد بالعربون دون عقد مكتوب ومكتمل الشروط.",
+    successMsg: "عقل قانوني ما يطوفه شي! إجابتك في الصميم كفّو🔥",
+    wrongMsg: "ما عليكِ، حتى الأذكياء يمرون على لغز صعب..حاولي الربوع الجاي وبتحلّينها",
+    codes: ["حقوق_2026", "LAW2026", "WED2026", "NOUF2026", "JUSTICE26"]
+  };
+
+  let config;
+  try {
+    config = JSON.parse(localStorage.getItem(CONFIG_KEY)) || JSON.parse(JSON.stringify(defaultConfig));
+  } catch (e) {
+    config = JSON.parse(JSON.stringify(defaultConfig));
+  }
+  if (!config.codes) config.codes = defaultConfig.codes;
+
+  let userData = { name: "", phone: "", points: 0, hasSharedPoster: false };
+  let currentAdminStatus = false;
+  let typingTimer = null;
+
+  function normalizeDigits(s) {
+    return s.replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d))
+            .replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d));
+  }
+
+  function answeredKey(phone) { return 'answered_' + config.title + '_' + phone; }
+  function lastCodeKey() { return 'last_given_code_' + config.title; }
+
+  function triggerSecretAdminField() {
+    const container = document.getElementById('secretAdminContainer');
+    if (container) {
+      container.classList.toggle('hidden');
+      if (!container.classList.contains('hidden')) {
+        document.getElementById('adminPassInput').focus();
+      }
+    }
+  }
+
+  function verifyAdminSecret() {
+    const passInput = document.getElementById('adminPassInput');
+    const enteredPass = normalizeDigits(passInput ? passInput.value.trim() : "");
+
+    if (enteredPass === ADMIN_PHONE) {
+      currentAdminStatus = true;
+      userData.name = "المشرفة الملكة نوف";
+      userData.phone = ADMIN_PHONE;
+      alert('تم التحقق بنجاح! أهلاً بكِ يا ملكة القانون نوف 👑 تم تفعيل وضع الإشراف.');
+      document.getElementById('secretAdminContainer').classList.add('hidden');
+      navigateToStep('quizStep');
+      initUI();
+    } else {
+      alert('كلمة المرور غير صحيحة!');
+    }
+  }
+
+  function isUserAdmin() {
+    return currentAdminStatus === true;
+  }
+
+  function getRandomCode() {
+    let validCodes = config.codes.map(c => c.trim()).filter(c => c !== "");
+    if (validCodes.length === 0) return "حقوق_2026";
+    if (validCodes.length === 1) return validCodes[0];
+
+    let lastCode = localStorage.getItem(lastCodeKey());
+    let available = validCodes.filter(c => c !== lastCode);
+    if (available.length === 0) available = validCodes;
+
+    let chosen = available[Math.floor(Math.random() * available.length)];
+    try { localStorage.setItem(lastCodeKey(), chosen); } catch (e) {}
+    return chosen;
+  }
+
+  function showFormError(msg, fieldId) {
+    document.getElementById('formError').textContent = msg;
+    ['userName', 'userPhone', 'adminPassInput'].forEach(id => {
+      let el = document.getElementById(id);
+      if(el) el.classList.remove('invalid');
+    });
+    if (fieldId) document.getElementById(fieldId).classList.add('invalid');
+  }
+
+  function typeText(el, text, speed) {
+    if (!el) return;
+    clearInterval(typingTimer);
+    el.textContent = "";
+    el.classList.add('typing');
+    let i = 0;
+    typingTimer = setInterval(() => {
+      el.textContent = text.slice(0, ++i);
+      if (i >= text.length) { clearInterval(typingTimer); el.classList.remove('typing'); }
+    }, speed);
+  }
+
+  function initUI() {
+    const qTitleEl = document.getElementById('qTitle');
+    const qTextEl = document.getElementById('qText');
+    const lensEl = document.getElementById('lens');
+    const opt0El = document.getElementById('opt0');
+    const opt1El = document.getElementById('opt1');
+
+    if (qTitleEl) qTitleEl.textContent = config.title;
+    if (qTextEl) qTextEl.textContent = config.text;
+    if (lensEl) lensEl.setAttribute('data-label', config.fileLabel || defaultConfig.fileLabel);
+    if (opt0El) opt0El.textContent = config.opts[0];
+    if (opt1El) opt1El.textContent = config.opts[1];
+
+    const closedTitleEl = document.getElementById('closedTitleDisplay');
+    const closedTextEl = document.getElementById('closedTextDisplay');
+    if (closedTitleEl) closedTitleEl.textContent = config.closedTitle || "الفعالية مغلقة حالياً 🌸";
+    if (closedTextEl) closedTextEl.textContent = config.closedText || "انتظرونا الأربعاء القادم لفتح قضية جديدة!";
+
+    let isAdmin = isUserAdmin();
+    const formFieldsEl = document.getElementById('formFields');
+    const closedMsgEl = document.getElementById('closedMsg');
+
+    if (!config.isOpen && !isAdmin) {
+      if (formFieldsEl) formFieldsEl.classList.add('hidden');
+      if (closedMsgEl) closedMsgEl.classList.remove('hidden');
+    } else {
+      if (formFieldsEl) formFieldsEl.classList.remove('hidden');
+      if (closedMsgEl) closedMsgEl.classList.add('hidden');
+    }
+
+    const navRows = ['adminNavRowHome', 'adminNavRowQuiz', 'adminNavRowBoard', 'adminNavRowPoster'];
+    const adminNoticeBadge = document.getElementById('adminNoticeBadge');
+    const userBackBtn = document.getElementById('userBackFromPosterBtn');
+
+    if (isAdmin) {
+      navRows.forEach(id => {
+        let el = document.getElementById(id);
+        if (el) el.classList.remove('hidden');
+      });
+      if (adminNoticeBadge) adminNoticeBadge.textContent = "وضع الإشراف (الملكة نوف)";
+      if (userBackBtn) userBackBtn.classList.add('hidden');
+    } else {
+      navRows.forEach(id => {
+        let el = document.getElementById(id);
+        if (el) el.classList.add('hidden');
+      });
+      if (adminNoticeBadge) adminNoticeBadge.textContent = "قيد التحقيق";
+      if (userBackBtn) userBackBtn.classList.remove('hidden');
+    }
+  }
+
+  function startQuizWithTransition() {
+    const nameInput = document.getElementById('userName');
+    const phoneInput = document.getElementById('userPhone');
+    
+    if (!nameInput || !phoneInput) return;
+
+    const name = nameInput.value.trim().replace(/\s+/g, ' ');
+    const phone = normalizeDigits(phoneInput.value.trim());
+
+    if (name.split(' ').length < 2 || name.length < 5) {
+      showFormError('فضلاً اكتبي اسمك الثلاثي كاملاً', 'userName');
+      return;
+    }
+    if (!/^05\d{8}$/.test(phone)) {
+      showFormError('رقم الجوال لازم يبدأ بـ 05 ويتكون من 10 أرقام', 'userPhone');
+      return;
+    }
+    if (!config.isOpen) {
+      showFormError('الفعالية مغلقة حالياً. انتظرونا قريباً!', 'userPhone');
+      return;
+    }
+    if (localStorage.getItem(answeredKey(phone))) {
+      showFormError('سبق وشاركتي في لغز هذا الأسبوع 🌸 انتظرينا الأربعاء القادم!', 'userPhone');
+      return;
+    }
+    showFormError('');
+
+    userData.name = name;
+    userData.phone = phone;
+    userData.points = 0;
+    userData.hasSharedPoster = false;
+
+    const tape = document.getElementById('transitionTape');
+    tape.classList.add('active');
+
+    setTimeout(() => {
+      document.getElementById('userInfoStep').classList.add('hidden');
+      document.getElementById('quizStep').classList.remove('hidden');
+      typeText(document.getElementById('qText'), config.text, 28);
+    }, 400);
+
+    setTimeout(() => { tape.classList.remove('active'); }, 850);
+  }
+
+  function submitAnswerInteractive(selectedIndex) {
+    const isCorrect = (selectedIndex === parseInt(config.corrIndex));
+    const resultDiv = document.getElementById('result');
+    const optionsDiv = document.getElementById('options');
+    const btn = document.getElementById('opt' + selectedIndex);
+    const nextStepBtn = document.getElementById('nextStepBtn');
+
+    if (optionsDiv) optionsDiv.style.pointerEvents = 'none';
+    if (btn) btn.classList.add('shaking');
+
+    let isAdmin = isUserAdmin();
+    if (!isAdmin) {
+      try { localStorage.setItem(answeredKey(userData.phone), '1'); } catch (e) {}
+    }
+
+    setTimeout(() => {
+      if (btn) btn.classList.remove('shaking');
+
+      if (isCorrect) {
+        if (btn) btn.classList.add('selected-correct');
+        if (resultDiv) {
+          resultDiv.className = "result-box success";
+          let assignedCode = getRandomCode();
+          resultDiv.innerHTML = `
+            <div class="verdict-stamp">✔ حُلّت القضية</div>
+            <h3>${config.successMsg}</h3>
+            <p>${config.ruling}</p>
+            <div class="promo-box">
+              كود الخصم الهديّة:<br><strong>${assignedCode}</strong>
+            </div>
+          `;
+        }
+        const posterUserBox = document.getElementById('posterUserName');
+        if (posterUserBox) posterUserBox.textContent = "المحققة: " + userData.name;
+        
+        if (!isAdmin) {
+          userData.points += 1;
+          sendDataToSheet(userData.name, userData.phone, config.opts[selectedIndex], "صحيحة", 1, false);
+        }
+        
+        if (nextStepBtn) {
+          if (config.leaderboardActive) {
+            nextStepBtn.textContent = "🏆 عرض لوحة الصدارة والتنافس";
+          } else {
+            nextStepBtn.textContent = "📸 عرض بوستر التحدي والمشاركة";
+          }
+          nextStepBtn.classList.remove('hidden');
         }
 
-        function renderOptions() {
-            const container = document.getElementById("optionsContainer");
-            container.innerHTML = "";
-            currentConfig.options.forEach((opt, idx) => {
-                container.innerHTML += `
-                    <label class="option-label">
-                        <input type="radio" name="quizOption" value="${opt}" required>
-                        ${opt}
-                    </label>
-                `;
-            });
+      } else {
+        if (btn) btn.classList.add('selected-wrong');
+        if (resultDiv) {
+          resultDiv.className = "result-box error";
+          resultDiv.innerHTML = `
+            <div class="verdict-stamp">✖ قضية مغلقة</div>
+            <h3>${config.wrongMsg}</h3>
+            <p>${config.ruling}</p>
+            <button class="btn" style="margin-top:10px; background:rgba(255,255,255,0.2);" onclick="backToQuizOrRestart()">🔄 تجربة إجابة أخرى</button>
+          `;
         }
-
-        // تفاعلات الإدارة والتحقق برقم الجوال بدون حفظ حالة الدخول
-        function handleHeaderClick() {
-            let inputPhone = prompt("أدخل رقم الجوال الإداري للوصول إلى اللوحة:");
-            if (inputPhone === ADMIN_PHONE) {
-                openAdminPanel();
-            } else if (inputPhone !== null) {
-                alert("رقم الجوال غير مصرح له بالدخول كمسؤول.");
-            }
+        if (!isAdmin) {
+          sendDataToSheet(userData.name, userData.phone, config.opts[selectedIndex], "خاطئة", 0, false);
         }
+      }
+      if (resultDiv) {
+        resultDiv.classList.remove('hidden');
+        resultDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }, 400);
+  }
 
-        function openAdminPanel() {
-            document.getElementById("quizSection").classList.add("hidden");
-            document.getElementById("resultSection").classList.add("hidden");
-            document.getElementById("leaderboardSection").classList.add("hidden");
-            document.getElementById("adminSection").classList.remove("hidden");
+  function sendDataToSheet(name, phone, answer, statusText, pts, isShare) {
+    fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: name,
+        phone: phone,
+        answer: answer,
+        status: statusText,
+        points: pts,
+        isShare: isShare
+      })
+    }).catch(e => {});
+  }
 
-            document.getElementById("cfgTitle").value = currentConfig.title;
-            document.getElementById("cfgSubtitle").value = currentConfig.subtitle;
-            document.getElementById("cfgQuestion").value = currentConfig.question;
-            document.getElementById("cfgOptions").value = currentConfig.options.join(",");
-            document.getElementById("cfgCorrect").value = currentConfig.correct;
-            document.getElementById("cfgReward").value = currentConfig.reward || "";
-            document.getElementById("cfgStatus").value = currentConfig.status;
+  function backToQuizOrRestart() {
+    if (isUserAdmin()) {
+      const optionsDiv = document.getElementById('options');
+      const resultDiv = document.getElementById('result');
+      if (optionsDiv) optionsDiv.style.pointerEvents = 'auto';
+      if (resultDiv) resultDiv.classList.add('hidden');
+      ['opt0', 'opt1'].forEach(id => {
+        let el = document.getElementById(id);
+        if (el) el.classList.remove('selected-correct', 'selected-wrong');
+      });
+    } else {
+      location.reload();
+    }
+  }
+
+  function navigateToStep(stepId) {
+    const tape = document.getElementById('transitionTape');
+    if (tape) tape.classList.add('active');
+
+    setTimeout(() => {
+      ['userInfoStep', 'quizStep', 'leaderboardStep', 'posterStep'].forEach(id => {
+        let el = document.getElementById(id);
+        if (el) el.classList.add('hidden');
+      });
+      const targetStep = document.getElementById(stepId);
+      if (targetStep) targetStep.classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (stepId === 'quizStep') {
+        typeText(document.getElementById('qText'), config.text, 28);
+      }
+    }, 400);
+
+    setTimeout(() => { 
+      if (tape) tape.classList.remove('active'); 
+    }, 850);
+  }
+
+  function proceedAfterAnswer() {
+    if (config.leaderboardActive) {
+      fetchUserPointsFromSheet(userData.phone);
+      navigateToStep('leaderboardStep');
+    } else {
+      navigateToStep('posterStep');
+    }
+  }
+
+  function fetchUserPointsFromSheet(phone) {
+    const ptsText = document.getElementById('userPointsText');
+    if (ptsText) ptsText.textContent = "جاري جلب النقاط...";
+    fetch(SCRIPT_URL + "?phone=" + phone)
+      .then(res => res.json())
+      .then(data => {
+        if (ptsText) ptsText.textContent = (data.points || userData.points) + " نقاط";
+      })
+      .catch(e => {
+        if (ptsText) ptsText.textContent = userData.points + " نقاط";
+      });
+  }
+
+  function goToPosterFromLeaderboard() {
+    navigateToStep('posterStep');
+  }
+
+  function returnFromPosterForUser() {
+    if (config.leaderboardActive) {
+      navigateToStep('leaderboardStep');
+    } else {
+      navigateToStep('userInfoStep');
+    }
+  }
+
+  async function sharePosterFile() {
+    const shareText = `حلّيت لغز اليوم في كلية الحقوق والعلوم السياسية! ⚖️🔍\n#لغز_الربوع`;
+    const currentUrl = window.location.href;
+
+    if (!userData.hasSharedPoster && !isUserAdmin()) {
+      userData.points += 2;
+      userData.hasSharedPoster = true;
+      sendDataToSheet(userData.name, userData.phone, "مشاركة البوستر", "صحيحة", 2, true);
+    }
+
+    try {
+      const response = await fetch('Moo.PNG');
+      const blob = await response.blob();
+      const file = new File([blob], 'لغز_الربوع.png', { type: 'image/png' });
+
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({
+          files: [file],
+          title: 'لغز الربوع',
+          text: shareText + '\n' + currentUrl
+        });
+        return;
+      }
+    } catch (e) {}
+
+    navigator.clipboard.writeText(shareText + '\n' + currentUrl);
+    const link = document.createElement('a');
+    link.href = 'Moo.PNG';
+    link.download = 'بوستر_لغز_الربوع.png';
+    link.click();
+    alert('تم تحميل بوستر الإنجاز ونسخ النص والهاشتاق واكتساب نقطتين إضافيتين! 🏆✨');
+  }
+
+  function toggleAdminPanel() {
+    const panel = document.getElementById('adminPanel');
+    if (!panel) return;
+    if (panel.classList.contains('hidden')) {
+      const setVal = (id, val) => { const el = document.getElementById(id); if(el) el.value = val; };
+      setVal('p_isOpen', config.isOpen ? "true" : "false");
+      setVal('p_closedTitle', config.closedTitle || defaultConfig.closedTitle);
+      setVal('p_closedText', config.closedText || defaultConfig.closedText);
+      setVal('p_leaderboardActive', config.leaderboardActive ? "true" : "false");
+      setVal('p_no', config.title);
+      setVal('p_label', config.fileLabel || defaultConfig.fileLabel);
+      setVal('p_text', config.text);
+      setVal('p_o0', config.opts[0]);
+      setVal('p_o1', config.opts[1]);
+      setVal('p_corr', config.corrIndex);
+      
+      let codes = config.codes || [];
+      for (let i = 0; i < 5; i++) {
+        setVal('p_code' + i, codes[i] || "");
+      }
+
+      setVal('p_ruling', config.ruling);
+      setVal('p_successMsg', config.successMsg || defaultConfig.successMsg);
+      setVal('p_wrongMsg', config.wrongMsg || defaultConfig.wrongMsg);
+      
+      panel.classList.remove('hidden');
+      panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } else {
+      panel.classList.add('hidden');
+    }
+  }
+
+  function saveAdminSettings() {
+    const getVal = (id) => { const el = document.getElementById(id); return el ? el.value.trim() : ""; };
+    
+    config.isOpen = (getVal('p_isOpen') === 'true');
+    config.closedTitle = getVal('p_closedTitle') || defaultConfig.closedTitle;
+    config.closedText = getVal('p_closedText') || defaultConfig.closedText;
+    config.leaderboardActive = (getVal('p_leaderboardActive') === 'true');
+    config.title = getVal('p_no');
+    config.fileLabel = getVal('p_label') || defaultConfig.fileLabel;
+    config.text = getVal('p_text');
+    config.opts[0] = getVal('p_o0');
+    config.opts[1] = getVal('p_o1');
+    config.corrIndex = parseInt(getVal('p_corr'));
+    
+    let newCodes = [];
+    for (let i = 0; i < 5; i++) {
+      let val = getVal('p_code' + i);
+      if (val) newCodes.push(val);
+    }
+    config.codes = newCodes.length > 0 ? newCodes : ["حقوق_2026"];
+
+    config.ruling = getVal('p_ruling');
+    config.successMsg = getVal('p_successMsg');
+    config.wrongMsg = getVal('p_wrongMsg');
+
+    localStorage.setItem(CONFIG_KEY, JSON.stringify(config));
+    alert('تم حفظ وتحديث إعدادات الفعالية بنجاح!');
+    toggleAdminPanel();
+    initUI();
+  }
+
+  ['userName', 'userPhone', 'adminPassInput'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.addEventListener('keydown', e => {
+        if (e.key === 'Enter') {
+          if (id === 'adminPassInput') verifyAdminSecret();
+          else startQuizWithTransition();
         }
+      });
+    }
+  });
 
-        function saveAdminConfig(e) {
-            e.preventDefault();
-            currentConfig = {
-                title: document.getElementById("cfgTitle").value,
-                subtitle: document.getElementById("cfgSubtitle").value,
-                question: document.getElementById("cfgQuestion").value,
-                options: document.getElementById("cfgOptions").value.split(",").map(s => s.trim()),
-                correct: document.getElementById("cfgCorrect").value,
-                reward: document.getElementById("cfgReward").value,
-                status: document.getElementById("cfgStatus").value
-            };
-            localStorage.setItem("wednesday_config_v28", JSON.stringify(currentConfig));
-            alert("تم حفظ التحديثات وتطبيقها بنجاح!");
-            resetToHome();
-        }
+  window.addEventListener('DOMContentLoaded', () => {
+    initUI();
+  });
+</script>
 
-        // إرسال الإجابة ومعالجة النقاط عبر السكربت
-        function submitAnswer(e) {
-            e.preventDefault();
-            if (currentConfig.status === "closed") {
-                alert("عذراً، اللغز مغلق حالياً.");
-                return;
-            }
-
-            const name = document.getElementById("fullName").value.trim();
-            const phone = document.getElementById("phoneNumber").value.trim();
-            const selectedOption = document.querySelector('input[name="quizOption"]:checked');
-
-            if (!selectedOption) {
-                alert("الرجاء اختيار إجابة.");
-                return;
-            }
-
-            const answer = selectedOption.value;
-            const isCorrect = answer === currentConfig.correct;
-            const statusText = isCorrect ? "صحيحة" : "خاطئة";
-
-            lastSubmission = { name, phone, answer, status: statusText, isShare: false };
-
-            // إرسال البيانات للـ Google Sheet
-            fetch(SCRIPT_URL, {
-                method: "POST",
-                mode: "no-cors",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(lastSubmission)
-            }).catch(err => console.log("Sync error:", err));
-
-            showResult(isCorrect);
-        }
-
-        function showResult(isCorrect) {
-            document.getElementById("quizSection").classList.add("hidden");
-            document.getElementById("resultSection").classList.remove("hidden");
-
-            const msgElem = document.getElementById("resultMessageText");
-            const codeBox = document.getElementById("rewardCodeBox");
-
-            if (isCorrect) {
-                msgElem.innerText = "إجابتك صحيحة وممتازة! تم تسجيل نقطتك بنجاح 🎯";
-                if (currentConfig.reward) {
-                    document.getElementById("codeValue").innerText = currentConfig.reward;
-                    codeBox.classList.remove("hidden");
-                }
-            } else {
-                msgElem.innerText = "حاولتي مجدداً، الإجابة غير دقيقة ولكن شكراً لمشاركتك الفعالة!";
-                codeBox.classList.add("hidden");
-            }
-        }
-
-        function shareOnLeaderboard() {
-            if (lastSubmission) {
-                lastSubmission.isShare = true;
-                // إرسال نقطة إضافية لمشاركة البوستر (+2)
-                fetch(SCRIPT_URL, {
-                    method: "POST",
-                    mode: "no-cors",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(lastSubmission)
-                }).catch(err => console.log("Share sync error:", err));
-            }
-            alert("تم تسجيل مشاركة البوستر وإضافة نقطتين إلى رصيدك! ✨");
-            showLeaderboard();
-        }
-
-        function showLeaderboard() {
-            document.getElementById("quizSection").classList.add("hidden");
-            document.getElementById("resultSection").classList.add("hidden");
-            document.getElementById("leaderboardSection").classList.remove("hidden");
-
-            // جلب البيانات من السكربت أو عرض أمثلة توضيحية للترتيب
-            const tbody = document.getElementById("leaderboardBody");
-            tbody.innerHTML = `
-                <tr><td>1</td><td>نوف آل عواض</td><td>3</td></tr>
-                <tr><td>2</td><td>شيخة التركي</td><td>2</td></tr>
-            `;
-        }
-
-        function resetToHome() {
-            document.getElementById("quizSection").classList.remove("hidden");
-            document.getElementById("resultSection").classList.add("hidden");
-            document.getElementById("leaderboardSection").classList.add("hidden");
-            document.getElementById("adminSection").classList.add("hidden");
-            document.getElementById("puzzleForm").reset();
-            applyConfigToUI();
-            renderOptions();
-        }
-    </script>
 </body>
 </html>
