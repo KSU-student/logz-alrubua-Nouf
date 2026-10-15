@@ -480,7 +480,8 @@
   </div>
 
 <script>
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwiCqawkND2QY-Z7-O5e48vF1BAtxmcysYNrI5sUOZYiaV2QZAs6QgaIDNxVvFgTH2a/exec";
+  // رابط السكربت الجديد الخاص بكِ
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyPN2xfLnIRybX7aa8qZLfMw0CS6l72riPOrtLRc_bTzUNhdRe3bVgPwxUS-boH56Cb/exec";
   const ADMIN_PHONE = "0542961918";
 
   const CONFIG_VERSION = 28;
@@ -515,7 +516,7 @@
   let typingTimer = null;
 
   function normalizeDigits(s) {
-    return s.replace(/[٠-٩]/g, d => '٠١ي٣٤٥٦٧٨٩'.indexOf(d))
+    return s.replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d))
             .replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d));
   }
 
@@ -527,8 +528,6 @@
     e.preventDefault();
     const email = "Noufalawad20@gmail.com";
     const subject = encodeURIComponent("بشأن لغز الربوع");
-    
-    // الانتقال المباشر لتطبيق جيميل
     window.location.href = `googlegmail://co?to=${email}&subject=${subject}`;
   }
 
@@ -764,6 +763,7 @@
     }, 400);
   }
 
+  // دالة إرسال البيانات المحدثة لتمرير عنوان القضية وتحديث السطر نفسه
   function sendDataToSheet(name, phone, answer, statusText, pts, isShare) {
     fetch(SCRIPT_URL, {
       method: 'POST',
@@ -772,6 +772,7 @@
       body: JSON.stringify({
         name: name,
         phone: phone,
+        caseTitle: config.title || "القضية الأولى",
         answer: answer,
         status: statusText,
         points: pts,
