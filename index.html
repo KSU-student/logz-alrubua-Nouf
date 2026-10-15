@@ -201,7 +201,6 @@
     .leaderboard-title { font-size: 17px; font-weight: 900; color: var(--gold-light); margin-bottom: 8px; }
     .rank-box { background: rgba(250, 204, 21, 0.08); border: 1.5px solid var(--gold); border-radius: 10px; padding: 12px; margin-bottom: 12px; }
     .rank-number { font-size: 26px; font-weight: 900; color: #fff; margin: 2px 0; }
-    .rank-alert { background: rgba(34, 197, 94, 0.2); border: 1px solid #22c55e; color: #4ade80; font-size: 12px; font-weight: 800; padding: 5px 8px; border-radius: 6px; margin-bottom: 10px; }
 
     .hidden { display: none !important; }
 
@@ -234,7 +233,7 @@
       <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
 
       <div class="club-logo-container">
-        <img src="Moo.PNG" alt="وحدة الإرشاد الأكاديمي" class="real-logo" id="mainLogoImg" onerror="this.src='Logo.png'">
+        <img src="Logo.png" alt="وحدة الإرشاد الأكاديمي" class="real-logo">
       </div>
       <div class="divider"></div>
 
@@ -264,7 +263,7 @@
       </div>
 
       <div class="page-admin-bar" id="adminBarLogin">
-        <button class="page-admin-btn" onclick="toggleAdmin()">⚙️ إعدادات الفعالية واللائحة</button>
+        <button class="page-admin-btn" onclick="toggleAdmin()">⚙️ إعدادات الفعالية</button>
       </div>
 
       <div class="signature">
@@ -278,7 +277,7 @@
       <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
 
       <div class="club-logo-container">
-        <img src="Moo.PNG" alt="وحدة الإرشاد الأكاديمي" class="real-logo">
+        <img src="Logo.png" alt="وحدة الإرشاد الأكاديمي" class="real-logo">
       </div>
       <div class="divider"></div>
 
@@ -302,6 +301,11 @@
         التالي ➡️
       </button>
 
+      <!-- زر رجوع خاص للمشرفة وللطالبات -->
+      <button class="btn" style="background: rgba(255,255,255,0.1); border: 1px solid var(--line); margin-top: 8px;" onclick="returnToHome()">
+        ↩️ العودة للرئيسية
+      </button>
+
       <div class="page-admin-bar" id="adminBarQuiz">
         <button class="page-admin-btn" onclick="toggleAdmin()">🛠️ تعديل القضية والأكواد</button>
       </div>
@@ -312,24 +316,20 @@
       </div>
     </div>
 
-    <!-- 3. صفحة لوحة الصدارة -->
+    <!-- 3. صفحة لوحة الصدارة المرتبطة بشيت قوقل -->
     <div class="card leaderboard-card hidden" id="leaderboardStep">
       <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
       
       <div class="club-logo-container" style="margin-bottom: 4px;">
-        <img src="Moo.PNG" alt="وحدة الإرشاد الأكاديمي" class="real-logo" style="max-width: 130px;">
+        <img src="Logo.png" alt="وحدة الإرشاد الأكاديمي" class="real-logo" style="max-width: 130px;">
       </div>
       <div class="divider" style="margin: 6px auto 10px;"></div>
 
       <h2 class="leaderboard-title">⚖️ نافسي على المراكز الثلاثة الأولى.. الهدية أكبر بكثيرررر 😉🔥</h2>
-      
-      <div id="rankAlertBox" class="rank-alert hidden">
-        🔥 قفزة نوعية في الترتيب! لقد صعدتِ لتكوني ضمن العشرة الأوائل!
-      </div>
 
       <div class="rank-box">
         <div style="font-size: 12px; color: var(--gold-light);">نقاطك الحالية في المنافسة:</div>
-        <div class="rank-number" id="userPointsText">3 نقاط</div>
+        <div class="rank-number" id="userPointsText">جاري جلب النقاط...</div>
       </div>
 
       <p style="font-size: 11.5px; color: rgba(255,255,255,0.85); margin-bottom: 12px;">
@@ -338,6 +338,10 @@
 
       <button class="btn" style="background: linear-gradient(135deg, #eab308, #a16207);" onclick="goToPosterFromLeaderboard()">
         📸 عرض بوستر التحدي والإنجاز
+      </button>
+
+      <button class="btn" style="background: rgba(255,255,255,0.1); border: 1px solid var(--line); margin-top: 8px;" onclick="returnToHome()">
+        ↩️ العودة للرئيسية
       </button>
 
       <div class="page-admin-bar" id="adminBarLeaderboard">
@@ -355,7 +359,7 @@
       <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
 
       <div class="poster-img-container">
-        <img src="Moo.PNG" alt="بوستر لغز الربوع" class="poster-img" id="posterImageElement" onerror="this.src='Logo.png'">
+        <img src="Moo.PNG" alt="بوستر لغز الربوع" class="poster-img" id="posterImageElement">
       </div>
 
       <div class="poster-user-box" id="posterUserName">المحققة: </div>
@@ -368,8 +372,8 @@
         🔗 مشاركة أو حفظ البوستر
       </button>
 
-      <button class="btn" style="background: rgba(255,255,255,0.1); border: 1px solid var(--line); margin-top: 6px;" onclick="backToQuiz()">
-        ↩️ العودة للقضية
+      <button class="btn" style="background: rgba(255,255,255,0.1); border: 1px solid var(--line); margin-top: 6px;" onclick="returnToHome()">
+        ↩️ العودة للرئيسية
       </button>
 
       <div class="signature">
@@ -378,7 +382,7 @@
       </div>
     </div>
 
-    <!-- 5. لوحة التحكم الإدارية الشاملة -->
+    <!-- 5. لوحة التحكم الإدارية -->
     <div class="card hidden admin-panel" id="adminPanel">
       <h2 style="margin-top:0; text-align:center; color:var(--gold-light); font-size: 17px;">🛠️ لوحة تحكم المشرفة</h2>
 
@@ -444,9 +448,9 @@
 <script>
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxzNh85mkH-DISqJRFJXDyMFR0V9inslF8CUWTJ4MVwjwPCWLIvmp2hkAKKVEiz6tmt/exec";
   const ADMIN_PHONE = "0542961918";
-  const ADMIN_SECRET_PASS = "nouf2026"; // كلمة السر الخاصة بك للدخول كأدمن من أي جهاز
+  const ADMIN_SECRET_PASS = "nouf2026";
 
-  const CONFIG_VERSION = 14;
+  const CONFIG_VERSION = 16;
   const CONFIG_KEY = 'wednesday_config_v' + CONFIG_VERSION;
 
   const defaultConfig = {
@@ -472,7 +476,6 @@
     config = JSON.parse(JSON.stringify(defaultConfig));
   }
   if (!config.codes) config.codes = defaultConfig.codes;
-  if (config.leaderboardActive === undefined) config.leaderboardActive = false;
 
   let userData = { name: "", phone: "", points: 0, hasSharedPoster: false };
   let typingTimer = null;
@@ -591,6 +594,7 @@
     userData.name = name || "المشرفة نوف";
     userData.phone = phone || ADMIN_PHONE;
     userData.points = 0;
+    userData.hasSharedPoster = false;
 
     const tape = document.getElementById('transitionTape');
     tape.classList.add('active');
@@ -623,6 +627,7 @@
     btn.classList.add('shaking');
 
     let isAdmin = isUserAdmin();
+    // المشرفة يمكنها التجربة بأكثر من إجابة بدون حظر التكرار أو التأثير على السجلات العامة
     if (!isAdmin) {
       try { localStorage.setItem(answeredKey(userData.phone), '1'); } catch (e) {}
     }
@@ -643,7 +648,12 @@
           </div>
         `;
         document.getElementById('posterUserName').textContent = "المحققة: " + userData.name;
-        userData.points += 1; // نقطة للإجابة الصحيحة
+        
+        // إرسال البيانات للرابط (إذا لم تكن المشرفة تجرب)
+        if (!isAdmin) {
+          userData.points += 1;
+          sendDataToSheet(userData.name, userData.phone, config.opts[selectedIndex], true, 1);
+        }
         
         if (config.leaderboardActive) {
           nextStepBtn.textContent = "🏆 عرض لوحة الصدارة والتنافس";
@@ -659,28 +669,42 @@
           <div class="verdict-stamp">✖ قضية مغلقة</div>
           <h3>${config.wrongMsg}</h3>
           <p>${config.ruling}</p>
-          <button class="btn" style="margin-top:10px; background:rgba(255,255,255,0.2);" onclick="backToQuizOrRestart()">🔄 المحاولة مرة أخرى / العودة</button>
+          <button class="btn" style="margin-top:10px; background:rgba(255,255,255,0.2);" onclick="backToQuizOrRestart()">🔄 المحاولة مرة أخرى</button>
         `;
+        if (!isAdmin) {
+          sendDataToSheet(userData.name, userData.phone, config.opts[selectedIndex], false, 0);
+        }
       }
       resultDiv.classList.remove('hidden');
       resultDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }, 400);
+  }
 
+  function sendDataToSheet(name, phone, answer, isCorrect, pts) {
     fetch(SCRIPT_URL, {
       method: 'POST',
       mode: 'no-cors',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        name: userData.name,
-        phone: userData.phone,
-        selectedOption: config.opts[selectedIndex],
-        isCorrect: isCorrect
+        name: name,
+        phone: phone,
+        selectedOption: answer,
+        isCorrect: isCorrect,
+        points: pts
       })
     });
   }
 
   function backToQuizOrRestart() {
     location.reload();
+  }
+
+  function returnToHome() {
+    const tape = document.getElementById('transitionTape');
+    tape.classList.add('active');
+    setTimeout(() => {
+      location.reload();
+    }, 400);
   }
 
   function proceedAfterAnswer() {
@@ -691,7 +715,7 @@
       document.getElementById('quizStep').classList.add('hidden');
       
       if (config.leaderboardActive) {
-        document.getElementById('userPointsText').textContent = userData.points + " نقاط";
+        fetchUserPointsFromSheet(userData.phone);
         document.getElementById('leaderboardStep').classList.remove('hidden');
       } else {
         document.getElementById('posterStep').classList.remove('hidden');
@@ -700,6 +724,18 @@
     }, 400);
 
     setTimeout(() => { tape.classList.remove('active'); }, 850);
+  }
+
+  function fetchUserPointsFromSheet(phone) {
+    document.getElementById('userPointsText').textContent = "جاري جلب النقاط...";
+    fetch(SCRIPT_URL + "?phone=" + phone)
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById('userPointsText').textContent = (data.points || userData.points) + " نقاط";
+      })
+      .catch(e => {
+        document.getElementById('userPointsText').textContent = userData.points + " نقاط";
+      });
   }
 
   function goToPosterFromLeaderboard() {
@@ -732,10 +768,10 @@
     const shareText = `حلّيت لغز اليوم في كلية الحقوق والعلوم السياسية! ⚖️🔍\n#لغز_الربوع`;
     const currentUrl = window.location.href;
 
-    // احتساب نقطتي المشاركة مرة واحدة فقط
-    if (!userData.hasSharedPoster) {
+    if (!userData.hasSharedPoster && !isUserAdmin()) {
       userData.points += 2;
       userData.hasSharedPoster = true;
+      sendDataToSheet(userData.name, userData.phone, "مشاركة البوستر", true, 2);
     }
 
     try {
@@ -803,6 +839,7 @@
     let newCodes = [];
     for (let i = 0; i < 5; i++) {
       let val = document.getElementById('p_code' + i).value.trim();
+      if (val) newCodes.val = val;
       if (val) newCodes.push(val);
     }
     config.codes = newCodes.length > 0 ? newCodes : ["حقوق_2026"];
