@@ -515,26 +515,21 @@
   let typingTimer = null;
 
   function normalizeDigits(s) {
-    return s.replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d))
+    return s.replace(/[٠-٩]/g, d => '٠١ي٣٤٥٦٧٨٩'.indexOf(d))
             .replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d));
   }
 
   function answeredKey(phone) { return 'answered_' + config.title + '_' + phone; }
   function lastCodeKey() { return 'last_given_code_' + config.title; }
 
-  // دالة الذكاء لفتح تطبيق جيميل مباشرة أو التحول للمتصفح
+  // توجيه مباشر لتطبيق جيميل بدون أي فتح للمتصفح بالخلفية
   function openGmailApp(e) {
     e.preventDefault();
     const email = "Noufalawad20@gmail.com";
     const subject = encodeURIComponent("بشأن لغز الربوع");
     
-    // محاولة فتح تطبيق جيميل المخصص
+    // الانتقال المباشر لتطبيق جيميل
     window.location.href = `googlegmail://co?to=${email}&subject=${subject}`;
-    
-    // الاحتياط: إذا لم يفتح التطبيق خلال نص ثانية، يتم توجيهه لمتصفح الويب كبديل آمن
-    setTimeout(() => {
-      window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${subject}`, '_blank');
-    }, 500);
   }
 
   function triggerSecretAdminField() {
