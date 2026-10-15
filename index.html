@@ -91,7 +91,7 @@
     .club-logo-container {
       text-align: center; margin: 0 auto 6px; position: relative; width: 100%;
       display: flex; justify-content: center; align-items: center;
-      cursor: pointer; /* جعل الشعار قابل للضغط بشكل مخفي */
+      cursor: pointer;
     }
     .real-logo {
       position: relative; width: 100%; max-width: 260px; height: auto; display: block; margin: 0 auto;
@@ -133,6 +133,17 @@
       box-shadow: 0 4px 16px rgba(202, 138, 4, 0.4);
     }
     .btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(250, 204, 21, 0.6); }
+
+    .nav-buttons-row {
+      display: flex; gap: 8px; margin-top: 10px; width: 100%;
+    }
+    .nav-btn-sub {
+      flex: 1; padding: 10px; border-radius: 8px;
+      background: rgba(250, 204, 21, 0.12); border: 1px solid var(--gold);
+      color: var(--gold-light); font-size: 13px; font-weight: 800;
+      cursor: pointer; font-family: inherit; text-align: center; transition: 0.2s;
+    }
+    .nav-btn-sub:hover { background: var(--gold); color: #000; }
 
     .case-meta {
       display: flex; justify-content: center; gap: 8px; margin-bottom: 4px;
@@ -206,16 +217,6 @@
 
     .hidden { display: none !important; }
 
-    .page-admin-bar {
-      margin-top: 14px; padding-top: 10px; border-top: 1px dashed rgba(250,204,21,0.3);
-      display: none; gap: 6px; justify-content: center;
-    }
-    .page-admin-btn {
-      background: rgba(250, 204, 21, 0.15); border: 1px solid var(--gold); color: var(--gold-light);
-      padding: 6px 12px; border-radius: 6px; font-size: 11.5px; font-weight: 700; cursor: pointer;
-    }
-    .page-admin-btn:hover { background: var(--gold); color: #000; }
-
     .admin-panel { background: rgba(10, 3, 20, 0.97); border: 2px solid var(--gold); margin-top: 12px; }
     .row { display: flex; gap: 6px; }
     .row > div { flex: 1; }
@@ -234,7 +235,7 @@
     <div class="card" id="userInfoStep">
       <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
 
-      <!-- الشعار الآن يعمل كزر مخفي للضغط من قبل المشرفة -->
+      <!-- الضغط على هذا الشعار هو المفتاح السري دائماً -->
       <div class="club-logo-container" onclick="triggerSecretAdminField()">
         <img src="Logo.png" alt="وحدة الإرشاد الأكاديمي" class="real-logo">
       </div>
@@ -258,18 +259,14 @@
           <input type="tel" id="userPhone" placeholder="05xxxxxxxx" inputmode="numeric" maxlength="10" autocomplete="tel">
         </div>
 
-        <!-- خانة كلمة سر المشرفة المخفية (تظهر فقط عند الضغط على الشعار) -->
-        <div class="field hidden" id="secretAdminContainer" style="margin-top: 10px; background: rgba(250,204,21,0.08); padding: 8px; border-radius: 8px; border: 1px dashed var(--gold);">
-          <label style="font-size: 11.5px; color: var(--gold-light);">رمز الدخول الإداري (رقم الجوال):</label>
+        <!-- خانة كلمة سر المشرفة المخفية (تظهر بالنقر على الشعار وتتيح لكِ الدخول حتى والرابط مقفل) -->
+        <div class="field hidden" id="secretAdminContainer" style="margin-top: 10px; background: rgba(250,204,21,0.08); padding: 10px; border-radius: 10px; border: 1.5px dashed var(--gold);">
+          <label style="font-size: 12px; color: var(--gold-light);">رمز الدخول الإداري (رقم الجوال):</label>
           <input type="password" id="adminPassInput" placeholder="أدخلي رقم جوال المشرفة">
         </div>
 
         <div class="form-error" id="formError"></div>
         <button class="btn" onclick="startQuizWithTransition()">🔍 فتح ملف القضية</button>
-      </div>
-
-      <div class="page-admin-bar" id="adminBarLogin">
-        <button class="page-admin-btn" onclick="toggleAdmin()">⚙️ إعدادات الفعالية</button>
       </div>
 
       <div class="signature">
@@ -307,12 +304,11 @@
         التالي ➡️
       </button>
 
-      <button class="btn" style="background: rgba(255,255,255,0.1); border: 1px solid var(--line); margin-top: 8px;" onclick="returnToHome()">
-        ↩️ العودة للرئيسية
-      </button>
-
-      <div class="page-admin-bar" id="adminBarQuiz">
-        <button class="page-admin-btn" onclick="toggleAdmin()">🛠️ تعديل القضية والأكواد</button>
+      <!-- أزرار الانتقال الخاصة بالمشرفة (تظهر فقط عند تفعيل وضع الإشراف) -->
+      <div class="nav-buttons-row hidden" id="adminNavRowQuiz">
+        <button class="nav-btn-sub" onclick="navigateToStep('userInfoStep')">⬅️ الرئيسية</button>
+        <button class="nav-btn-sub" onclick="navigateToStep('leaderboardStep')">الصدارة ➡️</button>
+        <button class="nav-btn-sub" style="background:var(--gold); color:#000;" onclick="toggleAdminPanel()">⚙️ اللوحة</button>
       </div>
 
       <div class="signature">
@@ -345,12 +341,11 @@
         📸 عرض بوستر التحدي والإنجاز
       </button>
 
-      <button class="btn" style="background: rgba(255,255,255,0.1); border: 1px solid var(--line); margin-top: 8px;" onclick="returnToHome()">
-        ↩️ العودة للرئيسية
-      </button>
-
-      <div class="page-admin-bar" id="adminBarLeaderboard">
-        <button class="page-admin-btn" onclick="toggleAdmin()">🏆 التحكم بلوحة الصدارة</button>
+      <!-- أزرار الانتقال بين الصفحات للمشرفة -->
+      <div class="nav-buttons-row hidden" id="adminNavRowBoard">
+        <button class="nav-btn-sub" onclick="navigateToStep('quizStep')">⬅️ القضية</button>
+        <button class="nav-btn-sub" onclick="navigateToStep('posterStep')">البوستر ➡️</button>
+        <button class="nav-btn-sub" style="background:var(--gold); color:#000;" onclick="toggleAdminPanel()">⚙️ اللوحة</button>
       </div>
 
       <div class="signature">
@@ -377,9 +372,12 @@
         🔗 مشاركة أو حفظ البوستر
       </button>
 
-      <button class="btn" style="background: rgba(255,255,255,0.1); border: 1px solid var(--line); margin-top: 6px;" onclick="returnToHome()">
-        ↩️ العودة للرئيسية
-      </button>
+      <!-- أزرار الانتقال بين الصفحات للمشرفة -->
+      <div class="nav-buttons-row hidden" id="adminNavRowPoster">
+        <button class="nav-btn-sub" onclick="navigateToStep('leaderboardStep')">⬅️ الصدارة</button>
+        <button class="nav-btn-sub" onclick="navigateToStep('userInfoStep')">الرئيسية ➡️</button>
+        <button class="nav-btn-sub" style="background:var(--gold); color:#000;" onclick="toggleAdminPanel()">⚙️ اللوحة</button>
+      </div>
 
       <div class="signature">
         &copy; 2026 Nouf Alawad - نوف آل عواض<br>
@@ -445,16 +443,16 @@
       <div class="field"><label>عبارة الإجابة الخاطئة:</label><input type="text" id="p_wrongMsg"></div>
 
       <button class="btn" style="background:#ca8a04;" onclick="saveAdminSettings()">حفظ وتحديث الفعالية</button>
-      <button class="btn" style="background:#ef4444; margin-top:5px;" onclick="toggleAdmin()">إغلاق اللوحة</button>
+      <button class="btn" style="background:#ef4444; margin-top:5px;" onclick="toggleAdminPanel()">إغلاق اللوحة</button>
     </div>
 
   </div>
 
 <script>
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxzNh85mkH-DISqJRFJXDyMFR0V9inslF8CUWTJ4MVwjwPCWLIvmp2hkAKKVEiz6tmt/exec";
-  const ADMIN_PHONE = "0542961918"; // رقم جوال المشرفة المعتمد
+  const ADMIN_PHONE = "0542961918";
 
-  const CONFIG_VERSION = 17;
+  const CONFIG_VERSION = 18;
   const CONFIG_KEY = 'wednesday_config_v' + CONFIG_VERSION;
 
   const defaultConfig = {
@@ -486,13 +484,13 @@
 
   function normalizeDigits(s) {
     return s.replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d))
-            .replace(/[۰-۹]/g, d => '۰۱۲3456789'.indexOf(d));
+            .replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d));
   }
 
   function answeredKey(phone) { return 'answered_' + config.title + '_' + phone; }
   function lastCodeKey() { return 'last_given_code_' + config.title; }
 
-  // الضغط المخفي على الشعار لإظهار خانة الرمز السري
+  // عند الضغط على الشعار تظهر الخانة السريّة
   function triggerSecretAdminField() {
     const container = document.getElementById('secretAdminContainer');
     if (container) {
@@ -559,16 +557,19 @@
 
     let isAdmin = isUserAdmin();
 
-    ['adminBarLogin', 'adminBarQuiz', 'adminBarLeaderboard'].forEach(id => {
-      document.getElementById(id).style.display = isAdmin ? 'flex' : 'none';
-    });
-
     if (!config.isOpen && !isAdmin) {
       document.getElementById('formFields').classList.add('hidden');
       document.getElementById('closedMsg').classList.remove('hidden');
     } else {
       document.getElementById('formFields').classList.remove('hidden');
       document.getElementById('closedMsg').classList.add('hidden');
+    }
+
+    if (isAdmin) {
+      ['adminNavRowQuiz', 'adminNavRowBoard', 'adminNavRowPoster'].forEach(id => {
+        let el = document.getElementById(id);
+        if (el) el.classList.remove('hidden');
+      });
     }
   }
 
@@ -622,8 +623,9 @@
       
       if (isAdmin) {
         document.getElementById('adminNoticeBadge').textContent = "وضع الإشراف (المشرفة)";
-        ['adminBarLogin', 'adminBarQuiz', 'adminBarLeaderboard'].forEach(id => {
-          document.getElementById(id).style.display = 'flex';
+        ['adminNavRowQuiz', 'adminNavRowBoard', 'adminNavRowPoster'].forEach(id => {
+          let el = document.getElementById(id);
+          if (el) el.classList.remove('hidden');
         });
       }
 
@@ -714,31 +716,28 @@
     location.reload();
   }
 
-  function returnToHome() {
-    const tape = document.getElementById('transitionTape');
-    tape.classList.add('active');
-    setTimeout(() => {
-      location.reload();
-    }, 400);
-  }
-
-  function proceedAfterAnswer() {
+  function navigateToStep(stepId) {
     const tape = document.getElementById('transitionTape');
     tape.classList.add('active');
 
     setTimeout(() => {
-      document.getElementById('quizStep').classList.add('hidden');
-      
-      if (config.leaderboardActive) {
-        fetchUserPointsFromSheet(userData.phone);
-        document.getElementById('leaderboardStep').classList.remove('hidden');
-      } else {
-        document.getElementById('posterStep').classList.remove('hidden');
-      }
+      ['userInfoStep', 'quizStep', 'leaderboardStep', 'posterStep'].forEach(id => {
+        document.getElementById(id).classList.add('hidden');
+      });
+      document.getElementById(stepId).classList.remove('hidden');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }, 400);
 
     setTimeout(() => { tape.classList.remove('active'); }, 850);
+  }
+
+  function proceedAfterAnswer() {
+    if (config.leaderboardActive) {
+      fetchUserPointsFromSheet(userData.phone);
+      navigateToStep('leaderboardStep');
+    } else {
+      navigateToStep('posterStep');
+    }
   }
 
   function fetchUserPointsFromSheet(phone) {
@@ -754,29 +753,7 @@
   }
 
   function goToPosterFromLeaderboard() {
-    const tape = document.getElementById('transitionTape');
-    tape.classList.add('active');
-
-    setTimeout(() => {
-      document.getElementById('leaderboardStep').classList.add('hidden');
-      document.getElementById('posterStep').classList.remove('hidden');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 400);
-
-    setTimeout(() => { tape.classList.remove('active'); }, 850);
-  }
-
-  function backToQuiz() {
-    const tape = document.getElementById('transitionTape');
-    tape.classList.add('active');
-
-    setTimeout(() => {
-      document.getElementById('posterStep').classList.add('hidden');
-      document.getElementById('leaderboardStep').classList.add('hidden');
-      document.getElementById('quizStep').classList.remove('hidden');
-    }, 400);
-
-    setTimeout(() => { tape.classList.remove('active'); }, 850);
+    navigateToStep('posterStep');
   }
 
   async function sharePosterFile() {
@@ -812,7 +789,7 @@
     alert('تم تحميل بوستر الإنجاز ونسخ النص والهاشتاق واكتساب نقطتين إضافيتين! 🏆✨');
   }
 
-  function toggleAdmin() {
+  function toggleAdminPanel() {
     const panel = document.getElementById('adminPanel');
     if (panel.classList.contains('hidden')) {
       document.getElementById('p_isOpen').value = config.isOpen ? "true" : "false";
@@ -864,7 +841,7 @@
 
     localStorage.setItem(CONFIG_KEY, JSON.stringify(config));
     alert('تم حفظ وتحديث إعدادات الفعالية بنجاح!');
-    toggleAdmin();
+    toggleAdminPanel();
     initUI();
   }
 
