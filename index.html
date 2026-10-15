@@ -134,7 +134,6 @@
     }
     .btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(250, 204, 21, 0.6); }
 
-    /* شريط التنقل الملكي الفخم الخاص بالمشرفة */
     .admin-luxury-nav {
       margin-top: 14px; padding: 10px; border-radius: 12px;
       background: linear-gradient(135deg, rgba(250,204,21,0.15), rgba(107,33,168,0.25));
@@ -240,7 +239,7 @@
     <div class="card" id="userInfoStep">
       <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
 
-      <!-- الضغط على الشعار يفتح خنة كلمة السر السريّة للمشرفة -->
+      <!-- الشعار الأساسي المخفي للتحقق الإداري -->
       <div class="club-logo-container" onclick="triggerSecretAdminField()">
         <img src="Logo.png" alt="وحدة الإرشاد الأكاديمي" class="real-logo">
       </div>
@@ -264,7 +263,7 @@
           <input type="tel" id="userPhone" placeholder="05xxxxxxxx" inputmode="numeric" maxlength="10" autocomplete="tel">
         </div>
 
-        <!-- خانة رقم الجوال الإداري (كلمة المرور) -->
+        <!-- الخانة السريّة للمشرفة نوف -->
         <div class="field hidden" id="secretAdminContainer" style="margin-top: 10px; background: rgba(250,204,21,0.08); padding: 10px; border-radius: 10px; border: 1.5px dashed var(--gold);">
           <label style="font-size: 12px; color: var(--gold-light);">أدخلي رقم جوالك الإداري (كلمة المرور):</label>
           <input type="password" id="adminPassInput" placeholder="0542961918">
@@ -275,7 +274,6 @@
         <button class="btn" onclick="startQuizWithTransition()">🔍 فتح ملف القضية</button>
       </div>
 
-      <!-- شريط تنقل المشرفة بالرئيسية -->
       <div class="admin-luxury-nav hidden" id="adminNavRowHome">
         <button class="admin-nav-btn" onclick="navigateToStep('quizStep')">القضية ⬅️</button>
         <button class="admin-nav-btn" onclick="navigateToStep('leaderboardStep')">الصدارة</button>
@@ -318,7 +316,6 @@
         التالي ➡️
       </button>
 
-      <!-- شريط تنقل المشرفة بالقضية -->
       <div class="admin-luxury-nav hidden" id="adminNavRowQuiz">
         <button class="admin-nav-btn" onclick="navigateToStep('userInfoStep')">⬅️ الرئيسية</button>
         <button class="admin-nav-btn" onclick="navigateToStep('leaderboardStep')">الصدارة ➡️</button>
@@ -356,7 +353,6 @@
         📸 عرض بوستر التحدي والإنجاز
       </button>
 
-      <!-- شريط تنقل المشرفة بالصدارة -->
       <div class="admin-luxury-nav hidden" id="adminNavRowBoard">
         <button class="admin-nav-btn" onclick="navigateToStep('userInfoStep')">الرئيسية</button>
         <button class="admin-nav-btn" onclick="navigateToStep('quizStep')">⬅️ القضية</button>
@@ -388,12 +384,10 @@
         🔗 مشاركة أو حفظ البوستر
       </button>
 
-      <!-- زر العودة للطالبات العاديات من البوستر -->
       <button class="btn" id="userBackFromPosterBtn" style="background: rgba(255,255,255,0.1); border: 1px solid var(--line); margin-top: 6px;" onclick="returnFromPosterForUser()">
         ↩️ العودة للصدارة أو الرئيسية
       </button>
 
-      <!-- شريط تنقل المشرفة بالبوستر -->
       <div class="admin-luxury-nav hidden" id="adminNavRowPoster">
         <button class="admin-nav-btn" onclick="navigateToStep('userInfoStep')">الرئيسية</button>
         <button class="admin-nav-btn" onclick="navigateToStep('quizStep')">القضية</button>
@@ -472,9 +466,9 @@
 
 <script>
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxzNh85mkH-DISqJRFJXDyMFR0V9inslF8CUWTJ4MVwjwPCWLIvmp2hkAKKVEiz6tmt/exec";
-  const ADMIN_PHONE = "0542961918"; // رقم جوالك الإداري وكلمة المرور
+  const ADMIN_PHONE = "0542961918";
 
-  const CONFIG_VERSION = 21;
+  const CONFIG_VERSION = 22;
   const CONFIG_KEY = 'wednesday_config_v' + CONFIG_VERSION;
 
   const defaultConfig = {
@@ -531,10 +525,8 @@
       currentAdminStatus = true;
       userData.name = "المشرفة الملكة نوف";
       userData.phone = ADMIN_PHONE;
-      alert('تم التحقق بنجاح! أهلاً بكِ يا ملكة القانون نوف 👑 تم تفعيل وضع الإشراف وتخطي تسجيل الطالبات.');
+      alert('تم التحقق بنجاح! أهلاً بكِ يا ملكة القانون نوف 👑 تم تفعيل وضع الإشراف.');
       document.getElementById('secretAdminContainer').classList.add('hidden');
-      
-      // الانتقال مباشرة لواجهة اللغز مع تفعيل صلاحيات الإشراف الكاملة
       navigateToStep('quizStep');
       initUI();
     } else {
@@ -592,11 +584,12 @@
 
     let isAdmin = isUserAdmin();
 
+    // تصحيح النقطة الجوهرية: إظهار الحقول بوضوح عند فتح الفعالية للطالبات
     if (!config.isOpen && !isAdmin) {
       document.getElementById('formFields').classList.add('hidden');
       document.getElementById('closedMsg').classList.remove('hidden');
     } else {
-      document.getElementById('formFields').classList.add('hidden'); // إخفاء النموذج للعامة في حال الفتح الطبيعي بعد التسجيل
+      document.getElementById('formFields').classList.remove('hidden');
       document.getElementById('closedMsg').classList.add('hidden');
     }
 
@@ -606,7 +599,7 @@
         if (el) el.classList.remove('hidden');
       });
       document.getElementById('adminNoticeBadge').textContent = "وضع الإشراف (الملكة نوف)";
-      document.getElementById('userBackFromPosterBtn').classList.add('hidden'); // الطالبات فقط يرين زر العودة من البوستر
+      document.getElementById('userBackFromPosterBtn').classList.add('hidden');
     } else {
       ['adminNavRowHome', 'adminNavRowQuiz', 'adminNavRowBoard', 'adminNavRowPoster'].forEach(id => {
         let el = document.getElementById(id);
