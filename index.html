@@ -134,6 +134,7 @@
     }
     .btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(250, 204, 21, 0.6); }
 
+    /* شريط التنقل الملكي الفخم الخاص بالمشرفة */
     .admin-luxury-nav {
       margin-top: 14px; padding: 10px; border-radius: 12px;
       background: linear-gradient(135deg, rgba(250,204,21,0.15), rgba(107,33,168,0.25));
@@ -239,6 +240,7 @@
     <div class="card" id="userInfoStep">
       <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
 
+      <!-- الضغط على الشعار يفتح خنة كلمة السر السريّة للمشرفة -->
       <div class="club-logo-container" onclick="triggerSecretAdminField()">
         <img src="Logo.png" alt="وحدة الإرشاد الأكاديمي" class="real-logo">
       </div>
@@ -262,10 +264,10 @@
           <input type="tel" id="userPhone" placeholder="05xxxxxxxx" inputmode="numeric" maxlength="10" autocomplete="tel">
         </div>
 
-        <!-- الخانة السريّة للمشرفة (تظهر فقط عند ضغط الشعار) -->
+        <!-- خانة رقم الجوال الإداري (كلمة المرور) -->
         <div class="field hidden" id="secretAdminContainer" style="margin-top: 10px; background: rgba(250,204,21,0.08); padding: 10px; border-radius: 10px; border: 1.5px dashed var(--gold);">
-          <label style="font-size: 12px; color: var(--gold-light);">كلمة مرور المشرفة الملكة نوف:</label>
-          <input type="password" id="adminPassInput" placeholder="أدخلي كلمة السر الخاصة بكِ">
+          <label style="font-size: 12px; color: var(--gold-light);">أدخلي رقم جوالك الإداري (كلمة المرور):</label>
+          <input type="password" id="adminPassInput" placeholder="0542961918">
           <button class="btn" style="margin-top: 8px; padding: 8px; font-size: 13px;" onclick="verifyAdminSecret()">🔓 تفعيل وضع المشرفة</button>
         </div>
 
@@ -273,6 +275,7 @@
         <button class="btn" onclick="startQuizWithTransition()">🔍 فتح ملف القضية</button>
       </div>
 
+      <!-- شريط تنقل المشرفة بالرئيسية -->
       <div class="admin-luxury-nav hidden" id="adminNavRowHome">
         <button class="admin-nav-btn" onclick="navigateToStep('quizStep')">القضية ⬅️</button>
         <button class="admin-nav-btn" onclick="navigateToStep('leaderboardStep')">الصدارة</button>
@@ -315,6 +318,7 @@
         التالي ➡️
       </button>
 
+      <!-- شريط تنقل المشرفة بالقضية -->
       <div class="admin-luxury-nav hidden" id="adminNavRowQuiz">
         <button class="admin-nav-btn" onclick="navigateToStep('userInfoStep')">⬅️ الرئيسية</button>
         <button class="admin-nav-btn" onclick="navigateToStep('leaderboardStep')">الصدارة ➡️</button>
@@ -352,6 +356,7 @@
         📸 عرض بوستر التحدي والإنجاز
       </button>
 
+      <!-- شريط تنقل المشرفة بالصدارة -->
       <div class="admin-luxury-nav hidden" id="adminNavRowBoard">
         <button class="admin-nav-btn" onclick="navigateToStep('userInfoStep')">الرئيسية</button>
         <button class="admin-nav-btn" onclick="navigateToStep('quizStep')">⬅️ القضية</button>
@@ -373,7 +378,7 @@
         <img src="Moo.PNG" alt="بوستر لغز الربوع" class="poster-img" id="posterImageElement">
       </div>
 
-      <div class="poster-user-box" id="posterUserName">المحققة: </div>
+      <div class="poster-user-box" id="posterUserName">المحققة: المشرفة نوف</div>
 
       <p style="font-size: 12px; color: var(--gold-light); margin: 0 0 8px; font-weight: 700;">
         شاركي بوستر إنجازكِ وتحدّي زميلاتكِ في الكلية:
@@ -383,10 +388,12 @@
         🔗 مشاركة أو حفظ البوستر
       </button>
 
-      <button class="btn" style="background: rgba(255,255,255,0.1); border: 1px solid var(--line); margin-top: 6px;" onclick="returnFromPosterForUser()">
+      <!-- زر العودة للطالبات العاديات من البوستر -->
+      <button class="btn" id="userBackFromPosterBtn" style="background: rgba(255,255,255,0.1); border: 1px solid var(--line); margin-top: 6px;" onclick="returnFromPosterForUser()">
         ↩️ العودة للصدارة أو الرئيسية
       </button>
 
+      <!-- شريط تنقل المشرفة بالبوستر -->
       <div class="admin-luxury-nav hidden" id="adminNavRowPoster">
         <button class="admin-nav-btn" onclick="navigateToStep('userInfoStep')">الرئيسية</button>
         <button class="admin-nav-btn" onclick="navigateToStep('quizStep')">القضية</button>
@@ -465,9 +472,9 @@
 
 <script>
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxzNh85mkH-DISqJRFJXDyMFR0V9inslF8CUWTJ4MVwjwPCWLIvmp2hkAKKVEiz6tmt/exec";
-  const ADMIN_SECRET_PASS = "nouf2026"; // كلمة السر الوحيدة المعتمدة للأدمن
+  const ADMIN_PHONE = "0542961918"; // رقم جوالك الإداري وكلمة المرور
 
-  const CONFIG_VERSION = 20;
+  const CONFIG_VERSION = 21;
   const CONFIG_KEY = 'wednesday_config_v' + CONFIG_VERSION;
 
   const defaultConfig = {
@@ -495,7 +502,7 @@
   if (!config.codes) config.codes = defaultConfig.codes;
 
   let userData = { name: "", phone: "", points: 0, hasSharedPoster: false };
-  let currentAdminStatus = false; // لا يتأكد كـ أدمن إلا أثناء هذه الجلسة وبشكل يدوي
+  let currentAdminStatus = false;
   let typingTimer = null;
 
   function normalizeDigits(s) {
@@ -518,15 +525,20 @@
 
   function verifyAdminSecret() {
     const passInput = document.getElementById('adminPassInput');
-    const enteredPass = passInput ? passInput.value.trim().toLowerCase() : "";
+    const enteredPass = normalizeDigits(passInput ? passInput.value.trim() : "");
 
-    if (enteredPass === ADMIN_SECRET_PASS) {
+    if (enteredPass === ADMIN_PHONE) {
       currentAdminStatus = true;
-      alert('تم التحقق بنجاح! أهلاً بكِ يا ملكة القانون نوف 👑 تم تفعيل وضع الإشراف.');
+      userData.name = "المشرفة الملكة نوف";
+      userData.phone = ADMIN_PHONE;
+      alert('تم التحقق بنجاح! أهلاً بكِ يا ملكة القانون نوف 👑 تم تفعيل وضع الإشراف وتخطي تسجيل الطالبات.');
       document.getElementById('secretAdminContainer').classList.add('hidden');
+      
+      // الانتقال مباشرة لواجهة اللغز مع تفعيل صلاحيات الإشراف الكاملة
+      navigateToStep('quizStep');
       initUI();
     } else {
-      alert('كلمة المرور غير صحيحة!');
+      alert('رقم الجوال الإداري غير صحيح!');
     }
   }
 
@@ -584,7 +596,7 @@
       document.getElementById('formFields').classList.add('hidden');
       document.getElementById('closedMsg').classList.remove('hidden');
     } else {
-      document.getElementById('formFields').classList.remove('hidden');
+      document.getElementById('formFields').classList.add('hidden'); // إخفاء النموذج للعامة في حال الفتح الطبيعي بعد التسجيل
       document.getElementById('closedMsg').classList.add('hidden');
     }
 
@@ -594,12 +606,14 @@
         if (el) el.classList.remove('hidden');
       });
       document.getElementById('adminNoticeBadge').textContent = "وضع الإشراف (الملكة نوف)";
+      document.getElementById('userBackFromPosterBtn').classList.add('hidden'); // الطالبات فقط يرين زر العودة من البوستر
     } else {
       ['adminNavRowHome', 'adminNavRowQuiz', 'adminNavRowBoard', 'adminNavRowPoster'].forEach(id => {
         let el = document.getElementById(id);
         if (el) el.classList.add('hidden');
       });
       document.getElementById('adminNoticeBadge').textContent = "قيد التحقيق";
+      document.getElementById('userBackFromPosterBtn').classList.remove('hidden');
     }
   }
 
@@ -611,30 +625,27 @@
 
     const name = nameInput.value.trim().replace(/\s+/g, ' ');
     const phone = normalizeDigits(phoneInput.value.trim());
-    const isAdmin = isUserAdmin();
 
-    if (!isAdmin) {
-      if (name.split(' ').length < 2 || name.length < 5) {
-        showFormError('فضلاً اكتبي اسمك الثلاثي كاملاً', 'userName');
-        return;
-      }
-      if (!/^05\d{8}$/.test(phone)) {
-        showFormError('رقم الجوال لازم يبدأ بـ 05 ويتكون من 10 أرقام', 'userPhone');
-        return;
-      }
-      if (!config.isOpen) {
-        showFormError('الفعالية مغلقة حالياً. انتظرونا قريباً!', 'userPhone');
-        return;
-      }
-      if (localStorage.getItem(answeredKey(phone))) {
-        showFormError('سبق وشاركتي في لغز هذا الأسبوع 🌸 انتظرينا الأربعاء القادم!', 'userPhone');
-        return;
-      }
+    if (name.split(' ').length < 2 || name.length < 5) {
+      showFormError('فضلاً اكتبي اسمك الثلاثي كاملاً', 'userName');
+      return;
+    }
+    if (!/^05\d{8}$/.test(phone)) {
+      showFormError('رقم الجوال لازم يبدأ بـ 05 ويتكون من 10 أرقام', 'userPhone');
+      return;
+    }
+    if (!config.isOpen) {
+      showFormError('الفعالية مغلقة حالياً. انتظرونا قريباً!', 'userPhone');
+      return;
+    }
+    if (localStorage.getItem(answeredKey(phone))) {
+      showFormError('سبق وشاركتي في لغز هذا الأسبوع 🌸 انتظرينا الأربعاء القادم!', 'userPhone');
+      return;
     }
     showFormError('');
 
-    userData.name = name || "المشرفة نوف";
-    userData.phone = phone || "0542961918";
+    userData.name = name;
+    userData.phone = phone;
     userData.points = 0;
     userData.hasSharedPoster = false;
 
@@ -749,6 +760,9 @@
       });
       document.getElementById(stepId).classList.remove('hidden');
       window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (stepId === 'quizStep') {
+        typeText(document.getElementById('qText'), config.text, 28);
+      }
     }, 400);
 
     setTimeout(() => { tape.classList.remove('active'); }, 850);
