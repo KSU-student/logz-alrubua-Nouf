@@ -384,8 +384,9 @@
         🔗 مشاركة أو حفظ البوستر
       </button>
 
+      <!-- تم تحديث النص هنا ليكون "العودة" فقط وبشكل مرتب وأنيق -->
       <button class="btn" id="userBackFromPosterBtn" style="background: rgba(255,255,255,0.1); border: 1px solid var(--line); margin-top: 6px;" onclick="returnFromPosterForUser()">
-        ↩️ العودة للصدارة أو الرئيسية
+        ↩️ العودة
       </button>
 
       <div class="admin-luxury-nav hidden" id="adminNavRowPoster">
@@ -468,7 +469,7 @@
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxzNh85mkH-DISqJRFJXDyMFR0V9inslF8CUWTJ4MVwjwPCWLIvmp2hkAKKVEiz6tmt/exec";
   const ADMIN_PHONE = "0542961918";
 
-  const CONFIG_VERSION = 25;
+  const CONFIG_VERSION = 26;
   const CONFIG_KEY = 'wednesday_config_v' + CONFIG_VERSION;
 
   const defaultConfig = {
@@ -931,7 +932,6 @@
     }
   });
 
-  // التشغيل التلقائي بأمان تام
   window.addEventListener('DOMContentLoaded', () => {
     initUI();
   });
