@@ -219,7 +219,6 @@
     .rank-box { background: rgba(250, 204, 21, 0.08); border: 1.5px solid var(--gold); border-radius: 10px; padding: 12px; margin-bottom: 10px; }
     .rank-number { font-size: 26px; font-weight: 900; color: #fff; margin: 2px 0; }
 
-    /* صندوق احتساب النقاط بخط خفيف ومظهر مرتب */
     .points-info-box {
       background: rgba(255, 255, 255, 0.03);
       border: 1px dashed rgba(250, 204, 21, 0.35);
@@ -271,8 +270,8 @@
       </div>
 
       <div id="closedMsg" class="hidden" style="text-align: center; color: #fca5a5; padding: 12px 0;">
-        <h3 id="closedTitleDisplay">الفعالية مغلقة حالياً 🌸</h3>
-        <p id="closedTextDisplay" style="font-size: 13px; margin-top: 4px;">انتظرونا الأربعاء القادم لفتح قضية جديدة!</p>
+        <h3 id="closedTitleDisplay" style="font-weight: 900; font-size: 16px; margin: 0 0 4px;">الفعالية مغلقة حالياً 🌸</h3>
+        <p id="closedTextDisplay" style="font-size: 12.5px; margin: 0; opacity: 0.9;">انتظرونا الأربعاء القادم لفتح قضية جديدة!</p>
       </div>
 
       <div id="formFields">
@@ -298,7 +297,7 @@
 
       <div class="signature">
         &copy; 2026 Nouf Alawad - نوف آل عواض<br>
-        <span>لكل فكرة صدى.. نسعد بملاحظاتكم عبر: <a href="mailto:Noufalawad20@gmail.com">Noufalawad20@gmail.com</a></span>
+        <span>لكل فكرة صدى.. نسعد بملاحظاتكم عبر: <a href="mailto:Noufalawad20@gmail.com?subject=%Dبشأن%20لغز%20الربوع">Noufalawad20@gmail.com</a></span>
       </div>
     </div>
 
@@ -340,7 +339,7 @@
 
       <div class="signature">
         &copy; 2026 Nouf Alawad - نوف آل عواض<br>
-        <span>لكل فكرة صدى.. نسعد بملاحظاتكم عبر: <a href="mailto:Noufalawad20@gmail.com">Noufalawad20@gmail.com</a></span>
+        <span>لكل فكرة صدى.. نسعد بملاحظاتكم عبر: <a href="mailto:Noufalawad20@gmail.com?subject=%Dبشأن%20لغز%20الربوع">Noufalawad20@gmail.com</a></span>
       </div>
     </div>
 
@@ -360,7 +359,6 @@
         <div class="rank-number" id="userPointsText">جاري جلب النقاط...</div>
       </div>
 
-      <!-- الشرح المضاف بخط خفيف ومظهر مرتب -->
       <div class="points-info-box">
         <strong>💡 آلية احتساب النقاط:</strong><br>
         • <strong>نقطة واحدة</strong> لكل إجابة صحيحة.<br>
@@ -381,7 +379,7 @@
 
       <div class="signature">
         &copy; 2026 Nouf Alawad - نوف آل عواض<br>
-        <span>لكل فكرة صدى.. نسعد بملاحظاتكم عبر: <a href="mailto:Noufalawad20@gmail.com">Noufalawad20@gmail.com</a></span>
+        <span>لكل فكرة صدى.. نسعد بملاحظاتكم عبر: <a href="mailto:Noufalawad20@gmail.com?subject=%Dبشأن%20لغز%20الربوع">Noufalawad20@gmail.com</a></span>
       </div>
     </div>
 
@@ -395,7 +393,6 @@
 
       <div class="poster-user-box" id="posterUserName">المحققة: </div>
 
-      <!-- تم إضافة "على لوحة الصدارة" هنا كما طلبتِ -->
       <p style="font-size: 12px; color: var(--gold-light); margin: 0 0 8px; font-weight: 700;">
         شاركي بوستر إنجازكِ وتحدّي زميلاتكِ في الكلية على لوحة الصدارة:
       </p>
@@ -417,7 +414,7 @@
 
       <div class="signature">
         &copy; 2026 Nouf Alawad - نوف آل عواض<br>
-        <span>لكل فكرة صدى.. نسعد بملاحظاتكم عبر: <a href="mailto:Noufalawad20@gmail.com">Noufalawad20@gmail.com</a></span>
+        <span>لكل فكرة صدى.. نسعد بملاحظاتكم عبر: <a href="mailto:Noufalawad20@gmail.com?subject=%Dبشأن%20لغز%20الربوع">Noufalawad20@gmail.com</a></span>
       </div>
     </div>
 
@@ -433,10 +430,8 @@
         </select>
       </div>
 
-      <div class="field">
-        <label>عبارة الإغلاق للزوار:</label>
-        <textarea id="p_closedText"></textarea>
-      </div>
+      <div class="field"><label>عنوان رسالة الإغلاق (الكبير):</label><input type="text" id="p_closedTitle"></div>
+      <div class="field"><label>نص تفاصيل الإغلاق (الصغير تحتها):</label><textarea id="p_closedText"></textarea></div>
 
       <div class="field">
         <label>لوحة الصدارة (Leaderboard):</label>
@@ -488,7 +483,7 @@
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxzNh85mkH-DISqJRFJXDyMFR0V9inslF8CUWTJ4MVwjwPCWLIvmp2hkAKKVEiz6tmt/exec";
   const ADMIN_PHONE = "0542961918";
 
-  const CONFIG_VERSION = 27;
+  const CONFIG_VERSION = 28;
   const CONFIG_KEY = 'wednesday_config_v' + CONFIG_VERSION;
 
   const defaultConfig = {
@@ -884,6 +879,7 @@
     if (panel.classList.contains('hidden')) {
       const setVal = (id, val) => { const el = document.getElementById(id); if(el) el.value = val; };
       setVal('p_isOpen', config.isOpen ? "true" : "false");
+      setVal('p_closedTitle', config.closedTitle || defaultConfig.closedTitle);
       setVal('p_closedText', config.closedText || defaultConfig.closedText);
       setVal('p_leaderboardActive', config.leaderboardActive ? "true" : "false");
       setVal('p_no', config.title);
@@ -913,6 +909,7 @@
     const getVal = (id) => { const el = document.getElementById(id); return el ? el.value.trim() : ""; };
     
     config.isOpen = (getVal('p_isOpen') === 'true');
+    config.closedTitle = getVal('p_closedTitle') || defaultConfig.closedTitle;
     config.closedText = getVal('p_closedText') || defaultConfig.closedText;
     config.leaderboardActive = (getVal('p_leaderboardActive') === 'true');
     config.title = getVal('p_no');
