@@ -216,8 +216,23 @@
     }
 
     .leaderboard-title { font-size: 17px; font-weight: 900; color: var(--gold-light); margin-bottom: 8px; }
-    .rank-box { background: rgba(250, 204, 21, 0.08); border: 1.5px solid var(--gold); border-radius: 10px; padding: 12px; margin-bottom: 12px; }
+    .rank-box { background: rgba(250, 204, 21, 0.08); border: 1.5px solid var(--gold); border-radius: 10px; padding: 12px; margin-bottom: 10px; }
     .rank-number { font-size: 26px; font-weight: 900; color: #fff; margin: 2px 0; }
+
+    /* صندوق احتساب النقاط بخط خفيف ومظهر مرتب */
+    .points-info-box {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px dashed rgba(250, 204, 21, 0.35);
+      border-radius: 10px;
+      padding: 10px 12px;
+      margin-bottom: 12px;
+      text-align: right;
+      font-size: 11.5px;
+      color: rgba(255, 255, 255, 0.82);
+      line-height: 1.6;
+      font-weight: 400;
+    }
+    .points-info-box strong { color: var(--gold-light); font-weight: 700; }
 
     .hidden { display: none !important; }
 
@@ -248,7 +263,7 @@
       <h1 class="main-title">لغز الربوع 🕵️‍♀️</h1>
       <p class="sub">شاركي معنا حل لغز اليوم واحصلي على هديتك</p>
 
-      <!-- الخانة السريّة للمشرفة نوف (مخفية ومحمية تماماً) -->
+      <!-- الخانة السريّة للمشرفة نوف -->
       <div class="field hidden" id="secretAdminContainer" style="margin: 10px 0; background: rgba(250,204,21,0.08); padding: 12px; border-radius: 12px; border: 1.5px dashed var(--gold);">
         <label style="font-size: 12.5px; color: var(--gold-light);">أدخلي كلمة السر الإدارية الخاصّة بكِ:</label>
         <input type="password" id="adminPassInput" placeholder="••••••••••">
@@ -345,9 +360,13 @@
         <div class="rank-number" id="userPointsText">جاري جلب النقاط...</div>
       </div>
 
-      <p style="font-size: 11.5px; color: rgba(255,255,255,0.85); margin-bottom: 12px;">
-        واصلي في حل القضايا الأسبوعية ومشاركة البوستر لجمع النقاط وضمان مقعدك في المقدمة!
-      </p>
+      <!-- الشرح المضاف بخط خفيف ومظهر مرتب -->
+      <div class="points-info-box">
+        <strong>💡 آلية احتساب النقاط:</strong><br>
+        • <strong>نقطة واحدة</strong> لكل إجابة صحيحة.<br>
+        • <strong>نقطتان</strong> عند مشاركة بوستر الإنجاز.<br>
+        <span style="font-size: 10.5px; opacity: 0.8; display: block; margin-top: 4px;">*(يرجى الدخول بنفس رقم الجوال دائماً لضمان احتساب النقاط)*</span>
+      </div>
 
       <button class="btn" style="background: linear-gradient(135deg, #eab308, #a16207);" onclick="goToPosterFromLeaderboard()">
         📸 عرض بوستر التحدي والإنجاز
@@ -376,15 +395,15 @@
 
       <div class="poster-user-box" id="posterUserName">المحققة: </div>
 
+      <!-- تم إضافة "على لوحة الصدارة" هنا كما طلبتِ -->
       <p style="font-size: 12px; color: var(--gold-light); margin: 0 0 8px; font-weight: 700;">
-        شاركي بوستر إنجازكِ وتحدّي زميلاتكِ في الكلية:
+        شاركي بوستر إنجازكِ وتحدّي زميلاتكِ في الكلية على لوحة الصدارة:
       </p>
 
       <button class="btn" style="background: linear-gradient(135deg, #eab308, #a16207);" onclick="sharePosterFile()">
         🔗 مشاركة أو حفظ البوستر
       </button>
 
-      <!-- تم تحديث النص هنا ليكون "العودة" فقط وبشكل مرتب وأنيق -->
       <button class="btn" id="userBackFromPosterBtn" style="background: rgba(255,255,255,0.1); border: 1px solid var(--line); margin-top: 6px;" onclick="returnFromPosterForUser()">
         ↩️ العودة
       </button>
@@ -469,7 +488,7 @@
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxzNh85mkH-DISqJRFJXDyMFR0V9inslF8CUWTJ4MVwjwPCWLIvmp2hkAKKVEiz6tmt/exec";
   const ADMIN_PHONE = "0542961918";
 
-  const CONFIG_VERSION = 26;
+  const CONFIG_VERSION = 27;
   const CONFIG_KEY = 'wednesday_config_v' + CONFIG_VERSION;
 
   const defaultConfig = {
