@@ -134,7 +134,6 @@
     }
     .btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(250, 204, 21, 0.6); }
 
-    /* شريط تنقل ملكي فخم خاص بالمشرفة فقط */
     .admin-luxury-nav {
       margin-top: 14px; padding: 10px; border-radius: 12px;
       background: linear-gradient(135deg, rgba(250,204,21,0.15), rgba(107,33,168,0.25));
@@ -240,7 +239,6 @@
     <div class="card" id="userInfoStep">
       <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
 
-      <!-- الضغط على الشعار يفتح خنة كلمة السر الملكية للمشرفة -->
       <div class="club-logo-container" onclick="triggerSecretAdminField()">
         <img src="Logo.png" alt="وحدة الإرشاد الأكاديمي" class="real-logo">
       </div>
@@ -264,7 +262,7 @@
           <input type="tel" id="userPhone" placeholder="05xxxxxxxx" inputmode="numeric" maxlength="10" autocomplete="tel">
         </div>
 
-        <!-- خانة كلمة سر المشرفة الملكية (لا تظهر إلا بالنقر على الشعار) -->
+        <!-- الخانة السريّة للمشرفة (تظهر فقط عند ضغط الشعار) -->
         <div class="field hidden" id="secretAdminContainer" style="margin-top: 10px; background: rgba(250,204,21,0.08); padding: 10px; border-radius: 10px; border: 1.5px dashed var(--gold);">
           <label style="font-size: 12px; color: var(--gold-light);">كلمة مرور المشرفة الملكة نوف:</label>
           <input type="password" id="adminPassInput" placeholder="أدخلي كلمة السر الخاصة بكِ">
@@ -275,7 +273,6 @@
         <button class="btn" onclick="startQuizWithTransition()">🔍 فتح ملف القضية</button>
       </div>
 
-      <!-- شريط المشرفة الفخم بالرئيسية -->
       <div class="admin-luxury-nav hidden" id="adminNavRowHome">
         <button class="admin-nav-btn" onclick="navigateToStep('quizStep')">القضية ⬅️</button>
         <button class="admin-nav-btn" onclick="navigateToStep('leaderboardStep')">الصدارة</button>
@@ -318,7 +315,6 @@
         التالي ➡️
       </button>
 
-      <!-- شريط المشرفة الفخم بالقضية -->
       <div class="admin-luxury-nav hidden" id="adminNavRowQuiz">
         <button class="admin-nav-btn" onclick="navigateToStep('userInfoStep')">⬅️ الرئيسية</button>
         <button class="admin-nav-btn" onclick="navigateToStep('leaderboardStep')">الصدارة ➡️</button>
@@ -356,7 +352,6 @@
         📸 عرض بوستر التحدي والإنجاز
       </button>
 
-      <!-- شريط المشرفة الفخم بالصدارة -->
       <div class="admin-luxury-nav hidden" id="adminNavRowBoard">
         <button class="admin-nav-btn" onclick="navigateToStep('userInfoStep')">الرئيسية</button>
         <button class="admin-nav-btn" onclick="navigateToStep('quizStep')">⬅️ القضية</button>
@@ -388,12 +383,10 @@
         🔗 مشاركة أو حفظ البوستر
       </button>
 
-      <!-- زر العودة للطالبات من البوستر للصدارة أو الرئيسية -->
       <button class="btn" style="background: rgba(255,255,255,0.1); border: 1px solid var(--line); margin-top: 6px;" onclick="returnFromPosterForUser()">
         ↩️ العودة للصدارة أو الرئيسية
       </button>
 
-      <!-- شريط المشرفة الفخم بالبوستر -->
       <div class="admin-luxury-nav hidden" id="adminNavRowPoster">
         <button class="admin-nav-btn" onclick="navigateToStep('userInfoStep')">الرئيسية</button>
         <button class="admin-nav-btn" onclick="navigateToStep('quizStep')">القضية</button>
@@ -472,9 +465,9 @@
 
 <script>
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxzNh85mkH-DISqJRFJXDyMFR0V9inslF8CUWTJ4MVwjwPCWLIvmp2hkAKKVEiz6tmt/exec";
-  const ADMIN_SECRET_PASS = "nouf2026"; // كلمة المرور السرية للمشرفة الملكة نوف
+  const ADMIN_SECRET_PASS = "nouf2026"; // كلمة السر الوحيدة المعتمدة للأدمن
 
-  const CONFIG_VERSION = 19;
+  const CONFIG_VERSION = 20;
   const CONFIG_KEY = 'wednesday_config_v' + CONFIG_VERSION;
 
   const defaultConfig = {
@@ -502,6 +495,7 @@
   if (!config.codes) config.codes = defaultConfig.codes;
 
   let userData = { name: "", phone: "", points: 0, hasSharedPoster: false };
+  let currentAdminStatus = false; // لا يتأكد كـ أدمن إلا أثناء هذه الجلسة وبشكل يدوي
   let typingTimer = null;
 
   function normalizeDigits(s) {
@@ -512,7 +506,6 @@
   function answeredKey(phone) { return 'answered_' + config.title + '_' + phone; }
   function lastCodeKey() { return 'last_given_code_' + config.title; }
 
-  // النقر على الشعار لإظهار خانة كلمة المرور السرية
   function triggerSecretAdminField() {
     const container = document.getElementById('secretAdminContainer');
     if (container) {
@@ -528,19 +521,17 @@
     const enteredPass = passInput ? passInput.value.trim().toLowerCase() : "";
 
     if (enteredPass === ADMIN_SECRET_PASS) {
-      localStorage.setItem('is_nouf_admin', 'true');
+      currentAdminStatus = true;
       alert('تم التحقق بنجاح! أهلاً بكِ يا ملكة القانون نوف 👑 تم تفعيل وضع الإشراف.');
-      location.reload();
+      document.getElementById('secretAdminContainer').classList.add('hidden');
+      initUI();
     } else {
       alert('كلمة المرور غير صحيحة!');
     }
   }
 
   function isUserAdmin() {
-    try {
-      return localStorage.getItem('is_nouf_admin') === 'true';
-    } catch(e) {}
-    return false;
+    return currentAdminStatus === true;
   }
 
   function getRandomCode() {
@@ -589,7 +580,6 @@
 
     let isAdmin = isUserAdmin();
 
-    // إذا كانت الفعالية مغلقة، تمنع الطالبات تماماً، بينما المشرفة تدخل بحرية مطلقة
     if (!config.isOpen && !isAdmin) {
       document.getElementById('formFields').classList.add('hidden');
       document.getElementById('closedMsg').classList.remove('hidden');
@@ -598,13 +588,18 @@
       document.getElementById('closedMsg').classList.add('hidden');
     }
 
-    // إظهار أشرطة التنقل الفخمة للمشرفة وحدها
     if (isAdmin) {
       ['adminNavRowHome', 'adminNavRowQuiz', 'adminNavRowBoard', 'adminNavRowPoster'].forEach(id => {
         let el = document.getElementById(id);
         if (el) el.classList.remove('hidden');
       });
       document.getElementById('adminNoticeBadge').textContent = "وضع الإشراف (الملكة نوف)";
+    } else {
+      ['adminNavRowHome', 'adminNavRowQuiz', 'adminNavRowBoard', 'adminNavRowPoster'].forEach(id => {
+        let el = document.getElementById(id);
+        if (el) el.classList.add('hidden');
+      });
+      document.getElementById('adminNoticeBadge').textContent = "قيد التحقيق";
     }
   }
 
@@ -733,7 +728,6 @@
   }
 
   function backToQuizOrRestart() {
-    // تفعيل الخيارات مجدداً لتجربة متكررة للمشرفة أو إعادة تحميل للطالبة
     if (isUserAdmin()) {
       document.getElementById('options').style.pointerEvents = 'auto';
       document.getElementById('result').classList.add('hidden');
