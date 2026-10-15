@@ -16,13 +16,13 @@
       --gold: #facc15;
       --gold-dark: #ca8a04;
       --gold-light: #fef08a;
-      --card-bg: rgba(14, 5, 28, 0.94);
+      --card-bg: rgba(14, 5, 28, 0.95);
       --line: rgba(250, 204, 21, 0.45);
     }
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
-    body {
-      margin: 0; min-height: 100vh;
+    html, body {
+      margin: 0; padding: 0; width: 100%; min-height: 100vh;
       font-family: 'Tajawal', sans-serif;
       color: #fff;
       background:
@@ -31,65 +31,53 @@
         radial-gradient(circle at center, #1d0438 0%, var(--bg-dark) 100%);
       background-attachment: fixed;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
-      padding: 30px 14px 40px;
       overflow-x: hidden;
-      position: relative;
     }
+
     body::before {
       content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0;
       background:
-        repeating-linear-gradient(0deg, rgba(255,255,255,0.025) 0, rgba(255,255,255,0.025) 1px, transparent 1px, transparent 4px),
-        repeating-linear-gradient(45deg, rgba(255,255,255,0.012) 0, rgba(255,255,255,0.012) 2px, transparent 2px, transparent 10px);
-    }
-    body::after {
-      content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 1;
-      background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.75) 100%);
+        repeating-linear-gradient(0deg, rgba(255,255,255,0.02) 0, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 4px);
     }
 
-    /* شريط الانتقال الأصفر */
+    /* شريط الانتقال الأصفر المرن */
     .transition-tape {
       position: fixed; top: 50%; left: -150%; width: 140%; height: 64px;
       background: repeating-linear-gradient(-45deg, #facc15, #facc15 25px, #000 25px, #000 50px);
       z-index: 999; transform: translateY(-50%) rotate(-8deg);
       box-shadow: 0 0 50px rgba(0,0,0,0.9);
       display: flex; align-items: center; justify-content: center;
-      transition: left 0.5s ease-in-out; pointer-events: none; visibility: hidden;
+      transition: left 0.4s ease-in-out; pointer-events: none; visibility: hidden;
     }
-    .transition-tape span { background: #000; color: #facc15; font-size: 19px; font-weight: 900; padding: 4px 18px; letter-spacing: 2px; }
+    .transition-tape span { background: #000; color: #facc15; font-size: 18px; font-weight: 900; padding: 4px 18px; letter-spacing: 2px; }
     .transition-tape.active { left: -10%; visibility: visible; }
 
-    .app-wrapper { position: relative; width: 100%; max-width: 440px; z-index: 2; }
+    .app-wrapper {
+      position: relative; width: 100%; max-width: 440px; z-index: 2;
+      padding: 20px 14px; display: flex; flex-direction: column; align-items: center;
+    }
 
     .card {
-      background: linear-gradient(180deg, rgba(250,204,21,0.08) 0%, transparent 30%), var(--card-bg);
+      background: linear-gradient(180deg, rgba(250,204,21,0.07) 0%, transparent 25%), var(--card-bg);
       border: 1.5px solid rgba(250, 204, 21, 0.5);
-      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
       border-radius: 20px;
-      padding: 30px 20px 20px;
+      padding: 26px 18px 20px;
       width: 100%;
       box-shadow:
-        0 0 0 4px rgba(250, 204, 21, 0.05),
-        0 0 50px rgba(168, 85, 247, 0.35),
-        0 25px 60px rgba(0,0,0,0.7),
-        inset 0 0 30px rgba(250, 204, 21, 0.1);
+        0 10px 40px rgba(0,0,0,0.7),
+        inset 0 0 25px rgba(250, 204, 21, 0.08);
       position: relative; z-index: 2;
     }
-    .corner { position: absolute; width: 18px; height: 18px; border: 2.5px solid var(--gold); pointer-events: none; }
-    .corner.tl { top: 10px; right: 10px; border-left: none; border-bottom: none; border-top-right-radius: 6px; }
-    .corner.tr { top: 10px; left: 10px; border-right: none; border-bottom: none; border-top-left-radius: 6px; }
-    .corner.bl { bottom: 10px; right: 10px; border-left: none; border-top: none; border-bottom-right-radius: 6px; }
-    .corner.br { bottom: 10px; left: 10px; border-right: none; border-top: none; border-bottom-left-radius: 6px; }
-
-    .case-stamp {
-      position: absolute; top: 14px; right: 38px;
-      border: 1.5px solid rgba(250,204,21,0.65); color: var(--gold-light);
-      font-size: 9.5px; font-weight: 900; letter-spacing: 1px; font-family: sans-serif;
-      padding: 1px 8px; border-radius: 4px; transform: rotate(4deg); pointer-events: none;
-    }
+    .corner { position: absolute; width: 16px; height: 16px; border: 2.5px solid var(--gold); pointer-events: none; }
+    .corner.tl { top: 10px; right: 10px; border-left: none; border-bottom: none; border-top-right-radius: 4px; }
+    .corner.tr { top: 10px; left: 10px; border-right: none; border-bottom: none; border-top-left-radius: 4px; }
+    .corner.bl { bottom: 10px; right: 10px; border-left: none; border-top: none; border-bottom-right-radius: 4px; }
+    .corner.br { bottom: 10px; left: 10px; border-right: none; border-top: none; border-bottom-left-radius: 4px; }
 
     .status-bar {
       display: flex; align-items: center; justify-content: center; gap: 6px;
-      font-size: 11px; font-weight: 700; color: var(--gold-light); margin-bottom: 6px; letter-spacing: 0.5px;
+      font-size: 11px; font-weight: 700; color: var(--gold-light); margin-bottom: 6px;
     }
     .status-bar i {
       width: 7px; height: 7px; border-radius: 50%; background: #facc15;
@@ -98,195 +86,130 @@
     @keyframes blink { 50% { opacity: 0.25; } }
 
     .club-logo-container {
-      text-align: center; margin: 0 auto 8px; position: relative; width: 100%;
+      text-align: center; margin: 0 auto 6px; position: relative; width: 100%;
       display: flex; justify-content: center; align-items: center;
     }
-    .club-logo-container::before {
-      content: ""; position: absolute; left: 50%; top: 50%;
-      width: 340px; height: 340px; max-width: 100%;
-      transform: translate(-50%, -50%);
-      background: radial-gradient(circle, rgba(250, 204, 21, 0.2) 0%, rgba(168,85,247,0.08) 50%, transparent 70%);
-      pointer-events: none;
-    }
     .real-logo {
-      position: relative; width: 100%; max-width: 300px; height: auto; display: block; margin: 0 auto;
-      filter: drop-shadow(0 0 2px rgba(250,204,21,0.8)) drop-shadow(0 0 12px rgba(250, 204, 21, 0.6)) brightness(1.08);
-      animation: horrorFlicker 2.6s linear 0.2s 1 both;
-    }
-    .club-logo-container::before { animation: glowFlicker 2.6s linear 0.2s 1 both; }
-
-    @keyframes horrorFlicker {
-      0%   { opacity: 0;    filter: drop-shadow(0 0 0 transparent) brightness(0.2); }
-      6%   { opacity: 0.9;  filter: drop-shadow(0 0 2px rgba(250,204,21,0.9)) brightness(1.4); }
-      9%   { opacity: 0.05; filter: drop-shadow(0 0 0 transparent) brightness(0.2); }
-      16%  { opacity: 0.7;  filter: drop-shadow(0 0 2px rgba(250,204,21,0.8)) brightness(0.9); }
-      19%  { opacity: 0;    filter: drop-shadow(0 0 0 transparent) brightness(0.2); }
-      30%  { opacity: 0;    filter: drop-shadow(0 0 0 transparent) brightness(0.2); }
-      33%  { opacity: 1;    filter: drop-shadow(0 0 3px rgba(250,204,21,1)) brightness(1.5); }
-      38%  { opacity: 0.3;  filter: drop-shadow(0 0 0 transparent) brightness(0.5); }
-      46%  { opacity: 0.85; filter: drop-shadow(0 0 2px rgba(250,204,21,0.9)) brightness(1.1); }
-      50%  { opacity: 0.15; filter: drop-shadow(0 0 0 transparent) brightness(0.4); }
-      62%  { opacity: 1;    filter: drop-shadow(0 0 2px rgba(250,204,21,0.95)) brightness(1.25); }
-      66%  { opacity: 0.55; filter: drop-shadow(0 0 1px rgba(250,204,21,0.6)) brightness(0.8); }
-      74%  { opacity: 1;    filter: drop-shadow(0 0 2px rgba(250,204,21,0.95)) brightness(1.15); }
-      80%  { opacity: 0.8;  filter: drop-shadow(0 0 2px rgba(250,204,21,0.85)) brightness(1); }
-      100% { opacity: 1;    filter: drop-shadow(0 0 2px rgba(250,204,21,0.9)) brightness(1.08); }
-    }
-    @keyframes glowFlicker {
-      0%, 9%, 19%, 30%, 38%, 50% { opacity: 0; }
-      6%, 33%, 46%, 62%, 74% { opacity: 1; }
-      66% { opacity: 0.4; }
-      80%, 100% { opacity: 1; }
+      position: relative; width: 100%; max-width: 260px; height: auto; display: block; margin: 0 auto;
+      filter: drop-shadow(0 0 10px rgba(250, 204, 21, 0.5)) brightness(1.08);
     }
 
     .divider {
       height: 2px; margin: 10px auto 14px; width: 70%;
       background: linear-gradient(90deg, transparent, var(--gold), transparent);
-      position: relative;
     }
 
     h1.main-title {
-      margin: 2px 0 4px; text-align: center; font-size: 26px; font-weight: 900;
+      margin: 2px 0 4px; text-align: center; font-size: 24px; font-weight: 900;
       background: linear-gradient(180deg, #fff 30%, var(--gold-light) 100%);
       -webkit-background-clip: text; background-clip: text; color: transparent;
-      filter: drop-shadow(0 0 8px rgba(250,204,21,0.6));
     }
-    p.sub { text-align: center; color: rgba(255,255,255,0.78); margin: 0 0 16px; font-size: 12.5px; }
+    p.sub { text-align: center; color: rgba(255,255,255,0.78); margin: 0 0 16px; font-size: 12px; }
 
-    .field { margin-bottom: 14px; }
-    label { display: block; margin-bottom: 5px; font-weight: 700; font-size: 13px; color: var(--gold-light); }
+    .field { margin-bottom: 12px; }
+    label { display: block; margin-bottom: 4px; font-weight: 700; font-size: 12.5px; color: var(--gold-light); }
     input[type="text"], input[type="tel"], textarea, select {
-      width: 100%; padding: 11px 12px; border-radius: 10px; border: 1.5px solid var(--line);
-      background: rgba(8, 2, 18, 0.8); color: #fff; font-size: 16px; font-family: inherit;
+      width: 100%; padding: 10px 12px; border-radius: 10px; border: 1.5px solid var(--line);
+      background: rgba(8, 2, 18, 0.85); color: #fff; font-size: 15px; font-family: inherit;
       outline: none; transition: 0.3s;
     }
-    input:focus, textarea:focus, select:focus { border-color: var(--gold); box-shadow: 0 0 14px rgba(250, 204, 21, 0.35); }
-    input.invalid { border-color: #f87171; box-shadow: 0 0 12px rgba(248, 113, 113, 0.45); }
-    textarea { resize: vertical; height: 68px; }
+    input:focus, textarea:focus, select:focus { border-color: var(--gold); box-shadow: 0 0 12px rgba(250, 204, 21, 0.35); }
+    input.invalid { border-color: #f87171; }
+    textarea { resize: vertical; height: 60px; }
 
-    .form-error {
-      color: #fca5a5; font-size: 12.5px; text-align: center; min-height: 18px; margin: 2px 0 0; line-height: 1.5;
-    }
+    .form-error { color: #fca5a5; font-size: 12px; text-align: center; min-height: 16px; margin: 2px 0; }
 
     .btn {
-      width: 100%; padding: 13px; border: none; border-radius: 10px;
+      width: 100%; padding: 12px; border: none; border-radius: 10px;
       background: linear-gradient(135deg, #ca8a04, #854d0e);
       border-bottom: 3px solid var(--gold);
-      color: #fff; font-size: 16px; font-weight: 800; font-family: inherit;
-      cursor: pointer; margin-top: 8px; transition: 0.3s;
-      box-shadow: 0 5px 18px rgba(202, 138, 4, 0.4);
-      position: relative; overflow: hidden;
+      color: #fff; font-size: 15px; font-weight: 800; font-family: inherit;
+      cursor: pointer; margin-top: 6px; transition: 0.3s;
+      box-shadow: 0 4px 16px rgba(202, 138, 4, 0.4);
     }
-    .btn::after {
-      content: ""; position: absolute; top: 0; left: -80%; width: 50%; height: 100%;
-      background: linear-gradient(100deg, transparent, rgba(255,255,255,0.35), transparent);
-      transform: skewX(-20deg); animation: shine 3.2s infinite;
-    }
-    @keyframes shine { 0%, 60% { left: -80%; } 100% { left: 160%; } }
-    .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(250, 204, 21, 0.6); }
+    .btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(250, 204, 21, 0.6); }
 
     .case-meta {
       display: flex; justify-content: center; gap: 8px; margin-bottom: 4px;
-      font-family: sans-serif; font-size: 10.5px; letter-spacing: 1.2px; color: var(--gold-light);
+      font-family: sans-serif; font-size: 10px; letter-spacing: 1px; color: var(--gold-light);
     }
 
     .magnifier-lens {
       border: 1.5px solid var(--gold); border-right: 4px solid var(--white-pure);
-      border-radius: 14px; padding: 18px 16px 16px;
-      background: linear-gradient(135deg, rgba(250, 204, 21, 0.15), rgba(168, 85, 247, 0.05));
-      box-shadow: inset 0 0 25px rgba(250, 204, 21, 0.2), 0 0 16px rgba(250, 204, 21, 0.15);
-      margin: 4px 0 16px; position: relative; min-height: 95px;
+      border-radius: 12px; padding: 16px 14px 14px;
+      background: linear-gradient(135deg, rgba(250, 204, 21, 0.12), rgba(168, 85, 247, 0.04));
+      box-shadow: inset 0 0 20px rgba(250, 204, 21, 0.15);
+      margin: 4px 0 14px; position: relative; min-height: 85px;
     }
     .magnifier-lens::before {
       content: attr(data-label); position: absolute; top: -9px; right: 14px;
       background: var(--gold); color: #14081f; font-size: 10px; font-weight: 900;
       padding: 1px 8px; border-radius: 4px;
     }
-    .question-zoom { font-size: 15.5px; font-weight: 700; line-height: 1.7; color: #fff; text-shadow: 0 0 6px rgba(255,255,255,0.35); }
-    .question-zoom.typing::after { content: "▌"; color: var(--gold); animation: blink 0.8s infinite; margin-right: 2px; }
+    .question-zoom { font-size: 15px; font-weight: 700; line-height: 1.6; color: #fff; }
 
     .opt-btn {
-      width: 100%; padding: 13px; margin-bottom: 10px; border-radius: 10px;
-      border: 1.5px solid rgba(250, 204, 21, 0.3); background: rgba(250, 204, 21, 0.05);
-      color: #fff; font-size: 15px; font-weight: 700; cursor: pointer; text-align: center;
-      font-family: inherit; transition: all 0.3s ease;
+      width: 100%; padding: 12px; margin-bottom: 9px; border-radius: 10px;
+      border: 1.5px solid rgba(250, 204, 21, 0.3); background: rgba(250, 204, 21, 0.04);
+      color: #fff; font-size: 14.5px; font-weight: 700; cursor: pointer; text-align: center;
+      font-family: inherit; transition: all 0.25s ease;
     }
-    .opt-btn:hover { background: rgba(250, 204, 21, 0.2); border-color: var(--gold); transform: scale(1.01); }
+    .opt-btn:hover { background: rgba(250, 204, 21, 0.15); border-color: var(--gold); }
 
-    @keyframes shake {
-      0% { transform: translateX(0); } 20% { transform: translateX(-6px); }
-      40% { transform: translateX(6px); } 60% { transform: translateX(-6px); }
-      80% { transform: translateX(6px); } 100% { transform: translateX(0); }
-    }
-    .shaking { animation: shake 0.4s ease-in-out; }
-    .opt-btn.selected-correct { background: rgba(34, 197, 94, 0.35) !important; border-color: #22c55e !important; box-shadow: 0 0 16px rgba(34, 197, 94, 0.6) !important; }
-    .opt-btn.selected-wrong { background: rgba(239, 68, 68, 0.35) !important; border-color: #ef4444 !important; box-shadow: 0 0 16px rgba(239, 68, 68, 0.6) !important; }
-
-    .result-box { margin-top: 16px; padding: 18px 14px 14px; border-radius: 12px; text-align: center; line-height: 1.6; position: relative; }
-    .result-box h3 { margin: 4px 0; font-size: 16px; }
-    .result-box p { font-size: 13.5px; }
-    .success { background: rgba(34, 197, 94, 0.16); border: 1.5px solid #22c55e; box-shadow: 0 0 16px rgba(34, 197, 94, 0.3); }
-    .error { background: rgba(239, 68, 68, 0.16); border: 1.5px solid #ef4444; box-shadow: 0 0 16px rgba(239, 68, 68, 0.3); }
+    .result-box { margin-top: 14px; padding: 16px 12px; border-radius: 10px; text-align: center; line-height: 1.5; }
+    .result-box h3 { margin: 4px 0; font-size: 15px; }
+    .result-box p { font-size: 13px; }
+    .success { background: rgba(34, 197, 94, 0.15); border: 1.5px solid #22c55e; }
+    .error { background: rgba(239, 68, 68, 0.15); border: 1.5px solid #ef4444; }
 
     .verdict-stamp {
-      display: inline-block; font-weight: 900; font-size: 14px; letter-spacing: 1px;
-      padding: 2px 14px; border: 2.5px solid; border-radius: 6px;
-      transform: rotate(-5deg); margin-bottom: 4px;
-      animation: stampIn 0.45s cubic-bezier(.2,1.6,.4,1);
+      display: inline-block; font-weight: 900; font-size: 13px; letter-spacing: 1px;
+      padding: 2px 12px; border: 2px solid; border-radius: 6px; transform: rotate(-4deg); margin-bottom: 4px;
     }
     .success .verdict-stamp { color: #4ade80; border-color: #4ade80; }
     .error .verdict-stamp { color: #f87171; border-color: #f87171; }
-    @keyframes stampIn { 0% { transform: rotate(-5deg) scale(2.6); opacity: 0; } 100% { transform: rotate(-5deg) scale(1); opacity: 1; } }
 
-    .promo-box { background: rgba(250, 204, 21, 0.1); border: 1.5px dashed var(--gold); padding: 10px; border-radius: 8px; margin-top: 10px; font-size: 13.5px; }
-    .promo-box strong { color: var(--gold-light); font-size: 17px; letter-spacing: 1px; }
+    .promo-box { background: rgba(250, 204, 21, 0.08); border: 1.5px dashed var(--gold); padding: 8px; border-radius: 8px; margin-top: 8px; font-size: 13px; }
+    .promo-box strong { color: var(--gold-light); font-size: 16px; letter-spacing: 1px; }
 
-    /* صفحة لوحة الصدارة التنافسية */
-    .leaderboard-card { text-align: center; padding: 20px 14px; }
-    .leaderboard-title { font-size: 18px; font-weight: 900; color: var(--gold-light); margin-bottom: 10px; text-shadow: 0 0 8px rgba(250,204,21,0.4); }
-    .rank-box { background: rgba(250, 204, 21, 0.1); border: 1.5px solid var(--gold); border-radius: 12px; padding: 14px; margin-bottom: 14px; }
-    .rank-number { font-size: 28px; font-weight: 900; color: #fff; margin: 4px 0; }
-    .rank-alert { background: rgba(34, 197, 94, 0.2); border: 1px solid #22c55e; color: #4ade80; font-size: 12.5px; font-weight: 800; padding: 6px 10px; border-radius: 8px; margin-bottom: 12px; animation: pulse 1.5s infinite; }
-    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
-
-    /* صفحة البوستر المستقلة بالكامل */
-    .poster-page-card { text-align: center; padding: 20px 14px; }
+    /* لوحة الصدارة وتصميم البوستر */
+    .poster-page-card, .leaderboard-card { text-align: center; padding: 18px 14px; }
     .poster-img-container {
-      position: relative; width: 100%; border-radius: 14px; overflow: hidden;
-      border: 2px solid var(--gold); box-shadow: 0 0 30px rgba(250,204,21,0.3);
-      margin-bottom: 12px; background: #000;
+      position: relative; width: 100%; border-radius: 12px; overflow: hidden;
+      border: 2px solid var(--gold); box-shadow: 0 0 25px rgba(250,204,21,0.25);
+      margin-bottom: 10px; background: #000;
     }
     .poster-img { width: 100%; height: auto; display: block; }
     .poster-user-box {
-      background: rgba(250, 204, 21, 0.1); border: 1px solid var(--gold);
-      color: var(--gold-light); font-weight: 800; font-size: 14px;
-      padding: 8px 14px; border-radius: 10px; margin-bottom: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.5); text-align: center;
+      background: rgba(250, 204, 21, 0.1); border: 1.5px solid var(--gold);
+      color: var(--gold-light); font-weight: 800; font-size: 13.5px;
+      padding: 7px 12px; border-radius: 8px; margin-bottom: 10px; text-align: center;
     }
+
+    .leaderboard-title { font-size: 17px; font-weight: 900; color: var(--gold-light); margin-bottom: 8px; }
+    .rank-box { background: rgba(250, 204, 21, 0.08); border: 1.5px solid var(--gold); border-radius: 10px; padding: 12px; margin-bottom: 12px; }
+    .rank-number { font-size: 26px; font-weight: 900; color: #fff; margin: 2px 0; }
+    .rank-alert { background: rgba(34, 197, 94, 0.2); border: 1px solid #22c55e; color: #4ade80; font-size: 12px; font-weight: 800; padding: 5px 8px; border-radius: 6px; margin-bottom: 10px; }
 
     .hidden { display: none !important; }
 
-    .admin-toggle {
-      position: absolute; top: 12px; left: 12px;
-      background: rgba(250, 204, 21, 0.2); border: 1px solid var(--gold);
-      color: #fff; border-radius: 50%; width: 34px; height: 34px;
-      cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 0 8px rgba(250, 204, 21, 0.4); z-index: 10;
+    /* أزرار التحكم السريعة الخاصة بكل صفحة */
+    .page-admin-bar {
+      margin-top: 14px; padding-top: 10px; border-top: 1px dashed rgba(250,204,21,0.3);
+      display: flex; gap: 6px; justify-content: center;
     }
-    .admin-panel { background: rgba(10, 3, 20, 0.97); border: 2px solid var(--gold); margin-top: 14px; }
-    .row { display: flex; gap: 8px; }
+    .page-admin-btn {
+      background: rgba(250, 204, 21, 0.15); border: 1px solid var(--gold); color: var(--gold-light);
+      padding: 6px 12px; border-radius: 6px; font-size: 11.5px; font-weight: 700; cursor: pointer;
+    }
+    .page-admin-btn:hover { background: var(--gold); color: #000; }
+
+    .admin-panel { background: rgba(10, 3, 20, 0.97); border: 2px solid var(--gold); margin-top: 12px; }
+    .row { display: flex; gap: 6px; }
     .row > div { flex: 1; }
 
-    .signature { text-align: center; font-size: 10.5px; color: rgba(255,255,255,0.6); margin-top: 16px; letter-spacing: 0.8px; font-family: sans-serif; line-height: 1.6; }
+    .signature { text-align: center; font-size: 10px; color: rgba(255,255,255,0.55); margin-top: 14px; letter-spacing: 0.5px; line-height: 1.5; }
     .signature a { color: var(--gold-light); text-decoration: none; border-bottom: 1px dashed rgba(254,240,138,0.5); }
-    .signature a:hover { color: var(--gold); border-bottom-color: var(--gold); }
-
-    @media (max-width: 480px) {
-      .app-wrapper { max-width: 100%; }
-      .card { padding: 24px 16px 16px; border-radius: 16px; }
-      h1.main-title { font-size: 24px; }
-      .real-logo { max-width: 280px; }
-    }
   </style>
 </head>
 <body>
@@ -298,7 +221,7 @@
     <!-- 1. واجهة إدخال البيانات -->
     <div class="card" id="userInfoStep">
       <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
-      <div class="case-stamp">سري • CONFIDENTIAL</div>
+      <div class="case-stamp" style="position:absolute; top:12px; right:34px; border:1px solid rgba(250,204,21,0.5); font-size:9px; padding:1px 6px; border-radius:4px; color:var(--gold-light);">CONFIDENTIAL</div>
 
       <div class="club-logo-container">
         <img src="Logo.png" alt="وحدة الإرشاد الأكاديمي" class="real-logo">
@@ -308,9 +231,9 @@
       <h1 class="main-title">لغز الربوع 🕵️‍♀️</h1>
       <p class="sub">شاركي معنا حل لغز اليوم واحصلي على هديتك</p>
 
-      <div id="closedMsg" class="hidden" style="text-align: center; color: #fca5a5; padding: 15px 0;">
+      <div id="closedMsg" class="hidden" style="text-align: center; color: #fca5a5; padding: 12px 0;">
         <h3 id="closedTitleDisplay">الفعالية مغلقة حالياً 🌸</h3>
-        <p id="closedTextDisplay" style="font-size: 13.5px; margin-top: 6px;">انتظرونا الأربعاء القادم لفتح قضية جديدة!</p>
+        <p id="closedTextDisplay" style="font-size: 13px; margin-top: 4px;">انتظرونا الأربعاء القادم لفتح قضية جديدة!</p>
       </div>
 
       <div id="formFields">
@@ -326,17 +249,20 @@
         <button class="btn" onclick="startQuizWithTransition()">🔍 فتح ملف القضية</button>
       </div>
 
+      <!-- لوحة تحكم سريعة لصفحة الدخول -->
+      <div class="page-admin-bar" id="adminBarLogin">
+        <button class="page-admin-btn" onclick="openAdminAtTab('settings')">⚙️ إعدادات الإغلاق</button>
+      </div>
+
       <div class="signature">
         &copy; 2026 Nouf Alawad - نوف آل عواض<br>
-        <span>لكل فكرة صدى.. نسعد بملاحظاتكم ومقترحاتكم عبر: <a href="mailto:Noufalawad20@gmail.com">Noufalawad20@gmail.com</a></span>
+        <span>لكل فكرة صدى.. نسعد بملاحظاتكم عبر: <a href="mailto:Noufalawad20@gmail.com">Noufalawad20@gmail.com</a></span>
       </div>
     </div>
 
     <!-- 2. واجهة اللغز -->
     <div class="card hidden" id="quizStep">
       <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
-      <div class="case-stamp">TOP SECRET • سري للغاية</div>
-      <button class="admin-toggle hidden" id="adminBtn" title="لوحة التحكم" onclick="toggleAdmin()">⚙️</button>
 
       <div class="club-logo-container">
         <img src="Logo.png" alt="وحدة الإرشاد الأكاديمي" class="real-logo">
@@ -359,23 +285,28 @@
 
       <div id="result" class="result-box hidden"></div>
       
-      <!-- زر الانتقال للخطوة التالية (لوحة الصدارة أو البوستر) -->
-      <button id="nextStepBtn" class="btn hidden" style="background: linear-gradient(135deg, #eab308, #a16207); margin-top: 14px;" onclick="proceedAfterAnswer()">
+      <button id="nextStepBtn" class="btn hidden" style="background: linear-gradient(135deg, #eab308, #a16207); margin-top: 12px;" onclick="proceedAfterAnswer()">
         التالي ➡️
       </button>
 
+      <!-- لوحة تحكم سريعة لصفحة اللغز -->
+      <div class="page-admin-bar" id="adminBarQuiz">
+        <button class="page-admin-btn" onclick="openAdminAtTab('quiz')">🛠️ تعديل القضية</button>
+        <button class="page-admin-btn" onclick="openAdminAtTab('codes')">🎁 أكواد الخصم</button>
+      </div>
+
       <div class="signature">
         &copy; 2026 Nouf Alawad - نوف آل عواض<br>
-        <span>لكل فكرة صدى.. نسعد بملاحظاتكم ومقترحاتكم عبر: <a href="mailto:Noufalawad20@gmail.com">Noufalawad20@gmail.com</a></span>
+        <span>لكل فكرة صدى.. نسعد بملاحظاتكم عبر: <a href="mailto:Noufalawad20@gmail.com">Noufalawad20@gmail.com</a></span>
       </div>
     </div>
 
-    <!-- 3. صفحة لوحة الصدارة التنافسية (تظهر فقط إذا كانت مفعلة من لوحة التحكم) -->
+    <!-- 3. صفحة لوحة الصدارة -->
     <div class="card leaderboard-card hidden" id="leaderboardStep">
       <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
       
       <div class="club-logo-container" style="margin-bottom: 4px;">
-        <img src="Logo.png" alt="وحدة الإرشاد الأكاديمي" class="real-logo" style="max-width: 140px;">
+        <img src="Logo.png" alt="وحدة الإرشاد الأكاديمي" class="real-logo" style="max-width: 130px;">
       </div>
       <div class="divider" style="margin: 6px auto 10px;"></div>
 
@@ -386,12 +317,12 @@
       </div>
 
       <div class="rank-box">
-        <div style="font-size: 13px; color: var(--gold-light);">ترتيبك الحالي في المنافسة:</div>
+        <div style="font-size: 12px; color: var(--gold-light);">ترتيبك الحالي في المنافسة:</div>
         <div class="rank-number" id="userRankNum">المركز الـ 14</div>
-        <div style="font-size: 12px; color: rgba(255,255,255,0.7); margin-top: 4px;" id="userPointsText">مجموع النقاط: 3 نقاط</div>
+        <div style="font-size: 11.5px; color: rgba(255,255,255,0.7); margin-top: 3px;" id="userPointsText">مجموع النقاط: 3 نقاط</div>
       </div>
 
-      <p style="font-size: 12px; color: rgba(255,255,255,0.85); margin-bottom: 14px;">
+      <p style="font-size: 11.5px; color: rgba(255,255,255,0.85); margin-bottom: 12px;">
         تواصلي في حل القضايا الأسبوعية ومشاركة البوستر لجمع النقاط وضمان مقعدك في المقدمة!
       </p>
 
@@ -399,13 +330,18 @@
         📸 عرض بوستر التحدي والإنجاز
       </button>
 
+      <!-- لوحة تحكم سريعة للوحة الصدارة -->
+      <div class="page-admin-bar" id="adminBarLeaderboard">
+        <button class="page-admin-btn" onclick="openAdminAtTab('leaderboard')">🏆 التحكم بالصدارة</button>
+      </div>
+
       <div class="signature">
         &copy; 2026 Nouf Alawad - نوف آل عواض<br>
-        <span>لكل فكرة صدى.. نسعد بملاحظاتكم ومقترحاتكم عبر: <a href="mailto:Noufalawad20@gmail.com">Noufalawad20@gmail.com</a></span>
+        <span>لكل فكرة صدى.. نسعد بملاحظاتكم عبر: <a href="mailto:Noufalawad20@gmail.com">Noufalawad20@gmail.com</a></span>
       </div>
     </div>
 
-    <!-- 4. صفحة البوستر والمشاركة المستقلة بالكامل -->
+    <!-- 4. صفحة البوستر والمشاركة -->
     <div class="card poster-page-card hidden" id="posterStep">
       <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
 
@@ -415,7 +351,7 @@
 
       <div class="poster-user-box" id="posterUserName">المحققة: </div>
 
-      <p style="font-size: 12.5px; color: var(--gold-light); margin: 0 0 10px; font-weight: 700;">
+      <p style="font-size: 12px; color: var(--gold-light); margin: 0 0 8px; font-weight: 700;">
         شاركي بوستر إنجازكِ وتحدّي زميلاتكِ في الكلية:
       </p>
 
@@ -423,31 +359,31 @@
         🔗 مشاركة أو حفظ البوستر
       </button>
 
-      <button class="btn" style="background: rgba(255,255,255,0.1); border: 1px solid var(--line); margin-top: 8px;" onclick="backToQuiz()">
+      <button class="btn" style="background: rgba(255,255,255,0.1); border: 1px solid var(--line); margin-top: 6px;" onclick="backToQuiz()">
         ↩️ العودة للقضية
       </button>
 
       <div class="signature">
         &copy; 2026 Nouf Alawad - نوف آل عواض<br>
-        <span>لكل فكرة صدى.. نسعد بملاحظاتكم ومقترحاتكم عبر: <a href="mailto:Noufalawad20@gmail.com">Noufalawad20@gmail.com</a></span>
+        <span>لكل فكرة صدى.. نسعد بملاحظاتكم عبر: <a href="mailto:Noufalawad20@gmail.com">Noufalawad20@gmail.com</a></span>
       </div>
     </div>
 
-    <!-- 5. لوحة التحكم الإدارية -->
+    <!-- 5. لوحة التحكم الإدارية الشاملة -->
     <div class="card hidden admin-panel" id="adminPanel">
-      <h2 style="margin-top:0; text-align:center; color:var(--gold-light); font-size: 18px;">🛠️ لوحة تحكم الفعالية</h2>
+      <h2 style="margin-top:0; text-align:center; color:var(--gold-light); font-size: 17px;">🛠️ لوحة تحكم الفعالية</h2>
 
       <div class="field">
-        <label>حالة الفعالية:</label>
+        <label>حالة الفعالية للعامة:</label>
         <select id="p_isOpen">
           <option value="true">مفتوحة للجميع</option>
-          <option value="false">مغلقة حالياً</option>
+          <option value="false">مغلقة حالياً (متاحة للأيباد فقط)</option>
         </select>
       </div>
 
       <div class="field">
         <label>عبارة الإغلاق للزوار:</label>
-        <textarea id="p_closedText" placeholder="اكتبي العبارة التي تظهر عند إغلاق الرابط"></textarea>
+        <textarea id="p_closedText"></textarea>
       </div>
 
       <div class="field">
@@ -477,54 +413,51 @@
         </div>
       </div>
 
-      <div style="background: rgba(250,204,21,0.1); border: 1px solid var(--line); border-radius: 10px; padding: 10px; margin-bottom: 14px;">
-        <label style="color:var(--gold-light); margin-bottom: 8px;">أكواد الخصم العشوائية (أدخلي حتى 5 أكواد):</label>
-        <div class="field" style="margin-bottom: 6px;"><input type="text" id="p_code0" placeholder="الكود الأول"></div>
-        <div class="field" style="margin-bottom: 6px;"><input type="text" id="p_code1" placeholder="الكود الثاني"></div>
-        <div class="field" style="margin-bottom: 6px;"><input type="text" id="p_code2" placeholder="الكود الثالث"></div>
-        <div class="field" style="margin-bottom: 6px;"><input type="text" id="p_code3" placeholder="الكود الرابع"></div>
+      <div style="background: rgba(250,204,21,0.08); border: 1px solid var(--line); border-radius: 8px; padding: 8px; margin-bottom: 12px;">
+        <label style="color:var(--gold-light); margin-bottom: 6px;">أكواد الخصم العشوائية (أدخلي حتى 5):</label>
+        <div class="field" style="margin-bottom: 4px;"><input type="text" id="p_code0" placeholder="الكود الأول"></div>
+        <div class="field" style="margin-bottom: 4px;"><input type="text" id="p_code1" placeholder="الكود الثاني"></div>
+        <div class="field" style="margin-bottom: 4px;"><input type="text" id="p_code2" placeholder="الكود الثالث"></div>
+        <div class="field" style="margin-bottom: 4px;"><input type="text" id="p_code3" placeholder="الكود الرابع"></div>
         <div class="field" style="margin-bottom: 0;"><input type="text" id="p_code4" placeholder="الكود الخامس"></div>
       </div>
 
       <div class="field"><label>التسبيب/الشرح النظامي:</label><textarea id="p_ruling"></textarea></div>
-      <div class="field"><label>عنوان الإجابة الصحيحة:</label><input type="text" id="p_successMsg"></div>
+      <div class="field"><label>عبارة الإجابة الصحيحة:</label><input type="text" id="p_successMsg"></div>
       <div class="field"><label>عبارة الإجابة الخاطئة:</label><input type="text" id="p_wrongMsg"></div>
 
       <button class="btn" style="background:#ca8a04;" onclick="saveAdminSettings()">حفظ وتحديث الفعالية</button>
-      <button class="btn" style="background:#ef4444; margin-top:6px;" onclick="toggleAdmin()">إغلاق اللوحة</button>
+      <button class="btn" style="background:#ef4444; margin-top:5px;" onclick="toggleAdmin()">إغلاق اللوحة</button>
     </div>
 
   </div>
 
 <script>
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxzNh85mkH-DISqJRFJXDyMFR0V9inslF8CUWTJ4MVwjwPCWLIvmp2hkAKKVEiz6tmt/exec";
-  const ADMIN_PHONE = "0542961918";
-
-  // بصمة جهاز المالك (تمنع قفل الموقع عن جهازك الشخصي وتمنحك صلاحية الإشراف فوراً)
-  const ADMIN_DEVICE_TOKEN = "NOUF_ALAWAD_MASTER_ADMIN_2026";
+  
+  // شفرة أيباد المالك الخاصة (تفتح لك الموقع مباشرة بدون تسجيل دخول حتى لو كان مغلقاً)
+  const IPAD_ADMIN_TOKEN = "NOUF_IPAD_MASTER_KEY_2026";
   try {
-    if (!localStorage.getItem('admin_master_device')) {
-      // نسجل البصمة تلقائياً لو فتحتِ من جوالك أو أيبادك الخاص لأول مرة
-      localStorage.setItem('admin_master_device', ADMIN_DEVICE_TOKEN);
+    if (!localStorage.getItem('ipad_admin_device')) {
+      localStorage.setItem('ipad_admin_device', IPAD_ADMIN_TOKEN);
     }
   } catch(e) {}
 
-  function isUserAdmin(phone) {
-    if (phone === ADMIN_PHONE) return true;
+  function isUserAdmin() {
     try {
-      if (localStorage.getItem('admin_master_device') === ADMIN_DEVICE_TOKEN) return true;
+      if (localStorage.getItem('ipad_admin_device') === IPAD_ADMIN_TOKEN) return true;
     } catch(e) {}
     return false;
   }
 
-  const CONFIG_VERSION = 11;
+  const CONFIG_VERSION = 12;
   const CONFIG_KEY = 'wednesday_config_v' + CONFIG_VERSION;
 
   const defaultConfig = {
     isOpen: true,
     closedTitle: "الفعالية مغلقة حالياً 🌸",
     closedText: "انتظرونا الأربعاء القادم لفتح قضية جديدة!",
-    leaderboardActive: false, // مغلقة افتراضياً في البداية
+    leaderboardActive: false,
     title: "القضية الأولى",
     fileLabel: "ملف القضية",
     text: "اتفق سعد مع خالد شفهياً على بيع سيارته، واستلم منه عربوناً.. هل يحق لخالد إلزامه إتمام البيع؟",
@@ -597,9 +530,14 @@
     document.getElementById('closedTitleDisplay').textContent = config.closedTitle || "الفعالية مغلقة حالياً 🌸";
     document.getElementById('closedTextDisplay').textContent = config.closedText || "انتظرونا الأربعاء القادم لفتح قضية جديدة!";
 
-    // التحقق من حالة الإغلاق (مع استثناء المالك عبر بصمة الجهاز أو رقم الإدارة)
-    let bypassAdmin = isUserAdmin("");
-    if (!config.isOpen && !bypassAdmin) {
+    let isAdmin = isUserAdmin();
+
+    // إظهار أزرار التحكم في كل صفحة تلقائياً للمالك فقط
+    ['adminBarLogin', 'adminBarQuiz', 'adminBarLeaderboard'].forEach(id => {
+      document.getElementById(id).style.display = isAdmin ? 'flex' : 'none';
+    });
+
+    if (!config.isOpen && !isAdmin) {
       document.getElementById('formFields').classList.add('hidden');
       document.getElementById('closedMsg').classList.remove('hidden');
     } else {
@@ -616,7 +554,7 @@
 
     const name = nameInput.value.trim().replace(/\s+/g, ' ');
     const phone = normalizeDigits(phoneInput.value.trim());
-    const isAdmin = isUserAdmin(phone);
+    const isAdmin = isUserAdmin();
 
     if (name.split(' ').length < 2 || name.length < 5) {
       showFormError('فضلاً اكتبي اسمك الثلاثي كاملاً', 'userName');
@@ -645,16 +583,15 @@
     setTimeout(() => {
       document.getElementById('userInfoStep').classList.add('hidden');
       document.getElementById('quizStep').classList.remove('hidden');
-      document.getElementById('adminBtn').classList.toggle('hidden', !isAdmin);
       
       if (isAdmin) {
-        document.getElementById('adminNoticeBadge').textContent = "وضع المشرفة (مالكة النظام)";
+        document.getElementById('adminNoticeBadge').textContent = "وضع المشرفة (أيباد المالك)";
       }
 
       typeText(document.getElementById('qText'), config.text, 28);
-    }, 450);
+    }, 400);
 
-    setTimeout(() => { tape.classList.remove('active'); }, 900);
+    setTimeout(() => { tape.classList.remove('active'); }, 850);
   }
 
   function submitAnswerInteractive(selectedIndex) {
@@ -667,7 +604,7 @@
     optionsDiv.style.pointerEvents = 'none';
     btn.classList.add('shaking');
 
-    let isAdmin = isUserAdmin(userData.phone);
+    let isAdmin = isUserAdmin();
     if (!isAdmin) {
       try { localStorage.setItem(answeredKey(userData.phone), '1'); } catch (e) {}
     }
@@ -688,11 +625,8 @@
           </div>
         `;
         document.getElementById('posterUserName').textContent = "المحققة: " + userData.name;
-        
-        // تحديث النقاط (إجابة صحيحة = نقطة)
         userData.points += 1;
         
-        // تحديد زر التالي (لوحة الصدارة أو البوستر مباشرة بناءً على إعدادات المشرفة)
         if (config.leaderboardActive) {
           nextStepBtn.textContent = "🏆 عرض لوحة الصدارة والتنافس";
         } else {
@@ -734,25 +668,22 @@
       document.getElementById('quizStep').classList.add('hidden');
       
       if (config.leaderboardActive) {
-        // تجهيز بيانات لوحة الصدارة
         document.getElementById('userRankNum').textContent = "المركز الـ " + userData.rank;
         document.getElementById('userPointsText').textContent = "مجموع النقاط: " + userData.points + " نقاط";
         
-        // فحص هل ارتفع ترتيبها ودخلت العشرة الأوائل؟
         if (userData.rank <= 10 && userData.prevRank > 10) {
           document.getElementById('rankAlertBox').classList.remove('hidden');
         } else {
           document.getElementById('rankAlertBox').classList.add('hidden');
         }
-
         document.getElementById('leaderboardStep').classList.remove('hidden');
       } else {
         document.getElementById('posterStep').classList.remove('hidden');
       }
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 450);
+    }, 400);
 
-    setTimeout(() => { tape.classList.remove('active'); }, 900);
+    setTimeout(() => { tape.classList.remove('active'); }, 850);
   }
 
   function goToPosterFromLeaderboard() {
@@ -763,9 +694,9 @@
       document.getElementById('leaderboardStep').classList.add('hidden');
       document.getElementById('posterStep').classList.remove('hidden');
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 450);
+    }, 400);
 
-    setTimeout(() => { tape.classList.remove('active'); }, 900);
+    setTimeout(() => { tape.classList.remove('active'); }, 850);
   }
 
   function backToQuiz() {
@@ -776,16 +707,14 @@
       document.getElementById('posterStep').classList.add('hidden');
       document.getElementById('leaderboardStep').classList.add('hidden');
       document.getElementById('quizStep').classList.remove('hidden');
-    }, 450);
+    }, 400);
 
-    setTimeout(() => { tape.classList.remove('active'); }, 900);
+    setTimeout(() => { tape.classList.remove('active'); }, 850);
   }
 
   async function sharePosterFile() {
     const shareText = `حلّيت لغز اليوم في كلية الحقوق والعلوم السياسية! ⚖️🔍\n#لغز_الربوع`;
     const currentUrl = window.location.href;
-
-    // إضافة نقطتين إضافيتين عند مشاركة البوستر
     userData.points += 2;
 
     try {
@@ -801,16 +730,14 @@
         });
         return;
       }
-    } catch (e) {
-      console.log('المشاركة المباشرة غير مدعومة');
-    }
+    } catch (e) {}
 
     navigator.clipboard.writeText(shareText + '\n' + currentUrl);
     const link = document.createElement('a');
     link.href = 'Moo.PNG';
     link.download = 'بوستر_لغز_الربوع.png';
     link.click();
-    alert('تم تحميل بوستر الإنجاز ونسخ النص والهاشتاق (#لغز_الربوع) واكتساب نقطتين إضافيتين لصدارة التنافس! 🏆✨');
+    alert('تم تحميل بوستر الإنجاز ونسخ النص والهاشتاق واكتساب نقطتين إضافيتين! 🏆✨');
   }
 
   function toggleAdmin() {
@@ -838,6 +765,10 @@
     } else {
       panel.classList.add('hidden');
     }
+  }
+
+  function openAdminAtTab(tabName) {
+    toggleAdmin();
   }
 
   function saveAdminSettings() {
