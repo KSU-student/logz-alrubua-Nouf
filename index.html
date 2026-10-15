@@ -21,7 +21,6 @@
     }
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
-    /* حل مشكلة الحواف البيضاء عند السحب والتحديث على الآيباد */
     html {
       background-color: var(--bg-dark);
       height: 100%;
@@ -44,11 +43,9 @@
 
     body::before {
       content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0;
-      background:
-        repeating-linear-gradient(0deg, rgba(255,255,255,0.02) 0, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 4px);
+      background: repeating-linear-gradient(0deg, rgba(255,255,255,0.02) 0, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 4px);
     }
 
-    /* شريط الانتقال الأصفر المرن */
     .transition-tape {
       position: fixed; top: 50%; left: -150%; width: 140%; height: 64px;
       background: repeating-linear-gradient(-45deg, #facc15, #facc15 25px, #000 25px, #000 50px);
@@ -72,9 +69,7 @@
       border-radius: 20px;
       padding: 26px 18px 20px;
       width: 100%;
-      box-shadow:
-        0 10px 40px rgba(0,0,0,0.7),
-        inset 0 0 25px rgba(250, 204, 21, 0.08);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.7), inset 0 0 25px rgba(250, 204, 21, 0.08);
       position: relative; z-index: 2;
     }
     .corner { position: absolute; width: 16px; height: 16px; border: 2.5px solid var(--gold); pointer-events: none; }
@@ -116,7 +111,7 @@
 
     .field { margin-bottom: 12px; }
     label { display: block; margin-bottom: 4px; font-weight: 700; font-size: 12.5px; color: var(--gold-light); }
-    input[type="text"], input[type="tel"], textarea, select {
+    input[type="text"], input[type="tel"], input[type="password"], textarea, select {
       width: 100%; padding: 10px 12px; border-radius: 10px; border: 1.5px solid var(--line);
       background: rgba(8, 2, 18, 0.85); color: #fff; font-size: 16px; font-family: inherit;
       outline: none; transition: 0.3s;
@@ -155,6 +150,7 @@
       padding: 1px 8px; border-radius: 4px;
     }
     .question-zoom { font-size: 15px; font-weight: 700; line-height: 1.6; color: #fff; }
+    .question-zoom.typing::after { content: "▌"; color: var(--gold); animation: blink 0.8s infinite; margin-right: 2px; }
 
     .opt-btn {
       width: 100%; padding: 12px; margin-bottom: 9px; border-radius: 10px;
@@ -163,6 +159,15 @@
       font-family: inherit; transition: all 0.25s ease;
     }
     .opt-btn:hover { background: rgba(250, 204, 21, 0.15); border-color: var(--gold); }
+
+    @keyframes shake {
+      0% { transform: translateX(0); } 20% { transform: translateX(-6px); }
+      40% { transform: translateX(6px); } 60% { transform: translateX(-6px); }
+      80% { transform: translateX(6px); } 100% { transform: translateX(0); }
+    }
+    .shaking { animation: shake 0.4s ease-in-out; }
+    .opt-btn.selected-correct { background: rgba(34, 197, 94, 0.35) !important; border-color: #22c55e !important; box-shadow: 0 0 16px rgba(34, 197, 94, 0.6) !important; }
+    .opt-btn.selected-wrong { background: rgba(239, 68, 68, 0.35) !important; border-color: #ef4444 !important; box-shadow: 0 0 16px rgba(239, 68, 68, 0.6) !important; }
 
     .result-box { margin-top: 14px; padding: 16px 12px; border-radius: 10px; text-align: center; line-height: 1.5; }
     .result-box h3 { margin: 4px 0; font-size: 15px; }
@@ -180,7 +185,6 @@
     .promo-box { background: rgba(250, 204, 21, 0.08); border: 1.5px dashed var(--gold); padding: 8px; border-radius: 8px; margin-top: 8px; font-size: 13px; }
     .promo-box strong { color: var(--gold-light); font-size: 16px; letter-spacing: 1px; }
 
-    /* لوحة الصدارة وتصميم البوستر */
     .poster-page-card, .leaderboard-card { text-align: center; padding: 18px 14px; }
     .poster-img-container {
       position: relative; width: 100%; border-radius: 12px; overflow: hidden;
@@ -201,7 +205,6 @@
 
     .hidden { display: none !important; }
 
-    /* أزرار التحكم - مخفية كلياً عن العامة وتظهر فقط للأيباد */
     .page-admin-bar {
       margin-top: 14px; padding-top: 10px; border-top: 1px dashed rgba(250,204,21,0.3);
       display: none; gap: 6px; justify-content: center;
@@ -231,7 +234,7 @@
       <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
 
       <div class="club-logo-container">
-        <img src="Logo.png" alt="وحدة الإرشاد الأكاديمي" class="real-logo">
+        <img src="Moo.PNG" alt="وحدة الإرشاد الأكاديمي" class="real-logo" id="mainLogoImg" onerror="this.src='Logo.png'">
       </div>
       <div class="divider"></div>
 
@@ -252,13 +255,16 @@
           <label>رقم الجوال:</label>
           <input type="tel" id="userPhone" placeholder="05xxxxxxxx" inputmode="numeric" maxlength="10" autocomplete="tel">
         </div>
+        <div class="field" style="margin-top: 8px;">
+          <label style="font-size: 11px; color: rgba(250,204,21,0.6);">كلمة سر الإدارة (خاصة بالمشرفة فقط):</label>
+          <input type="password" id="adminPassInput" placeholder="اكتبي كلمة السر إن كنتِ المشرفة">
+        </div>
         <div class="form-error" id="formError"></div>
         <button class="btn" onclick="startQuizWithTransition()">🔍 فتح ملف القضية</button>
       </div>
 
-      <!-- أزرار الإعدادات خافية تماماً عن الزوار C -->
       <div class="page-admin-bar" id="adminBarLogin">
-        <button class="page-admin-btn" onclick="openAdminAtTab('settings')">⚙️ إعدادات الإغلاق والتحكم</button>
+        <button class="page-admin-btn" onclick="toggleAdmin()">⚙️ إعدادات الفعالية واللائحة</button>
       </div>
 
       <div class="signature">
@@ -272,7 +278,7 @@
       <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
 
       <div class="club-logo-container">
-        <img src="Logo.png" alt="وحدة الإرشاد الأكاديمي" class="real-logo">
+        <img src="Moo.PNG" alt="وحدة الإرشاد الأكاديمي" class="real-logo">
       </div>
       <div class="divider"></div>
 
@@ -297,8 +303,7 @@
       </button>
 
       <div class="page-admin-bar" id="adminBarQuiz">
-        <button class="page-admin-btn" onclick="openAdminAtTab('quiz')">🛠️ تعديل القضية</button>
-        <button class="page-admin-btn" onclick="openAdminAtTab('codes')">🎁 أكواد الخصم</button>
+        <button class="page-admin-btn" onclick="toggleAdmin()">🛠️ تعديل القضية والأكواد</button>
       </div>
 
       <div class="signature">
@@ -312,24 +317,23 @@
       <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
       
       <div class="club-logo-container" style="margin-bottom: 4px;">
-        <img src="Logo.png" alt="وحدة الإرشاد الأكاديمي" class="real-logo" style="max-width: 130px;">
+        <img src="Moo.PNG" alt="وحدة الإرشاد الأكاديمي" class="real-logo" style="max-width: 130px;">
       </div>
       <div class="divider" style="margin: 6px auto 10px;"></div>
 
-      <h2 class="leaderboard-title">⚖️ نافسي على المراكز الثلاث الأولى.. الهدية أكبر بكثيرررر 😉🔥</h2>
+      <h2 class="leaderboard-title">⚖️ نافسي على المراكز الثلاثة الأولى.. الهدية أكبر بكثيرررر 😉🔥</h2>
       
       <div id="rankAlertBox" class="rank-alert hidden">
         🔥 قفزة نوعية في الترتيب! لقد صعدتِ لتكوني ضمن العشرة الأوائل!
       </div>
 
       <div class="rank-box">
-        <div style="font-size: 12px; color: var(--gold-light);">ترتيبك الحالي في المنافسة:</div>
-        <div class="rank-number" id="userRankNum">المركز الـ 14</div>
-        <div style="font-size: 11.5px; color: rgba(255,255,255,0.7); margin-top: 3px;" id="userPointsText">مجموع النقاط: 3 نقاط</div>
+        <div style="font-size: 12px; color: var(--gold-light);">نقاطك الحالية في المنافسة:</div>
+        <div class="rank-number" id="userPointsText">3 نقاط</div>
       </div>
 
       <p style="font-size: 11.5px; color: rgba(255,255,255,0.85); margin-bottom: 12px;">
-        تواصلي في حل القضايا الأسبوعية ومشاركة البوستر لجمع النقاط وضمان مقعدك في المقدمة!
+        واصلي في حل القضايا الأسبوعية ومشاركة البوستر لجمع النقاط وضمان مقعدك في المقدمة!
       </p>
 
       <button class="btn" style="background: linear-gradient(135deg, #eab308, #a16207);" onclick="goToPosterFromLeaderboard()">
@@ -337,7 +341,7 @@
       </button>
 
       <div class="page-admin-bar" id="adminBarLeaderboard">
-        <button class="page-admin-btn" onclick="openAdminAtTab('leaderboard')">🏆 التحكم بالصدارة</button>
+        <button class="page-admin-btn" onclick="toggleAdmin()">🏆 التحكم بلوحة الصدارة</button>
       </div>
 
       <div class="signature">
@@ -351,7 +355,7 @@
       <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
 
       <div class="poster-img-container">
-        <img src="Moo.PNG" alt="بوستر لغز الربوع" class="poster-img" id="posterImageElement">
+        <img src="Moo.PNG" alt="بوستر لغز الربوع" class="poster-img" id="posterImageElement" onerror="this.src='Logo.png'">
       </div>
 
       <div class="poster-user-box" id="posterUserName">المحققة: </div>
@@ -376,13 +380,13 @@
 
     <!-- 5. لوحة التحكم الإدارية الشاملة -->
     <div class="card hidden admin-panel" id="adminPanel">
-      <h2 style="margin-top:0; text-align:center; color:var(--gold-light); font-size: 17px;">🛠️ لوحة تحكم الفعالية (الأيباد)</h2>
+      <h2 style="margin-top:0; text-align:center; color:var(--gold-light); font-size: 17px;">🛠️ لوحة تحكم المشرفة</h2>
 
       <div class="field">
         <label>حالة الفعالية للعامة:</label>
         <select id="p_isOpen">
           <option value="true">مفتوحة للجميع</option>
-          <option value="false">مغلقة حالياً (متاحة لآيبادكِ فقط)</option>
+          <option value="false">مغلقة حالياً (متاحة للمشرفة فقط)</option>
         </select>
       </div>
 
@@ -440,26 +444,9 @@
 <script>
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxzNh85mkH-DISqJRFJXDyMFR0V9inslF8CUWTJ4MVwjwPCWLIvmp2hkAKKVEiz6tmt/exec";
   const ADMIN_PHONE = "0542961918";
-  
-  // الرقم التسلسلي المعتمد لآيبادكِ نوف
-  const IPAD_SERIAL_NUMBER = "F7D9X0FQHX";
+  const ADMIN_SECRET_PASS = "nouf2026"; // كلمة السر الخاصة بك للدخول كأدمن من أي جهاز
 
-  try {
-    // تسجيل بصمة الجهاز التلقائية للآيباد
-    if (!localStorage.getItem('admin_ipad_device_token')) {
-      localStorage.setItem('admin_ipad_device_token', IPAD_SERIAL_NUMBER);
-    }
-  } catch(e) {}
-
-  function isUserAdmin(phone = "") {
-    if (phone === ADMIN_PHONE) return true;
-    try {
-      if (localStorage.getItem('admin_ipad_device_token') === IPAD_SERIAL_NUMBER) return true;
-    } catch(e) {}
-    return false;
-  }
-
-  const CONFIG_VERSION = 13;
+  const CONFIG_VERSION = 14;
   const CONFIG_KEY = 'wednesday_config_v' + CONFIG_VERSION;
 
   const defaultConfig = {
@@ -487,7 +474,7 @@
   if (!config.codes) config.codes = defaultConfig.codes;
   if (config.leaderboardActive === undefined) config.leaderboardActive = false;
 
-  let userData = { name: "", phone: "", points: 3, rank: 14, prevRank: 22 };
+  let userData = { name: "", phone: "", points: 0, hasSharedPoster: false };
   let typingTimer = null;
 
   function normalizeDigits(s) {
@@ -497,6 +484,14 @@
 
   function answeredKey(phone) { return 'answered_' + config.title + '_' + phone; }
   function lastCodeKey() { return 'last_given_code_' + config.title; }
+
+  function isUserAdmin(phone = "", pass = "") {
+    if (phone === ADMIN_PHONE || pass === ADMIN_SECRET_PASS) return true;
+    try {
+      if (localStorage.getItem('is_nouf_admin') === 'true') return true;
+    } catch(e) {}
+    return false;
+  }
 
   function getRandomCode() {
     let validCodes = config.codes.map(c => c.trim()).filter(c => c !== "");
@@ -514,7 +509,10 @@
 
   function showFormError(msg, fieldId) {
     document.getElementById('formError').textContent = msg;
-    ['userName', 'userPhone'].forEach(id => document.getElementById(id).classList.remove('invalid'));
+    ['userName', 'userPhone', 'adminPassInput'].forEach(id => {
+      let el = document.getElementById(id);
+      if(el) el.classList.remove('invalid');
+    });
     if (fieldId) document.getElementById(fieldId).classList.add('invalid');
   }
 
@@ -541,7 +539,6 @@
 
     let isAdmin = isUserAdmin();
 
-    // أزرار لوحة الإعدادات تظهر فقط وفقط على آيباد الأدمن
     ['adminBarLogin', 'adminBarQuiz', 'adminBarLeaderboard'].forEach(id => {
       document.getElementById(id).style.display = isAdmin ? 'flex' : 'none';
     });
@@ -558,33 +555,42 @@
   function startQuizWithTransition() {
     const nameInput = document.getElementById('userName');
     const phoneInput = document.getElementById('userPhone');
+    const passInput = document.getElementById('adminPassInput');
     
     if (!nameInput || !phoneInput) return;
 
     const name = nameInput.value.trim().replace(/\s+/g, ' ');
     const phone = normalizeDigits(phoneInput.value.trim());
-    const isAdmin = isUserAdmin(phone);
+    const pass = passInput ? passInput.value.trim() : "";
+    
+    const isAdmin = isUserAdmin(phone, pass);
+    if (isAdmin) {
+      try { localStorage.setItem('is_nouf_admin', 'true'); } catch(e) {}
+    }
 
-    if (name.split(' ').length < 2 || name.length < 5) {
-      showFormError('فضلاً اكتبي اسمك الثلاثي كاملاً', 'userName');
-      return;
-    }
-    if (!/^05\d{8}$/.test(phone)) {
-      showFormError('رقم الجوال لازم يبدأ بـ 05 ويتكون من 10 أرقام', 'userPhone');
-      return;
-    }
-    if (!config.isOpen && !isAdmin) {
-      showFormError('الفعالية مغلقة حالياً. انتظرونا قريباً!', 'userPhone');
-      return;
-    }
-    if (!isAdmin && localStorage.getItem(answeredKey(phone))) {
-      showFormError('سبق وشاركتي في لغز هذا الأسبوع 🌸 انتظرينا الأربعاء القادم!', 'userPhone');
-      return;
+    if (!isAdmin) {
+      if (name.split(' ').length < 2 || name.length < 5) {
+        showFormError('فضلاً اكتبي اسمك الثلاثي كاملاً', 'userName');
+        return;
+      }
+      if (!/^05\d{8}$/.test(phone)) {
+        showFormError('رقم الجوال لازم يبدأ بـ 05 ويتكون من 10 أرقام', 'userPhone');
+        return;
+      }
+      if (!config.isOpen) {
+        showFormError('الفعالية مغلقة حالياً. انتظرونا قريباً!', 'userPhone');
+        return;
+      }
+      if (localStorage.getItem(answeredKey(phone))) {
+        showFormError('سبق وشاركتي في لغز هذا الأسبوع 🌸 انتظرينا الأربعاء القادم!', 'userPhone');
+        return;
+      }
     }
     showFormError('');
 
-    userData.name = name;
-    userData.phone = phone;
+    userData.name = name || "المشرفة نوف";
+    userData.phone = phone || ADMIN_PHONE;
+    userData.points = 0;
 
     const tape = document.getElementById('transitionTape');
     tape.classList.add('active');
@@ -594,7 +600,10 @@
       document.getElementById('quizStep').classList.remove('hidden');
       
       if (isAdmin) {
-        document.getElementById('adminNoticeBadge').textContent = "وضع الإشراف (آيباد المالك)";
+        document.getElementById('adminNoticeBadge').textContent = "وضع الإشراف (المشرفة)";
+        ['adminBarLogin', 'adminBarQuiz', 'adminBarLeaderboard'].forEach(id => {
+          document.getElementById(id).style.display = 'flex';
+        });
       }
 
       typeText(document.getElementById('qText'), config.text, 28);
@@ -613,7 +622,7 @@
     optionsDiv.style.pointerEvents = 'none';
     btn.classList.add('shaking');
 
-    let isAdmin = isUserAdmin(userData.phone);
+    let isAdmin = isUserAdmin();
     if (!isAdmin) {
       try { localStorage.setItem(answeredKey(userData.phone), '1'); } catch (e) {}
     }
@@ -634,7 +643,7 @@
           </div>
         `;
         document.getElementById('posterUserName').textContent = "المحققة: " + userData.name;
-        userData.points += 1;
+        userData.points += 1; // نقطة للإجابة الصحيحة
         
         if (config.leaderboardActive) {
           nextStepBtn.textContent = "🏆 عرض لوحة الصدارة والتنافس";
@@ -650,6 +659,7 @@
           <div class="verdict-stamp">✖ قضية مغلقة</div>
           <h3>${config.wrongMsg}</h3>
           <p>${config.ruling}</p>
+          <button class="btn" style="margin-top:10px; background:rgba(255,255,255,0.2);" onclick="backToQuizOrRestart()">🔄 المحاولة مرة أخرى / العودة</button>
         `;
       }
       resultDiv.classList.remove('hidden');
@@ -669,6 +679,10 @@
     });
   }
 
+  function backToQuizOrRestart() {
+    location.reload();
+  }
+
   function proceedAfterAnswer() {
     const tape = document.getElementById('transitionTape');
     tape.classList.add('active');
@@ -677,14 +691,7 @@
       document.getElementById('quizStep').classList.add('hidden');
       
       if (config.leaderboardActive) {
-        document.getElementById('userRankNum').textContent = "المركز الـ " + userData.rank;
-        document.getElementById('userPointsText').textContent = "مجموع النقاط: " + userData.points + " نقاط";
-        
-        if (userData.rank <= 10 && userData.prevRank > 10) {
-          document.getElementById('rankAlertBox').classList.remove('hidden');
-        } else {
-          document.getElementById('rankAlertBox').classList.add('hidden');
-        }
+        document.getElementById('userPointsText').textContent = userData.points + " نقاط";
         document.getElementById('leaderboardStep').classList.remove('hidden');
       } else {
         document.getElementById('posterStep').classList.remove('hidden');
@@ -724,7 +731,12 @@
   async function sharePosterFile() {
     const shareText = `حلّيت لغز اليوم في كلية الحقوق والعلوم السياسية! ⚖️🔍\n#لغز_الربوع`;
     const currentUrl = window.location.href;
-    userData.points += 2;
+
+    // احتساب نقطتي المشاركة مرة واحدة فقط
+    if (!userData.hasSharedPoster) {
+      userData.points += 2;
+      userData.hasSharedPoster = true;
+    }
 
     try {
       const response = await fetch('Moo.PNG');
@@ -771,13 +783,10 @@
       document.getElementById('p_successMsg').value = config.successMsg || defaultConfig.successMsg;
       document.getElementById('p_wrongMsg').value = config.wrongMsg || defaultConfig.wrongMsg;
       panel.classList.remove('hidden');
+      panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
     } else {
       panel.classList.add('hidden');
     }
-  }
-
-  function openAdminAtTab(tabName) {
-    toggleAdmin();
   }
 
   function saveAdminSettings() {
@@ -803,12 +812,12 @@
     config.wrongMsg = document.getElementById('p_wrongMsg').value.trim();
 
     localStorage.setItem(CONFIG_KEY, JSON.stringify(config));
-    alert('تم حفظ التعديلات بنجاح!');
+    alert('تم حفظ وتحديث إعدادات الفعالية بنجاح!');
     toggleAdmin();
     initUI();
   }
 
-  ['userName', 'userPhone'].forEach(id => {
+  ['userName', 'userPhone', 'adminPassInput'].forEach(id => {
     const el = document.getElementById(id);
     if (el) {
       el.addEventListener('keydown', e => {
