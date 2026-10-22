@@ -18,7 +18,8 @@
       --amber-light: #f6c978;
       --card-bg: rgba(46, 31, 51, 0.95);
       --line: rgba(233, 162, 59, 0.42);
-      --logo-max-width: 13.5rem;
+      --logo-max-width: 14rem;
+      --logo-margin-y: -1.8rem; /* هذي تقص الفراغات الشفافة العلوية والسفلية من الصورة */
     }
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
@@ -74,7 +75,7 @@
       border: 1.5px solid rgba(155, 123, 192, 0.55);
       backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
       border-radius: 1.25rem;
-      padding: 1.4rem 1.125rem 1.1rem;
+      padding: 0.8rem 1.125rem 1.1rem; /* قللنا الحافة العلوية عشان الشعار يرتفع */
       width: 100%;
       box-shadow: 0 10px 40px rgba(0,0,0,0.7), 0 0 38px rgba(107, 74, 143, 0.35), inset 0 0 25px rgba(155, 123, 192, 0.08);
       position: relative; z-index: 2;
@@ -89,7 +90,7 @@
 
     .status-bar {
       display: flex; align-items: center; justify-content: center; gap: 6px;
-      font-size: 0.6875rem; font-weight: 700; color: var(--amber-light); margin-bottom: 4px;
+      font-size: 0.6875rem; font-weight: 700; color: var(--amber-light); margin-bottom: 2px;
     }
     .status-bar i {
       width: 7px; height: 7px; border-radius: 50%; background: var(--amber);
@@ -97,21 +98,25 @@
     }
     @keyframes blink { 50% { opacity: 0.25; } }
 
+    /* حاسبة استقطاع المساحة الشفافة الشاسعة حول الشعار */
     .club-logo-container {
-      text-align: center; margin: 0 auto 6px; position: relative; width: 100%;
+      text-align: center; margin: var(--logo-margin-y) auto; position: relative; width: 100%;
       display: flex; justify-content: center; align-items: center;
       cursor: pointer;
+      overflow: hidden; /* يمنع بروز الفراغات الشفافة خارج المربع */
     }
     .real-logo {
       position: relative; width: 100%; max-width: var(--logo-max-width); height: auto; display: block; margin: 0 auto;
       filter: drop-shadow(0 0 10px rgba(155, 123, 192, 0.55)) brightness(1.08);
       user-select: none; -webkit-user-drag: none;
-      transition: max-width 0.2s ease;
+      transition: max-width 0.2s ease, margin 0.2s ease;
+      transform: scale(1.15); /* تكبير تفاصيل الميزان والنص الداخلي بدون زيادة مساحة الكادر */
     }
-    .quiz-card .real-logo { max-width: calc(var(--logo-max-width) * 0.65); }
+    .quiz-card .club-logo-container { margin: calc(var(--logo-margin-y) * 0.8) auto; }
+    .quiz-card .real-logo { max-width: calc(var(--logo-max-width) * 0.75); }
 
     .divider {
-      height: 2px; margin: 8px auto 12px; width: 70%;
+      height: 2px; margin: 0 auto 10px; width: 70%;
       background: linear-gradient(90deg, transparent, var(--amber), transparent);
     }
 
@@ -482,7 +487,7 @@
         <label>🖼️ التحكم بحجم الشعار (Logo Size):</label>
         <div class="logo-control-box">
           <button type="button" class="logo-size-btn" onclick="adjustLogoSize(-1)">-</button>
-          <span id="logoSizeVal" style="font-size: 0.85rem; font-weight: 800; color: var(--amber-light);">13.5 rem</span>
+          <span id="logoSizeVal" style="font-size: 0.85rem; font-weight: 800; color: var(--amber-light);">14.0 rem</span>
           <button type="button" class="logo-size-btn" onclick="adjustLogoSize(1)">+</button>
           <button type="button" class="admin-nav-btn" style="flex:0 0 auto; padding:0.4rem 0.6rem;" onclick="resetLogoSize()">إعادة ضبط</button>
         </div>
@@ -564,10 +569,10 @@
   const MAIL_TO = "Noufalawad20@gmail.com";
   const MAIL_SUBJECT = "بشأن لغز الربوع";
   const CONFIG_CACHE_KEY = 'case_config_cache_v2';
-  const LOGO_SIZE_KEY = 'custom_logo_size_v1';
+  const LOGO_SIZE_KEY = 'custom_logo_size_v2';
   const OPT_LETTERS = ['أ', 'ب', 'ج', 'د'];
 
-  let currentLogoSize = parseFloat(localStorage.getItem(LOGO_SIZE_KEY)) || 13.5;
+  let currentLogoSize = parseFloat(localStorage.getItem(LOGO_SIZE_KEY)) || 14.0;
 
   function updateLogoCSS(size) {
     currentLogoSize = Math.max(6, Math.min(25, size));
@@ -582,7 +587,7 @@
   }
 
   function resetLogoSize() {
-    updateLogoCSS(13.5);
+    updateLogoCSS(14.0);
   }
 
   const defaultConfig = {
