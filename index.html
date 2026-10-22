@@ -19,7 +19,7 @@
       --card-bg: rgba(46, 31, 51, 0.95);
       --line: rgba(233, 162, 59, 0.42);
       --logo-max-width: 14rem;
-      --logo-margin-y: -1.8rem; /* هذي تقص الفراغات الشفافة العلوية والسفلية من الصورة */
+      --logo-margin-y: -1.8rem;
     }
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
@@ -75,7 +75,7 @@
       border: 1.5px solid rgba(155, 123, 192, 0.55);
       backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
       border-radius: 1.25rem;
-      padding: 0.8rem 1.125rem 1.1rem; /* قللنا الحافة العلوية عشان الشعار يرتفع */
+      padding: 0.8rem 1.125rem 1.1rem;
       width: 100%;
       box-shadow: 0 10px 40px rgba(0,0,0,0.7), 0 0 38px rgba(107, 74, 143, 0.35), inset 0 0 25px rgba(155, 123, 192, 0.08);
       position: relative; z-index: 2;
@@ -98,19 +98,18 @@
     }
     @keyframes blink { 50% { opacity: 0.25; } }
 
-    /* حاسبة استقطاع المساحة الشفافة الشاسعة حول الشعار */
     .club-logo-container {
       text-align: center; margin: var(--logo-margin-y) auto; position: relative; width: 100%;
       display: flex; justify-content: center; align-items: center;
       cursor: pointer;
-      overflow: hidden; /* يمنع بروز الفراغات الشفافة خارج المربع */
+      overflow: hidden;
     }
     .real-logo {
       position: relative; width: 100%; max-width: var(--logo-max-width); height: auto; display: block; margin: 0 auto;
       filter: drop-shadow(0 0 10px rgba(155, 123, 192, 0.55)) brightness(1.08);
       user-select: none; -webkit-user-drag: none;
       transition: max-width 0.2s ease, margin 0.2s ease;
-      transform: scale(1.15); /* تكبير تفاصيل الميزان والنص الداخلي بدون زيادة مساحة الكادر */
+      transform: scale(1.15);
     }
     .quiz-card .club-logo-container { margin: calc(var(--logo-margin-y) * 0.8) auto; }
     .quiz-card .real-logo { max-width: calc(var(--logo-max-width) * 0.75); }
@@ -567,7 +566,6 @@
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyPN2xfLnIRybX7aa8qZLfMw0CS6l72riPOrtLRc_bTzUNhdRe3bVgPwxUS-boH56Cb/exec";
   const ADMIN_ID = "ADMIN";
   const MAIL_TO = "Noufalawad20@gmail.com";
-  const MAIL_SUBJECT = "بشأن لغز الربوع";
   const CONFIG_CACHE_KEY = 'case_config_cache_v2';
   const LOGO_SIZE_KEY = 'custom_logo_size_v2';
   const OPT_LETTERS = ['أ', 'ب', 'ج', 'د'];
@@ -657,11 +655,11 @@
 
   function openMail(e) {
     if (e) e.preventDefault();
-    const su = encodeURIComponent(MAIL_SUBJECT);
-    const ua = navigator.userAgent || "";
-    const mobile = /Android|iPad|iPhone|iPod/i.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-    if (mobile) window.location.href = `mailto:${MAIL_TO}?subject=${su}`;
-    else window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=${MAIL_TO}&su=${su}`, '_blank', 'noopener');
+    const su = encodeURIComponent("بشأن | لغز الربوع");
+    const to = encodeURIComponent(MAIL_TO);
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${to}&su=${su}`;
+    
+    window.open(gmailUrl, '_blank', 'noopener');
   }
 
   function triggerSecretAdminField() {
