@@ -655,11 +655,23 @@
 
   function openMail(e) {
     if (e) e.preventDefault();
-    const su = encodeURIComponent("بشأن | لغز الربوع");
-    const to = encodeURIComponent(MAIL_TO);
-    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${to}&su=${su}`;
-    
-    window.open(gmailUrl, '_blank', 'noopener');
+    const subject = "بشأن | لغز الربوع";
+    const subjectEnc = encodeURIComponent(subject);
+    const mailToEnc = encodeURIComponent(MAIL_TO);
+
+    // محاولة فتح تطبيق Gmail المباشر للجوال
+    const gmailAppUrl = `googlegmail://co?to=${mailToEnc}&subject=${subjectEnc}`;
+    const mailtoFallback = `mailto:${MAIL_TO}?subject=${subjectEnc}`;
+
+    const start = Date.now();
+    window.location.href = gmailAppUrl;
+
+    // في حال عدم توفر التطبيق، الانتقال لخيار المراسلة الاحتياطي
+    setTimeout(() => {
+      if (Date.now() - start < 1500) {
+        window.location.href = mailtoFallback;
+      }
+    }, 500);
   }
 
   function triggerSecretAdminField() {
