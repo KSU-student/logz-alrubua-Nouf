@@ -636,7 +636,7 @@
 
   function normalizeDigits(s) {
     return s.replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d))
-            .replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d));
+            .replace(/[۰-۹]/g, d => '۰۱۲۳۴٥٦٧٨٩'.indexOf(d));
   }
   function esc(s) {
     return String(s == null ? '' : s).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
@@ -659,19 +659,21 @@
     const subjectEnc = encodeURIComponent(subject);
     const mailToEnc = encodeURIComponent(MAIL_TO);
 
-    // محاولة فتح تطبيق Gmail المباشر للجوال
-    const gmailAppUrl = `googlegmail://co?to=${mailToEnc}&subject=${subjectEnc}`;
-    const mailtoFallback = `mailto:${MAIL_TO}?subject=${subjectEnc}`;
+    // توجيه ذكي يفتح تطبيق Gmail على الجوالات مباشرة فور الضغط
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
-    const start = Date.now();
-    window.location.href = gmailAppUrl;
-
-    // في حال عدم توفر التطبيق، الانتقال لخيار المراسلة الاحتياطي
-    setTimeout(() => {
-      if (Date.now() - start < 1500) {
-        window.location.href = mailtoFallback;
-      }
-    }, 500);
+    if (isMobile) {
+      // إطلاق فتح تطبيق Gmail عبر الـ Deep Link المباشر
+      window.location.href = `googlegmail://co?to=${mailToEnc}&subject=${subjectEnc}`;
+      
+      // الاحتياط لو كان الجوال جهاز غير مثبت عليه التطبيق يتم تحويله للبريد المعياري
+      setTimeout(() => {
+        window.location.href = `mailto:${MAIL_TO}?subject=${subjectEnc}`;
+      }, 400);
+    } else {
+      // في أجهزة الكمبيوتر يفتح واجهة إرسال Gmail المباشرة
+      window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=${mailToEnc}&su=${subjectEnc}`, '_blank', 'noopener');
+    }
   }
 
   function triggerSecretAdminField() {
