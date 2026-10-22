@@ -7,72 +7,82 @@
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-dark: #07010f;
-      --purple: #a855f7;
-      --purple-deep: #6b21a8;
-      --purple-neon: #e9d5ff;
-      --white-pure: #ffffff;
-      --white-soft: #f3e8ff;
-      --gold: #facc15;
-      --gold-dark: #ca8a04;
-      --gold-light: #fef08a;
-      --card-bg: rgba(14, 5, 28, 0.95);
-      --line: rgba(250, 204, 21, 0.45);
+      /* ألوان مأخوذة من البوستر وهوية البرنامج */
+      --bg-dark: #0c0a14;
+      --bg-mid: #1f1a27;
+      --plum: #372639;
+      --violet: #6b4a8f;
+      --violet-soft: #9b7bc0;
+      --white-soft: #f9f9fa;
+      --amber: #e9a23b;
+      --amber-dark: #ac6d2d;
+      --amber-light: #f6c978;
+      --card-bg: rgba(46, 31, 51, 0.95);
+      --line: rgba(233, 162, 59, 0.42);
     }
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
+    /* حجم الخط الأساسي يتكيّف مع الشاشة، وكل المقاسات بـ rem فتكبر وتصغر معه */
     html {
       background-color: var(--bg-dark);
-      height: 100%;
-      overscroll-behavior-y: none;
+      font-size: clamp(15px, 14px + 0.5vw, 20px);
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
     }
 
     body {
-      margin: 0; padding: 0;
-      width: 100%; min-height: 100vh;
+      margin: 0;
+      width: 100%;
+      min-height: 100vh;
+      min-height: 100dvh;
+      padding: clamp(12px, 3vw, 28px) 0;
       font-family: 'Tajawal', sans-serif;
-      color: #fff;
-      background-color: var(--bg-dark);
-      background-image:
-        radial-gradient(ellipse 60% 45% at 50% 0%, rgba(250, 204, 21, 0.08) 0%, transparent 70%),
-        radial-gradient(circle at 50% 35%, rgba(168, 85, 247, 0.28) 0%, transparent 60%),
-        radial-gradient(circle at center, #1d0438 0%, var(--bg-dark) 100%);
-      background-attachment: fixed;
+      color: var(--white-soft);
       display: flex; flex-direction: column; align-items: center; justify-content: center;
     }
 
+    /* الخلفية على عنصر ثابت بدل background-attachment لأن iOS يتجاهلها */
     body::before {
-      content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0;
-      background: repeating-linear-gradient(0deg, rgba(255,255,255,0.02) 0, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 4px);
+      content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+      background:
+        radial-gradient(ellipse 60% 45% at 50% 0%, rgba(233, 162, 59, 0.07) 0%, transparent 70%),
+        radial-gradient(circle at 50% 32%, rgba(107, 74, 143, 0.38) 0%, transparent 58%),
+        radial-gradient(circle at center, #2a1c2e 0%, var(--bg-dark) 100%);
+    }
+    body::after {
+      content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+      background: repeating-linear-gradient(0deg, rgba(255,255,255,0.018) 0, rgba(255,255,255,0.018) 1px, transparent 1px, transparent 4px);
     }
 
+    /* شريط الانتقال بلون شريط البوستر */
+    .transition-layer { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 999; }
     .transition-tape {
-      position: fixed; top: 50%; left: -150%; width: 140%; height: 64px;
-      background: repeating-linear-gradient(-45deg, #facc15, #facc15 25px, #000 25px, #000 50px);
-      z-index: 999; transform: translateY(-50%) rotate(-8deg);
+      position: absolute; top: 50%; left: -150%; width: 140%; height: 4rem;
+      background: repeating-linear-gradient(-45deg, var(--amber), var(--amber) 25px, #0b0910 25px, #0b0910 50px);
+      transform: translateY(-50%) rotate(-8deg);
       box-shadow: 0 0 50px rgba(0,0,0,0.9);
       display: flex; align-items: center; justify-content: center;
-      transition: left 0.4s ease-in-out; pointer-events: none; visibility: hidden;
+      transition: left 0.4s ease-in-out; visibility: hidden;
     }
-    .transition-tape span { background: #000; color: #facc15; font-size: 18px; font-weight: 900; padding: 4px 18px; letter-spacing: 2px; }
+    .transition-tape span { background: #0b0910; color: var(--amber); font-size: 1.1rem; font-weight: 900; padding: 4px 1.1rem; letter-spacing: 2px; }
     .transition-tape.active { left: -10%; visibility: visible; }
 
     .app-wrapper {
-      position: relative; width: 100%; max-width: 440px; z-index: 2;
-      padding: 20px 14px; display: flex; flex-direction: column; align-items: center;
+      position: relative; width: min(100%, 27.5rem); z-index: 2;
+      padding: 1.25rem 0.875rem; display: flex; flex-direction: column; align-items: center;
     }
 
     .card {
-      background: linear-gradient(180deg, rgba(250,204,21,0.07) 0%, transparent 25%), var(--card-bg);
-      border: 1.5px solid rgba(250, 204, 21, 0.5);
+      background: linear-gradient(180deg, rgba(155,123,192,0.12) 0%, transparent 30%), var(--card-bg);
+      border: 1.5px solid rgba(155, 123, 192, 0.55);
       backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-      border-radius: 20px;
-      padding: 26px 18px 20px;
+      border-radius: 1.25rem;
+      padding: 1.625rem 1.125rem 1.25rem;
       width: 100%;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.7), inset 0 0 25px rgba(250, 204, 21, 0.08);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.7), 0 0 38px rgba(107, 74, 143, 0.35), inset 0 0 25px rgba(155, 123, 192, 0.08);
       position: relative; z-index: 2;
     }
-    .corner { position: absolute; width: 16px; height: 16px; border: 2.5px solid var(--gold); pointer-events: none; }
+    .corner { position: absolute; width: 1rem; height: 1rem; border: 2.5px solid var(--amber); pointer-events: none; }
     .corner.tl { top: 10px; right: 10px; border-left: none; border-bottom: none; border-top-right-radius: 4px; }
     .corner.tr { top: 10px; left: 10px; border-right: none; border-bottom: none; border-top-left-radius: 4px; }
     .corner.bl { bottom: 10px; right: 10px; border-left: none; border-top: none; border-bottom-right-radius: 4px; }
@@ -80,11 +90,11 @@
 
     .status-bar {
       display: flex; align-items: center; justify-content: center; gap: 6px;
-      font-size: 11px; font-weight: 700; color: var(--gold-light); margin-bottom: 6px;
+      font-size: 0.6875rem; font-weight: 700; color: var(--amber-light); margin-bottom: 6px;
     }
     .status-bar i {
-      width: 7px; height: 7px; border-radius: 50%; background: #facc15;
-      box-shadow: 0 0 6px #facc15; animation: blink 1.2s infinite;
+      width: 7px; height: 7px; border-radius: 50%; background: var(--amber);
+      box-shadow: 0 0 6px var(--amber); animation: blink 1.2s infinite;
     }
     @keyframes blink { 50% { opacity: 0.25; } }
 
@@ -94,88 +104,91 @@
       cursor: pointer;
     }
     .real-logo {
-      position: relative; width: 100%; max-width: 260px; height: auto; display: block; margin: 0 auto;
-      filter: drop-shadow(0 0 10px rgba(250, 204, 21, 0.5)) brightness(1.08);
+      position: relative; width: 100%; max-width: 16.25rem; height: auto; display: block; margin: 0 auto;
+      filter: drop-shadow(0 0 10px rgba(155, 123, 192, 0.55)) brightness(1.08);
       user-select: none; -webkit-user-drag: none;
     }
 
     .divider {
       height: 2px; margin: 10px auto 14px; width: 70%;
-      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      background: linear-gradient(90deg, transparent, var(--amber), transparent);
     }
 
     h1.main-title {
-      margin: 2px 0 4px; text-align: center; font-size: 24px; font-weight: 900;
-      background: linear-gradient(180deg, #fff 30%, var(--gold-light) 100%);
+      margin: 2px 0 4px; text-align: center; font-size: 1.5rem; font-weight: 900;
+      background: linear-gradient(180deg, #fff 30%, var(--amber-light) 100%);
       -webkit-background-clip: text; background-clip: text; color: transparent;
     }
-    p.sub { text-align: center; color: rgba(255,255,255,0.78); margin: 0 0 16px; font-size: 12px; }
+    p.sub { text-align: center; color: rgba(249,249,250,0.78); margin: 0 0 1rem; font-size: 0.78rem; }
 
-    .field { margin-bottom: 12px; }
-    label { display: block; margin-bottom: 4px; font-weight: 700; font-size: 12.5px; color: var(--gold-light); }
+    .field { margin-bottom: 0.75rem; }
+    label { display: block; margin-bottom: 4px; font-weight: 700; font-size: 0.78rem; color: var(--amber-light); }
     input[type="text"], input[type="tel"], input[type="password"], textarea, select {
-      width: 100%; padding: 10px 12px; border-radius: 10px; border: 1.5px solid var(--line);
-      background: rgba(8, 2, 18, 0.85); color: #fff; font-size: 16px; font-family: inherit;
+      width: 100%; padding: 0.625rem 0.75rem; border-radius: 0.625rem; border: 1.5px solid var(--line);
+      background: rgba(24, 15, 29, 0.85); color: #fff; font-size: max(16px, 1rem); font-family: inherit;
       outline: none; transition: 0.3s;
     }
-    input:focus, textarea:focus, select:focus { border-color: var(--gold); box-shadow: 0 0 12px rgba(250, 204, 21, 0.35); }
+    input:focus, textarea:focus, select:focus { border-color: var(--amber); box-shadow: 0 0 12px rgba(233, 162, 59, 0.35); }
     input.invalid { border-color: #f87171; }
-    textarea { resize: vertical; height: 60px; }
+    textarea { resize: vertical; height: 3.75rem; }
 
-    .form-error { color: #fca5a5; font-size: 12px; text-align: center; min-height: 16px; margin: 2px 0; }
+    .form-error { color: #fca5a5; font-size: 0.75rem; text-align: center; min-height: 1rem; margin: 2px 0; }
 
     .btn {
-      width: 100%; padding: 12px; border: none; border-radius: 10px;
-      background: linear-gradient(135deg, #ca8a04, #854d0e);
-      border-bottom: 3px solid var(--gold);
-      color: #fff; font-size: 15px; font-weight: 800; font-family: inherit;
+      width: 100%; padding: 0.75rem; border: none; border-radius: 0.625rem;
+      background: linear-gradient(135deg, var(--amber-dark), #6e4219);
+      border-bottom: 3px solid var(--amber);
+      color: #fff; font-size: 0.94rem; font-weight: 800; font-family: inherit;
       cursor: pointer; margin-top: 6px; transition: 0.3s;
-      box-shadow: 0 4px 16px rgba(202, 138, 4, 0.4);
+      box-shadow: 0 4px 16px rgba(172, 109, 45, 0.45);
     }
-    .btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(250, 204, 21, 0.6); }
+    .btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(233, 162, 59, 0.55); }
+
+    .btn-amber { background: linear-gradient(135deg, #c98524, #8a5518); }
+    .btn-violet { background: linear-gradient(135deg, var(--violet), #3f2a58); border-color: var(--violet-soft); }
 
     .admin-luxury-nav {
-      margin-top: 14px; padding: 10px; border-radius: 12px;
-      background: linear-gradient(135deg, rgba(250,204,21,0.15), rgba(107,33,168,0.25));
-      border: 1.5px solid var(--gold);
+      margin-top: 0.875rem; padding: 0.625rem; border-radius: 0.75rem;
+      background: linear-gradient(135deg, rgba(233,162,59,0.14), rgba(107,74,143,0.28));
+      border: 1.5px solid var(--amber);
       display: flex; gap: 6px; justify-content: space-between; align-items: center;
       box-shadow: 0 4px 20px rgba(0,0,0,0.5);
     }
     .admin-nav-btn {
-      flex: 1; padding: 8px 6px; border-radius: 8px; border: 1px solid rgba(250,204,21,0.5);
-      background: rgba(0,0,0,0.4); color: var(--gold-light); font-size: 11.5px; font-weight: 800;
+      flex: 1; padding: 0.5rem 0.375rem; border-radius: 0.5rem; border: 1px solid rgba(233,162,59,0.5);
+      background: rgba(0,0,0,0.4); color: var(--amber-light); font-size: 0.72rem; font-weight: 800;
       cursor: pointer; font-family: inherit; text-align: center; transition: 0.25s;
     }
-    .admin-nav-btn:hover { background: var(--gold); color: #000; box-shadow: 0 0 10px var(--gold); }
-    .admin-nav-btn.gold-hl { background: var(--gold); color: #000; border-color: #fff; }
+    .admin-nav-btn:hover { background: var(--amber); color: #000; box-shadow: 0 0 10px var(--amber); }
+    .admin-nav-btn.gold-hl { background: var(--amber); color: #000; border-color: #fff; }
 
     .case-meta {
       display: flex; justify-content: center; gap: 8px; margin-bottom: 4px;
-      font-family: sans-serif; font-size: 10px; letter-spacing: 1px; color: var(--gold-light);
+      font-family: sans-serif; font-size: 0.625rem; letter-spacing: 1px; color: var(--amber-light);
     }
 
     .magnifier-lens {
-      border: 1.5px solid var(--gold); border-right: 4px solid var(--white-pure);
-      border-radius: 12px; padding: 16px 14px 14px;
-      background: linear-gradient(135deg, rgba(250, 204, 21, 0.12), rgba(168, 85, 247, 0.04));
-      box-shadow: inset 0 0 20px rgba(250, 204, 21, 0.15);
-      margin: 4px 0 14px; position: relative; min-height: 85px;
+      border: 1.5px solid var(--violet-soft); border-right: 4px solid var(--amber);
+      border-radius: 0.75rem; padding: 1rem 0.875rem 0.875rem;
+      background: linear-gradient(135deg, rgba(107, 74, 143, 0.28), rgba(55, 38, 57, 0.35));
+      box-shadow: inset 0 0 20px rgba(107, 74, 143, 0.25), 0 0 16px rgba(107, 74, 143, 0.22);
+      margin: 4px 0 0.875rem; position: relative; min-height: 5.3rem;
     }
     .magnifier-lens::before {
       content: attr(data-label); position: absolute; top: -9px; right: 14px;
-      background: var(--gold); color: #14081f; font-size: 10px; font-weight: 900;
+      background: var(--amber); color: #1a0f1f; font-size: 0.625rem; font-weight: 900;
       padding: 1px 8px; border-radius: 4px;
     }
-    .question-zoom { font-size: 15px; font-weight: 700; line-height: 1.6; color: #fff; }
-    .question-zoom.typing::after { content: "▌"; color: var(--gold); animation: blink 0.8s infinite; margin-right: 2px; }
+    .question-zoom { font-size: 0.94rem; font-weight: 700; line-height: 1.65; color: #fff; }
+    .question-zoom.typing::after { content: "▌"; color: var(--amber); animation: blink 0.8s infinite; margin-right: 2px; }
 
     .opt-btn {
-      width: 100%; padding: 12px; margin-bottom: 9px; border-radius: 10px;
-      border: 1.5px solid rgba(250, 204, 21, 0.3); background: rgba(250, 204, 21, 0.04);
-      color: #fff; font-size: 14.5px; font-weight: 700; cursor: pointer; text-align: center;
+      width: 100%; padding: 0.75rem; margin-bottom: 0.56rem; border-radius: 0.625rem;
+      border: 1.5px solid rgba(233, 162, 59, 0.34); background: rgba(233, 162, 59, 0.05);
+      color: #fff; font-size: 0.9rem; font-weight: 700; cursor: pointer; text-align: center;
       font-family: inherit; transition: all 0.25s ease;
     }
-    .opt-btn:hover { background: rgba(250, 204, 21, 0.15); border-color: var(--gold); }
+    .opt-btn:hover { background: rgba(233, 162, 59, 0.16); border-color: var(--amber); }
 
     @keyframes shake {
       0% { transform: translateX(0); } 20% { transform: translateX(-6px); }
@@ -186,66 +199,80 @@
     .opt-btn.selected-correct { background: rgba(34, 197, 94, 0.35) !important; border-color: #22c55e !important; box-shadow: 0 0 16px rgba(34, 197, 94, 0.6) !important; }
     .opt-btn.selected-wrong { background: rgba(239, 68, 68, 0.35) !important; border-color: #ef4444 !important; box-shadow: 0 0 16px rgba(239, 68, 68, 0.6) !important; }
 
-    .result-box { margin-top: 14px; padding: 16px 12px; border-radius: 10px; text-align: center; line-height: 1.5; }
-    .result-box h3 { margin: 4px 0; font-size: 15px; }
-    .result-box p { font-size: 13px; }
+    .result-box { margin-top: 0.875rem; padding: 1rem 0.75rem; border-radius: 0.625rem; text-align: center; line-height: 1.5; }
+    .result-box h3 { margin: 4px 0; font-size: 0.94rem; }
+    .result-box p { font-size: 0.8rem; }
     .success { background: rgba(34, 197, 94, 0.15); border: 1.5px solid #22c55e; }
     .error { background: rgba(239, 68, 68, 0.15); border: 1.5px solid #ef4444; }
 
     .verdict-stamp {
-      display: inline-block; font-weight: 900; font-size: 13px; letter-spacing: 1px;
+      display: inline-block; font-weight: 900; font-size: 0.8rem; letter-spacing: 1px;
       padding: 2px 12px; border: 2px solid; border-radius: 6px; transform: rotate(-4deg); margin-bottom: 4px;
     }
     .success .verdict-stamp { color: #4ade80; border-color: #4ade80; }
     .error .verdict-stamp { color: #f87171; border-color: #f87171; }
 
-    .promo-box { background: rgba(250, 204, 21, 0.08); border: 1.5px dashed var(--gold); padding: 8px; border-radius: 8px; margin-top: 8px; font-size: 13px; }
-    .promo-box strong { color: var(--gold-light); font-size: 16px; letter-spacing: 1px; }
+    .promo-box { background: rgba(233, 162, 59, 0.09); border: 1.5px dashed var(--amber); padding: 0.5rem; border-radius: 0.5rem; margin-top: 0.5rem; font-size: 0.8rem; }
+    .promo-box strong { color: var(--amber-light); font-size: 1rem; letter-spacing: 1px; }
 
-    .poster-page-card, .leaderboard-card { text-align: center; padding: 18px 14px; }
+    .poster-page-card, .leaderboard-card { text-align: center; padding: 1.125rem 0.875rem; }
     .poster-img-container {
-      position: relative; width: 100%; border-radius: 12px; overflow: hidden;
-      border: 2px solid var(--gold); box-shadow: 0 0 25px rgba(250,204,21,0.25);
-      margin-bottom: 10px; background: #000;
+      position: relative; width: 100%; border-radius: 0.75rem; overflow: hidden;
+      border: 2px solid var(--amber); box-shadow: 0 0 25px rgba(233,162,59,0.22);
+      margin-bottom: 0.625rem; background: #000;
     }
     .poster-img { width: 100%; height: auto; display: block; }
     .poster-user-box {
-      background: rgba(250, 204, 21, 0.1); border: 1.5px solid var(--gold);
-      color: var(--gold-light); font-weight: 800; font-size: 13.5px;
-      padding: 7px 12px; border-radius: 8px; margin-bottom: 10px; text-align: center;
+      background: rgba(233, 162, 59, 0.1); border: 1.5px solid var(--amber);
+      color: var(--amber-light); font-weight: 800; font-size: 0.84rem;
+      padding: 0.44rem 0.75rem; border-radius: 0.5rem; margin-bottom: 0.625rem; text-align: center;
     }
 
-    .leaderboard-title { font-size: 17px; font-weight: 900; color: var(--gold-light); margin-bottom: 8px; }
-    .rank-box { background: rgba(250, 204, 21, 0.08); border: 1.5px solid var(--gold); border-radius: 10px; padding: 12px; margin-bottom: 10px; }
-    .rank-number { font-size: 26px; font-weight: 900; color: #fff; margin: 2px 0; }
+    .leaderboard-title { font-size: 1.06rem; font-weight: 900; color: var(--amber-light); margin-bottom: 0.5rem; }
+    .rank-box { background: rgba(233, 162, 59, 0.08); border: 1.5px solid var(--amber); border-radius: 0.625rem; padding: 0.75rem; margin-bottom: 0.625rem; }
+    .rank-number { font-size: 1.6rem; font-weight: 900; color: #fff; margin: 2px 0; }
 
     .points-info-box {
       background: rgba(255, 255, 255, 0.03);
-      border: 1px dashed rgba(250, 204, 21, 0.35);
-      border-radius: 10px;
-      padding: 10px 12px;
-      margin-bottom: 12px;
+      border: 1px dashed rgba(233, 162, 59, 0.38);
+      border-radius: 0.625rem;
+      padding: 0.625rem 0.75rem;
+      margin-bottom: 0.75rem;
       text-align: right;
-      font-size: 11.5px;
-      color: rgba(255, 255, 255, 0.82);
+      font-size: 0.72rem;
+      color: rgba(249, 249, 250, 0.84);
       line-height: 1.6;
       font-weight: 400;
     }
-    .points-info-box strong { color: var(--gold-light); font-weight: 700; }
+    .points-info-box strong { color: var(--amber-light); font-weight: 700; }
 
     .hidden { display: none !important; }
 
-    .admin-panel { background: rgba(10, 3, 20, 0.97); border: 2px solid var(--gold); margin-top: 12px; }
+    .admin-panel { background: rgba(34, 22, 39, 0.97); border: 2px solid var(--amber); margin-top: 0.75rem; }
     .row { display: flex; gap: 6px; }
     .row > div { flex: 1; }
 
-    .signature { text-align: center; font-size: 10px; color: rgba(255,255,255,0.55); margin-top: 14px; letter-spacing: 0.5px; line-height: 1.5; }
-    .signature a { color: var(--gold-light); text-decoration: none; border-bottom: 1px dashed rgba(254,240,138,0.5); cursor: pointer; }
+    .signature { text-align: center; font-size: 0.625rem; color: rgba(249,249,250,0.58); margin-top: 0.875rem; letter-spacing: 0.5px; line-height: 1.7; }
+    .signature a { color: var(--amber-light); text-decoration: none; border-bottom: 1px dashed rgba(246,201,120,0.55); cursor: pointer; padding: 0 2px; }
+    .signature bdi { direction: ltr; unicode-bidi: isolate; }
+
+    /* إشعار صغير بدل alert */
+    .toast {
+      position: fixed; left: 50%; bottom: 1.5rem; transform: translateX(-50%) translateY(20px);
+      background: #120c18; color: var(--amber-light); border: 1.5px solid var(--amber);
+      padding: 0.625rem 1rem; border-radius: 0.75rem; font-size: 0.8rem; font-weight: 700;
+      max-width: 90vw; text-align: center; z-index: 1000; opacity: 0; pointer-events: none;
+      transition: opacity 0.3s, transform 0.3s; box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
   </style>
 </head>
 <body>
 
-  <div class="transition-tape" id="transitionTape"><span>🔍 جاري الانتقال...</span></div>
+  <div class="transition-layer">
+    <div class="transition-tape" id="transitionTape"><span>🔍 جاري الانتقال...</span></div>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <div class="app-wrapper">
 
@@ -263,15 +290,15 @@
       <p class="sub">شاركي معنا حل لغز اليوم واحصلي على هديتك</p>
 
       <!-- الخانة السريّة للمشرفة نوف -->
-      <div class="field hidden" id="secretAdminContainer" style="margin: 10px 0; background: rgba(250,204,21,0.08); padding: 12px; border-radius: 12px; border: 1.5px dashed var(--gold);">
-        <label style="font-size: 12.5px; color: var(--gold-light);">أدخلي كلمة السر الإدارية الخاصّة بكِ:</label>
-        <input type="password" id="adminPassInput" placeholder="••••••••••">
-        <button class="btn" style="margin-top: 8px; padding: 10px; font-size: 13.5px; background: linear-gradient(135deg, #a855f7, #6b21a8); border-color: #e9d5ff;" onclick="verifyAdminSecret()">🔓 تفعيل وضع المشرفة الملكة نوف</button>
+      <div class="field hidden" id="secretAdminContainer" style="margin: 10px 0; background: rgba(233,162,59,0.08); padding: 0.75rem; border-radius: 0.75rem; border: 1.5px dashed var(--amber);">
+        <label>أدخلي كلمة السر الإدارية الخاصّة بكِ:</label>
+        <input type="password" id="adminPassInput" placeholder="••••••••••" autocomplete="off">
+        <button class="btn btn-violet" style="margin-top: 8px; padding: 0.625rem; font-size: 0.85rem;" onclick="verifyAdminSecret()">🔓 تفعيل وضع المشرفة الملكة نوف</button>
       </div>
 
-      <div id="closedMsg" class="hidden" style="text-align: center; color: #fca5a5; padding: 12px 0;">
-        <h3 id="closedTitleDisplay" style="font-weight: 900; font-size: 16px; margin: 0 0 4px;">الفعالية مغلقة حالياً 🌸</h3>
-        <p id="closedTextDisplay" style="font-size: 12.5px; margin: 0; opacity: 0.9;">انتظرونا الأربعاء القادم لفتح قضية جديدة!</p>
+      <div id="closedMsg" class="hidden" style="text-align: center; color: #fca5a5; padding: 0.75rem 0;">
+        <h3 id="closedTitleDisplay" style="font-weight: 900; font-size: 1rem; margin: 0 0 4px;">الفعالية مغلقة حالياً 🌸</h3>
+        <p id="closedTextDisplay" style="font-size: 0.78rem; margin: 0; opacity: 0.9;">انتظرونا الأربعاء القادم لفتح قضية جديدة!</p>
       </div>
 
       <div id="formFields">
@@ -297,7 +324,7 @@
 
       <div class="signature">
         &copy; 2026 Nouf Alawad - نوف آل عواض<br>
-        <span>لكل فكرة صدى.. نسعد بملاحظاتكم عبر: <a onclick="openGmailApp(event)">Noufalawad20@gmail.com</a></span>
+        <span>لكل فكرة صدى.. نسعد بملاحظاتكم عبر:</span> <a role="button" tabindex="0" onclick="openMail(event)"><bdi>Noufalawad20@gmail.com</bdi></a>
       </div>
     </div>
 
@@ -325,8 +352,8 @@
       </div>
 
       <div id="result" class="result-box hidden"></div>
-      
-      <button id="nextStepBtn" class="btn hidden" style="background: linear-gradient(135deg, #eab308, #a16207); margin-top: 12px;" onclick="proceedAfterAnswer()">
+
+      <button id="nextStepBtn" class="btn btn-amber hidden" style="margin-top: 0.75rem;" onclick="proceedAfterAnswer()">
         التالي ➡️
       </button>
 
@@ -339,34 +366,34 @@
 
       <div class="signature">
         &copy; 2026 Nouf Alawad - نوف آل عواض<br>
-        <span>لكل فكرة صدى.. نسعد بملاحظاتكم عبر: <a onclick="openGmailApp(event)">Noufalawad20@gmail.com</a></span>
+        <span>لكل فكرة صدى.. نسعد بملاحظاتكم عبر:</span> <a role="button" tabindex="0" onclick="openMail(event)"><bdi>Noufalawad20@gmail.com</bdi></a>
       </div>
     </div>
 
     <!-- 3. صفحة لوحة الصدارة -->
     <div class="card leaderboard-card hidden" id="leaderboardStep">
       <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
-      
+
       <div class="club-logo-container" style="margin-bottom: 4px;" onclick="triggerSecretAdminField()">
-        <img src="Logo.png" alt="وحدة الإرشاد الأكاديمي" class="real-logo" style="max-width: 130px;">
+        <img src="Logo.png" alt="وحدة الإرشاد الأكاديمي" class="real-logo" style="max-width: 8.1rem;">
       </div>
       <div class="divider" style="margin: 6px auto 10px;"></div>
 
       <h2 class="leaderboard-title">⚖️ نافسي على المراكز الثلاثة الأولى.. الهدية أكبر بكثيرررر 😉🔥</h2>
 
       <div class="rank-box">
-        <div style="font-size: 12px; color: var(--gold-light);">نقاطك الحالية في المنافسة:</div>
+        <div style="font-size: 0.75rem; color: var(--amber-light);">نقاطك الحالية في المنافسة:</div>
         <div class="rank-number" id="userPointsText">جاري جلب النقاط...</div>
       </div>
 
       <div class="points-info-box">
         <strong>💡 آلية احتساب النقاط:</strong><br>
         • <strong>نقطة واحدة</strong> لكل إجابة صحيحة.<br>
-        • <strong>نقطتان</strong> عند مشاركة بوستر الإنجاز.<br>
-        <span style="font-size: 10.5px; opacity: 0.8; display: block; margin-top: 4px;">*(يرجى الدخول بنفس رقم الجوال دائماً لضمان احتساب النقاط)*</span>
+        • <strong>نقطتان</strong> عند مشاركة بوستر الإنجاز (مرة واحدة لكل قضية).<br>
+        <span style="font-size: 0.66rem; opacity: 0.8; display: block; margin-top: 4px;">*(يرجى الدخول بنفس رقم الجوال دائماً لضمان احتساب النقاط)*</span>
       </div>
 
-      <button class="btn" style="background: linear-gradient(135deg, #eab308, #a16207);" onclick="goToPosterFromLeaderboard()">
+      <button class="btn btn-amber" onclick="goToPosterFromLeaderboard()">
         📸 عرض بوستر التحدي والإنجاز
       </button>
 
@@ -379,7 +406,7 @@
 
       <div class="signature">
         &copy; 2026 Nouf Alawad - نوف آل عواض<br>
-        <span>لكل فكرة صدى.. نسعد بملاحظاتكم عبر: <a onclick="openGmailApp(event)">Noufalawad20@gmail.com</a></span>
+        <span>لكل فكرة صدى.. نسعد بملاحظاتكم عبر:</span> <a role="button" tabindex="0" onclick="openMail(event)"><bdi>Noufalawad20@gmail.com</bdi></a>
       </div>
     </div>
 
@@ -393,15 +420,15 @@
 
       <div class="poster-user-box" id="posterUserName">المحققة: </div>
 
-      <p style="font-size: 12px; color: var(--gold-light); margin: 0 0 8px; font-weight: 700;">
+      <p style="font-size: 0.75rem; color: var(--amber-light); margin: 0 0 0.5rem; font-weight: 700;">
         شاركي بوستر إنجازكِ وتحدّي زميلاتكِ في الكلية على لوحة الصدارة:
       </p>
 
-      <button class="btn" style="background: linear-gradient(135deg, #eab308, #a16207);" onclick="sharePosterFile()">
+      <button class="btn btn-amber" onclick="sharePosterFile()">
         🔗 مشاركة أو حفظ البوستر
       </button>
 
-      <button class="btn" id="userBackFromPosterBtn" style="background: rgba(255,255,255,0.1); border: 1px solid var(--line); margin-top: 6px;" onclick="returnFromPosterForUser()">
+      <button class="btn" id="userBackFromPosterBtn" style="background: rgba(255,255,255,0.08); border: 1px solid var(--line); margin-top: 6px; box-shadow: none;" onclick="returnFromPosterForUser()">
         ↩️ العودة
       </button>
 
@@ -414,13 +441,13 @@
 
       <div class="signature">
         &copy; 2026 Nouf Alawad - نوف آل عواض<br>
-        <span>لكل فكرة صدى.. نسعد بملاحظاتكم عبر: <a onclick="openGmailApp(event)">Noufalawad20@gmail.com</a></span>
+        <span>لكل فكرة صدى.. نسعد بملاحظاتكم عبر:</span> <a role="button" tabindex="0" onclick="openMail(event)"><bdi>Noufalawad20@gmail.com</bdi></a>
       </div>
     </div>
 
     <!-- 5. لوحة التحكم الإدارية الشاملة -->
     <div class="card hidden admin-panel" id="adminPanel">
-      <h2 style="margin-top:0; text-align:center; color:var(--gold-light); font-size: 17px;">🛠️ لوحة تحكم المشرفة الملكة نوف</h2>
+      <h2 style="margin-top:0; text-align:center; color:var(--amber-light); font-size: 1.06rem;">🛠️ لوحة تحكم المشرفة الملكة نوف</h2>
 
       <div class="field">
         <label>حالة الفعالية للعامة:</label>
@@ -460,8 +487,8 @@
         </div>
       </div>
 
-      <div style="background: rgba(250,204,21,0.08); border: 1px solid var(--line); border-radius: 8px; padding: 8px; margin-bottom: 12px;">
-        <label style="color:var(--gold-light); margin-bottom: 6px;">أكواد الخصم العشوائية (أدخلي حتى 5):</label>
+      <div style="background: rgba(233,162,59,0.07); border: 1px solid var(--line); border-radius: 0.5rem; padding: 0.5rem; margin-bottom: 0.75rem;">
+        <label style="margin-bottom: 6px;">أكواد الخصم العشوائية (أدخلي حتى 5):</label>
         <div class="field" style="margin-bottom: 4px;"><input type="text" id="p_code0" placeholder="الكود الأول"></div>
         <div class="field" style="margin-bottom: 4px;"><input type="text" id="p_code1" placeholder="الكود الثاني"></div>
         <div class="field" style="margin-bottom: 4px;"><input type="text" id="p_code2" placeholder="الكود الثالث"></div>
@@ -473,16 +500,22 @@
       <div class="field"><label>عبارة الإجابة الصحيحة:</label><input type="text" id="p_successMsg"></div>
       <div class="field"><label>عبارة الإجابة الخاطئة:</label><input type="text" id="p_wrongMsg"></div>
 
-      <button class="btn" style="background:#ca8a04;" onclick="saveAdminSettings()">حفظ وتحديث الفعالية</button>
-      <button class="btn" style="background:#ef4444; margin-top:5px;" onclick="toggleAdminPanel()">إغلاق اللوحة</button>
+      <button class="btn" style="background:#15803d; border-bottom-color:#4ade80;" onclick="saveAdminSettings()">حفظ وتحديث الفعالية</button>
+      <button class="btn" style="background:#b91c1c; border-bottom-color:#f87171; margin-top:5px;" onclick="toggleAdminPanel()">إغلاق اللوحة</button>
     </div>
 
   </div>
 
 <script>
-  // رابط السكربت الجديد والمحدث
+  // رابط السكربت
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyPN2xfLnIRybX7aa8qZLfMw0CS6l72riPOrtLRc_bTzUNhdRe3bVgPwxUS-boH56Cb/exec";
-  const ADMIN_PHONE = "0542961918";
+
+  // كلمة سر المشرفة محفوظة كبصمة (SHA-256) فلا تظهر في الكود
+  const ADMIN_PASS_HASH = "c7c264bb6143b1dbd30bd52cba6644e5050e6a9c64267c568c0d4935f6703357";
+  const ADMIN_ID = "ADMIN";
+
+  const MAIL_TO = "Noufalawad20@gmail.com";
+  const MAIL_SUBJECT = "بشأن لغز الربوع";
 
   const CONFIG_VERSION = 28;
   const CONFIG_KEY = 'wednesday_config_v' + CONFIG_VERSION;
@@ -511,9 +544,10 @@
   }
   if (!config.codes) config.codes = defaultConfig.codes;
 
-  let userData = { name: "", phone: "", points: 0, hasSharedPoster: false };
+  let userData = { name: "", phone: "", points: 0 };
   let currentAdminStatus = false;
   let typingTimer = null;
+  let toastTimer = null;
 
   function normalizeDigits(s) {
     return s.replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d))
@@ -521,40 +555,104 @@
   }
 
   function answeredKey(phone) { return 'answered_' + config.title + '_' + phone; }
+  function sharedKey(phone) { return 'shared_' + config.title + '_' + phone; }
   function lastCodeKey() { return 'last_given_code_' + config.title; }
 
-  // توجيه مباشر لتطبيق جيميل بدون أي فتح للمتصفح بالخلفية
-  function openGmailApp(e) {
-    e.preventDefault();
-    const email = "Noufalawad20@gmail.com";
-    const subject = encodeURIComponent("بشأن لغز الربوع");
-    window.location.href = `googlegmail://co?to=${email}&subject=${subject}`;
+  function showToast(msg) {
+    const el = document.getElementById('toast');
+    if (!el) return;
+    el.textContent = msg;
+    el.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => el.classList.remove('show'), 3500);
+  }
+
+  // فتح البريد: تطبيق Gmail أولاً، وإذا ما انفتح يجرب Outlook، وآخر حل البريد الافتراضي
+  // والعنوان والموضوع جاهزين في كل الحالات
+  function openMail(e) {
+    if (e) e.preventDefault();
+    const to = MAIL_TO;
+    const su = encodeURIComponent(MAIL_SUBJECT);
+    const ua = navigator.userAgent || "";
+    const isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    const isAndroid = /Android/i.test(ua);
+
+    // الكمبيوتر: Gmail على الويب
+    if (!isIOS && !isAndroid) {
+      window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=${to}&su=${su}`, '_blank', 'noopener');
+      return;
+    }
+    // الأندرويد: يفتح البريد الافتراضي (غالباً Gmail) مباشرة
+    if (isAndroid) {
+      window.location.href = `mailto:${to}?subject=${su}`;
+      return;
+    }
+
+    // آيفون وآيباد: نجرب Gmail، وإذا بقيت الصفحة ظاهرة (يعني التطبيق مو موجود) ننتقل لـ Outlook ثم للبريد الافتراضي
+    let left = false;
+    const markLeft = () => { left = true; };
+    document.addEventListener('visibilitychange', markLeft);
+    window.addEventListener('pagehide', markLeft);
+    window.addEventListener('blur', markLeft);
+
+    window.location.href = `googlegmail://co?to=${to}&subject=${su}`;
+
+    setTimeout(() => {
+      if (left || document.hidden) return cleanup();
+      window.location.href = `ms-outlook://compose?to=${to}&subject=${su}`;
+
+      setTimeout(() => {
+        if (!(left || document.hidden)) window.location.href = `mailto:${to}?subject=${su}`;
+        cleanup();
+      }, 1500);
+    }, 1500);
+
+    function cleanup() {
+      document.removeEventListener('visibilitychange', markLeft);
+      window.removeEventListener('pagehide', markLeft);
+      window.removeEventListener('blur', markLeft);
+    }
   }
 
   function triggerSecretAdminField() {
     const container = document.getElementById('secretAdminContainer');
-    if (container) {
-      container.classList.toggle('hidden');
-      if (!container.classList.contains('hidden')) {
-        document.getElementById('adminPassInput').focus();
-      }
+    const home = document.getElementById('userInfoStep');
+    if (!container || !home || home.classList.contains('hidden')) return;
+    container.classList.toggle('hidden');
+    if (!container.classList.contains('hidden')) {
+      document.getElementById('adminPassInput').focus();
     }
   }
 
-  function verifyAdminSecret() {
-    const passInput = document.getElementById('adminPassInput');
-    const enteredPass = normalizeDigits(passInput ? passInput.value.trim() : "");
+  async function sha256Hex(text) {
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+  }
 
-    if (enteredPass === ADMIN_PHONE) {
+  async function verifyAdminSecret() {
+    const passInput = document.getElementById('adminPassInput');
+    const entered = passInput ? passInput.value.trim() : "";
+    if (!entered) return;
+
+    let ok = false;
+    try {
+      ok = (await sha256Hex(entered)) === ADMIN_PASS_HASH;
+    } catch (e) {
+      showToast('تعذّر التحقق على هذا المتصفح');
+      return;
+    }
+
+    if (ok) {
       currentAdminStatus = true;
       userData.name = "المشرفة الملكة نوف";
-      userData.phone = ADMIN_PHONE;
-      alert('تم التحقق بنجاح! أهلاً بكِ يا ملكة القانون نوف 👑 تم تفعيل وضع الإشراف.');
+      userData.phone = ADMIN_ID;
+      passInput.value = "";
       document.getElementById('secretAdminContainer').classList.add('hidden');
-      navigateToStep('quizStep');
+      showToast('أهلاً بكِ يا ملكة القانون نوف 👑 تم تفعيل وضع الإشراف');
       initUI();
+      navigateToStep('quizStep');
     } else {
-      alert('كلمة المرور غير صحيحة!');
+      showToast('كلمة المرور غير صحيحة');
     }
   }
 
@@ -567,7 +665,8 @@
     if (validCodes.length === 0) return "حقوق_2026";
     if (validCodes.length === 1) return validCodes[0];
 
-    let lastCode = localStorage.getItem(lastCodeKey());
+    let lastCode = null;
+    try { lastCode = localStorage.getItem(lastCodeKey()); } catch (e) {}
     let available = validCodes.filter(c => c !== lastCode);
     if (available.length === 0) available = validCodes;
 
@@ -580,7 +679,7 @@
     document.getElementById('formError').textContent = msg;
     ['userName', 'userPhone', 'adminPassInput'].forEach(id => {
       let el = document.getElementById(id);
-      if(el) el.classList.remove('invalid');
+      if (el) el.classList.remove('invalid');
     });
     if (fieldId) document.getElementById(fieldId).classList.add('invalid');
   }
@@ -612,10 +711,10 @@
 
     const closedTitleEl = document.getElementById('closedTitleDisplay');
     const closedTextEl = document.getElementById('closedTextDisplay');
-    if (closedTitleEl) closedTitleEl.textContent = config.closedTitle || "الفعالية مغلقة حالياً 🌸";
-    if (closedTextEl) closedTextEl.textContent = config.closedText || "انتظرونا الأربعاء القادم لفتح قضية جديدة!";
+    if (closedTitleEl) closedTitleEl.textContent = config.closedTitle || defaultConfig.closedTitle;
+    if (closedTextEl) closedTextEl.textContent = config.closedText || defaultConfig.closedText;
 
-    let isAdmin = isUserAdmin();
+    const isAdmin = isUserAdmin();
     const formFieldsEl = document.getElementById('formFields');
     const closedMsgEl = document.getElementById('closedMsg');
 
@@ -631,27 +730,18 @@
     const adminNoticeBadge = document.getElementById('adminNoticeBadge');
     const userBackBtn = document.getElementById('userBackFromPosterBtn');
 
-    if (isAdmin) {
-      navRows.forEach(id => {
-        let el = document.getElementById(id);
-        if (el) el.classList.remove('hidden');
-      });
-      if (adminNoticeBadge) adminNoticeBadge.textContent = "وضع الإشراف (الملكة نوف)";
-      if (userBackBtn) userBackBtn.classList.add('hidden');
-    } else {
-      navRows.forEach(id => {
-        let el = document.getElementById(id);
-        if (el) el.classList.add('hidden');
-      });
-      if (adminNoticeBadge) adminNoticeBadge.textContent = "قيد التحقيق";
-      if (userBackBtn) userBackBtn.classList.remove('hidden');
-    }
+    navRows.forEach(id => {
+      let el = document.getElementById(id);
+      if (el) el.classList.toggle('hidden', !isAdmin);
+    });
+    if (adminNoticeBadge) adminNoticeBadge.textContent = isAdmin ? "وضع الإشراف (الملكة نوف)" : "قيد التحقيق";
+    if (userBackBtn) userBackBtn.classList.toggle('hidden', isAdmin);
   }
 
   function startQuizWithTransition() {
     const nameInput = document.getElementById('userName');
     const phoneInput = document.getElementById('userPhone');
-    
+
     if (!nameInput || !phoneInput) return;
 
     const name = nameInput.value.trim().replace(/\s+/g, ' ');
@@ -669,7 +759,9 @@
       showFormError('الفعالية مغلقة حالياً. انتظرونا قريباً!', 'userPhone');
       return;
     }
-    if (localStorage.getItem(answeredKey(phone))) {
+    let already = null;
+    try { already = localStorage.getItem(answeredKey(phone)); } catch (e) {}
+    if (already) {
       showFormError('سبق وشاركتي في لغز هذا الأسبوع 🌸 انتظرينا الأربعاء القادم!', 'userPhone');
       return;
     }
@@ -678,7 +770,6 @@
     userData.name = name;
     userData.phone = phone;
     userData.points = 0;
-    userData.hasSharedPoster = false;
 
     const tape = document.getElementById('transitionTape');
     tape.classList.add('active');
@@ -702,7 +793,7 @@
     if (optionsDiv) optionsDiv.style.pointerEvents = 'none';
     if (btn) btn.classList.add('shaking');
 
-    let isAdmin = isUserAdmin();
+    const isAdmin = isUserAdmin();
     if (!isAdmin) {
       try { localStorage.setItem(answeredKey(userData.phone), '1'); } catch (e) {}
     }
@@ -726,18 +817,16 @@
         }
         const posterUserBox = document.getElementById('posterUserName');
         if (posterUserBox) posterUserBox.textContent = "المحققة: " + userData.name;
-        
+
         if (!isAdmin) {
           userData.points += 1;
           sendDataToSheet(userData.name, userData.phone, config.opts[selectedIndex], "صحيحة", 1, false);
         }
-        
+
         if (nextStepBtn) {
-          if (config.leaderboardActive) {
-            nextStepBtn.textContent = "🏆 عرض لوحة الصدارة والتنافس";
-          } else {
-            nextStepBtn.textContent = "📸 عرض بوستر التحدي والمشاركة";
-          }
+          nextStepBtn.textContent = config.leaderboardActive
+            ? "🏆 عرض لوحة الصدارة والتنافس"
+            : "📸 عرض بوستر التحدي والمشاركة";
           nextStepBtn.classList.remove('hidden');
         }
 
@@ -749,7 +838,7 @@
             <div class="verdict-stamp">✖ قضية مغلقة</div>
             <h3>${config.wrongMsg}</h3>
             <p>${config.ruling}</p>
-            <button class="btn" style="margin-top:10px; background:rgba(255,255,255,0.2);" onclick="backToQuizOrRestart()">🔄 تجربة إجابة أخرى</button>
+            <button class="btn" style="margin-top:10px; background:rgba(255,255,255,0.14); box-shadow:none;" onclick="backToQuizOrRestart()">${isAdmin ? '🔄 تجربة إجابة أخرى' : '↩️ العودة للرئيسية'}</button>
           `;
         }
         if (!isAdmin) {
@@ -812,8 +901,8 @@
       }
     }, 400);
 
-    setTimeout(() => { 
-      if (tape) tape.classList.remove('active'); 
+    setTimeout(() => {
+      if (tape) tape.classList.remove('active');
     }, 850);
   }
 
@@ -829,7 +918,7 @@
   function fetchUserPointsFromSheet(phone) {
     const ptsText = document.getElementById('userPointsText');
     if (ptsText) ptsText.textContent = "جاري جلب النقاط...";
-    fetch(SCRIPT_URL + "?phone=" + phone)
+    fetch(SCRIPT_URL + "?phone=" + encodeURIComponent(phone))
       .then(res => res.json())
       .then(data => {
         if (ptsText) ptsText.textContent = (data.points || userData.points) + " نقاط";
@@ -851,15 +940,23 @@
     }
   }
 
+  // نقطتا المشاركة: مرة واحدة فقط لكل رقم جوال ولكل قضية، وبعد إتمام المشاركة فعلاً
+  function awardSharePoints() {
+    if (isUserAdmin()) return false;
+    const key = sharedKey(userData.phone);
+    let got = null;
+    try { got = localStorage.getItem(key); } catch (e) {}
+    if (got) return false;
+    try { localStorage.setItem(key, '1'); } catch (e) {}
+    userData.points += 2;
+    sendDataToSheet(userData.name, userData.phone, "مشاركة البوستر", "صحيحة", 2, true);
+    return true;
+  }
+
   async function sharePosterFile() {
     const shareText = `حلّيت لغز اليوم في كلية الحقوق والعلوم السياسية! ⚖️🔍\n#لغز_الربوع`;
     const currentUrl = window.location.href;
-
-    if (!userData.hasSharedPoster && !isUserAdmin()) {
-      userData.points += 2;
-      userData.hasSharedPoster = true;
-      sendDataToSheet(userData.name, userData.phone, "مشاركة البوستر", "صحيحة", 2, true);
-    }
+    let done = false;
 
     try {
       const response = await fetch('Moo.PNG');
@@ -872,23 +969,37 @@
           title: 'لغز الربوع',
           text: shareText + '\n' + currentUrl
         });
-        return;
+        done = true;
       }
-    } catch (e) {}
+    } catch (e) {
+      // إذا ألغت المستخدمة نافذة المشاركة لا نحتسب النقاط
+      if (e && e.name === 'AbortError') return;
+    }
 
-    navigator.clipboard.writeText(shareText + '\n' + currentUrl);
-    const link = document.createElement('a');
-    link.href = 'Moo.PNG';
-    link.download = 'بوستر_لغز_الربوع.png';
-    link.click();
-    alert('تم تحميل بوستر الإنجاز ونسخ النص والهاشتاق واكتساب نقطتين إضافيتين! 🏆✨');
+    if (!done) {
+      try { await navigator.clipboard.writeText(shareText + '\n' + currentUrl); } catch (e) {}
+      const link = document.createElement('a');
+      link.href = 'Moo.PNG';
+      link.download = 'بوستر_لغز_الربوع.png';
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    }
+
+    if (isUserAdmin()) {
+      showToast(done ? 'تمت المشاركة (وضع الإشراف: بدون نقاط)' : 'تم تحميل البوستر (وضع الإشراف: بدون نقاط)');
+    } else if (awardSharePoints()) {
+      showToast('تمت المشاركة! تم احتساب نقطتين إضافيتين 🏆✨');
+    } else {
+      showToast('تمت المشاركة ✅ (نقاط هذه القضية احتُسبت سابقاً)');
+    }
   }
 
   function toggleAdminPanel() {
     const panel = document.getElementById('adminPanel');
     if (!panel) return;
     if (panel.classList.contains('hidden')) {
-      const setVal = (id, val) => { const el = document.getElementById(id); if(el) el.value = val; };
+      const setVal = (id, val) => { const el = document.getElementById(id); if (el) el.value = val; };
       setVal('p_isOpen', config.isOpen ? "true" : "false");
       setVal('p_closedTitle', config.closedTitle || defaultConfig.closedTitle);
       setVal('p_closedText', config.closedText || defaultConfig.closedText);
@@ -899,7 +1010,7 @@
       setVal('p_o0', config.opts[0]);
       setVal('p_o1', config.opts[1]);
       setVal('p_corr', config.corrIndex);
-      
+
       let codes = config.codes || [];
       for (let i = 0; i < 5; i++) {
         setVal('p_code' + i, codes[i] || "");
@@ -908,7 +1019,7 @@
       setVal('p_ruling', config.ruling);
       setVal('p_successMsg', config.successMsg || defaultConfig.successMsg);
       setVal('p_wrongMsg', config.wrongMsg || defaultConfig.wrongMsg);
-      
+
       panel.classList.remove('hidden');
       panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
     } else {
@@ -918,7 +1029,7 @@
 
   function saveAdminSettings() {
     const getVal = (id) => { const el = document.getElementById(id); return el ? el.value.trim() : ""; };
-    
+
     config.isOpen = (getVal('p_isOpen') === 'true');
     config.closedTitle = getVal('p_closedTitle') || defaultConfig.closedTitle;
     config.closedText = getVal('p_closedText') || defaultConfig.closedText;
@@ -929,7 +1040,7 @@
     config.opts[0] = getVal('p_o0');
     config.opts[1] = getVal('p_o1');
     config.corrIndex = parseInt(getVal('p_corr'));
-    
+
     let newCodes = [];
     for (let i = 0; i < 5; i++) {
       let val = getVal('p_code' + i);
@@ -941,8 +1052,8 @@
     config.successMsg = getVal('p_successMsg');
     config.wrongMsg = getVal('p_wrongMsg');
 
-    localStorage.setItem(CONFIG_KEY, JSON.stringify(config));
-    alert('تم حفظ وتحديث إعدادات الفعالية بنجاح!');
+    try { localStorage.setItem(CONFIG_KEY, JSON.stringify(config)); } catch (e) {}
+    showToast('تم حفظ وتحديث إعدادات الفعالية بنجاح!');
     toggleAdminPanel();
     initUI();
   }
