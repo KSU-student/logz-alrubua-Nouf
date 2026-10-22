@@ -64,8 +64,8 @@
     .transition-tape.active { left: -10%; visibility: visible; }
 
     .app-wrapper {
-      position: relative; width: min(100%, 27.5rem); z-index: 2;
-      padding: 1.25rem 0.875rem; display: flex; flex-direction: column; align-items: center;
+      position: relative; width: min(100%, 25rem); z-index: 2;
+      padding: 1rem 0.75rem; display: flex; flex-direction: column; align-items: center;
     }
 
     .card {
@@ -73,26 +73,18 @@
       border: 1.5px solid rgba(155, 123, 192, 0.55);
       backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
       border-radius: 1.25rem;
-      padding: 1.625rem 1.125rem 1.25rem;
+      padding: 1.25rem 1rem 1rem;
       width: 100%;
       box-shadow: 0 10px 40px rgba(0,0,0,0.7), 0 0 38px rgba(107, 74, 143, 0.35), inset 0 0 25px rgba(155, 123, 192, 0.08);
       position: relative; z-index: 2;
       overflow: hidden;
     }
-    .card > *:not(.watermark):not(.corner) { position: relative; z-index: 1; }
+    .card > *:not(.corner) { position: relative; z-index: 1; }
     .corner { position: absolute; width: 1rem; height: 1rem; border: 2.5px solid var(--amber); pointer-events: none; z-index: 2; }
     .corner.tl { top: 10px; right: 10px; border-left: none; border-bottom: none; border-top-right-radius: 4px; }
     .corner.tr { top: 10px; left: 10px; border-right: none; border-bottom: none; border-top-left-radius: 4px; }
     .corner.bl { bottom: 10px; right: 10px; border-left: none; border-top: none; border-bottom-right-radius: 4px; }
     .corner.br { bottom: 10px; left: 10px; border-right: none; border-top: none; border-bottom-left-radius: 4px; }
-
-    .watermark { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
-    .wm-inner {
-      position: absolute; inset: -35%; transform: rotate(-14deg);
-      direction: ltr; text-align: left; font-family: sans-serif; font-weight: 800;
-      font-size: 0.8rem; letter-spacing: 0.35em; line-height: 2.6;
-      color: rgba(233, 162, 59, 0.06); word-break: break-word; user-select: none;
-    }
 
     .status-bar {
       display: flex; align-items: center; justify-content: center; gap: 6px;
@@ -110,30 +102,30 @@
       cursor: pointer;
     }
     .real-logo {
-      position: relative; width: 100%; max-width: 16.25rem; height: auto; display: block; margin: 0 auto;
+      position: relative; width: 100%; max-width: 9.5rem; height: auto; display: block; margin: 0 auto;
       filter: drop-shadow(0 0 10px rgba(155, 123, 192, 0.55)) brightness(1.08);
       user-select: none; -webkit-user-drag: none;
     }
-    .quiz-card .real-logo { max-width: 8.5rem; }
+    .quiz-card .real-logo { max-width: 7.5rem; }
 
     .divider {
-      height: 2px; margin: 8px auto 12px; width: 70%;
+      height: 2px; margin: 6px auto 10px; width: 70%;
       background: linear-gradient(90deg, transparent, var(--amber), transparent);
     }
 
     h1.main-title {
-      margin: 2px 0 8px; text-align: center; font-size: 1.5rem; font-weight: 900;
+      margin: 2px 0 4px; text-align: center; font-size: 1.35rem; font-weight: 900;
       background: linear-gradient(180deg, #fff 30%, var(--amber-light) 100%);
       -webkit-background-clip: text; background-clip: text; color: transparent;
     }
-    p.sub { text-align: center; color: rgba(249,249,250,0.78); margin: 0 0 1rem; font-size: 0.78rem; }
+    p.sub { text-align: center; color: rgba(249,249,250,0.78); margin: 0 0 0.875rem; font-size: 0.75rem; }
 
-    .field { margin-bottom: 0.75rem; }
+    .field { margin-bottom: 0.625rem; }
     .hint { font-size: 0.66rem; color: rgba(249,249,250,0.6); margin-top: 3px; line-height: 1.5; }
-    label { display: block; margin-bottom: 4px; font-weight: 700; font-size: 0.78rem; color: var(--amber-light); }
+    label { display: block; margin-bottom: 3px; font-weight: 700; font-size: 0.75rem; color: var(--amber-light); }
     input[type="text"], input[type="tel"], input[type="password"], textarea, select {
-      width: 100%; padding: 0.625rem 0.75rem; border-radius: 0.625rem; border: 1.5px solid var(--line);
-      background: rgba(24, 15, 29, 0.85); color: #fff; font-size: max(16px, 1rem); font-family: inherit;
+      width: 100%; padding: 0.55rem 0.75rem; border-radius: 0.625rem; border: 1.5px solid var(--line);
+      background: rgba(24, 15, 29, 0.85); color: #fff; font-size: max(16px, 0.95rem); font-family: inherit;
       outline: none; transition: 0.3s;
     }
     input:focus, textarea:focus, select:focus { border-color: var(--amber); box-shadow: 0 0 12px rgba(233, 162, 59, 0.35); }
@@ -145,11 +137,11 @@
     .form-error { color: #fca5a5; font-size: 0.75rem; text-align: center; min-height: 1rem; margin: 2px 0; }
 
     .btn {
-      width: 100%; padding: 0.75rem; border: none; border-radius: 0.625rem;
+      width: 100%; padding: 0.6875rem; border: none; border-radius: 0.625rem;
       background: linear-gradient(135deg, var(--amber-dark), #6e4219);
       border-bottom: 3px solid var(--amber);
-      color: #fff; font-size: 0.94rem; font-weight: 800; font-family: inherit;
-      cursor: pointer; margin-top: 6px; transition: 0.3s;
+      color: #fff; font-size: 0.9rem; font-weight: 800; font-family: inherit;
+      cursor: pointer; margin-top: 4px; transition: 0.3s;
       box-shadow: 0 4px 16px rgba(172, 109, 45, 0.45);
     }
     .btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(233, 162, 59, 0.55); }
@@ -173,33 +165,30 @@
     .admin-nav-btn:hover { background: var(--amber); color: #000; box-shadow: 0 0 10px var(--amber); }
     .admin-nav-btn.gold-hl { background: var(--amber); color: #000; border-color: #fff; }
 
-    .magnifier-lens {
+    /* بوكس الوقائع وبوكس السؤال بتصميم متناسق وموحد */
+    .magnifier-lens, .question-box {
       border: 1.5px solid var(--violet-soft); border-right: 4px solid var(--amber);
-      border-radius: 0.75rem; padding: 1rem 0.875rem 0.875rem;
+      border-radius: 0.75rem; padding: 0.875rem 0.75rem 0.75rem;
       background: linear-gradient(135deg, rgba(107, 74, 143, 0.28), rgba(55, 38, 57, 0.35));
       box-shadow: inset 0 0 20px rgba(107, 74, 143, 0.25), 0 0 16px rgba(107, 74, 143, 0.22);
-      margin: 6px 0 0.875rem; position: relative; min-height: 4.5rem;
+      margin: 6px 0 0.75rem; position: relative; min-height: 4rem;
     }
     .magnifier-lens::before {
       content: attr(data-label); position: absolute; top: -9px; right: 14px;
       background: var(--amber); color: #1a0f1f; font-size: 0.625rem; font-weight: 900;
       padding: 1px 8px; border-radius: 4px;
     }
-    .question-zoom { font-size: 0.94rem; font-weight: 700; line-height: 1.75; color: #fff; white-space: pre-wrap; overflow-wrap: anywhere; }
+    .question-zoom { font-size: 0.9rem; font-weight: 700; line-height: 1.7; color: #fff; white-space: pre-wrap; overflow-wrap: anywhere; }
     .question-zoom.typing::after { content: "▌"; color: var(--amber); animation: blink 0.8s infinite; margin-right: 2px; }
 
-    .question-box {
-      position: relative; margin: 0 0 0.875rem; padding: 0.875rem 0.875rem 0.75rem;
-      border-radius: 0.75rem; border: 1.5px solid var(--amber);
-      background: rgba(233, 162, 59, 0.09);
-    }
     .question-box .q-tag {
       position: absolute; top: -9px; right: 14px;
-      background: var(--violet); color: #fff; font-size: 0.625rem; font-weight: 900;
+      background: var(--amber); color: #1a0f1f; font-size: 0.625rem; font-weight: 900;
       padding: 1px 8px; border-radius: 4px;
     }
-    .question-box .q-body { font-size: 0.94rem; font-weight: 800; line-height: 1.7; color: var(--amber-light); white-space: pre-wrap; overflow-wrap: anywhere; }
+    .question-box .q-body { font-size: 0.9rem; font-weight: 800; line-height: 1.7; color: #fff; white-space: pre-wrap; overflow-wrap: anywhere; }
 
+    /* بوكسات الإجابات */
     .opt-btn {
       width: 100%; display: flex; align-items: flex-start; gap: 0.6rem;
       padding: 0.75rem 0.8rem; margin-bottom: 0.56rem; border-radius: 0.625rem;
@@ -278,7 +267,7 @@
     .row { display: flex; gap: 6px; }
     .row > div { flex: 1; }
 
-    .signature { text-align: center; font-size: 0.625rem; color: rgba(249,249,250,0.58); margin-top: 0.875rem; letter-spacing: 0.5px; line-height: 1.7; }
+    .signature { text-align: center; font-size: 0.625rem; color: rgba(249,249,250,0.58); margin-top: 0.75rem; letter-spacing: 0.5px; line-height: 1.7; }
     .signature a { color: var(--amber-light); text-decoration: none; border-bottom: 1px dashed rgba(246,201,120,0.55); cursor: pointer; padding: 0 2px; }
     .signature bdi { direction: ltr; unicode-bidi: isolate; }
 
@@ -358,7 +347,6 @@
 
     <!-- 2. واجهة اللغز -->
     <div class="card quiz-card hidden" id="quizStep">
-      <div class="watermark" aria-hidden="true"><div class="wm-inner" id="wmInner"></div></div>
       <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
 
       <div class="club-logo-container" onclick="triggerSecretAdminField()">
@@ -404,7 +392,7 @@
       <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
 
       <div class="club-logo-container" style="margin-bottom: 4px;" onclick="triggerSecretAdminField()">
-        <img src="Logo.png" alt="وحدة الإرشاد الأكاديمي" class="real-logo" style="max-width: 8.1rem;">
+        <img src="Logo.png" alt="وحدة الإرشاد الأكاديمي" class="real-logo" style="max-width: 7.5rem;">
       </div>
       <div class="divider" style="margin: 6px auto 10px;"></div>
 
@@ -1231,48 +1219,7 @@
     }
   });
 
-  function trimLogos() {
-    const probe = new Image();
-    probe.onload = () => {
-      try {
-        const w = probe.naturalWidth, h = probe.naturalHeight;
-        if (!w || !h) return;
-        const c = document.createElement('canvas');
-        c.width = w; c.height = h;
-        const ctx = c.getContext('2d', { willReadFrequently: true });
-        ctx.drawImage(probe, 0, 0);
-        const d = ctx.getImageData(0, 0, w, h).data;
-        let minX = w, minY = h, maxX = -1, maxY = -1;
-        for (let y = 0; y < h; y++) {
-          for (let x = 0; x < w; x++) {
-            if (d[(y * w + x) * 4 + 3] > 16) {
-              if (x < minX) minX = x;
-              if (x > maxX) maxX = x;
-              if (y < minY) minY = y;
-              if (y > maxY) maxY = y;
-            }
-          }
-        }
-        if (maxX < 0) return;
-        const pad = Math.round(Math.min(w, h) * 0.015);
-        minX = Math.max(0, minX - pad); minY = Math.max(0, minY - pad);
-        maxX = Math.min(w - 1, maxX + pad); maxY = Math.min(h - 1, maxY + pad);
-        const ow = maxX - minX + 1, oh = maxY - minY + 1;
-        if (ow >= w - 2 && oh >= h - 2) return;
-        const out = document.createElement('canvas');
-        out.width = ow; out.height = oh;
-        out.getContext('2d').drawImage(c, minX, minY, ow, oh, 0, 0, ow, oh);
-        const url = out.toDataURL('image/png');
-        document.querySelectorAll('.real-logo').forEach(img => { img.src = url; });
-      } catch (e) { }
-    };
-    probe.src = 'Logo.png';
-  }
-
   window.addEventListener('DOMContentLoaded', () => {
-    const wm = document.getElementById('wmInner');
-    if (wm) wm.textContent = 'DETECTIVE UNIT • CASE FILE • '.repeat(90);
-    trimLogos();
     showFormError('جاري تحميل القضية..');
     initUI();
     loadRemoteConfig();
