@@ -18,6 +18,7 @@
       --amber-light: #f6c978;
       --card-bg: rgba(46, 31, 51, 0.95);
       --line: rgba(233, 162, 59, 0.42);
+      --logo-max-width: 13.5rem;
     }
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
@@ -102,11 +103,12 @@
       cursor: pointer;
     }
     .real-logo {
-      position: relative; width: 100%; max-width: 13.5rem; height: auto; display: block; margin: 0 auto;
+      position: relative; width: 100%; max-width: var(--logo-max-width); height: auto; display: block; margin: 0 auto;
       filter: drop-shadow(0 0 10px rgba(155, 123, 192, 0.55)) brightness(1.08);
       user-select: none; -webkit-user-drag: none;
+      transition: max-width 0.2s ease;
     }
-    .quiz-card .real-logo { max-width: 8.5rem; }
+    .quiz-card .real-logo { max-width: calc(var(--logo-max-width) * 0.65); }
 
     .divider {
       height: 2px; margin: 8px auto 12px; width: 70%;
@@ -164,6 +166,20 @@
     }
     .admin-nav-btn:hover { background: var(--amber); color: #000; box-shadow: 0 0 10px var(--amber); }
     .admin-nav-btn.gold-hl { background: var(--amber); color: #000; border-color: #fff; }
+
+    .logo-control-box {
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
+      background: rgba(0,0,0,0.3); padding: 0.5rem 0.75rem; border-radius: 0.625rem;
+      border: 1px solid var(--line);
+    }
+    .logo-size-btn {
+      width: 2.2rem; height: 2.2rem; border-radius: 0.5rem; border: 1.5px solid var(--amber);
+      background: rgba(233, 162, 59, 0.2); color: #fff; font-size: 1.2rem; font-weight: 900;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: 0.2s;
+    }
+    .logo-size-btn:hover { background: var(--amber); color: #000; }
+    .logo-size-btn:active { transform: scale(0.92); }
 
     .magnifier-lens, .question-box {
       border: 1.5px solid var(--violet-soft); border-right: 4px solid var(--amber);
@@ -462,6 +478,16 @@
     <div class="card hidden admin-panel" id="adminPanel">
       <h2 style="margin-top:0; text-align:center; color:var(--amber-light); font-size: 1.06rem;">🛠️ لوحة تحكم المشرفة الملكة نوف</h2>
 
+      <div class="field" style="background: rgba(233,162,59,0.08); border: 1px solid var(--line); border-radius: 0.625rem; padding: 0.625rem;">
+        <label>🖼️ التحكم بحجم الشعار (Logo Size):</label>
+        <div class="logo-control-box">
+          <button type="button" class="logo-size-btn" onclick="adjustLogoSize(-1)">-</button>
+          <span id="logoSizeVal" style="font-size: 0.85rem; font-weight: 800; color: var(--amber-light);">13.5 rem</span>
+          <button type="button" class="logo-size-btn" onclick="adjustLogoSize(1)">+</button>
+          <button type="button" class="admin-nav-btn" style="flex:0 0 auto; padding:0.4rem 0.6rem;" onclick="resetLogoSize()">إعادة ضبط</button>
+        </div>
+      </div>
+
       <div class="field">
         <label>حالة الفعالية للعامة:</label>
         <select id="p_isOpen">
@@ -538,7 +564,26 @@
   const MAIL_TO = "Noufalawad20@gmail.com";
   const MAIL_SUBJECT = "بشأن لغز الربوع";
   const CONFIG_CACHE_KEY = 'case_config_cache_v2';
+  const LOGO_SIZE_KEY = 'custom_logo_size_v1';
   const OPT_LETTERS = ['أ', 'ب', 'ج', 'د'];
+
+  let currentLogoSize = parseFloat(localStorage.getItem(LOGO_SIZE_KEY)) || 13.5;
+
+  function updateLogoCSS(size) {
+    currentLogoSize = Math.max(6, Math.min(25, size));
+    document.documentElement.style.setProperty('--logo-max-width', currentLogoSize + 'rem');
+    const labelEl = document.getElementById('logoSizeVal');
+    if (labelEl) labelEl.textContent = currentLogoSize.toFixed(1) + ' rem';
+    try { localStorage.setItem(LOGO_SIZE_KEY, currentLogoSize); } catch (e) {}
+  }
+
+  function adjustLogoSize(delta) {
+    updateLogoCSS(currentLogoSize + delta * 0.5);
+  }
+
+  function resetLogoSize() {
+    updateLogoCSS(13.5);
+  }
 
   const defaultConfig = {
     isOpen: true,
@@ -754,6 +799,7 @@
   }
 
   function initUI() {
+    updateLogoCSS(currentLogoSize);
     if (!answeredThisSession) renderCase();
 
     const closedTitleEl = document.getElementById('closedTitleDisplay');
