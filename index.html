@@ -370,13 +370,13 @@
         <img src="Logo.png" alt="وحدة الإرشاد الأكاديمي" class="real-logo">
       </div>
 
-      <!-- عنوان القضية أصبح فوق الخط الذهبي -->
+      <!-- عنوان القضية فوق الخط الذهبي -->
       <h1 class="main-title" id="qTitle">القضية</h1>
 
       <!-- الخط الذهبي الفاصل -->
       <div class="divider"></div>
 
-      <!-- شارة قيد التحقيق أصبحت تحت الخط الذهبي مباشرة -->
+      <!-- شارة قيد التحقيق تحت الخط الذهبي -->
       <div class="status-bar"><i></i> <span id="adminNoticeBadge">قيد التحقيق</span></div>
 
       <div class="magnifier-lens" id="lens" data-label="الوقائع">
@@ -454,7 +454,8 @@
       <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
 
       <div class="poster-img-container">
-        <img src="Moo.PNG" alt="بوستر لغز الربوع" class="poster-img" id="posterImageElement">
+        <!-- تحديث الصورة لتطابق الاسم الجديد IMG_2042.png -->
+        <img src="IMG_2042.png" alt="بوستر لغز الربوع" class="poster-img" id="posterImageElement">
       </div>
 
       <div class="poster-user-box" id="posterUserName">المحققة: </div>
@@ -1031,7 +1032,8 @@
     let done = false;
 
     try {
-      const response = await fetch('Moo.PNG');
+      // جلب اسم الصورة الجديد
+      const response = await fetch('IMG_2042.png');
       const blob = await response.blob();
       const file = new File([blob], 'لغز_الربوع.png', { type: 'image/png' });
       if (navigator.canShare && navigator.canShare({ files: [file] })) {
@@ -1045,7 +1047,7 @@
     if (!done) {
       try { await navigator.clipboard.writeText(shareText + '\n' + currentUrl); } catch (e) {}
       const link = document.createElement('a');
-      link.href = 'Moo.PNG';
+      link.href = 'IMG_2042.png';
       link.download = 'بوستر_لغز_الربوع.png';
       document.body.appendChild(link);
       link.click();
