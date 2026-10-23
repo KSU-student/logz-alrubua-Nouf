@@ -90,7 +90,6 @@
     .corner.bl { bottom: 10px; right: 10px; border-left: none; border-top: none; border-bottom-right-radius: 4px; }
     .corner.br { bottom: 10px; left: 10px; border-right: none; border-top: none; border-bottom-left-radius: 4px; }
 
-    /* شارة "قيد التحقيق" المضيئة بالذهبي */
     .status-bar {
       display: flex; align-items: center; justify-content: center; gap: 6px;
       font-size: 0.72rem; font-weight: 800; color: var(--amber-light); margin: 6px 0 10px;
@@ -101,7 +100,6 @@
     }
     @keyframes blink { 50% { opacity: 0.25; } }
 
-    /* الشعار بتصميم موحد بجميع الصفحات وبدون تصغير مفاجئ */
     .club-logo-container {
       text-align: center; margin: 0 auto; position: relative; width: 100%;
       display: flex; justify-content: center; align-items: center;
@@ -115,7 +113,6 @@
       pointer-events: none;
     }
 
-    /* الخط الفاصل الهادئ غير الذهبي */
     .divider {
       height: 1.5px; margin: 8px auto; width: 75%;
       background: linear-gradient(90deg, transparent, var(--violet-soft), transparent);
@@ -264,9 +261,47 @@
       padding: 0.44rem 0.75rem; border-radius: 0.5rem; margin-bottom: 0.625rem; text-align: center;
     }
 
-    .leaderboard-title { font-size: 1.06rem; font-weight: 900; color: var(--amber-light); margin-bottom: 0.5rem; }
-    .rank-box { background: rgba(233, 162, 59, 0.08); border: 1.5px solid var(--amber); border-radius: 0.625rem; padding: 0.75rem; margin-bottom: 0.625rem; }
-    .rank-number { font-size: 1.6rem; font-weight: 900; color: var(--white-soft); margin: 2px 0; }
+    .leaderboard-title {
+      font-size: 1.02rem;
+      font-weight: 800;
+      color: var(--white-soft);
+      margin-bottom: 0.75rem;
+      line-height: 1.6;
+    }
+
+    .rank-box {
+      background: rgba(142, 124, 147, 0.12);
+      border: 1.5px solid var(--amber);
+      border-radius: 0.75rem;
+      padding: 0.75rem 0.5rem;
+      margin-bottom: 0.75rem;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      gap: 8px;
+    }
+    .rank-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .rank-divider {
+      width: 1.5px;
+      height: 2.2rem;
+      background: rgba(210, 215, 223, 0.25);
+    }
+    .rank-label {
+      font-size: 0.72rem;
+      color: var(--violet-soft);
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+    .rank-number {
+      font-size: 1.25rem;
+      font-weight: 900;
+      color: var(--amber-light);
+    }
 
     .points-info-box {
       background: rgba(255, 255, 255, 0.03);
@@ -377,18 +412,12 @@
     <div class="card quiz-card hidden" id="quizStep">
       <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
 
-      <!-- الشعار -->
       <div class="club-logo-container" onclick="triggerSecretAdminField()">
         <img src="Logo.png" alt="وحدة الإرشاد الأكاديمي" class="real-logo">
       </div>
 
-      <!-- عنوان القضية فوق الخط الفاصل -->
       <h1 class="main-title" id="qTitle">القضية</h1>
-
-      <!-- الخط الفاصل غير الذهبي -->
       <div class="divider"></div>
-
-      <!-- شارة قيد التحقيق بالذهبي فقط -->
       <div class="status-bar"><i></i> <span id="adminNoticeBadge">قيد التحقيق</span></div>
 
       <div class="magnifier-lens" id="lens" data-label="الوقائع">
@@ -425,17 +454,23 @@
     <div class="card leaderboard-card hidden" id="leaderboardStep">
       <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
 
-      <!-- الشعار بنفس حجم باقي الصفحات بدون أي تصغير -->
       <div class="club-logo-container" onclick="triggerSecretAdminField()">
         <img src="Logo.png" alt="وحدة الإرشاد الأكاديمي" class="real-logo">
       </div>
       <div class="divider"></div>
 
-      <h2 class="leaderboard-title">⚖️ نافسي على المراكز الثلاثة الأولى.. الهدية أكبر بكثيرررر 😉🔥</h2>
+      <h2 class="leaderboard-title">نافسي على المراكز الثلاثة الأولى.. الهدية أكبر بكثيرررر 😉🔥</h2>
 
       <div class="rank-box">
-        <div style="font-size: 0.75rem; color: var(--amber-light);">نقاطك الحالية في المنافسة:</div>
-        <div class="rank-number" id="userPointsText">جاري جلب النقاط...</div>
+        <div class="rank-item">
+          <div class="rank-label">نقاطك الحالية:</div>
+          <div class="rank-number" id="userPointsText">...</div>
+        </div>
+        <div class="rank-divider"></div>
+        <div class="rank-item">
+          <div class="rank-label">ترتيبك في الصدارة:</div>
+          <div class="rank-number" id="userRankText">...</div>
+        </div>
       </div>
 
       <div class="points-info-box">
@@ -544,7 +579,7 @@
       <div class="field">
         <label>السؤال (اختياري):</label>
         <textarea id="p_question" class="mid"></textarea>
-        <div class="hint">يظهر في خانة مستقلة تحت الوقائع. اتركيهفاضي إذا السؤال داخل الوقائع.</div>
+        <div class="hint">يظهر في خانة مستقلة تحت الوقائع. اتركيه فاضي إذا السؤال داخل الوقائع.</div>
       </div>
 
       <div style="background: rgba(142,124,147,0.07); border: 1px solid var(--line); border-radius: 0.5rem; padding: 0.5rem; margin-bottom: 0.75rem;">
@@ -582,7 +617,7 @@
   </div>
 
 <script>
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyPN2xfLnIRybX7aa8qZLfMw0CS6l72riPOrtLRc_bTzUNhdRe3bVgPwxUS-boH56Cb/exec";
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx3VM_ImoZV7VtYwiuiHrdtoHTrxqreHJipFidbLPHmCVvW1bZ_NmAf8B9viA7PfqDU/exec";
   const ADMIN_ID = "ADMIN";
   const MAIL_TO = "Noufalawad20@gmail.com";
   const CONFIG_CACHE_KEY = 'case_config_cache_v2';
@@ -592,7 +627,6 @@
   let currentLogoSize = parseFloat(localStorage.getItem(LOGO_SIZE_KEY)) || 14.0;
 
   function updateLogoCSS(size) {
-    // تم رفع الحد الأقصى إلى 35 لتتمكني من تكبيره قدر ما تشائين
     currentLogoSize = Math.max(6, Math.min(35, size));
     document.documentElement.style.setProperty('--logo-max-width', currentLogoSize + 'rem');
     const labelEl = document.getElementById('logoSizeVal');
@@ -647,7 +681,7 @@
   }
 
   let configReady = false;
-  let userData = { name: "", phone: "", points: 0 };
+  let userData = { name: "", phone: "", points: 0, rank: "-" };
   let currentAdminStatus = false;
   let adminPassword = "";
   let answeredThisSession = false;
@@ -656,7 +690,7 @@
 
   function normalizeDigits(s) {
     return s.replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d))
-            .replace(/[۰-۹]/g, d => '۰۱۲۳۴۵٦٧٨٩'.indexOf(d));
+            .replace(/[۰-۹]/g, d => '۰۱۲۳۴۵٦٧۸۹'.indexOf(d));
   }
   function esc(s) {
     return String(s == null ? '' : s).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
@@ -1018,11 +1052,20 @@
 
   function fetchUserPointsFromSheet(phone) {
     const ptsText = document.getElementById('userPointsText');
-    if (ptsText) ptsText.textContent = "جاري جلب النقاط...";
+    const rankText = document.getElementById('userRankText');
+    if (ptsText) ptsText.textContent = "...";
+    if (rankText) rankText.textContent = "...";
+
     fetch(SCRIPT_URL + "?phone=" + encodeURIComponent(phone) + "&t=" + Date.now(), { cache: 'no-store' })
       .then(res => res.json())
-      .then(data => { if (ptsText) ptsText.textContent = (data.points || userData.points) + " نقاط"; })
-      .catch(() => { if (ptsText) ptsText.textContent = userData.points + " نقاط"; });
+      .then(data => { 
+        if (ptsText) ptsText.textContent = (data.points !== undefined ? data.points : userData.points) + " ن";
+        if (rankText) rankText.textContent = data.rank ? ("#" + data.rank) : "#1";
+      })
+      .catch(() => { 
+        if (ptsText) ptsText.textContent = userData.points + " ن"; 
+        if (rankText) rankText.textContent = "#1";
+      });
   }
 
   function goToPosterFromLeaderboard() { navigateToStep('posterStep'); }
