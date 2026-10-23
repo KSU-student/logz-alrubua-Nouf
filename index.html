@@ -13,14 +13,11 @@
       --violet: #8E7C93;
       --violet-soft: #D2D7DF;
       --white-soft: #F8F9FA;
-      
-      /* الألوان الذهبية النحاسية الفخمة */
       --amber: #e9a23b;
       --amber-dark: #ac6d2d;
       --amber-light: #f6c978;
-      
       --card-bg: rgba(43, 27, 44, 0.96);
-      --line: rgba(233, 162, 59, 0.4);
+      --line: rgba(210, 215, 223, 0.25);
       --logo-max-width: 14rem;
       --logo-margin-y: -1.2rem;
     }
@@ -47,7 +44,7 @@
     body::before {
       content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
       background:
-        radial-gradient(ellipse 60% 45% at 50% 0%, rgba(233, 162, 59, 0.1) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 45% at 50% 0%, rgba(142, 124, 147, 0.12) 0%, transparent 70%),
         radial-gradient(circle at 50% 32%, rgba(43, 27, 44, 0.85) 0%, transparent 58%),
         radial-gradient(circle at center, #211322 0%, var(--bg-dark) 100%);
     }
@@ -74,80 +71,72 @@
     }
 
     .card {
-      background: linear-gradient(180deg, rgba(233,162,59,0.08) 0%, transparent 30%), var(--card-bg);
-      border: 1.5px solid var(--amber-dark);
+      background: linear-gradient(180deg, rgba(142,124,147,0.1) 0%, transparent 30%), var(--card-bg);
+      border: 1.5px solid var(--violet-soft);
       backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
       border-radius: 1.25rem;
       padding: 0.8rem 1.125rem 1.1rem;
       width: 100%;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.7), 0 0 38px rgba(233, 162, 59, 0.15), inset 0 0 25px rgba(233, 162, 59, 0.05);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.7), 0 0 38px rgba(142, 124, 147, 0.2), inset 0 0 25px rgba(210, 215, 223, 0.05);
       position: relative; z-index: 2;
       overflow: hidden;
     }
     .card > *:not(.corner) { position: relative; z-index: 1; }
-    .corner { position: absolute; width: 1rem; height: 1rem; border: 2.5px solid var(--amber); pointer-events: none; z-index: 2; }
+    .corner { position: absolute; width: 1rem; height: 1rem; border: 2.5px solid var(--violet); pointer-events: none; z-index: 2; }
     .corner.tl { top: 10px; right: 10px; border-left: none; border-bottom: none; border-top-right-radius: 4px; }
     .corner.tr { top: 10px; left: 10px; border-right: none; border-bottom: none; border-top-left-radius: 4px; }
     .corner.bl { bottom: 10px; right: 10px; border-left: none; border-top: none; border-bottom-right-radius: 4px; }
     .corner.br { bottom: 10px; left: 10px; border-right: none; border-top: none; border-bottom-left-radius: 4px; }
 
-    /* شارة قيد التحقيق بالذهبي النحاسي */
     .status-bar {
       display: flex; align-items: center; justify-content: center; gap: 6px;
-      font-size: 0.72rem; font-weight: 800; color: var(--amber-light); margin: 4px 0 10px;
+      font-size: 0.6875rem; font-weight: 700; color: var(--violet-soft); margin: 6px 0 10px;
     }
     .status-bar i {
-      width: 7px; height: 7px; border-radius: 50%; background: var(--amber);
-      box-shadow: 0 0 8px var(--amber); animation: blink 1.2s infinite;
+      width: 7px; height: 7px; border-radius: 50%; background: var(--violet);
+      box-shadow: 0 0 6px var(--violet); animation: blink 1.2s infinite;
     }
     @keyframes blink { 50% { opacity: 0.25; } }
 
-    /* حاوية الشعار مع ضبط التقصيص والمساحة تلقائياً */
+    /* الشعار والزر الخفي الإداري */
     .club-logo-container {
       text-align: center; margin: var(--logo-margin-y) auto 0; position: relative; width: 100%;
       display: flex; justify-content: center; align-items: center;
       cursor: pointer;
-      overflow: hidden;
-      max-height: 7.5rem;
+      z-index: 10;
+      padding: 0.5rem 0;
     }
     .real-logo {
       position: relative; width: 100%; max-width: var(--logo-max-width); height: auto; display: block; margin: 0 auto;
-      filter: drop-shadow(0 0 10px rgba(233, 162, 59, 0.4)) brightness(1.08);
+      filter: drop-shadow(0 0 10px rgba(142, 124, 147, 0.45)) brightness(1.08);
       user-select: none; -webkit-user-drag: none;
       transition: max-width 0.2s ease, margin 0.2s ease;
-      object-fit: contain;
+      pointer-events: none;
     }
-    .quiz-card .club-logo-container { 
-      margin: -0.8rem auto -0.4rem; 
-      max-height: 6rem;
-    }
-    .quiz-card .real-logo { 
-      max-width: calc(var(--logo-max-width) * 0.72); 
-    }
+    .quiz-card .club-logo-container { margin: -0.5rem auto 0; }
+    .quiz-card .real-logo { max-width: calc(var(--logo-max-width) * 0.75); }
 
     .divider {
       height: 2px; margin: 8px auto; width: 70%;
       background: linear-gradient(90deg, transparent, var(--amber), transparent);
     }
 
-    /* العناوين بالذهبي النحاسي اللامع */
     h1.main-title {
-      margin: 4px 0; text-align: center; font-size: 1.45rem; font-weight: 900;
-      background: linear-gradient(180deg, #FFF 15%, var(--amber-light) 70%, var(--amber) 100%);
+      margin: 4px 0; text-align: center; font-size: 1.4rem; font-weight: 900;
+      background: linear-gradient(180deg, var(--white-soft) 30%, var(--violet-soft) 100%);
       -webkit-background-clip: text; background-clip: text; color: transparent;
-      text-shadow: 0 0 18px rgba(233, 162, 59, 0.25);
     }
-    p.sub { text-align: center; color: rgba(248,249,250,0.85); margin: 0 0 1rem; font-size: 0.76rem; }
+    p.sub { text-align: center; color: rgba(248,249,250,0.78); margin: 0 0 1rem; font-size: 0.76rem; }
 
     .field { margin-bottom: 0.7rem; }
     .hint { font-size: 0.66rem; color: rgba(248,249,250,0.6); margin-top: 3px; line-height: 1.5; }
-    label { display: block; margin-bottom: 3px; font-weight: 700; font-size: 0.76rem; color: var(--amber-light); }
+    label { display: block; margin-bottom: 3px; font-weight: 700; font-size: 0.76rem; color: var(--violet-soft); }
     input[type="text"], input[type="tel"], input[type="password"], textarea, select {
       width: 100%; padding: 0.6rem 0.75rem; border-radius: 0.625rem; border: 1.5px solid var(--line);
       background: rgba(26, 15, 27, 0.85); color: var(--white-soft); font-size: max(16px, 0.95rem); font-family: inherit;
       outline: none; transition: 0.3s;
     }
-    input:focus, textarea:focus, select:focus { border-color: var(--amber); box-shadow: 0 0 12px rgba(233, 162, 59, 0.35); }
+    input:focus, textarea:focus, select:focus { border-color: var(--violet); box-shadow: 0 0 12px rgba(142, 124, 147, 0.35); }
     input.invalid { border-color: #f87171; }
     textarea { resize: vertical; height: 3.75rem; line-height: 1.6; }
     textarea.tall { height: 9rem; }
@@ -171,18 +160,18 @@
 
     .admin-luxury-nav {
       margin-top: 0.875rem; padding: 0.625rem; border-radius: 0.75rem;
-      background: linear-gradient(135deg, rgba(233,162,59,0.15), rgba(43,27,44,0.5));
-      border: 1.5px solid var(--amber);
+      background: linear-gradient(135deg, rgba(142,124,147,0.15), rgba(43,27,44,0.4));
+      border: 1.5px solid var(--violet);
       display: flex; gap: 6px; justify-content: space-between; align-items: center;
       box-shadow: 0 4px 20px rgba(0,0,0,0.5);
     }
     .admin-nav-btn {
-      flex: 1; padding: 0.5rem 0.375rem; border-radius: 0.5rem; border: 1px solid rgba(233,162,59,0.5);
-      background: rgba(0,0,0,0.4); color: var(--amber-light); font-size: 0.72rem; font-weight: 800;
+      flex: 1; padding: 0.5rem 0.375rem; border-radius: 0.5rem; border: 1px solid rgba(142,124,147,0.5);
+      background: rgba(0,0,0,0.4); color: var(--violet-soft); font-size: 0.72rem; font-weight: 800;
       cursor: pointer; font-family: inherit; text-align: center; transition: 0.25s;
     }
-    .admin-nav-btn:hover { background: var(--amber); color: #000; box-shadow: 0 0 10px var(--amber); }
-    .admin-nav-btn.gold-hl { background: var(--amber); color: #000; border-color: #fff; }
+    .admin-nav-btn:hover { background: var(--violet); color: var(--white-soft); box-shadow: 0 0 10px var(--violet); }
+    .admin-nav-btn.gold-hl { background: var(--violet); color: var(--white-soft); border-color: var(--white-soft); }
 
     .logo-control-box {
       display: flex; align-items: center; justify-content: space-between; gap: 10px;
@@ -190,48 +179,48 @@
       border: 1px solid var(--line);
     }
     .logo-size-btn {
-      width: 2.2rem; height: 2.2rem; border-radius: 0.5rem; border: 1.5px solid var(--amber);
-      background: rgba(233, 162, 59, 0.2); color: #fff; font-size: 1.2rem; font-weight: 900;
+      width: 2.2rem; height: 2.2rem; border-radius: 0.5rem; border: 1.5px solid var(--violet);
+      background: rgba(142, 124, 147, 0.2); color: var(--white-soft); font-size: 1.2rem; font-weight: 900;
       cursor: pointer; display: flex; align-items: center; justify-content: center;
       transition: 0.2s;
     }
-    .logo-size-btn:hover { background: var(--amber); color: #000; }
+    .logo-size-btn:hover { background: var(--violet); color: var(--white-soft); }
     .logo-size-btn:active { transform: scale(0.92); }
 
-    /* صندوق الوقائع بالذهبي النحاسي */
     .magnifier-lens, .question-box {
-      border: 1.5px solid var(--line); border-right: 4px solid var(--amber);
+      border: 1.5px solid var(--violet-soft); border-right: 4px solid var(--amber);
       border-radius: 0.75rem; padding: 0.9rem 0.8rem 0.8rem;
-      background: linear-gradient(135deg, rgba(233, 162, 59, 0.08), rgba(43, 27, 44, 0.45));
-      box-shadow: inset 0 0 20px rgba(233, 162, 59, 0.08), 0 0 16px rgba(233, 162, 59, 0.12);
+      background: linear-gradient(135deg, rgba(142, 124, 147, 0.18), rgba(43, 27, 44, 0.35));
+      box-shadow: inset 0 0 20px rgba(142, 124, 147, 0.15), 0 0 16px rgba(142, 124, 147, 0.15);
       margin: 6px 0 0.8rem; position: relative; min-height: 4.2rem;
     }
-    /* شارة "الوقائع" و "السؤال" بالذهبي النحاسي */
-    .magnifier-lens::before, .question-box .q-tag {
-      content: attr(data-label); position: absolute; top: -10px; right: 14px;
-      background: linear-gradient(135deg, var(--amber), var(--amber-dark));
-      color: #1a0f1b; font-size: 0.68rem; font-weight: 900;
-      padding: 2px 10px; border-radius: 5px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    .magnifier-lens::before {
+      content: attr(data-label); position: absolute; top: -9px; right: 14px;
+      background: var(--amber); color: #1a0f1b; font-size: 0.625rem; font-weight: 900;
+      padding: 1px 8px; border-radius: 4px;
     }
     .question-zoom { font-size: 0.92rem; font-weight: 700; line-height: 1.7; color: var(--white-soft); white-space: pre-wrap; overflow-wrap: anywhere; }
     .question-zoom.typing::after { content: "▌"; color: var(--amber); animation: blink 0.8s infinite; margin-right: 2px; }
 
-    .question-box .q-tag { content: "السؤال"; }
+    .question-box .q-tag {
+      position: absolute; top: -9px; right: 14px;
+      background: var(--amber); color: #1a0f1b; font-size: 0.625rem; font-weight: 900;
+      padding: 1px 8px; border-radius: 4px;
+    }
     .question-box .q-body { font-size: 0.92rem; font-weight: 800; line-height: 1.7; color: var(--white-soft); white-space: pre-wrap; overflow-wrap: anywhere; }
 
     .opt-btn {
       width: 100%; display: flex; align-items: flex-start; gap: 0.6rem;
       padding: 0.75rem 0.8rem; margin-bottom: 0.56rem; border-radius: 0.625rem;
-      border: 1.5px solid rgba(233, 162, 59, 0.3); background: rgba(233, 162, 59, 0.04);
+      border: 1.5px solid rgba(233, 162, 59, 0.34); background: rgba(233, 162, 59, 0.05);
       color: var(--white-soft); font-size: 0.88rem; font-weight: 700; cursor: pointer; text-align: right;
       font-family: inherit; line-height: 1.7; transition: all 0.25s ease;
     }
-    .opt-btn:hover { background: rgba(233, 162, 59, 0.14); border-color: var(--amber); }
+    .opt-btn:hover { background: rgba(233, 162, 59, 0.16); border-color: var(--amber); }
     .opt-letter {
       flex: 0 0 auto; width: 1.55rem; height: 1.55rem; margin-top: 0.1rem; border-radius: 50%;
       display: inline-flex; align-items: center; justify-content: center;
-      background: rgba(233, 162, 59, 0.18); border: 1px solid var(--amber);
+      background: rgba(233, 162, 59, 0.2); border: 1px solid var(--amber);
       color: var(--amber-light); font-size: 0.78rem; font-weight: 900;
     }
     .opt-text { flex: 1 1 auto; min-width: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
@@ -258,7 +247,7 @@
     .success .verdict-stamp { color: #4ade80; border-color: #4ade80; }
     .error .verdict-stamp { color: #f87171; border-color: #f87171; }
 
-    .promo-box { background: rgba(233, 162, 59, 0.1); border: 1.5px dashed var(--amber); padding: 0.5rem; border-radius: 0.5rem; margin-top: 0.5rem; font-size: 0.8rem; }
+    .promo-box { background: rgba(233, 162, 59, 0.09); border: 1.5px dashed var(--amber); padding: 0.5rem; border-radius: 0.5rem; margin-top: 0.5rem; font-size: 0.8rem; }
     .promo-box strong { color: var(--amber-light); font-size: 1rem; letter-spacing: 1px; }
 
     .poster-page-card, .leaderboard-card { text-align: center; padding: 1.125rem 0.875rem; }
@@ -280,7 +269,7 @@
 
     .points-info-box {
       background: rgba(255, 255, 255, 0.03);
-      border: 1px dashed rgba(233, 162, 59, 0.4);
+      border: 1px dashed rgba(233, 162, 59, 0.38);
       border-radius: 0.625rem;
       padding: 0.625rem 0.75rem;
       margin-bottom: 0.75rem;
@@ -294,9 +283,9 @@
 
     .hidden { display: none !important; }
 
-    .admin-panel { background: rgba(43, 27, 44, 0.98); border: 2px solid var(--amber); margin-top: 0.75rem; }
+    .admin-panel { background: rgba(43, 27, 44, 0.98); border: 2px solid var(--violet); margin-top: 0.75rem; }
 
-    /* حقوق ورابط الإيميل بالذهبي النحاسي اللامع */
+    /* حقوق ورابط الإيميل الملون بالذهبي المضيء */
     .signature { text-align: center; font-size: 0.65rem; color: rgba(248,249,250,0.65); margin-top: 0.75rem; letter-spacing: 0.5px; line-height: 1.7; }
     .signature a { 
       color: var(--amber-light); 
@@ -346,7 +335,7 @@
       <h1 class="main-title">لغز الربوع 🕵️‍♀️</h1>
       <p class="sub">شاركي معنا حل لغز اليوم واحصلي على هديتك</p>
 
-      <div class="field hidden" id="secretAdminContainer" style="margin: 10px 0; background: rgba(233,162,59,0.08); padding: 0.75rem; border-radius: 0.75rem; border: 1.5px dashed var(--amber);">
+      <div class="field hidden" id="secretAdminContainer" style="margin: 10px 0; background: rgba(142,124,147,0.08); padding: 0.75rem; border-radius: 0.75rem; border: 1.5px dashed var(--violet);">
         <label>أدخلي كلمة السر الإدارية الخاصّة بكِ:</label>
         <input type="password" id="adminPassInput" placeholder="••••••••••" autocomplete="off">
         <button class="btn btn-violet" style="margin-top: 8px; padding: 0.625rem; font-size: 0.85rem;" onclick="verifyAdminSecret()">🔓 تفعيل وضع المشرفة الملكة نوف</button>
@@ -388,26 +377,24 @@
     <div class="card quiz-card hidden" id="quizStep">
       <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
 
-      <!-- الشعار -->
+      <!-- الشعار مع النقر المباشر -->
       <div class="club-logo-container" onclick="triggerSecretAdminField()">
         <img src="Logo.png" alt="وحدة الإرشاد الأكاديمي" class="real-logo">
       </div>
 
-      <!-- عنوان القضية بالذهبي فوق الخط الفاصل -->
+      <!-- عنوان القضية فوق الخط الفاصل -->
       <h1 class="main-title" id="qTitle">القضية</h1>
 
       <!-- الخط الفاصل -->
       <div class="divider"></div>
 
-      <!-- شارة قيد التحقيق بالذهبي النحاسي -->
+      <!-- شارة قيد التحقيق تحت الخط -->
       <div class="status-bar"><i></i> <span id="adminNoticeBadge">قيد التحقيق</span></div>
 
-      <!-- بوكس الوقائع بلمسة ذهبية نحاسية -->
       <div class="magnifier-lens" id="lens" data-label="الوقائع">
         <div class="question-zoom" id="qText"></div>
       </div>
 
-      <!-- بوكس السؤال بلمسة ذهبية نحاسية -->
       <div class="question-box hidden" id="questionBox">
         <span class="q-tag">السؤال</span>
         <div class="q-body" id="qQuestion"></div>
@@ -511,13 +498,13 @@
 
     <!-- 5. لوحة التحكم الإدارية الشاملة -->
     <div class="card hidden admin-panel" id="adminPanel">
-      <h2 style="margin-top:0; text-align:center; color:var(--amber-light); font-size: 1.06rem;">🛠️ لوحة تحكم المشرفة الملكة نوف</h2>
+      <h2 style="margin-top:0; text-align:center; color:var(--violet-soft); font-size: 1.06rem;">🛠️ لوحة تحكم المشرفة الملكة نوف</h2>
 
-      <div class="field" style="background: rgba(233,162,59,0.08); border: 1px solid var(--line); border-radius: 0.625rem; padding: 0.625rem;">
+      <div class="field" style="background: rgba(142,124,147,0.08); border: 1px solid var(--line); border-radius: 0.625rem; padding: 0.625rem;">
         <label>🖼️ التحكم بحجم الشعار (Logo Size):</label>
         <div class="logo-control-box">
           <button type="button" class="logo-size-btn" onclick="adjustLogoSize(-1)">-</button>
-          <span id="logoSizeVal" style="font-size: 0.85rem; font-weight: 800; color: var(--amber-light);">14.0 rem</span>
+          <span id="logoSizeVal" style="font-size: 0.85rem; font-weight: 800; color: var(--violet-soft);">14.0 rem</span>
           <button type="button" class="logo-size-btn" onclick="adjustLogoSize(1)">+</button>
           <button type="button" class="admin-nav-btn" style="flex:0 0 auto; padding:0.4rem 0.6rem;" onclick="resetLogoSize()">إعادة ضبط</button>
         </div>
@@ -559,7 +546,7 @@
         <div class="hint">يظهر في خانة مستقلة تحت الوقائع. اتركيه فاضي إذا السؤال داخل الوقائع.</div>
       </div>
 
-      <div style="background: rgba(233,162,59,0.07); border: 1px solid var(--line); border-radius: 0.5rem; padding: 0.5rem; margin-bottom: 0.75rem;">
+      <div style="background: rgba(142,124,147,0.07); border: 1px solid var(--line); border-radius: 0.5rem; padding: 0.5rem; margin-bottom: 0.75rem;">
         <label style="margin-bottom: 6px;">الخيارات (من 2 إلى 4، وتقبل إجابات طويلة وتحليل):</label>
         <div class="field" style="margin-bottom: 6px;"><textarea id="p_o0" class="mid" placeholder="الخيار 1"></textarea></div>
         <div class="field" style="margin-bottom: 6px;"><textarea id="p_o1" class="mid" placeholder="الخيار 2"></textarea></div>
@@ -574,7 +561,7 @@
         </select>
       </div>
 
-      <div style="background: rgba(233,162,59,0.07); border: 1px solid var(--line); border-radius: 0.5rem; padding: 0.5rem; margin-bottom: 0.75rem;">
+      <div style="background: rgba(142,124,147,0.07); border: 1px solid var(--line); border-radius: 0.5rem; padding: 0.5rem; margin-bottom: 0.75rem;">
         <label style="margin-bottom: 6px;">أكواد الخصم العشوائية (أدخلي حتى 5):</label>
         <div class="field" style="margin-bottom: 4px;"><input type="text" id="p_code0" placeholder="الكود الأول"></div>
         <div class="field" style="margin-bottom: 4px;"><input type="text" id="p_code1" placeholder="الكود الثاني"></div>
@@ -702,8 +689,7 @@
 
   function triggerSecretAdminField() {
     const container = document.getElementById('secretAdminContainer');
-    const home = document.getElementById('userInfoStep');
-    if (!container || !home || home.classList.contains('hidden')) return;
+    if (!container) return;
     container.classList.toggle('hidden');
     if (!container.classList.contains('hidden')) document.getElementById('adminPassInput').focus();
   }
@@ -721,7 +707,7 @@
       return await res.json();
     } catch (e) {
       return null;
-    } fontally {
+    } finally {
       clearTimeout(timer);
     }
   }
