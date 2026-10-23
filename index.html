@@ -702,11 +702,12 @@
     toastTimer = setTimeout(() => el.classList.remove('show'), 3800);
   }
 
-  // فتح تطبيق البريد المفضل لدى الطالبة مباشرة
+  // فتح تطبيق Gmail مباشرة على الأجهزة الذكية
   function openMail(e) {
     if (e) e.preventDefault();
     const subject = encodeURIComponent("بشأن | لغز الربوع");
-    window.location.href = `mailto:${MAIL_TO}?subject=${subject}`;
+    const mailTo = encodeURIComponent(MAIL_TO);
+    window.location.href = `googlegmail:///co?to=${mailTo}&subject=${subject}`;
   }
 
   function triggerSecretAdminField() {
