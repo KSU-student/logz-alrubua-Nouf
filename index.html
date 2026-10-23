@@ -13,9 +13,11 @@
       --violet: #8E7C93;
       --violet-soft: #D2D7DF;
       --white-soft: #F8F9FA;
+      
       --amber: #e9a23b;
       --amber-dark: #ac6d2d;
       --amber-light: #f6c978;
+      
       --card-bg: rgba(43, 27, 44, 0.96);
       --line: rgba(210, 215, 223, 0.25);
       --logo-max-width: 14rem;
@@ -88,23 +90,22 @@
     .corner.bl { bottom: 10px; right: 10px; border-left: none; border-top: none; border-bottom-right-radius: 4px; }
     .corner.br { bottom: 10px; left: 10px; border-right: none; border-top: none; border-bottom-left-radius: 4px; }
 
+    /* شارة "قيد التحقيق" المضيئة بالذهبي */
     .status-bar {
       display: flex; align-items: center; justify-content: center; gap: 6px;
-      font-size: 0.6875rem; font-weight: 700; color: var(--violet-soft); margin: 6px 0 10px;
+      font-size: 0.72rem; font-weight: 800; color: var(--amber-light); margin: 6px 0 10px;
     }
     .status-bar i {
-      width: 7px; height: 7px; border-radius: 50%; background: var(--violet);
-      box-shadow: 0 0 6px var(--violet); animation: blink 1.2s infinite;
+      width: 7px; height: 7px; border-radius: 50%; background: var(--amber);
+      box-shadow: 0 0 8px var(--amber); animation: blink 1.2s infinite;
     }
     @keyframes blink { 50% { opacity: 0.25; } }
 
-    /* الشعار والزر الخفي الإداري */
+    /* الشعار بتصميم موحد بجميع الصفحات وبدون تصغير مفاجئ */
     .club-logo-container {
-      text-align: center; margin: var(--logo-margin-y) auto 0; position: relative; width: 100%;
+      text-align: center; margin: 0 auto; position: relative; width: 100%;
       display: flex; justify-content: center; align-items: center;
-      cursor: pointer;
-      z-index: 10;
-      padding: 0.5rem 0;
+      cursor: pointer; z-index: 10; padding: 0.4rem 0;
     }
     .real-logo {
       position: relative; width: 100%; max-width: var(--logo-max-width); height: auto; display: block; margin: 0 auto;
@@ -113,12 +114,12 @@
       transition: max-width 0.2s ease, margin 0.2s ease;
       pointer-events: none;
     }
-    .quiz-card .club-logo-container { margin: -0.5rem auto 0; }
-    .quiz-card .real-logo { max-width: calc(var(--logo-max-width) * 0.75); }
 
+    /* الخط الفاصل الهادئ غير الذهبي */
     .divider {
-      height: 2px; margin: 8px auto; width: 70%;
-      background: linear-gradient(90deg, transparent, var(--amber), transparent);
+      height: 1.5px; margin: 8px auto; width: 75%;
+      background: linear-gradient(90deg, transparent, var(--violet-soft), transparent);
+      opacity: 0.6;
     }
 
     h1.main-title {
@@ -285,7 +286,6 @@
 
     .admin-panel { background: rgba(43, 27, 44, 0.98); border: 2px solid var(--violet); margin-top: 0.75rem; }
 
-    /* حقوق ورابط الإيميل الملون بالذهبي المضيء */
     .signature { text-align: center; font-size: 0.65rem; color: rgba(248,249,250,0.65); margin-top: 0.75rem; letter-spacing: 0.5px; line-height: 1.7; }
     .signature a { 
       color: var(--amber-light); 
@@ -377,7 +377,7 @@
     <div class="card quiz-card hidden" id="quizStep">
       <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
 
-      <!-- الشعار مع النقر المباشر -->
+      <!-- الشعار -->
       <div class="club-logo-container" onclick="triggerSecretAdminField()">
         <img src="Logo.png" alt="وحدة الإرشاد الأكاديمي" class="real-logo">
       </div>
@@ -385,10 +385,10 @@
       <!-- عنوان القضية فوق الخط الفاصل -->
       <h1 class="main-title" id="qTitle">القضية</h1>
 
-      <!-- الخط الفاصل -->
+      <!-- الخط الفاصل غير الذهبي -->
       <div class="divider"></div>
 
-      <!-- شارة قيد التحقيق تحت الخط -->
+      <!-- شارة قيد التحقيق بالذهبي فقط -->
       <div class="status-bar"><i></i> <span id="adminNoticeBadge">قيد التحقيق</span></div>
 
       <div class="magnifier-lens" id="lens" data-label="الوقائع">
@@ -425,10 +425,11 @@
     <div class="card leaderboard-card hidden" id="leaderboardStep">
       <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
 
-      <div class="club-logo-container" style="margin-bottom: 4px;" onclick="triggerSecretAdminField()">
-        <img src="Logo.png" alt="وحدة الإرشاد الأكاديمي" class="real-logo" style="max-width: 9rem;">
+      <!-- الشعار بنفس حجم باقي الصفحات بدون أي تصغير -->
+      <div class="club-logo-container" onclick="triggerSecretAdminField()">
+        <img src="Logo.png" alt="وحدة الإرشاد الأكاديمي" class="real-logo">
       </div>
-      <div class="divider" style="margin: 6px auto 10px;"></div>
+      <div class="divider"></div>
 
       <h2 class="leaderboard-title">⚖️ نافسي على المراكز الثلاثة الأولى.. الهدية أكبر بكثيرررر 😉🔥</h2>
 
@@ -543,7 +544,7 @@
       <div class="field">
         <label>السؤال (اختياري):</label>
         <textarea id="p_question" class="mid"></textarea>
-        <div class="hint">يظهر في خانة مستقلة تحت الوقائع. اتركيه فاضي إذا السؤال داخل الوقائع.</div>
+        <div class="hint">يظهر في خانة مستقلة تحت الوقائع. اتركيهفاضي إذا السؤال داخل الوقائع.</div>
       </div>
 
       <div style="background: rgba(142,124,147,0.07); border: 1px solid var(--line); border-radius: 0.5rem; padding: 0.5rem; margin-bottom: 0.75rem;">
@@ -591,7 +592,8 @@
   let currentLogoSize = parseFloat(localStorage.getItem(LOGO_SIZE_KEY)) || 14.0;
 
   function updateLogoCSS(size) {
-    currentLogoSize = Math.max(6, Math.min(25, size));
+    // تم رفع الحد الأقصى إلى 35 لتتمكني من تكبيره قدر ما تشائين
+    currentLogoSize = Math.max(6, Math.min(35, size));
     document.documentElement.style.setProperty('--logo-max-width', currentLogoSize + 'rem');
     const labelEl = document.getElementById('logoSizeVal');
     if (labelEl) labelEl.textContent = currentLogoSize.toFixed(1) + ' rem';
