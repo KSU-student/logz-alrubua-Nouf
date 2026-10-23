@@ -702,18 +702,11 @@
     toastTimer = setTimeout(() => el.classList.remove('show'), 3800);
   }
 
+  // فتح تطبيق البريد المفضل لدى الطالبة مباشرة
   function openMail(e) {
     if (e) e.preventDefault();
-    const subject = "بشأن | لغز الربوع";
-    const subjectEnc = encodeURIComponent(subject);
-    const mailToEnc = encodeURIComponent(MAIL_TO);
-    const gmailAppUrl = `googlegmail:///co?to=${mailToEnc}&subject=${subjectEnc}`;
-    const webFallback = `https://mail.google.com/mail/?view=cm&fs=1&to=${mailToEnc}&su=${subjectEnc}`;
-
-    window.location.href = gmailAppUrl;
-    setTimeout(() => {
-      window.open(webFallback, '_blank', 'noopener');
-    }, 400);
+    const subject = encodeURIComponent("بشأن | لغز الربوع");
+    window.location.href = `mailto:${MAIL_TO}?subject=${subject}`;
   }
 
   function triggerSecretAdminField() {
