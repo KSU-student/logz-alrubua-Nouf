@@ -90,7 +90,7 @@
 
     .status-bar {
       display: flex; align-items: center; justify-content: center; gap: 6px;
-      font-size: 0.6875rem; font-weight: 700; color: var(--amber-light); margin-bottom: 2px;
+      font-size: 0.6875rem; font-weight: 700; color: var(--amber-light); margin: 6px 0 10px;
     }
     .status-bar i {
       width: 7px; height: 7px; border-radius: 50%; background: var(--amber);
@@ -111,16 +111,16 @@
       transition: max-width 0.2s ease, margin 0.2s ease;
       transform: scale(1.15);
     }
-    .quiz-card .club-logo-container { margin: calc(var(--logo-margin-y) * 0.8) auto; }
+    .quiz-card .club-logo-container { margin: calc(var(--logo-margin-y) * 0.8) auto 0; }
     .quiz-card .real-logo { max-width: calc(var(--logo-max-width) * 0.75); }
 
     .divider {
-      height: 2px; margin: 0 auto 10px; width: 70%;
+      height: 2px; margin: 8px auto; width: 70%;
       background: linear-gradient(90deg, transparent, var(--amber), transparent);
     }
 
     h1.main-title {
-      margin: 2px 0 4px; text-align: center; font-size: 1.4rem; font-weight: 900;
+      margin: 4px 0; text-align: center; font-size: 1.4rem; font-weight: 900;
       background: linear-gradient(180deg, #fff 30%, var(--amber-light) 100%);
       -webkit-background-clip: text; background-clip: text; color: transparent;
     }
@@ -365,13 +365,19 @@
     <div class="card quiz-card hidden" id="quizStep">
       <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
 
+      <!-- الشعار -->
       <div class="club-logo-container" onclick="triggerSecretAdminField()">
         <img src="Logo.png" alt="وحدة الإرشاد الأكاديمي" class="real-logo">
       </div>
+
+      <!-- عنوان القضية أصبح فوق الخط الذهبي -->
+      <h1 class="main-title" id="qTitle">القضية</h1>
+
+      <!-- الخط الذهبي الفاصل -->
       <div class="divider"></div>
 
+      <!-- شارة قيد التحقيق أصبحت تحت الخط الذهبي مباشرة -->
       <div class="status-bar"><i></i> <span id="adminNoticeBadge">قيد التحقيق</span></div>
-      <h1 class="main-title" id="qTitle">القضية</h1>
 
       <div class="magnifier-lens" id="lens" data-label="الوقائع">
         <div class="question-zoom" id="qText"></div>
@@ -636,7 +642,7 @@
 
   function normalizeDigits(s) {
     return s.replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d))
-            .replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d));
+            .replace(/[۰-۹]/g, d => '۰۱۲۳۴۵٦٧٨٩'.indexOf(d));
   }
   function esc(s) {
     return String(s == null ? '' : s).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
@@ -653,37 +659,21 @@
     toastTimer = setTimeout(() => el.classList.remove('show'), 3800);
   }
 
-  /* فتح تطبيق Gmail مباشرة */
   function openMail(e) {
     if (e) e.preventDefault();
-    const to = encodeURIComponent(MAIL_TO);
-    const su = encodeURIComponent("بشأن | لغز الربوع");
-    const mailtoUrl = `mailto:${MAIL_TO}?subject=${su}`;
-    const ua = navigator.userAgent || "";
-    const isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-    const isAndroid = /Android/i.test(ua);
+    const subject = "بشأن | لغز الربوع";
+    const subjectEnc = encodeURIComponent(subject);
+    const mailToEnc = encodeURIComponent(MAIL_TO);
 
-    if (isAndroid) { window.location.href = mailtoUrl; return; }
+    // استخدام رابط تطبيق Gmail المباشر
+    const gmailAppUrl = `googlegmail:///co?to=${mailToEnc}&subject=${subjectEnc}`;
+    const webFallback = `https://mail.google.com/mail/?view=cm&fs=1&to=${mailToEnc}&su=${subjectEnc}`;
 
-    if (!isIOS) {
-      window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=${to}&su=${su}`, '_blank', 'noopener');
-      return;
-    }
-
-    let left = false;
-    const mark = () => { left = true; };
-    document.addEventListener('visibilitychange', mark);
-    window.addEventListener('pagehide', mark);
-    window.addEventListener('blur', mark);
-
-    window.location.href = `googlegmail:///co?to=${to}&subject=${su}`;
+    window.location.href = gmailAppUrl;
 
     setTimeout(() => {
-      document.removeEventListener('visibilitychange', mark);
-      window.removeEventListener('pagehide', mark);
-      window.removeEventListener('blur', mark);
-      if (!left && !document.hidden) window.location.href = mailtoUrl;
-    }, 2500);
+      window.open(webFallback, '_blank', 'noopener');
+    }, 400);
   }
 
   function triggerSecretAdminField() {
@@ -1000,29 +990,27 @@
       if (target) target.classList.remove('hidden');
       window.scrollTo({ top: 0, behavior: 'smooth' });
       if (stepId === 'quizStep' && !answeredThisSession) startFactsTyping();
-      if (stepId === 'leaderboardStep') fetchUserPointsFromSheet(userData.phone);
     }, 400);
 
     setTimeout(() => { if (tape) tape.classList.remove('active'); }, 850);
   }
 
   function proceedAfterAnswer() {
-    navigateToStep(config.leaderboardActive ? 'leaderboardStep' : 'posterStep');
+    if (config.leaderboardActive) {
+      fetchUserPointsFromSheet(userData.phone);
+      navigateToStep('leaderboardStep');
+    } else {
+      navigateToStep('posterStep');
+    }
   }
 
-  async function fetchUserPointsFromSheet(phone) {
+  function fetchUserPointsFromSheet(phone) {
     const ptsText = document.getElementById('userPointsText');
-    if (!ptsText) return;
-    if (isUserAdmin()) { ptsText.textContent = "وضع الإشراف: لا تُحتسب نقاط"; return; }
-    ptsText.textContent = "جاري جلب النقاط...";
-    try {
-      const res = await fetch(SCRIPT_URL + "?phone=" + encodeURIComponent(phone) + "&t=" + Date.now(), { cache: 'no-store' });
-      const data = await res.json();
-      const pts = Number(data && data.points);
-      ptsText.textContent = (isNaN(pts) ? userData.points : Math.max(pts, userData.points)) + " نقاط";
-    } catch (e) {
-      ptsText.textContent = userData.points + " نقاط";
-    }
+    if (ptsText) ptsText.textContent = "جاري جلب النقاط...";
+    fetch(SCRIPT_URL + "?phone=" + encodeURIComponent(phone) + "&t=" + Date.now(), { cache: 'no-store' })
+      .then(res => res.json())
+      .then(data => { if (ptsText) ptsText.textContent = (data.points || userData.points) + " نقاط"; })
+      .catch(() => { if (ptsText) ptsText.textContent = userData.points + " نقاط"; });
   }
 
   function goToPosterFromLeaderboard() { navigateToStep('posterStep'); }
@@ -1033,7 +1021,8 @@
 
   async function awardSharePoints() {
     if (isUserAdmin()) return null;
-    return await api({ action: 'sharePoster', phone: userData.phone, caseTitle: caseTitle() });
+    const r = await api({ action: 'sharePoster', phone: userData.phone, caseTitle: caseTitle() });
+    return (r && r.ok) ? r : null;
   }
 
   async function sharePosterFile() {
@@ -1067,15 +1056,13 @@
       showToast(done ? 'تمت المشاركة (وضع الإشراف: بدون نقاط)' : 'تم تحميل البوستر (وضع الإشراف: بدون نقاط)');
     } else {
       const r = await awardSharePoints();
-      if (r && r.ok && r.awarded) {
+      if (r && r.awarded) {
         userData.points = r.points;
-        showToast('تمت المشاركة! تم احتساب نقطتين إضافيتين 🏆✨ مجموعك: ' + r.points);
-      } else if (r && r.ok) {
+        showToast('تمت المشاركة! تم احتساب نقطتين إضافيتين 🏆✨');
+      } else if (r) {
         showToast('تمت المشاركة ✅ (نقاط هذه القضية احتُسبت سابقاً)');
-      } else if (r && r.error === 'not_eligible') {
-        showToast('تمت المشاركة ✅ (النقاط تُحتسب بعد حل القضية صح)');
       } else {
-        showToast('تمت المشاركة ✅ لكن تعذّر احتساب النقاط، تأكدي من الاتصال');
+        showToast('تمت المشاركة ✅');
       }
     }
   }
