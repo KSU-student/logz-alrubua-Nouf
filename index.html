@@ -615,7 +615,7 @@
   </div>
 
 <script>
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx3VM_ImoZV7VtYwiuiHrdtoHTrxqreHJipFidbLPHmCVvW1bZ_NmAf8B9viA7PfqDU/exec";
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby2EGh8KavRtG1KyKzXAOIK2SvtfIjmE1m4BH83OWvG_JgAABKk1h1YTHA1hqbNIgqH/exec";
   const ADMIN_ID = "ADMIN";
   const MAIL_TO = "Noufalawad20@gmail.com";
   const CONFIG_CACHE_KEY = 'case_config_cache_v2';
@@ -1028,7 +1028,6 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
       if (stepId === 'quizStep' && !answeredThisSession) startFactsTyping();
       
-      // تحديث النقاط تلقائياً عند الدخول للوحة الصدارة
       if (stepId === 'leaderboardStep' && !isUserAdmin()) {
         fetchUserPointsFromSheet(userData.phone);
       }
