@@ -13,11 +13,9 @@
       --violet: #8E7C93;
       --violet-soft: #D2D7DF;
       --white-soft: #F8F9FA;
-      
       --amber: #e9a23b;
       --amber-dark: #ac6d2d;
       --amber-light: #f6c978;
-      
       --card-bg: rgba(43, 27, 44, 0.96);
       --line: rgba(210, 215, 223, 0.25);
       --logo-max-width: 14rem;
@@ -652,7 +650,6 @@
     facts: "",
     question: "",
     opts: [],
-    corrIndex: 0,
     ruling: "",
     successMsg: "عقل قانوني ما يطوفه شي! إجابتك في الصميم كفّو🔥",
     wrongMsg: "ما عليكِ، حتى الأذكياء يمرون على لغز صعب..حاولي الربوع الجاي وبتحلّينها",
@@ -666,8 +663,6 @@
     c.facts = (d.facts !== undefined ? d.facts : d.text) || "";
     c.question = d.question || "";
     c.opts = Array.isArray(d.opts) ? d.opts.filter(o => String(o || '').trim() !== '') : [];
-    c.corrIndex = parseInt(d.corrIndex) || 0;
-    c.codes = Array.isArray(d.codes) ? d.codes : [];
     c.isOpen = d.isOpen === undefined ? true : (d.isOpen === true || d.isOpen === 'true');
     c.leaderboardActive = d.leaderboardActive === true || d.leaderboardActive === 'true';
     return c;
@@ -681,7 +676,7 @@
   }
 
   let configReady = false;
-  let userData = { name: "", phone: "", points: 0, rank: "-" };
+  let userData = { name: "", phone: "", points: 0, rank: "--" };
   let currentAdminStatus = false;
   let adminPassword = "";
   let answeredThisSession = false;
@@ -689,8 +684,8 @@
   let toastTimer = null;
 
   function normalizeDigits(s) {
-    return s.replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d))
-            .replace(/[۰-۹]/g, d => '۰۱۲۳۴۵٦٧۸۹'.indexOf(d));
+    return String(s || '').replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d))
+                          .replace(/[۰-۹]/g, d => '۰۱۲۳۴۵٦۷۸۹'.indexOf(d));
   }
   function esc(s) {
     return String(s == null ? '' : s).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
@@ -712,12 +707,10 @@
     const subject = "بشأن | لغز الربوع";
     const subjectEnc = encodeURIComponent(subject);
     const mailToEnc = encodeURIComponent(MAIL_TO);
-
     const gmailAppUrl = `googlegmail:///co?to=${mailToEnc}&subject=${subjectEnc}`;
     const webFallback = `https://mail.google.com/mail/?view=cm&fs=1&to=${mailToEnc}&su=${subjectEnc}`;
 
     window.location.href = gmailAppUrl;
-
     setTimeout(() => {
       window.open(webFallback, '_blank', 'noopener');
     }, 400);
@@ -766,11 +759,9 @@
       initUI();
       navigateToStep('quizStep');
     } else if (r && r.error === 'locked') {
-      showToast('محاولات كثيرة خاطئة، انتظري ١٠ دقائق');
-    } else if (r) {
-      showToast('كلمة المرور غير صحيحة');
+      showToast('محاولات كثيرة خاطئة، انتظري 10 دقائق');
     } else {
-      showToast('تعذّر الاتصال بالسيرفر');
+      showToast('كلمة المرور غير صحيحة');
     }
   }
 
@@ -931,6 +922,7 @@
     userData.name = name;
     userData.phone = phone;
     userData.points = 0;
+    userData.rank = "--";
 
     const tape = document.getElementById('transitionTape');
     tape.classList.add('active');
@@ -957,8 +949,7 @@
 
     const r = await api(isAdmin
       ? { action: 'adminPreview', password: adminPassword, answerIndex: selectedIndex }
-      : { action: 'submitAnswer', name: userData.name, phone: userData.phone,
-          caseTitle: caseTitle(), answerIndex: selectedIndex });
+      : { action: 'submitAnswer', name: userData.name, phone: userData.phone, answerIndex: selectedIndex });
 
     if (btn) btn.classList.remove('shaking');
 
@@ -968,10 +959,6 @@
       if (r && r.error === 'already_answered') {
         showToast('سبق وشاركتي في هذه القضية 🌸');
         setTimeout(() => location.reload(), 1800);
-      } else if (r && r.error === 'stale_case') {
-        showToast('تم تحديث القضية، حدّثي الصفحة');
-      } else if (r && r.error === 'closed') {
-        showToast('الفعالية مغلقة حالياً');
       } else {
         showToast('تعذّر الاتصال بالسيرفر، حاولي مرة ثانية');
       }
@@ -983,14 +970,18 @@
       resultDiv.className = "result-box success";
       resultDiv.innerHTML = `
         <div class="verdict-stamp">✔ حُلّت القضية</div>
-        <h3>${esc(config.successMsg)}</h3>
+        <h3>${esc(config.successMsg || 'إجابة صحيحة!')}</h3>
         <p>${esc(r.ruling)}</p>
         <div class="promo-box">
           كود الخصم الهديّة:<br><strong>${esc(r.code)}</strong>
         </div>`;
       const posterUserBox = document.getElementById('posterUserName');
       if (posterUserBox) posterUserBox.textContent = "المحققة: " + userData.name;
-      if (!isAdmin) userData.points = r.points;
+      
+      if (!isAdmin) {
+        userData.points = r.points;
+        userData.rank = r.rank;
+      }
       if (nextStepBtn) {
         nextStepBtn.textContent = config.leaderboardActive
           ? "🏆 عرض لوحة الصدارة والتنافس"
@@ -1002,7 +993,7 @@
       resultDiv.className = "result-box error";
       resultDiv.innerHTML = `
         <div class="verdict-stamp">✖ قضية مغلقة</div>
-        <h3>${esc(config.wrongMsg)}</h3>
+        <h3>${esc(config.wrongMsg || 'إجابة خاطئة')}</h3>
         <p>${esc(r.ruling)}</p>
         <button class="btn" style="margin-top:10px; background:rgba(255,255,255,0.14); box-shadow:none;" onclick="backToQuizOrRestart()">${isAdmin ? '🔄 تجربة إجابة أخرى' : '↩️ العودة للرئيسية'}</button>`;
     }
@@ -1036,6 +1027,11 @@
       if (target) target.classList.remove('hidden');
       window.scrollTo({ top: 0, behavior: 'smooth' });
       if (stepId === 'quizStep' && !answeredThisSession) startFactsTyping();
+      
+      // تحديث النقاط تلقائياً عند الدخول للوحة الصدارة
+      if (stepId === 'leaderboardStep' && !isUserAdmin()) {
+        fetchUserPointsFromSheet(userData.phone);
+      }
     }, 400);
 
     setTimeout(() => { if (tape) tape.classList.remove('active'); }, 850);
@@ -1043,7 +1039,6 @@
 
   function proceedAfterAnswer() {
     if (config.leaderboardActive) {
-      fetchUserPointsFromSheet(userData.phone);
       navigateToStep('leaderboardStep');
     } else {
       navigateToStep('posterStep');
@@ -1060,11 +1055,11 @@
       .then(res => res.json())
       .then(data => { 
         if (ptsText) ptsText.textContent = (data.points !== undefined ? data.points : userData.points) + " ن";
-        if (rankText) rankText.textContent = data.rank ? ("#" + data.rank) : "#1";
+        if (rankText) rankText.textContent = data.rank ? ("#" + data.rank) : "--";
       })
       .catch(() => { 
         if (ptsText) ptsText.textContent = userData.points + " ن"; 
-        if (rankText) rankText.textContent = "#1";
+        if (rankText) rankText.textContent = "--";
       });
   }
 
@@ -1076,7 +1071,7 @@
 
   async function awardSharePoints() {
     if (isUserAdmin()) return null;
-    const r = await api({ action: 'sharePoster', phone: userData.phone, caseTitle: caseTitle() });
+    const r = await api({ action: 'sharePoster', phone: userData.phone });
     return (r && r.ok) ? r : null;
   }
 
@@ -1108,16 +1103,16 @@
     }
 
     if (isUserAdmin()) {
-      showToast(done ? 'تمت المشاركة (وضع الإشراف: بدون نقاط)' : 'تم تحميل البوستر (وضع الإشراف: بدون نقاط)');
+      showToast(done ? 'تمت المشاركة (وضع الإشراف: بدون نقاط)' : 'تم تحميل البوستر');
     } else {
       const r = await awardSharePoints();
       if (r && r.awarded) {
         userData.points = r.points;
         showToast('تمت المشاركة! تم احتساب نقطتين إضافيتين 🏆✨');
-      } else if (r) {
-        showToast('تمت المشاركة ✅ (نقاط هذه القضية احتُسبت سابقاً)');
+      } else if (r && r.error === 'must_solve_correctly') {
+        showToast('لا يمكن احتساب نقاط البوستر إلا بعد حل القضية بنجاح ✅');
       } else {
-        showToast('تمت المشاركة ✅');
+        showToast('تمت المشاركة ✅ (سُجلت مسبقاً)');
       }
     }
   }
@@ -1133,7 +1128,6 @@
     setVal('p_text', cfg.facts);
     setVal('p_question', cfg.question);
     for (let i = 0; i < 4; i++) setVal('p_o' + i, cfg.opts[i] || "");
-    setVal('p_corr', cfg.corrIndex);
     const codes = cfg.codes || [];
     for (let i = 0; i < 5; i++) setVal('p_code' + i, codes[i] || "");
     setVal('p_ruling', cfg.ruling);
@@ -1145,9 +1139,9 @@
     const panel = document.getElementById('adminPanel');
     if (!panel) return;
     if (panel.classList.contains('hidden')) {
-      showToast('جاري جلب آخر نسخة من القضية..');
+      showToast('جاري جلب الإعدادات السرية..');
       const r = await api({ action: 'adminConfig', password: adminPassword });
-      if (!r || !r.ok) { showToast('تعذّر جلب الإعدادات من السيرفر'); return; }
+      if (!r || !r.ok) { showToast('كلمة السر غير صحيحة أو غير مصرح'); return; }
       fillAdminPanel(normalizeConfig(r.config));
       panel.classList.remove('hidden');
       panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -1158,18 +1152,11 @@
 
   async function saveAdminSettings() {
     const getVal = (id) => { const el = document.getElementById(id); return el ? el.value.trim() : ""; };
-
     const facts = getVal('p_text');
     if (!facts) { showToast('اكتبي الوقائع أولاً'); return; }
     if (!getVal('p_no')) { showToast('اكتبي عنوان القضية أولاً'); return; }
 
-    const rawOpts = [0, 1, 2, 3].map(i => getVal('p_o' + i));
-    const selected = parseInt(getVal('p_corr'));
-    if (!rawOpts[selected]) { showToast('الخيار الصحيح الذي اخترتيه فاضي'); return; }
-
-    const opts = [];
-    const indexMap = [];
-    rawOpts.forEach((o, i) => { if (o) { indexMap[i] = opts.length; opts.push(o); } });
+    const opts = [0, 1, 2, 3].map(i => getVal('p_o' + i)).filter(o => o !== "");
     if (opts.length < 2) { showToast('أدخلي خيارين على الأقل'); return; }
 
     const codes = [];
@@ -1185,7 +1172,7 @@
       facts: facts,
       question: getVal('p_question'),
       opts: opts,
-      corrIndex: indexMap[selected],
+      corrIndex: parseInt(document.getElementById('p_corr').value) || 0,
       codes: codes,
       ruling: getVal('p_ruling'),
       successMsg: getVal('p_successMsg'),
@@ -1193,43 +1180,22 @@
     };
 
     const saveBtn = document.getElementById('saveSettingsBtn');
-    if (saveBtn) { saveBtn.disabled = true; saveBtn.textContent = 'جاري الحفظ على السيرفر...'; }
+    if (saveBtn) { saveBtn.disabled = true; saveBtn.textContent = 'جاري الحفظ...'; }
 
     const result = await api({ action: 'saveConfig', password: adminPassword, config: newConfig });
-
     if (saveBtn) { saveBtn.disabled = false; saveBtn.textContent = 'حفظ وتحديث الفعالية'; }
 
     if (result && result.ok) {
       config = normalizeConfig(result.publicConfig);
       try { localStorage.setItem(CONFIG_CACHE_KEY, JSON.stringify(result.publicConfig)); } catch (e) {}
       answeredThisSession = false;
-      showToast('تم الحفظ، وتتحدّث القضية عند كل الأجهزة مباشرة ✅');
+      showToast('تم الحفظ وتحديث الفعالية بنجاح ✅');
       document.getElementById('adminPanel').classList.add('hidden');
       initUI();
-    } else if (result && result.error === 'unauthorized') {
-      showToast('كلمة السر غير صحيحة');
-    } else if (result && result.error === 'locked') {
-      showToast('محاولات كثيرة، انتظري ١٠ دقائق');
-    } else if (result && result.error === 'too_large') {
-      showToast('النص طويل زيادة، قصّريه شوي');
-    } else if (result && result.error === 'invalid_config') {
-      showToast('تحققي من الوقائع والخيارات والخيار الصحيح');
     } else {
-      showToast('تعذّر الحفظ على السيرفر، ما تغيّر شيء عند الطالبات.');
+      showToast('فشل الحفظ، تأكدي من كلمة المرور');
     }
   }
-
-  ['userName', 'userPhone', 'adminPassInput'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.addEventListener('keydown', e => {
-        if (e.key === 'Enter') {
-          if (id === 'adminPassInput') verifyAdminSecret();
-          else startQuizWithTransition();
-        }
-      });
-    }
-  });
 
   window.addEventListener('DOMContentLoaded', () => {
     showFormError('جاري تحميل القضية..');
