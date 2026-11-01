@@ -245,10 +245,6 @@
     .success .verdict-stamp { color: #4ade80; border-color: #4ade80; }
     .error .verdict-stamp { color: #f87171; border-color: #f87171; }
 
-    .promo-box { background: rgba(142, 124, 147, 0.15); border: 1.5px dashed var(--violet-soft); padding: 0.5rem; border-radius: 0.5rem; margin-top: 0.5rem; font-size: 0.8rem; }
-    .promo-store { display: inline-block; font-size: 0.74rem; font-weight: 800; color: var(--violet-soft); background: rgba(142,124,147,0.22); border-radius: 0.4rem; padding: 1px 8px; margin: 2px 0 4px; }
-    .promo-box strong { color: var(--white-soft); font-size: 1rem; letter-spacing: 1px; }
-
     .poster-page-card, .leaderboard-card { text-align: center; padding: 1.125rem 0.875rem; }
     .poster-img-container {
       position: relative; width: 100%; border-radius: 0.75rem; overflow: hidden;
@@ -384,11 +380,11 @@
       color: #2B1B2C; border: 1.5px solid var(--violet);
       box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 24px rgba(142,124,147,0.25);
     }
-    .ticket-brand { display: flex; flex-direction: column; align-items: center; gap: 4px; margin-bottom: 0.5rem; }
+    .ticket-brand { display: flex; flex-direction: column; align-items: center; gap: 4px; margin-bottom: 0.4rem; }
     .ticket-logo { max-height: 3.2rem; max-width: 9rem; object-fit: contain; display: block; }
     .ticket-store { font-size: 0.95rem; font-weight: 900; color: #2B1B2C; }
+    .ticket-desc { font-size: 0.88rem; font-weight: 800; color: #5c4762; line-height: 1.5; margin-bottom: 0.2rem; text-align: center; }
     .ticket-seal { width: 2.2rem; height: 2.2rem; color: var(--violet); }
-    .ticket-desc { font-size: 0.86rem; font-weight: 800; color: #47374c; line-height: 1.7; }
     .tear { position: relative; height: 0; margin: 0.85rem -1rem; border-top: 2px dashed rgba(142,124,147,0.7); }
     .tear::before, .tear::after { content: ""; position: absolute; top: -10px; width: 18px; height: 18px; border-radius: 50%; background: #2B1B2C; border: 1.5px solid var(--violet); }
     .tear::before { right: -10px; }
@@ -651,9 +647,11 @@
       </div>
 
       <div style="background: rgba(142,124,147,0.07); border: 1px solid var(--line); border-radius: 0.5rem; padding: 0.5rem; margin-bottom: 0.75rem;">
-        <label style="margin-bottom: 6px;">أكواد الخصم العشوائية (حتى 5، والمحل والشعار والتاريخ اختيارية):</label>
+        <label style="margin-bottom: 6px;">أكواد الخصم (حتى 5، مع إضافة خانة الوصف والعرض لكل كود):</label>
+        
         <div style="border: 1px dashed var(--line); border-radius: 0.5rem; padding: 0.5rem; margin-bottom: 8px;">
-          <div class="field" style="margin-bottom: 6px;"><input type="text" id="p_store0" placeholder="اسم الجهة / المحل (الكود الأول)"></div>
+          <div class="field" style="margin-bottom: 6px;"><input type="text" id="p_store0" placeholder="اسم الجهة / المحل (الأول)"></div>
+          <div class="field" style="margin-bottom: 6px;"><input type="text" id="p_desc0" placeholder="وصف العرض / كم الخصم (مثال: خصم 10% والتوصيل مجاني)"></div>
           <div class="field" style="margin-bottom: 6px; display:flex; align-items:center; gap:8px;">
             <img id="p_logoPrev0" class="hidden" alt="" style="height:2.2rem; max-width:4.5rem; object-fit:contain; background:#fff; border-radius:6px; padding:2px;">
             <label for="p_logo0" class="admin-nav-btn" style="flex:1; margin:0; cursor:pointer;">🖼️ إرفاق شعار الجهة (اختياري)</label>
@@ -661,10 +659,12 @@
             <button type="button" id="p_logoDel0" class="admin-nav-btn hidden" style="flex:0 0 auto;" onclick="clearLogo(0)">حذف</button>
           </div>
           <div class="field" style="margin-bottom: 6px;"><label style="font-size:0.68rem;">تاريخ انتهاء الصلاحية (اختياري):</label><input type="date" id="p_exp0" style="direction:ltr;"></div>
-          <div class="field" style="margin-bottom: 0;"><input type="text" id="p_code0" placeholder="الكود الأول"></div>
+          <div class="field" style="margin-bottom: 0;"><input type="text" id="p_code0" placeholder="كود الخصم (مثال: KSU10)"></div>
         </div>
+
         <div style="border: 1px dashed var(--line); border-radius: 0.5rem; padding: 0.5rem; margin-bottom: 8px;">
-          <div class="field" style="margin-bottom: 6px;"><input type="text" id="p_store1" placeholder="اسم الجهة / المحل (الكود الثاني)"></div>
+          <div class="field" style="margin-bottom: 6px;"><input type="text" id="p_store1" placeholder="اسم الجهة / المحل (الثاني)"></div>
+          <div class="field" style="margin-bottom: 6px;"><input type="text" id="p_desc1" placeholder="وصف العرض / كم الخصم"></div>
           <div class="field" style="margin-bottom: 6px; display:flex; align-items:center; gap:8px;">
             <img id="p_logoPrev1" class="hidden" alt="" style="height:2.2rem; max-width:4.5rem; object-fit:contain; background:#fff; border-radius:6px; padding:2px;">
             <label for="p_logo1" class="admin-nav-btn" style="flex:1; margin:0; cursor:pointer;">🖼️ إرفاق شعار الجهة (اختياري)</label>
@@ -672,10 +672,12 @@
             <button type="button" id="p_logoDel1" class="admin-nav-btn hidden" style="flex:0 0 auto;" onclick="clearLogo(1)">حذف</button>
           </div>
           <div class="field" style="margin-bottom: 6px;"><label style="font-size:0.68rem;">تاريخ انتهاء الصلاحية (اختياري):</label><input type="date" id="p_exp1" style="direction:ltr;"></div>
-          <div class="field" style="margin-bottom: 0;"><input type="text" id="p_code1" placeholder="الكود الثاني"></div>
+          <div class="field" style="margin-bottom: 0;"><input type="text" id="p_code1" placeholder="كود الخصم"></div>
         </div>
+
         <div style="border: 1px dashed var(--line); border-radius: 0.5rem; padding: 0.5rem; margin-bottom: 8px;">
-          <div class="field" style="margin-bottom: 6px;"><input type="text" id="p_store2" placeholder="اسم الجهة / المحل (الكود الثالث)"></div>
+          <div class="field" style="margin-bottom: 6px;"><input type="text" id="p_store2" placeholder="اسم الجهة / المحل (الثالث)"></div>
+          <div class="field" style="margin-bottom: 6px;"><input type="text" id="p_desc2" placeholder="وصف العرض / كم الخصم"></div>
           <div class="field" style="margin-bottom: 6px; display:flex; align-items:center; gap:8px;">
             <img id="p_logoPrev2" class="hidden" alt="" style="height:2.2rem; max-width:4.5rem; object-fit:contain; background:#fff; border-radius:6px; padding:2px;">
             <label for="p_logo2" class="admin-nav-btn" style="flex:1; margin:0; cursor:pointer;">🖼️ إرفاق شعار الجهة (اختياري)</label>
@@ -683,10 +685,12 @@
             <button type="button" id="p_logoDel2" class="admin-nav-btn hidden" style="flex:0 0 auto;" onclick="clearLogo(2)">حذف</button>
           </div>
           <div class="field" style="margin-bottom: 6px;"><label style="font-size:0.68rem;">تاريخ انتهاء الصلاحية (اختياري):</label><input type="date" id="p_exp2" style="direction:ltr;"></div>
-          <div class="field" style="margin-bottom: 0;"><input type="text" id="p_code2" placeholder="الكود الثالث"></div>
+          <div class="field" style="margin-bottom: 0;"><input type="text" id="p_code2" placeholder="كود الخصم"></div>
         </div>
+
         <div style="border: 1px dashed var(--line); border-radius: 0.5rem; padding: 0.5rem; margin-bottom: 8px;">
-          <div class="field" style="margin-bottom: 6px;"><input type="text" id="p_store3" placeholder="اسم الجهة / المحل (الكود الرابع)"></div>
+          <div class="field" style="margin-bottom: 6px;"><input type="text" id="p_store3" placeholder="اسم الجهة / المحل (الرابع)"></div>
+          <div class="field" style="margin-bottom: 6px;"><input type="text" id="p_desc3" placeholder="وصف العرض / كم الخصم"></div>
           <div class="field" style="margin-bottom: 6px; display:flex; align-items:center; gap:8px;">
             <img id="p_logoPrev3" class="hidden" alt="" style="height:2.2rem; max-width:4.5rem; object-fit:contain; background:#fff; border-radius:6px; padding:2px;">
             <label for="p_logo3" class="admin-nav-btn" style="flex:1; margin:0; cursor:pointer;">🖼️ إرفاق شعار الجهة (اختياري)</label>
@@ -694,10 +698,12 @@
             <button type="button" id="p_logoDel3" class="admin-nav-btn hidden" style="flex:0 0 auto;" onclick="clearLogo(3)">حذف</button>
           </div>
           <div class="field" style="margin-bottom: 6px;"><label style="font-size:0.68rem;">تاريخ انتهاء الصلاحية (اختياري):</label><input type="date" id="p_exp3" style="direction:ltr;"></div>
-          <div class="field" style="margin-bottom: 0;"><input type="text" id="p_code3" placeholder="الكود الرابع"></div>
+          <div class="field" style="margin-bottom: 0;"><input type="text" id="p_code3" placeholder="كود الخصم"></div>
         </div>
+
         <div style="border: 1px dashed var(--line); border-radius: 0.5rem; padding: 0.5rem; margin-bottom: 8px;">
-          <div class="field" style="margin-bottom: 6px;"><input type="text" id="p_store4" placeholder="اسم الجهة / المحل (الكود الخامس)"></div>
+          <div class="field" style="margin-bottom: 6px;"><input type="text" id="p_store4" placeholder="اسم الجهة / المحل (الخامس)"></div>
+          <div class="field" style="margin-bottom: 6px;"><input type="text" id="p_desc4" placeholder="وصف العرض / كم الخصم"></div>
           <div class="field" style="margin-bottom: 6px; display:flex; align-items:center; gap:8px;">
             <img id="p_logoPrev4" class="hidden" alt="" style="height:2.2rem; max-width:4.5rem; object-fit:contain; background:#fff; border-radius:6px; padding:2px;">
             <label for="p_logo4" class="admin-nav-btn" style="flex:1; margin:0; cursor:pointer;">🖼️ إرفاق شعار الجهة (اختياري)</label>
@@ -705,8 +711,9 @@
             <button type="button" id="p_logoDel4" class="admin-nav-btn hidden" style="flex:0 0 auto;" onclick="clearLogo(4)">حذف</button>
           </div>
           <div class="field" style="margin-bottom: 6px;"><label style="font-size:0.68rem;">تاريخ انتهاء الصلاحية (اختياري):</label><input type="date" id="p_exp4" style="direction:ltr;"></div>
-          <div class="field" style="margin-bottom: 0;"><input type="text" id="p_code4" placeholder="الكود الخامس"></div>
+          <div class="field" style="margin-bottom: 0;"><input type="text" id="p_code4" placeholder="كود الخصم"></div>
         </div>
+
       </div>
 
       <div class="field"><label>التسبيب/الشرح النظامي:</label><textarea id="p_ruling" class="mid"></textarea></div>
@@ -827,13 +834,24 @@
     } catch (e) {}
   }
 
-  /* ===== تفكيك بيانات كود الخصم: الجهة|||الكود|||التاريخ|||الشعار ===== */
+  /* ===== تنسيق بيانات كود الخصم: الجهة|||الوصف|||الكود|||التاريخ|||الشعار ===== */
   function parsePromo(raw) {
     raw = String(raw == null ? '' : raw);
     const p = raw.split('|||');
-    if (p.length === 1) return { store: '', code: raw.trim(), exp: '', logo: '' };
-    return { store: (p[0] || '').trim(), code: (p[1] || '').trim(), exp: (p[2] || '').trim(), logo: (p[3] || '').trim() };
+    if (p.length === 1) return { store: '', desc: '', code: raw.trim(), exp: '', logo: '' };
+    if (p.length === 4 && (!p[1] || p[1].includes('-') || p[1].length < 5)) {
+      // توافق عكسي مع الصيغة القديمة (store, code, exp, logo)
+      return { store: (p[0] || '').trim(), desc: '', code: (p[1] || '').trim(), exp: (p[2] || '').trim(), logo: (p[3] || '').trim() };
+    }
+    return { 
+      store: (p[0] || '').trim(), 
+      desc: (p[1] || '').trim(), 
+      code: (p[2] || '').trim(), 
+      exp: (p[3] || '').trim(), 
+      logo: (p[4] || '').trim() 
+    };
   }
+
   function fmtDate(iso) {
     if (!/^\d{4}-\d{2}-\d{2}$/.test(iso || '')) return '';
     try {
@@ -849,12 +867,14 @@
       const brand = (okLogo || promo.store)
         ? `<div class="ticket-brand">${okLogo ? `<img class="ticket-logo" src="${promo.logo}" alt="">` : ''}${promo.store ? `<div class="ticket-store">${esc(promo.store)}</div>` : ''}</div>`
         : `<div class="ticket-brand"><div class="ticket-seal">${ICON_SCALE}</div></div>`;
-      const desc = 'قسيمة خصم خاصة لكِ' + (promo.store ? ' من ' + promo.store : '');
+      
+      const descText = promo.desc ? esc(promo.desc) : '';
       const d = fmtDate(promo.exp);
+      
       ticket = `
       <div class="ticket">
         ${brand}
-        <div class="ticket-desc">${esc(desc)}</div>
+        ${descText ? `<div class="ticket-desc">${descText}</div>` : ''}
         <div class="tear"></div>
         <div class="code-label">كود الخصم</div>
         <div class="code-box"><span class="code-ico">${ICON_TAG}</span><div class="code-text" id="promoCodeText">${esc(promo.code)}</div></div>
@@ -965,7 +985,6 @@
     toastTimer = setTimeout(() => el.classList.remove('show'), 3800);
   }
 
-  // فتح تطبيق Gmail مباشرة على الأجهزة الذكية
   function openMail(e) {
     if (e) e.preventDefault();
     const subject = encodeURIComponent("بشأن | لغز الربوع");
@@ -1227,7 +1246,7 @@
 
     if (r.correct) {
       resultDiv.innerHTML = buildWinHTML(parsePromo(r.code));
-      triggerCelebrationConfetti(); // تشغيل الاحتفال عند الفوز
+      triggerCelebrationConfetti();
       const posterUserBox = document.getElementById('posterUserName');
       if (posterUserBox) posterUserBox.textContent = "المحققة: " + userData.name;
       if (!isAdmin) {
@@ -1389,6 +1408,7 @@
     for (let i = 0; i < 5; i++) {
       const pr = parsePromo(codes[i] || "");
       setVal('p_store' + i, pr.store);
+      setVal('p_desc' + i, pr.desc);
       setVal('p_exp' + i, pr.exp);
       setVal('p_code' + i, pr.code);
       logoData[i] = pr.logo || '';
@@ -1428,9 +1448,12 @@
       const v = getVal('p_code' + i);
       const clean = (t) => String(t || '').replace(/\|\|\|/g, '');
       const st = clean(getVal('p_store' + i));
+      const ds = clean(getVal('p_desc' + i));
       const ex = getVal('p_exp' + i);
       const lg = logoData[i] || '';
-      if (v) codes.push((st || ex || lg) ? [st, clean(v), ex, lg].join('|||') : v);
+      if (v) {
+        codes.push([st, ds, clean(v), ex, lg].join('|||'));
+      }
     }
 
     const newConfig = {
