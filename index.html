@@ -93,8 +93,8 @@
       font-size: 0.72rem; font-weight: 800; color: var(--violet-soft); margin: 6px 0 10px;
     }
     .status-bar i {
-      width: 7px; height: 7px; border-radius: 50%; background: var(--violet-soft);
-      box-shadow: 0 0 8px var(--violet); animation: blink 1.2s infinite;
+      width: 7px; height: 7px; border-radius: 50%; background: #ef4444;
+      box-shadow: 0 0 8px #ef4444; animation: blink 1.2s infinite;
     }
     @keyframes blink { 50% { opacity: 0.25; } }
 
@@ -244,6 +244,7 @@
     .error .verdict-stamp { color: #f87171; border-color: #f87171; }
 
     .promo-box { background: rgba(142, 124, 147, 0.15); border: 1.5px dashed var(--violet-soft); padding: 0.5rem; border-radius: 0.5rem; margin-top: 0.5rem; font-size: 0.8rem; }
+    .promo-store { display: inline-block; font-size: 0.74rem; font-weight: 800; color: var(--violet-soft); background: rgba(142,124,147,0.22); border-radius: 0.4rem; padding: 1px 8px; margin: 2px 0 4px; }
     .promo-box strong { color: var(--white-soft); font-size: 1rem; letter-spacing: 1px; }
 
     .poster-page-card, .leaderboard-card { text-align: center; padding: 1.125rem 0.875rem; }
@@ -596,12 +597,27 @@
       </div>
 
       <div style="background: rgba(142,124,147,0.07); border: 1px solid var(--line); border-radius: 0.5rem; padding: 0.5rem; margin-bottom: 0.75rem;">
-        <label style="margin-bottom: 6px;">أكواد الخصم العشوائية (أدخلي حتى 5):</label>
-        <div class="field" style="margin-bottom: 4px;"><input type="text" id="p_code0" placeholder="الكود الأول"></div>
-        <div class="field" style="margin-bottom: 4px;"><input type="text" id="p_code1" placeholder="الكود الثاني"></div>
-        <div class="field" style="margin-bottom: 4px;"><input type="text" id="p_code2" placeholder="الكود الثالث"></div>
-        <div class="field" style="margin-bottom: 4px;"><input type="text" id="p_code3" placeholder="الكود الرابع"></div>
-        <div class="field" style="margin-bottom: 0;"><input type="text" id="p_code4" placeholder="الكود الخامس"></div>
+        <label style="margin-bottom: 6px;">أكواد الخصم العشوائية (أدخلي حتى 5، ومع كل كود اسم المحل):</label>
+        <div style="border: 1px dashed var(--line); border-radius: 0.5rem; padding: 0.4rem; margin-bottom: 6px;">
+          <div class="field" style="margin-bottom: 4px;"><input type="text" id="p_store0" placeholder="اسم المحل (الكود الأول)"></div>
+          <div class="field" style="margin-bottom: 0;"><input type="text" id="p_code0" placeholder="الكود الأول"></div>
+        </div>
+        <div style="border: 1px dashed var(--line); border-radius: 0.5rem; padding: 0.4rem; margin-bottom: 6px;">
+          <div class="field" style="margin-bottom: 4px;"><input type="text" id="p_store1" placeholder="اسم المحل (الكود الثاني)"></div>
+          <div class="field" style="margin-bottom: 0;"><input type="text" id="p_code1" placeholder="الكود الثاني"></div>
+        </div>
+        <div style="border: 1px dashed var(--line); border-radius: 0.5rem; padding: 0.4rem; margin-bottom: 6px;">
+          <div class="field" style="margin-bottom: 4px;"><input type="text" id="p_store2" placeholder="اسم المحل (الكود الثالث)"></div>
+          <div class="field" style="margin-bottom: 0;"><input type="text" id="p_code2" placeholder="الكود الثالث"></div>
+        </div>
+        <div style="border: 1px dashed var(--line); border-radius: 0.5rem; padding: 0.4rem; margin-bottom: 6px;">
+          <div class="field" style="margin-bottom: 4px;"><input type="text" id="p_store3" placeholder="اسم المحل (الكود الرابع)"></div>
+          <div class="field" style="margin-bottom: 0;"><input type="text" id="p_code3" placeholder="الكود الرابع"></div>
+        </div>
+        <div style="border: 1px dashed var(--line); border-radius: 0.5rem; padding: 0.4rem; margin-bottom: 6px;">
+          <div class="field" style="margin-bottom: 4px;"><input type="text" id="p_store4" placeholder="اسم المحل (الكود الخامس)"></div>
+          <div class="field" style="margin-bottom: 0;"><input type="text" id="p_code4" placeholder="الكود الخامس"></div>
+        </div>
       </div>
 
       <div class="field"><label>التسبيب/الشرح النظامي:</label><textarea id="p_ruling" class="mid"></textarea></div>
@@ -960,6 +976,10 @@
     }
 
     if (r.correct) {
+      const rawCode = String(r.code == null ? '' : r.code);
+      const sepAt = rawCode.indexOf('|||');
+      const promoStore = sepAt >= 0 ? rawCode.slice(0, sepAt).trim() : '';
+      const promoCode = sepAt >= 0 ? rawCode.slice(sepAt + 3).trim() : rawCode;
       if (btn) btn.classList.add('selected-correct');
       resultDiv.className = "result-box success";
       resultDiv.innerHTML = `
@@ -967,7 +987,7 @@
         <h3>${esc(config.successMsg || 'إجابة صحيحة!')}</h3>
         <p>${esc(r.ruling)}</p>
         <div class="promo-box">
-          كود الخصم الهديّة:<br><strong>${esc(r.code)}</strong>
+          كود الخصم الهديّة:<br>${promoStore ? '<span class="promo-store">من ' + esc(promoStore) + '</span><br>' : ''}<strong>${esc(promoCode)}</strong>
         </div>`;
       const posterUserBox = document.getElementById('posterUserName');
       if (posterUserBox) posterUserBox.textContent = "المحققة: " + userData.name;
@@ -1122,7 +1142,12 @@
     setVal('p_question', cfg.question);
     for (let i = 0; i < 4; i++) setVal('p_o' + i, cfg.opts[i] || "");
     const codes = cfg.codes || [];
-    for (let i = 0; i < 5; i++) setVal('p_code' + i, codes[i] || "");
+    for (let i = 0; i < 5; i++) {
+      const raw = String(codes[i] || "");
+      const p = raw.indexOf('|||');
+      setVal('p_store' + i, p >= 0 ? raw.slice(0, p) : "");
+      setVal('p_code' + i, p >= 0 ? raw.slice(p + 3) : raw);
+    }
     setVal('p_ruling', cfg.ruling);
     setVal('p_successMsg', cfg.successMsg || defaultConfig.successMsg);
     setVal('p_wrongMsg', cfg.wrongMsg || defaultConfig.wrongMsg);
@@ -1153,7 +1178,11 @@
     if (opts.length < 2) { showToast('أدخلي خيارين على الأقل'); return; }
 
     const codes = [];
-    for (let i = 0; i < 5; i++) { const v = getVal('p_code' + i); if (v) codes.push(v); }
+    for (let i = 0; i < 5; i++) {
+      const v = getVal('p_code' + i);
+      const st = getVal('p_store' + i).replace(/\|\|\|/g, '');
+      if (v) codes.push(st ? st + '|||' + v : v);
+    }
 
     const newConfig = {
       isOpen: getVal('p_isOpen') === 'true',
