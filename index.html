@@ -90,11 +90,11 @@
 
     .status-bar {
       display: flex; align-items: center; justify-content: center; gap: 6px;
-      font-size: 0.72rem; font-weight: 800; color: var(--amber-light); margin: 6px 0 10px;
+      font-size: 0.72rem; font-weight: 800; color: var(--violet-soft); margin: 6px 0 10px;
     }
     .status-bar i {
-      width: 7px; height: 7px; border-radius: 50%; background: var(--amber);
-      box-shadow: 0 0 8px var(--amber); animation: blink 1.2s infinite;
+      width: 7px; height: 7px; border-radius: 50%; background: var(--violet-soft);
+      box-shadow: 0 0 8px var(--violet); animation: blink 1.2s infinite;
     }
     @keyframes blink { 50% { opacity: 0.25; } }
 
@@ -142,16 +142,16 @@
 
     .btn {
       width: 100%; padding: 0.7rem; border: none; border-radius: 0.625rem;
-      background: linear-gradient(135deg, var(--amber-dark), #6e4219);
-      border-bottom: 3px solid var(--amber);
+      background: linear-gradient(135deg, #8E7C93, #6a5a70);
+      border-bottom: 3px solid var(--violet-soft);
       color: #fff; font-size: 0.92rem; font-weight: 800; font-family: inherit;
       cursor: pointer; margin-top: 4px; transition: 0.3s;
-      box-shadow: 0 4px 16px rgba(172, 109, 45, 0.45);
+      box-shadow: 0 4px 16px rgba(142, 124, 147, 0.4);
     }
-    .btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(233, 162, 59, 0.55); }
+    .btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(142, 124, 147, 0.6); }
     .btn:disabled { opacity: 0.6; cursor: wait; transform: none; }
 
-    .btn-amber { background: linear-gradient(135deg, #c98524, #8a5518); border-bottom-color: var(--amber); }
+    .btn-amber { background: linear-gradient(135deg, #9d8ca3, #6f5f75); border-bottom-color: var(--violet-soft); }
     .btn-violet { background: linear-gradient(135deg, var(--violet), #47374c); border-color: var(--violet-soft); }
 
     .admin-luxury-nav {
@@ -184,7 +184,7 @@
     .logo-size-btn:active { transform: scale(0.92); }
 
     .magnifier-lens, .question-box {
-      border: 1.5px solid var(--violet-soft); border-right: 4px solid var(--amber);
+      border: 1.5px solid var(--violet-soft); border-right: 4px solid var(--violet-soft);
       border-radius: 0.75rem; padding: 0.9rem 0.8rem 0.8rem;
       background: linear-gradient(135deg, rgba(142, 124, 147, 0.18), rgba(43, 27, 44, 0.35));
       box-shadow: inset 0 0 20px rgba(142, 124, 147, 0.15), 0 0 16px rgba(142, 124, 147, 0.15);
@@ -192,15 +192,15 @@
     }
     .magnifier-lens::before {
       content: attr(data-label); position: absolute; top: -9px; right: 14px;
-      background: var(--amber); color: #1a0f1b; font-size: 0.625rem; font-weight: 900;
+      background: var(--violet); color: var(--white-soft); font-size: 0.625rem; font-weight: 900;
       padding: 1px 8px; border-radius: 4px;
     }
     .question-zoom { font-size: 0.92rem; font-weight: 700; line-height: 1.7; color: var(--white-soft); white-space: pre-wrap; overflow-wrap: anywhere; }
-    .question-zoom.typing::after { content: "▌"; color: var(--amber); animation: blink 0.8s infinite; margin-right: 2px; }
+    .question-zoom.typing::after { content: "▌"; color: var(--violet-soft); animation: blink 0.8s infinite; margin-right: 2px; }
 
     .question-box .q-tag {
       position: absolute; top: -9px; right: 14px;
-      background: var(--amber); color: #1a0f1b; font-size: 0.625rem; font-weight: 900;
+      background: var(--violet); color: var(--white-soft); font-size: 0.625rem; font-weight: 900;
       padding: 1px 8px; border-radius: 4px;
     }
     .question-box .q-body { font-size: 0.92rem; font-weight: 800; line-height: 1.7; color: var(--white-soft); white-space: pre-wrap; overflow-wrap: anywhere; }
@@ -208,16 +208,16 @@
     .opt-btn {
       width: 100%; display: flex; align-items: flex-start; gap: 0.6rem;
       padding: 0.75rem 0.8rem; margin-bottom: 0.56rem; border-radius: 0.625rem;
-      border: 1.5px solid rgba(233, 162, 59, 0.34); background: rgba(233, 162, 59, 0.05);
+      border: 1.5px solid rgba(142, 124, 147, 0.6); background: rgba(142, 124, 147, 0.12);
       color: var(--white-soft); font-size: 0.88rem; font-weight: 700; cursor: pointer; text-align: right;
       font-family: inherit; line-height: 1.7; transition: all 0.25s ease;
     }
-    .opt-btn:hover { background: rgba(233, 162, 59, 0.16); border-color: var(--amber); }
+    .opt-btn:hover { background: rgba(142, 124, 147, 0.28); border-color: var(--violet-soft); }
     .opt-letter {
       flex: 0 0 auto; width: 1.55rem; height: 1.55rem; margin-top: 0.1rem; border-radius: 50%;
       display: inline-flex; align-items: center; justify-content: center;
-      background: rgba(233, 162, 59, 0.2); border: 1px solid var(--amber);
-      color: var(--amber-light); font-size: 0.78rem; font-weight: 900;
+      background: rgba(142, 124, 147, 0.35); border: 1px solid var(--violet-soft);
+      color: var(--white-soft); font-size: 0.78rem; font-weight: 900;
     }
     .opt-text { flex: 1 1 auto; min-width: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
 
@@ -243,19 +243,19 @@
     .success .verdict-stamp { color: #4ade80; border-color: #4ade80; }
     .error .verdict-stamp { color: #f87171; border-color: #f87171; }
 
-    .promo-box { background: rgba(233, 162, 59, 0.09); border: 1.5px dashed var(--amber); padding: 0.5rem; border-radius: 0.5rem; margin-top: 0.5rem; font-size: 0.8rem; }
-    .promo-box strong { color: var(--amber-light); font-size: 1rem; letter-spacing: 1px; }
+    .promo-box { background: rgba(142, 124, 147, 0.15); border: 1.5px dashed var(--violet-soft); padding: 0.5rem; border-radius: 0.5rem; margin-top: 0.5rem; font-size: 0.8rem; }
+    .promo-box strong { color: var(--white-soft); font-size: 1rem; letter-spacing: 1px; }
 
     .poster-page-card, .leaderboard-card { text-align: center; padding: 1.125rem 0.875rem; }
     .poster-img-container {
       position: relative; width: 100%; border-radius: 0.75rem; overflow: hidden;
-      border: 2px solid var(--amber); box-shadow: 0 0 25px rgba(233,162,59,0.22);
+      border: 2px solid var(--violet); box-shadow: 0 0 25px rgba(142,124,147,0.3);
       margin-bottom: 0.625rem; background: #000;
     }
     .poster-img { width: 100%; height: auto; display: block; }
     .poster-user-box {
-      background: rgba(233, 162, 59, 0.1); border: 1.5px solid var(--amber);
-      color: var(--amber-light); font-weight: 800; font-size: 0.84rem;
+      background: rgba(142, 124, 147, 0.15); border: 1.5px solid var(--violet);
+      color: var(--white-soft); font-weight: 800; font-size: 0.84rem;
       padding: 0.44rem 0.75rem; border-radius: 0.5rem; margin-bottom: 0.625rem; text-align: center;
     }
 
@@ -269,7 +269,7 @@
 
     .rank-box {
       background: rgba(142, 124, 147, 0.12);
-      border: 1.5px solid var(--amber);
+      border: 1.5px solid var(--violet);
       border-radius: 0.75rem;
       padding: 0.75rem 0.5rem;
       margin-bottom: 0.75rem;
@@ -298,12 +298,12 @@
     .rank-number {
       font-size: 1.25rem;
       font-weight: 900;
-      color: var(--amber-light);
+      color: var(--white-soft);
     }
 
     .points-info-box {
       background: rgba(255, 255, 255, 0.03);
-      border: 1px dashed rgba(233, 162, 59, 0.38);
+      border: 1px dashed rgba(142, 124, 147, 0.6);
       border-radius: 0.625rem;
       padding: 0.625rem 0.75rem;
       margin-bottom: 0.75rem;
@@ -313,7 +313,7 @@
       line-height: 1.6;
       font-weight: 400;
     }
-    .points-info-box strong { color: var(--amber-light); font-weight: 700; }
+    .points-info-box strong { color: var(--violet-soft); font-weight: 700; }
 
     .hidden { display: none !important; }
 
@@ -321,10 +321,10 @@
 
     .signature { text-align: center; font-size: 0.65rem; color: rgba(248,249,250,0.65); margin-top: 0.75rem; letter-spacing: 0.5px; line-height: 1.7; }
     .signature a { 
-      color: var(--amber-light); 
+      color: var(--violet-soft); 
       font-weight: 800;
       text-decoration: none; 
-      border-bottom: 1.5px dashed var(--amber); 
+      border-bottom: 1.5px dashed var(--violet); 
       cursor: pointer; 
       padding: 0 4px; 
       transition: color 0.2s;
@@ -334,7 +334,7 @@
 
     .toast {
       position: fixed; left: 50%; bottom: 1.5rem; transform: translateX(-50%) translateY(20px);
-      background: #1a0f1b; color: var(--amber-light); border: 1.5px solid var(--amber);
+      background: #1a0f1b; color: var(--white-soft); border: 1.5px solid var(--violet);
       padding: 0.625rem 1rem; border-radius: 0.75rem; font-size: 0.8rem; font-weight: 700;
       max-width: 90vw; text-align: center; z-index: 1000; opacity: 0; pointer-events: none;
       transition: opacity 0.3s, transform 0.3s; box-shadow: 0 8px 30px rgba(0,0,0,0.6);
@@ -505,7 +505,7 @@
 
       <div class="poster-user-box" id="posterUserName">المحققة: </div>
 
-      <p style="font-size: 0.75rem; color: var(--amber-light); margin: 0 0 0.5rem; font-weight: 700;">
+      <p style="font-size: 0.75rem; color: var(--violet-soft); margin: 0 0 0.5rem; font-weight: 700;">
         شاركي بوستر إنجازكِ وتحدّي زميلاتكِ في الكلية على لوحة الصدارة:
       </p>
 
