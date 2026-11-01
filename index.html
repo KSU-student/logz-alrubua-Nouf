@@ -68,6 +68,7 @@
     .app-wrapper {
       position: relative; width: min(100%, 30rem); z-index: 2;
       padding: 1rem 0.875rem; display: flex; flex-direction: column; align-items: center;
+      min-height: 100vh;
     }
 
     .card {
@@ -77,9 +78,12 @@
       border-radius: 1.25rem;
       padding: 0.8rem 1.125rem 1.1rem;
       width: 100%;
+      min-height: calc(100vh - 2.5rem);
       box-shadow: 0 10px 40px rgba(0,0,0,0.7), 0 0 38px rgba(142, 124, 147, 0.2), inset 0 0 25px rgba(210, 215, 223, 0.05);
       position: relative; z-index: 2;
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
     }
     .card > *:not(.corner) { position: relative; z-index: 1; }
     .corner { position: absolute; width: 1rem; height: 1rem; border: 2.5px solid var(--violet); pointer-events: none; z-index: 2; }
@@ -320,7 +324,17 @@
 
     .admin-panel { background: rgba(43, 27, 44, 0.98); border: 2px solid var(--violet); margin-top: 0.75rem; }
 
-    .signature { text-align: center; font-size: 0.65rem; color: rgba(248,249,250,0.65); margin-top: 0.75rem; letter-spacing: 0.5px; line-height: 1.7; }
+    /* ===== التوقيع والبيانات لأسفل الصفحة كـ Footer ===== */
+    .signature { 
+      margin-top: auto !important; 
+      padding-top: 1.5rem;
+      padding-bottom: 0.5rem;
+      text-align: center; 
+      font-size: 0.65rem; 
+      color: rgba(248,249,250,0.65); 
+      letter-spacing: 0.5px; 
+      line-height: 1.7; 
+    }
     .signature a { 
       color: var(--violet-soft); 
       font-weight: 800;
@@ -342,7 +356,6 @@
     }
     .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-
     /* ===== الصفحة بدون بوكس (البوكس للتسجيل فقط) ===== */
     #userInfoStep { max-width: 26.5rem; }
     .card.card-flat {
@@ -356,7 +369,14 @@
     .res-card { width: 100%; display: flex; flex-direction: column; align-items: stretch; gap: 0.85rem; text-align: center; margin-top: 0.6rem; }
     .res-icon { align-self: center; width: 3.3rem; height: 3.3rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1.5px solid; }
     .res-icon svg { width: 52%; height: 52%; }
-    .res-icon.ok { border-color: var(--violet-soft); color: var(--white-soft); background: rgba(142,124,147,0.22); box-shadow: 0 0 22px rgba(142,124,147,0.35); }
+    
+    /* جعل أيقونة الصحيح بلون أخضر ناصع وواضح */
+    .res-icon.ok { 
+      border-color: #22c55e !important; 
+      color: #4ade80 !important; 
+      background: rgba(34, 197, 94, 0.2) !important; 
+      box-shadow: 0 0 22px rgba(34, 197, 94, 0.4) !important; 
+    }
     .res-icon.no { width: 2.8rem; height: 2.8rem; border-color: #9b5f6a; color: #c08a93; background: rgba(155,95,106,0.14); }
     .res-title { margin: 0; font-size: 1.1rem; font-weight: 900; line-height: 1.7; color: var(--white-soft); overflow-wrap: anywhere; white-space: pre-wrap; }
     .res-title.soft { font-size: 1rem; font-weight: 800; color: var(--violet-soft); }
