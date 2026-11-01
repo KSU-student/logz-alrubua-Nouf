@@ -18,7 +18,7 @@
       --amber-light: #f6c978;
       --card-bg: rgba(43, 27, 44, 0.96);
       --line: rgba(210, 215, 223, 0.25);
-      --logo-max-width: 14rem;
+      --logo-max-width: 9rem;
       --logo-margin-y: -1.2rem;
     }
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -105,7 +105,7 @@
     }
     .real-logo {
       position: relative; width: 100%; max-width: var(--logo-max-width); height: auto; display: block; margin: 0 auto;
-      filter: drop-shadow(0 0 10px rgba(142, 124, 147, 0.45)) brightness(1.08);
+      filter: brightness(0) invert(1);
       user-select: none; -webkit-user-drag: none;
       transition: max-width 0.2s ease, margin 0.2s ease;
       pointer-events: none;
@@ -361,7 +361,7 @@
       <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
 
       <div class="club-logo-container" onclick="triggerSecretAdminField()">
-        <img src="Logo%2022.png" alt="وحدة الإرشاد الأكاديمي" class="real-logo">
+        <img src="Logo22.png" alt="وحدة الإرشاد الأكاديمي" class="real-logo">
       </div>
       <div class="divider"></div>
 
@@ -411,7 +411,7 @@
       <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
 
       <div class="club-logo-container" onclick="triggerSecretAdminField()">
-        <img src="Logo%2022.png" alt="وحدة الإرشاد الأكاديمي" class="real-logo">
+        <img src="Logo22.png" alt="وحدة الإرشاد الأكاديمي" class="real-logo">
       </div>
 
       <h1 class="main-title" id="qTitle">القضية</h1>
@@ -453,7 +453,7 @@
       <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
 
       <div class="club-logo-container" onclick="triggerSecretAdminField()">
-        <img src="Logo%2022.png" alt="وحدة الإرشاد الأكاديمي" class="real-logo">
+        <img src="Logo22.png" alt="وحدة الإرشاد الأكاديمي" class="real-logo">
       </div>
       <div class="divider"></div>
 
@@ -538,7 +538,7 @@
         <label>🖼️ التحكم بحجم الشعار (Logo Size):</label>
         <div class="logo-control-box">
           <button type="button" class="logo-size-btn" onclick="adjustLogoSize(-1)">-</button>
-          <span id="logoSizeVal" style="font-size: 0.85rem; font-weight: 800; color: var(--violet-soft);">14.0 rem</span>
+          <span id="logoSizeVal" style="font-size: 0.85rem; font-weight: 800; color: var(--violet-soft);">9.0 rem</span>
           <button type="button" class="logo-size-btn" onclick="adjustLogoSize(1)">+</button>
           <button type="button" class="admin-nav-btn" style="flex:0 0 auto; padding:0.4rem 0.6rem;" onclick="resetLogoSize()">إعادة ضبط</button>
         </div>
@@ -619,10 +619,10 @@
   const ADMIN_ID = "ADMIN";
   const MAIL_TO = "Noufalawad20@gmail.com";
   const CONFIG_CACHE_KEY = 'case_config_cache_v2';
-  const LOGO_SIZE_KEY = 'custom_logo_size_v2';
+  const LOGO_SIZE_KEY = 'custom_logo_size_v3';
   const OPT_LETTERS = ['أ', 'ب', 'ج', 'د'];
 
-  let currentLogoSize = parseFloat(localStorage.getItem(LOGO_SIZE_KEY)) || 14.0;
+  let currentLogoSize = parseFloat(localStorage.getItem(LOGO_SIZE_KEY)) || 9.0;
 
   function updateLogoCSS(size) {
     currentLogoSize = Math.max(6, Math.min(35, size));
@@ -637,7 +637,7 @@
   }
 
   function resetLogoSize() {
-    updateLogoCSS(14.0);
+    updateLogoCSS(9.0);
   }
 
   const defaultConfig = {
