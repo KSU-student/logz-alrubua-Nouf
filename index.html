@@ -66,7 +66,7 @@
     .transition-tape.active { left: -10%; visibility: visible; }
 
     .app-wrapper {
-      position: relative; width: min(100%, 26.5rem); z-index: 2;
+      position: relative; width: min(100%, 30rem); z-index: 2;
       padding: 1rem 0.875rem; display: flex; flex-direction: column; align-items: center;
     }
 
@@ -127,7 +127,7 @@
     .field { margin-bottom: 0.7rem; }
     .hint { font-size: 0.66rem; color: rgba(248,249,250,0.6); margin-top: 3px; line-height: 1.5; }
     label { display: block; margin-bottom: 3px; font-weight: 700; font-size: 0.76rem; color: var(--violet-soft); }
-    input[type="text"], input[type="tel"], input[type="password"], textarea, select {
+    input[type="text"], input[type="tel"], input[type="password"], input[type="date"], textarea, select {
       width: 100%; padding: 0.6rem 0.75rem; border-radius: 0.625rem; border: 1.5px solid var(--line);
       background: rgba(26, 15, 27, 0.85); color: var(--white-soft); font-size: max(16px, 0.95rem); font-family: inherit;
       outline: none; transition: 0.3s;
@@ -342,6 +342,62 @@
     }
     .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
+
+    /* ===== الصفحة بدون بوكس (البوكس للتسجيل فقط) ===== */
+    #userInfoStep { max-width: 26.5rem; }
+    .card.card-flat {
+      background: none; border: none; box-shadow: none; border-radius: 0;
+      backdrop-filter: none; -webkit-backdrop-filter: none; overflow: visible;
+      padding: 0.4rem 0.1rem 1rem;
+    }
+    .card.card-flat .corner { display: none; }
+
+    /* ===== بطاقات النتيجة ===== */
+    .res-card { width: 100%; display: flex; flex-direction: column; align-items: stretch; gap: 0.85rem; text-align: center; margin-top: 0.6rem; }
+    .res-icon { align-self: center; width: 3.3rem; height: 3.3rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1.5px solid; }
+    .res-icon svg { width: 52%; height: 52%; }
+    .res-icon.ok { border-color: var(--violet-soft); color: var(--white-soft); background: rgba(142,124,147,0.22); box-shadow: 0 0 22px rgba(142,124,147,0.35); }
+    .res-icon.no { width: 2.8rem; height: 2.8rem; border-color: #9b5f6a; color: #c08a93; background: rgba(155,95,106,0.14); }
+    .res-title { margin: 0; font-size: 1.1rem; font-weight: 900; line-height: 1.7; color: var(--white-soft); overflow-wrap: anywhere; white-space: pre-wrap; }
+    .res-title.soft { font-size: 1rem; font-weight: 800; color: var(--violet-soft); }
+
+    .ticket {
+      position: relative; width: 100%; padding: 1.1rem 1rem 0.9rem; border-radius: 1.1rem;
+      background: linear-gradient(160deg, #F8F9FA 0%, #D2D7DF 100%);
+      color: #2B1B2C; border: 1.5px solid var(--violet);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 24px rgba(142,124,147,0.25);
+    }
+    .ticket-brand { display: flex; flex-direction: column; align-items: center; gap: 4px; margin-bottom: 0.5rem; }
+    .ticket-logo { max-height: 3.2rem; max-width: 9rem; object-fit: contain; display: block; }
+    .ticket-store { font-size: 0.95rem; font-weight: 900; color: #2B1B2C; }
+    .ticket-seal { width: 2.2rem; height: 2.2rem; color: var(--violet); }
+    .ticket-desc { font-size: 0.86rem; font-weight: 800; color: #47374c; line-height: 1.7; }
+    .tear { position: relative; height: 0; margin: 0.85rem -1rem; border-top: 2px dashed rgba(142,124,147,0.7); }
+    .tear::before, .tear::after { content: ""; position: absolute; top: -10px; width: 18px; height: 18px; border-radius: 50%; background: #2B1B2C; border: 1.5px solid var(--violet); }
+    .tear::before { right: -10px; }
+    .tear::after { left: -10px; }
+    .code-label { font-size: 0.7rem; font-weight: 700; color: #6a5a70; margin-bottom: 4px; }
+    .code-box { display: flex; align-items: center; gap: 0.6rem; background: #2B1B2C; border-radius: 0.8rem; padding: 0.7rem 0.8rem; box-shadow: inset 0 0 0 1px rgba(210,215,223,0.25); }
+    .code-ico { flex: 0 0 auto; width: 1.6rem; height: 1.6rem; color: var(--violet); }
+    .code-ico svg { width: 100%; height: 100%; }
+    .code-text { flex: 1 1 auto; min-width: 0; text-align: center; font-size: 1.55rem; font-weight: 900; letter-spacing: 1.5px; color: var(--white-soft); overflow-wrap: anywhere; unicode-bidi: plaintext; user-select: all; -webkit-user-select: all; }
+    .ticket-exp { display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 0.7rem; font-size: 0.72rem; font-weight: 700; color: #47374c; }
+    .ticket-exp svg { width: 1rem; height: 1rem; }
+
+    .copy-btn { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 0; }
+    .copy-btn svg { width: 1.1rem; height: 1.1rem; }
+    .thanks-pill { width: 100%; border: 1.5px solid rgba(142,124,147,0.5); border-radius: 999px; padding: 0.6rem 0.9rem; font-size: 0.78rem; font-weight: 700; color: var(--violet-soft); line-height: 1.7; }
+
+    .info-card { position: relative; width: 100%; border: 1.5px solid rgba(142,124,147,0.55); background: rgba(142,124,147,0.12); border-radius: 1.1rem; padding: 1.35rem 1rem 0.9rem; }
+    .info-tag { position: absolute; top: -0.85rem; right: 50%; transform: translateX(50%); display: inline-flex; align-items: center; gap: 6px; background: #2B1B2C; border: 1.5px solid var(--violet); color: var(--white-soft); border-radius: 999px; padding: 2px 12px; font-size: 0.74rem; font-weight: 800; white-space: nowrap; }
+    .info-tag svg { width: 0.95rem; height: 0.95rem; }
+    .info-card p { margin: 0; font-size: 0.86rem; font-weight: 600; line-height: 1.9; color: rgba(248,249,250,0.92); white-space: pre-wrap; overflow-wrap: anywhere; }
+    .info-card.pick { background: linear-gradient(160deg, #F8F9FA 0%, #D2D7DF 100%); border-color: var(--violet); box-shadow: 0 6px 20px rgba(0,0,0,0.35); }
+    .info-card.pick .info-tag { background: #D2D7DF; color: #2B1B2C; }
+    .info-card.pick p { color: #2B1B2C; font-weight: 800; }
+    .pick-letter { display: inline-flex; align-items: center; justify-content: center; width: 1.5rem; height: 1.5rem; margin-left: 6px; border-radius: 50%; background: var(--violet); color: #fff; font-size: 0.78rem; font-weight: 900; }
+    .btn-ghost { background: rgba(255,255,255,0.08) !important; border: 1px solid var(--line) !important; box-shadow: none !important; }
+
     @media (prefers-reduced-motion: reduce) {
       .status-bar i, .question-zoom.typing::after { animation: none; }
       .shaking { animation: none; }
@@ -408,7 +464,7 @@
     </div>
 
     <!-- 2. واجهة اللغز -->
-    <div class="card quiz-card hidden" id="quizStep">
+    <div class="card card-flat quiz-card hidden" id="quizStep">
       <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
 
       <div class="club-logo-container" onclick="triggerSecretAdminField()">
@@ -417,8 +473,9 @@
 
       <h1 class="main-title" id="qTitle">القضية</h1>
       <div class="divider"></div>
-      <div class="status-bar"><i></i> <span id="adminNoticeBadge">قيد التحقيق</span></div>
+      <div class="status-bar" id="statusBar"><i></i> <span id="adminNoticeBadge">قيد التحقيق</span></div>
 
+      <div id="caseBody">
       <div class="magnifier-lens" id="lens" data-label="الوقائع">
         <div class="question-zoom" id="qText"></div>
       </div>
@@ -429,6 +486,7 @@
       </div>
 
       <div id="options"></div>
+      </div>
 
       <div id="result" class="result-box hidden"></div>
 
@@ -450,7 +508,7 @@
     </div>
 
     <!-- 3. صفحة لوحة الصدارة -->
-    <div class="card leaderboard-card hidden" id="leaderboardStep">
+    <div class="card card-flat leaderboard-card hidden" id="leaderboardStep">
       <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
 
       <div class="club-logo-container" onclick="triggerSecretAdminField()">
@@ -479,7 +537,7 @@
         <span style="font-size: 0.66rem; opacity: 0.8; display: block; margin-top: 4px;">*(يرجى الدخول بنفس رقم الجوال دائماً لضمان احتساب النقاط)*</span>
       </div>
 
-      <button class="btn btn-amber" onclick="goToPosterFromLeaderboard()">
+      <button class="btn btn-amber" id="posterFromBoardBtn" onclick="goToPosterFromLeaderboard()">
         📸 عرض بوستر التحدي والإنجاز
       </button>
 
@@ -497,7 +555,7 @@
     </div>
 
     <!-- 4. صفحة البوستر والمشاركة -->
-    <div class="card poster-page-card hidden" id="posterStep">
+    <div class="card card-flat poster-page-card hidden" id="posterStep">
       <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
 
       <div class="poster-img-container">
@@ -597,25 +655,60 @@
       </div>
 
       <div style="background: rgba(142,124,147,0.07); border: 1px solid var(--line); border-radius: 0.5rem; padding: 0.5rem; margin-bottom: 0.75rem;">
-        <label style="margin-bottom: 6px;">أكواد الخصم العشوائية (أدخلي حتى 5، ومع كل كود اسم المحل):</label>
-        <div style="border: 1px dashed var(--line); border-radius: 0.5rem; padding: 0.4rem; margin-bottom: 6px;">
-          <div class="field" style="margin-bottom: 4px;"><input type="text" id="p_store0" placeholder="اسم المحل (الكود الأول)"></div>
+        <label style="margin-bottom: 6px;">أكواد الخصم العشوائية (حتى 5، والمحل والشعار والتاريخ اختيارية):</label>
+        <div style="border: 1px dashed var(--line); border-radius: 0.5rem; padding: 0.5rem; margin-bottom: 8px;">
+          <div class="field" style="margin-bottom: 6px;"><input type="text" id="p_store0" placeholder="اسم الجهة / المحل (الكود الأول)"></div>
+          <div class="field" style="margin-bottom: 6px; display:flex; align-items:center; gap:8px;">
+            <img id="p_logoPrev0" class="hidden" alt="" style="height:2.2rem; max-width:4.5rem; object-fit:contain; background:#fff; border-radius:6px; padding:2px;">
+            <label for="p_logo0" class="admin-nav-btn" style="flex:1; margin:0; cursor:pointer;">🖼️ إرفاق شعار الجهة (اختياري)</label>
+            <input type="file" id="p_logo0" accept="image/*" class="hidden" onchange="onLogoPick(0, this)">
+            <button type="button" id="p_logoDel0" class="admin-nav-btn hidden" style="flex:0 0 auto;" onclick="clearLogo(0)">حذف</button>
+          </div>
+          <div class="field" style="margin-bottom: 6px;"><label style="font-size:0.68rem;">تاريخ انتهاء الصلاحية (اختياري):</label><input type="date" id="p_exp0" style="direction:ltr;"></div>
           <div class="field" style="margin-bottom: 0;"><input type="text" id="p_code0" placeholder="الكود الأول"></div>
         </div>
-        <div style="border: 1px dashed var(--line); border-radius: 0.5rem; padding: 0.4rem; margin-bottom: 6px;">
-          <div class="field" style="margin-bottom: 4px;"><input type="text" id="p_store1" placeholder="اسم المحل (الكود الثاني)"></div>
+        <div style="border: 1px dashed var(--line); border-radius: 0.5rem; padding: 0.5rem; margin-bottom: 8px;">
+          <div class="field" style="margin-bottom: 6px;"><input type="text" id="p_store1" placeholder="اسم الجهة / المحل (الكود الثاني)"></div>
+          <div class="field" style="margin-bottom: 6px; display:flex; align-items:center; gap:8px;">
+            <img id="p_logoPrev1" class="hidden" alt="" style="height:2.2rem; max-width:4.5rem; object-fit:contain; background:#fff; border-radius:6px; padding:2px;">
+            <label for="p_logo1" class="admin-nav-btn" style="flex:1; margin:0; cursor:pointer;">🖼️ إرفاق شعار الجهة (اختياري)</label>
+            <input type="file" id="p_logo1" accept="image/*" class="hidden" onchange="onLogoPick(1, this)">
+            <button type="button" id="p_logoDel1" class="admin-nav-btn hidden" style="flex:0 0 auto;" onclick="clearLogo(1)">حذف</button>
+          </div>
+          <div class="field" style="margin-bottom: 6px;"><label style="font-size:0.68rem;">تاريخ انتهاء الصلاحية (اختياري):</label><input type="date" id="p_exp1" style="direction:ltr;"></div>
           <div class="field" style="margin-bottom: 0;"><input type="text" id="p_code1" placeholder="الكود الثاني"></div>
         </div>
-        <div style="border: 1px dashed var(--line); border-radius: 0.5rem; padding: 0.4rem; margin-bottom: 6px;">
-          <div class="field" style="margin-bottom: 4px;"><input type="text" id="p_store2" placeholder="اسم المحل (الكود الثالث)"></div>
+        <div style="border: 1px dashed var(--line); border-radius: 0.5rem; padding: 0.5rem; margin-bottom: 8px;">
+          <div class="field" style="margin-bottom: 6px;"><input type="text" id="p_store2" placeholder="اسم الجهة / المحل (الكود الثالث)"></div>
+          <div class="field" style="margin-bottom: 6px; display:flex; align-items:center; gap:8px;">
+            <img id="p_logoPrev2" class="hidden" alt="" style="height:2.2rem; max-width:4.5rem; object-fit:contain; background:#fff; border-radius:6px; padding:2px;">
+            <label for="p_logo2" class="admin-nav-btn" style="flex:1; margin:0; cursor:pointer;">🖼️ إرفاق شعار الجهة (اختياري)</label>
+            <input type="file" id="p_logo2" accept="image/*" class="hidden" onchange="onLogoPick(2, this)">
+            <button type="button" id="p_logoDel2" class="admin-nav-btn hidden" style="flex:0 0 auto;" onclick="clearLogo(2)">حذف</button>
+          </div>
+          <div class="field" style="margin-bottom: 6px;"><label style="font-size:0.68rem;">تاريخ انتهاء الصلاحية (اختياري):</label><input type="date" id="p_exp2" style="direction:ltr;"></div>
           <div class="field" style="margin-bottom: 0;"><input type="text" id="p_code2" placeholder="الكود الثالث"></div>
         </div>
-        <div style="border: 1px dashed var(--line); border-radius: 0.5rem; padding: 0.4rem; margin-bottom: 6px;">
-          <div class="field" style="margin-bottom: 4px;"><input type="text" id="p_store3" placeholder="اسم المحل (الكود الرابع)"></div>
+        <div style="border: 1px dashed var(--line); border-radius: 0.5rem; padding: 0.5rem; margin-bottom: 8px;">
+          <div class="field" style="margin-bottom: 6px;"><input type="text" id="p_store3" placeholder="اسم الجهة / المحل (الكود الرابع)"></div>
+          <div class="field" style="margin-bottom: 6px; display:flex; align-items:center; gap:8px;">
+            <img id="p_logoPrev3" class="hidden" alt="" style="height:2.2rem; max-width:4.5rem; object-fit:contain; background:#fff; border-radius:6px; padding:2px;">
+            <label for="p_logo3" class="admin-nav-btn" style="flex:1; margin:0; cursor:pointer;">🖼️ إرفاق شعار الجهة (اختياري)</label>
+            <input type="file" id="p_logo3" accept="image/*" class="hidden" onchange="onLogoPick(3, this)">
+            <button type="button" id="p_logoDel3" class="admin-nav-btn hidden" style="flex:0 0 auto;" onclick="clearLogo(3)">حذف</button>
+          </div>
+          <div class="field" style="margin-bottom: 6px;"><label style="font-size:0.68rem;">تاريخ انتهاء الصلاحية (اختياري):</label><input type="date" id="p_exp3" style="direction:ltr;"></div>
           <div class="field" style="margin-bottom: 0;"><input type="text" id="p_code3" placeholder="الكود الرابع"></div>
         </div>
-        <div style="border: 1px dashed var(--line); border-radius: 0.5rem; padding: 0.4rem; margin-bottom: 6px;">
-          <div class="field" style="margin-bottom: 4px;"><input type="text" id="p_store4" placeholder="اسم المحل (الكود الخامس)"></div>
+        <div style="border: 1px dashed var(--line); border-radius: 0.5rem; padding: 0.5rem; margin-bottom: 8px;">
+          <div class="field" style="margin-bottom: 6px;"><input type="text" id="p_store4" placeholder="اسم الجهة / المحل (الكود الخامس)"></div>
+          <div class="field" style="margin-bottom: 6px; display:flex; align-items:center; gap:8px;">
+            <img id="p_logoPrev4" class="hidden" alt="" style="height:2.2rem; max-width:4.5rem; object-fit:contain; background:#fff; border-radius:6px; padding:2px;">
+            <label for="p_logo4" class="admin-nav-btn" style="flex:1; margin:0; cursor:pointer;">🖼️ إرفاق شعار الجهة (اختياري)</label>
+            <input type="file" id="p_logo4" accept="image/*" class="hidden" onchange="onLogoPick(4, this)">
+            <button type="button" id="p_logoDel4" class="admin-nav-btn hidden" style="flex:0 0 auto;" onclick="clearLogo(4)">حذف</button>
+          </div>
+          <div class="field" style="margin-bottom: 6px;"><label style="font-size:0.68rem;">تاريخ انتهاء الصلاحية (اختياري):</label><input type="date" id="p_exp4" style="direction:ltr;"></div>
           <div class="field" style="margin-bottom: 0;"><input type="text" id="p_code4" placeholder="الكود الخامس"></div>
         </div>
       </div>
@@ -698,6 +791,8 @@
   let answeredThisSession = false;
   let typingTimer = null;
   let toastTimer = null;
+  let lastAnswerCorrect = null;
+  const logoData = ['', '', '', '', ''];
 
   function normalizeDigits(s) {
     return String(s || '').replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d))
@@ -708,6 +803,145 @@
   }
   function caseTitle() { return config.title || 'القضية'; }
   function isUserAdmin() { return currentAdminStatus === true; }
+
+
+  /* ===== أيقونات ===== */
+  const ICON_CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+  const ICON_X = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M7 7l10 10M17 7L7 17"/></svg>';
+  const ICON_SCALE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v15M8 20h8M5 7h14M5 7l-2.5 6a3 3 0 0 0 5 0L5 7zM19 7l-2.5 6a3 3 0 0 0 5 0L19 7z"/></svg>';
+  const ICON_COPY = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2.5"/><path d="M5 15V6.5A2.5 2.5 0 0 1 7.5 4H15"/></svg>';
+  const ICON_TAG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12.5V4h8.5L21 13.5 13.5 21 3 12.5z"/><circle cx="7.5" cy="8.5" r="1.2"/></svg>';
+  const ICON_CAL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>';
+
+  /* ===== تفكيك بيانات كود الخصم: الجهة|||الكود|||التاريخ|||الشعار ===== */
+  function parsePromo(raw) {
+    raw = String(raw == null ? '' : raw);
+    const p = raw.split('|||');
+    if (p.length === 1) return { store: '', code: raw.trim(), exp: '', logo: '' };
+    return { store: (p[0] || '').trim(), code: (p[1] || '').trim(), exp: (p[2] || '').trim(), logo: (p[3] || '').trim() };
+  }
+  function fmtDate(iso) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(iso || '')) return '';
+    try {
+      return new Date(iso + 'T00:00:00').toLocaleDateString('ar-SA-u-ca-gregory', { day: 'numeric', month: 'long', year: 'numeric' });
+    } catch (e) { return iso; }
+  }
+
+  /* ===== بطاقة الجائزة (إجابة صحيحة) ===== */
+  function buildWinHTML(promo) {
+    let ticket = '';
+    if (promo.code) {
+      const okLogo = /^data:image\/(png|jpeg|webp|gif);base64,[A-Za-z0-9+\/=]+$/.test(promo.logo);
+      const brand = (okLogo || promo.store)
+        ? `<div class="ticket-brand">${okLogo ? `<img class="ticket-logo" src="${promo.logo}" alt="">` : ''}${promo.store ? `<div class="ticket-store">${esc(promo.store)}</div>` : ''}</div>`
+        : `<div class="ticket-brand"><div class="ticket-seal">${ICON_SCALE}</div></div>`;
+      const desc = 'قسيمة خصم خاصة لكِ' + (promo.store ? ' من ' + promo.store : '');
+      const d = fmtDate(promo.exp);
+      ticket = `
+      <div class="ticket">
+        ${brand}
+        <div class="ticket-desc">${esc(desc)}</div>
+        <div class="tear"></div>
+        <div class="code-label">كود الخصم</div>
+        <div class="code-box"><span class="code-ico">${ICON_TAG}</span><div class="code-text" id="promoCodeText">${esc(promo.code)}</div></div>
+        ${d ? `<div class="ticket-exp">${ICON_CAL}<span>صالحة حتى ${esc(d)}</span></div>` : ''}
+      </div>
+      <button class="btn copy-btn" onclick="copyPromoCode()">${ICON_COPY}<span>نسخ الكود</span></button>
+      <div class="thanks-pill">استمتعي بهديتك، وشكرًا لمشاركتك في لغز الربوع 🤍</div>`;
+    }
+    return `
+    <div class="res-card win">
+      <div class="res-icon ok">${ICON_CHECK}</div>
+      <h2 class="res-title">${esc(config.successMsg || 'إجابة صحيحة!')}</h2>
+      ${ticket}
+    </div>`;
+  }
+
+  /* ===== بطاقات الإجابة الخاطئة ===== */
+  function buildLoseHTML(r, isAdmin) {
+    const ruling = String(r.ruling || '').trim();
+    let ci = [r.correctIndex, r.corrIndex, r.correct_index, r.correctAnswerIndex].find(v => v !== undefined && v !== null && v !== '');
+    ci = ci === undefined ? -1 : parseInt(ci, 10);
+    let pickText = '';
+    if (ci >= 0 && config.opts[ci] !== undefined) pickText = `<span class="pick-letter">${OPT_LETTERS[ci] || (ci + 1)}</span>${esc(config.opts[ci])}`;
+    else if (r.correctAnswer) pickText = esc(r.correctAnswer);
+    return `
+    <div class="res-card lose">
+      <div class="res-icon no">${ICON_X}</div>
+      <h2 class="res-title soft">${esc(config.wrongMsg || 'إجابة خاطئة')}</h2>
+      ${ruling ? `<div class="info-card"><span class="info-tag">${ICON_SCALE}<span>التسبيب</span></span><p>${esc(ruling)}</p></div>` : ''}
+      ${pickText ? `<div class="info-card pick"><span class="info-tag">${ICON_CHECK}<span>الإجابة الصحيحة</span></span><p>${pickText}</p></div>` : ''}
+      <button class="btn" onclick="proceedAfterWrong()">متابعة المسابقة ‹</button>
+      ${isAdmin ? '<button class="btn btn-ghost" onclick="backToQuizOrRestart()">🔄 تجربة إجابة أخرى</button>' : ''}
+    </div>`;
+  }
+
+  function proceedAfterWrong() {
+    if (config.leaderboardActive) navigateToStep('leaderboardStep');
+    else location.reload();
+  }
+
+  /* ===== نسخ الكود ===== */
+  async function copyPromoCode() {
+    const el = document.getElementById('promoCodeText');
+    const code = el ? el.textContent.trim() : '';
+    if (!code) return;
+    let ok = false;
+    try { await navigator.clipboard.writeText(code); ok = true; } catch (e) {}
+    if (!ok) {
+      try {
+        const ta = document.createElement('textarea');
+        ta.value = code; ta.setAttribute('readonly', '');
+        ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0;font-size:16px;';
+        document.body.appendChild(ta);
+        ta.focus(); ta.select(); ta.setSelectionRange(0, ta.value.length);
+        ok = document.execCommand('copy');
+        ta.remove();
+      } catch (e) {}
+    }
+    showToast(ok ? 'تم نسخ الكود بنجاح ✅' : 'تعذّر النسخ، اضغطي مطولاً على الكود وانسخيه');
+  }
+
+  /* ===== شعار الجهة في لوحة التحكم (ضغط تلقائي) ===== */
+  function setLogoUI(i) {
+    const prev = document.getElementById('p_logoPrev' + i);
+    const del = document.getElementById('p_logoDel' + i);
+    const has = !!logoData[i];
+    if (prev) { if (has) prev.src = logoData[i]; prev.classList.toggle('hidden', !has); }
+    if (del) del.classList.toggle('hidden', !has);
+  }
+  function clearLogo(i) {
+    logoData[i] = '';
+    const f = document.getElementById('p_logo' + i); if (f) f.value = '';
+    setLogoUI(i);
+  }
+  function onLogoPick(i, input) {
+    const file = input.files && input.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      const img = new Image();
+      img.onload = () => {
+        let out = '';
+        for (const max of [180, 130, 90]) {
+          const k = Math.min(1, max / Math.max(img.width, img.height));
+          const c = document.createElement('canvas');
+          c.width = Math.max(1, Math.round(img.width * k));
+          c.height = Math.max(1, Math.round(img.height * k));
+          c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+          out = c.toDataURL('image/webp', 0.82);
+          if (!/^data:image\/webp/.test(out)) out = c.toDataURL('image/png');
+          if (out.length < 9000) break;
+        }
+        logoData[i] = out;
+        setLogoUI(i);
+        showToast(out.length > 14000 ? 'الشعار كبير شوي، يفضّل شعار أبسط' : 'تم إرفاق الشعار ✅');
+      };
+      img.onerror = () => showToast('تعذّر قراءة الصورة');
+      img.src = reader.result;
+    };
+    reader.readAsDataURL(file);
+  }
 
   function showToast(msg) {
     const el = document.getElementById('toast');
@@ -975,23 +1209,13 @@
       return;
     }
 
+    lastAnswerCorrect = !!r.correct;
+    resultDiv.className = 'result-wrap';
+
     if (r.correct) {
-      const rawCode = String(r.code == null ? '' : r.code);
-      const sepAt = rawCode.indexOf('|||');
-      const promoStore = sepAt >= 0 ? rawCode.slice(0, sepAt).trim() : '';
-      const promoCode = sepAt >= 0 ? rawCode.slice(sepAt + 3).trim() : rawCode;
-      if (btn) btn.classList.add('selected-correct');
-      resultDiv.className = "result-box success";
-      resultDiv.innerHTML = `
-        <div class="verdict-stamp">✔ حُلّت القضية</div>
-        <h3>${esc(config.successMsg || 'إجابة صحيحة!')}</h3>
-        <p>${esc(r.ruling)}</p>
-        <div class="promo-box">
-          كود الخصم الهديّة:<br>${promoStore ? '<span class="promo-store">من ' + esc(promoStore) + '</span><br>' : ''}<strong>${esc(promoCode)}</strong>
-        </div>`;
+      resultDiv.innerHTML = buildWinHTML(parsePromo(r.code));
       const posterUserBox = document.getElementById('posterUserName');
       if (posterUserBox) posterUserBox.textContent = "المحققة: " + userData.name;
-      
       if (!isAdmin) {
         userData.points = r.points;
         userData.rank = r.rank;
@@ -1003,16 +1227,16 @@
         nextStepBtn.classList.remove('hidden');
       }
     } else {
-      if (btn) btn.classList.add('selected-wrong');
-      resultDiv.className = "result-box error";
-      resultDiv.innerHTML = `
-        <div class="verdict-stamp">✖ قضية مغلقة</div>
-        <h3>${esc(config.wrongMsg || 'إجابة خاطئة')}</h3>
-        <p>${esc(r.ruling)}</p>
-        <button class="btn" style="margin-top:10px; background:rgba(255,255,255,0.14); box-shadow:none;" onclick="backToQuizOrRestart()">${isAdmin ? '🔄 تجربة إجابة أخرى' : '↩️ العودة للرئيسية'}</button>`;
+      resultDiv.innerHTML = buildLoseHTML(r, isAdmin);
+      if (nextStepBtn) nextStepBtn.classList.add('hidden');
     }
+
+    const caseBody = document.getElementById('caseBody');
+    const statusBar = document.getElementById('statusBar');
+    if (caseBody) caseBody.classList.add('hidden');
+    if (statusBar) statusBar.classList.add('hidden');
     resultDiv.classList.remove('hidden');
-    resultDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   function backToQuizOrRestart() {
@@ -1021,6 +1245,8 @@
       const nextStepBtn = document.getElementById('nextStepBtn');
       answeredThisSession = false;
       renderOptions();
+      const cb = document.getElementById('caseBody'); if (cb) cb.classList.remove('hidden');
+      const sb = document.getElementById('statusBar'); if (sb) sb.classList.remove('hidden');
       if (resultDiv) resultDiv.classList.add('hidden');
       if (nextStepBtn) nextStepBtn.classList.add('hidden');
     } else {
@@ -1042,6 +1268,10 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
       if (stepId === 'quizStep' && !answeredThisSession) startFactsTyping();
       
+      if (stepId === 'leaderboardStep') {
+        const pb = document.getElementById('posterFromBoardBtn');
+        if (pb) pb.classList.toggle('hidden', lastAnswerCorrect === false && !isUserAdmin());
+      }
       if (stepId === 'leaderboardStep' && !isUserAdmin()) {
         fetchUserPointsFromSheet(userData.phone);
       }
@@ -1143,10 +1373,12 @@
     for (let i = 0; i < 4; i++) setVal('p_o' + i, cfg.opts[i] || "");
     const codes = cfg.codes || [];
     for (let i = 0; i < 5; i++) {
-      const raw = String(codes[i] || "");
-      const p = raw.indexOf('|||');
-      setVal('p_store' + i, p >= 0 ? raw.slice(0, p) : "");
-      setVal('p_code' + i, p >= 0 ? raw.slice(p + 3) : raw);
+      const pr = parsePromo(codes[i] || "");
+      setVal('p_store' + i, pr.store);
+      setVal('p_exp' + i, pr.exp);
+      setVal('p_code' + i, pr.code);
+      logoData[i] = pr.logo || '';
+      setLogoUI(i);
     }
     setVal('p_ruling', cfg.ruling);
     setVal('p_successMsg', cfg.successMsg || defaultConfig.successMsg);
@@ -1180,8 +1412,11 @@
     const codes = [];
     for (let i = 0; i < 5; i++) {
       const v = getVal('p_code' + i);
-      const st = getVal('p_store' + i).replace(/\|\|\|/g, '');
-      if (v) codes.push(st ? st + '|||' + v : v);
+      const clean = (t) => String(t || '').replace(/\|\|\|/g, '');
+      const st = clean(getVal('p_store' + i));
+      const ex = getVal('p_exp' + i);
+      const lg = logoData[i] || '';
+      if (v) codes.push((st || ex || lg) ? [st, clean(v), ex, lg].join('|||') : v);
     }
 
     const newConfig = {
