@@ -307,27 +307,29 @@
     .res-title { margin: 0; font-size: 1.1rem; font-weight: 900; line-height: 1.7; color: var(--white-soft); overflow-wrap: anywhere; white-space: pre-wrap; }
     .res-title.soft { font-size: 1rem; font-weight: 800; color: var(--violet-soft); }
 
-    /* تعديل البطاقة لتصير بيضاء بياضاً ناصعاً ومتوازية تماماً بالوسط */
+    /* البطاقة البيضاء النواصع والمتوازية مع فيونكة أكبر وأكثر ميولاً */
     .ticket {
-      position: relative; width: 100%; padding: 1.4rem 1.1rem 1.1rem; border-radius: 1.1rem;
+      position: relative; width: 100%; padding: 1.5rem 1.1rem 1.1rem; border-radius: 1.1rem;
       background: #FFFFFF;
       color: #2B1B2C; border: 1.5px solid var(--violet);
       box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 24px rgba(142,124,147,0.25);
       text-align: center;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
+      overflow: visible;
     }
     .ticket-brand { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; gap: 6px; margin-bottom: 0.5rem; text-align: center; }
     .ticket-logo { max-height: 3.5rem; max-width: 10rem; object-fit: contain; display: block; background: transparent !important; margin: 0 auto; }
     .ticket-store { font-size: 1rem; font-weight: 900; color: #2B1B2C; text-align: center; width: 100%; }
-    .ticket-desc { font-size: 0.9rem; font-weight: 800; color: #5c4762; line-height: 1.6; margin-bottom: 0.4rem; text-align: center; width: 100%; }
+    .ticket-desc { font-size: 0.88rem; font-weight: 700; color: #5c4762; line-height: 1.6; margin-top: 0.5rem; text-align: center; width: 100%; }
     .ticket-seal { width: 2.2rem; height: 2.2rem; color: var(--violet); margin: 0 auto; }
     .ticket-brand:empty { display: none; }
     .logo-wrap { display: inline-flex; align-items: center; justify-content: center; margin: 0 auto; }
     .logo-wrap.on-dark { background: #2B1B2C; border-radius: 0.85rem; padding: 0.5rem 0.9rem; box-shadow: inset 0 0 0 1px rgba(210,215,223,0.25), 0 4px 12px rgba(43,27,44,0.25); }
     
-    .ticket-bow { position: absolute; top: -1.5rem; left: -1.2rem; width: 5.8rem; height: auto; pointer-events: none; z-index: 3; opacity: 0.94; filter: drop-shadow(0 7px 7px rgba(43,27,44,0.45)); }
+    /* فيونكة أكبر حجماً ومائلة بأناقة على زاوية الكرت */
+    .ticket-bow { position: absolute; top: -1.7rem; left: -1.4rem; width: 6.8rem; height: auto; pointer-events: none; z-index: 5; opacity: 0.96; filter: drop-shadow(0 8px 8px rgba(43,27,44,0.45)); transform: rotate(-12deg); }
     .bow-tails { transform-box: view-box; transform-origin: 60px 58px; animation: bowSway 5s ease-in-out infinite; }
-    @keyframes bowSway { 0%, 100% { transform: rotate(-1.6deg); } 50% { transform: rotate(1.6deg); } }
+    @keyframes bowSway { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
 
     .code-copy { flex: 0 0 auto; width: 2.5rem; height: 2.5rem; border-radius: 0.7rem; border: 1px solid rgba(210,215,223,0.35); background: rgba(142,124,147,0.28); color: var(--white-soft); display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0; transition: 0.2s; }
     .code-copy:hover { background: rgba(142,124,147,0.5); }
@@ -342,12 +344,11 @@
     
     .code-label { font-size: 0.72rem; font-weight: 700; color: #6a5a70; margin-bottom: 4px; text-align: center; width: 100%; }
     
-    /* ضبط محاذاة صندوق الكود ليكون متوازياً بالكامل ومتركزاً بالوسط */
+    /* صندوق الكود فوق وتفاصيل الوصف تحته */
     .code-box { display: flex; align-items: center; justify-content: center; gap: 0.6rem; background: #2B1B2C; border-radius: 0.8rem; padding: 0.7rem 0.8rem; width: 100%; box-shadow: inset 0 0 0 1px rgba(210,215,223,0.25); }
-    .code-ico { flex: 0 0 auto; width: 1.6rem; height: 1.6rem; color: var(--violet); display: none; }
     .code-text { flex: 1 1 auto; min-width: 0; text-align: center; font-size: 1.55rem; font-weight: 900; letter-spacing: 1.5px; color: var(--white-soft); unicode-bidi: plaintext; user-select: all; -webkit-user-select: all; }
     
-    /* ضبط شكل وتوازي تاريخ الانتهاء ليكون منسقاً ومرتباً بالوسط تماماً */
+    /* تاريخ الانتهاء منسق ومرتب بالوسط تماماً */
     .ticket-exp { display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 0.8rem; font-size: 0.76rem; font-weight: 800; color: #47374c; width: 100%; text-align: center; }
     .ticket-exp svg { width: 1.05rem; height: 1.05rem; color: var(--violet); flex: 0 0 auto; }
 
@@ -760,7 +761,7 @@
     return name.split('/').map(encodeURIComponent).join('/');
   }
 
-  /* ===== فيونكة القسيمة الفاخرة ===== */
+  /* ===== فيونكة القسيمة الفاخرة الأكبر حجماً والمائلة على الزاوية ===== */
   const BOW_SVG = `<svg class="ticket-bow" viewBox="0 0 120 116" aria-hidden="true">
     <defs>
       <linearGradient id="bwL" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#B2A0B8"/><stop offset=".55" stop-color="#6a5a70"/><stop offset="1" stop-color="#2B1B2C"/></linearGradient>
@@ -807,7 +808,7 @@
     if (brand && !brand.querySelector('.ticket-store')) brand.innerHTML = `<div class="ticket-seal">${ICON_SCALE}</div>`;
   }
 
-  /* ===== بطاقة الجائزة (إجابة صحيحة) - بدون عنوان القضية + توازي مرتب ===== */
+  /* ===== بطاقة الجائزة: بدون عنوان القضية، الكود فوق، التفاصيل تحت، وتاريخ الصلاحية مرتب ===== */
   function buildWinHTML(promo) {
     let ticket = '';
     if (promo.code) {
@@ -823,12 +824,12 @@
       <div class="ticket">
         ${BOW_SVG}
         ${brand}
-        ${descText ? `<div class="ticket-desc">${descText}</div>` : ''}
-        <div class="tear"></div>
         <div class="code-label">كود الخصم</div>
         <div class="code-box">
           <div class="code-text" id="promoCodeText">${esc(promo.code)}</div>
         </div>
+        ${descText ? `<div class="ticket-desc">${descText}</div>` : ''}
+        <div class="tear"></div>
         ${d ? `<div class="ticket-exp">${ICON_CAL}<span>صالحة حتى ${esc(d)}</span></div>` : ''}
       </div>
       <button class="btn copy-btn" style="margin-top: 0.75rem;" onclick="copyPromoCode()">${ICON_COPY}<span>نسخ الكود</span></button>`;
