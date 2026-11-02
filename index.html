@@ -307,19 +307,22 @@
     .res-title { margin: 0; font-size: 1.1rem; font-weight: 900; line-height: 1.7; color: var(--white-soft); overflow-wrap: anywhere; white-space: pre-wrap; }
     .res-title.soft { font-size: 1rem; font-weight: 800; color: var(--violet-soft); }
 
+    /* تعديل البطاقة لتصير بيضاء بياضاً ناصعاً ومتوازية تماماً بالوسط */
     .ticket {
-      position: relative; width: 100%; padding: 1.35rem 1rem 0.9rem; border-radius: 1.1rem;
-      background: linear-gradient(160deg, #F8F9FA 0%, #D2D7DF 100%);
+      position: relative; width: 100%; padding: 1.4rem 1.1rem 1.1rem; border-radius: 1.1rem;
+      background: #FFFFFF;
       color: #2B1B2C; border: 1.5px solid var(--violet);
       box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 24px rgba(142,124,147,0.25);
+      text-align: center;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
     }
-    .ticket-brand { display: flex; flex-direction: column; align-items: center; gap: 4px; margin-bottom: 0.4rem; }
-    .ticket-logo { max-height: 3.5rem; max-width: 10rem; object-fit: contain; display: block; background: transparent !important; }
-    .ticket-store { font-size: 0.95rem; font-weight: 900; color: #2B1B2C; }
-    .ticket-desc { font-size: 0.88rem; font-weight: 800; color: #5c4762; line-height: 1.5; margin-bottom: 0.2rem; text-align: center; }
-    .ticket-seal { width: 2.2rem; height: 2.2rem; color: var(--violet); }
+    .ticket-brand { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; gap: 6px; margin-bottom: 0.5rem; text-align: center; }
+    .ticket-logo { max-height: 3.5rem; max-width: 10rem; object-fit: contain; display: block; background: transparent !important; margin: 0 auto; }
+    .ticket-store { font-size: 1rem; font-weight: 900; color: #2B1B2C; text-align: center; width: 100%; }
+    .ticket-desc { font-size: 0.9rem; font-weight: 800; color: #5c4762; line-height: 1.6; margin-bottom: 0.4rem; text-align: center; width: 100%; }
+    .ticket-seal { width: 2.2rem; height: 2.2rem; color: var(--violet); margin: 0 auto; }
     .ticket-brand:empty { display: none; }
-    .logo-wrap { display: inline-flex; align-items: center; justify-content: center; }
+    .logo-wrap { display: inline-flex; align-items: center; justify-content: center; margin: 0 auto; }
     .logo-wrap.on-dark { background: #2B1B2C; border-radius: 0.85rem; padding: 0.5rem 0.9rem; box-shadow: inset 0 0 0 1px rgba(210,215,223,0.25), 0 4px 12px rgba(43,27,44,0.25); }
     
     .ticket-bow { position: absolute; top: -1.5rem; left: -1.2rem; width: 5.8rem; height: auto; pointer-events: none; z-index: 3; opacity: 0.94; filter: drop-shadow(0 7px 7px rgba(43,27,44,0.45)); }
@@ -332,17 +335,21 @@
     .code-copy svg { width: 1.2rem; height: 1.2rem; }
     .code-copy.done { background: rgba(34,197,94,0.25); border-color: #22c55e; color: #4ade80; }
 
-    .tear { position: relative; height: 0; margin: 0.85rem -1rem; border-top: 2px dashed rgba(142,124,147,0.7); }
-    .tear::before, .tear::after { content: ""; position: absolute; top: -10px; width: 18px; height: 18px; border-radius: 50%; background: #2B1B2C; border: 1.5px solid var(--violet); }
+    .tear { position: relative; width: calc(100% + 2.2rem); height: 0; margin: 0.9rem -1.1rem; border-top: 2px dashed rgba(142,124,147,0.5); }
+    .tear::before, .tear::after { content: ""; position: absolute; top: -10px; width: 18px; height: 18px; border-radius: 50%; background: #FFFFFF; border: 1.5px solid var(--violet); }
     .tear::before { right: -10px; }
     .tear::after { left: -10px; }
-    .code-label { font-size: 0.7rem; font-weight: 700; color: #6a5a70; margin-bottom: 4px; }
-    .code-box { display: flex; align-items: center; gap: 0.6rem; background: #2B1B2C; border-radius: 0.8rem; padding: 0.7rem 0.8rem; box-shadow: inset 0 0 0 1px rgba(210,215,223,0.25); }
-    .code-ico { flex: 0 0 auto; width: 1.6rem; height: 1.6rem; color: var(--violet); }
-    .code-ico svg { width: 100%; height: 100%; }
-    .code-text { flex: 1 1 auto; min-width: 0; text-align: center; font-size: 1.55rem; font-weight: 900; letter-spacing: 1.5px; color: var(--white-soft); overflow-wrap: anywhere; unicode-bidi: plaintext; user-select: all; -webkit-user-select: all; }
-    .ticket-exp { display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 0.7rem; font-size: 0.72rem; font-weight: 700; color: #47374c; }
-    .ticket-exp svg { width: 1rem; height: 1rem; }
+    
+    .code-label { font-size: 0.72rem; font-weight: 700; color: #6a5a70; margin-bottom: 4px; text-align: center; width: 100%; }
+    
+    /* ضبط محاذاة صندوق الكود ليكون متوازياً بالكامل ومتركزاً بالوسط */
+    .code-box { display: flex; align-items: center; justify-content: center; gap: 0.6rem; background: #2B1B2C; border-radius: 0.8rem; padding: 0.7rem 0.8rem; width: 100%; box-shadow: inset 0 0 0 1px rgba(210,215,223,0.25); }
+    .code-ico { flex: 0 0 auto; width: 1.6rem; height: 1.6rem; color: var(--violet); display: none; }
+    .code-text { flex: 1 1 auto; min-width: 0; text-align: center; font-size: 1.55rem; font-weight: 900; letter-spacing: 1.5px; color: var(--white-soft); unicode-bidi: plaintext; user-select: all; -webkit-user-select: all; }
+    
+    /* ضبط شكل وتوازي تاريخ الانتهاء ليكون منسقاً ومرتباً بالوسط تماماً */
+    .ticket-exp { display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 0.8rem; font-size: 0.76rem; font-weight: 800; color: #47374c; width: 100%; text-align: center; }
+    .ticket-exp svg { width: 1.05rem; height: 1.05rem; color: var(--violet); flex: 0 0 auto; }
 
     .copy-btn { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 0; }
     .copy-btn svg { width: 1.1rem; height: 1.1rem; }
@@ -351,7 +358,7 @@
     .info-tag { position: absolute; top: -0.85rem; right: 50%; transform: translateX(50%); display: inline-flex; align-items: center; gap: 6px; background: #2B1B2C; border: 1.5px solid var(--violet); color: var(--white-soft); border-radius: 999px; padding: 2px 12px; font-size: 0.74rem; font-weight: 800; white-space: nowrap; }
     .info-tag svg { width: 0.95rem; height: 0.95rem; }
     .info-card p { margin: 0; font-size: 0.86rem; font-weight: 600; line-height: 1.9; color: rgba(248,249,250,0.92); white-space: pre-wrap; overflow-wrap: anywhere; }
-    .info-card.pick { background: linear-gradient(160deg, #F8F9FA 0%, #D2D7DF 100%); border-color: var(--violet); box-shadow: 0 6px 20px rgba(0,0,0,0.35); }
+    .info-card.pick { background: #FFFFFF; border-color: var(--violet); box-shadow: 0 6px 20px rgba(0,0,0,0.35); }
     .info-card.pick .info-tag { background: #D2D7DF; color: #2B1B2C; }
     .info-card.pick p { color: #2B1B2C; font-weight: 800; }
     .pick-letter { display: inline-flex; align-items: center; justify-content: center; width: 1.5rem; height: 1.5rem; margin-left: 6px; border-radius: 50%; background: var(--violet); color: #fff; font-size: 0.78rem; font-weight: 900; }
@@ -800,7 +807,7 @@
     if (brand && !brand.querySelector('.ticket-store')) brand.innerHTML = `<div class="ticket-seal">${ICON_SCALE}</div>`;
   }
 
-  /* ===== بطاقة الجائزة (إجابة صحيحة) ===== */
+  /* ===== بطاقة الجائزة (إجابة صحيحة) - بدون عنوان القضية + توازي مرتب ===== */
   function buildWinHTML(promo) {
     let ticket = '';
     if (promo.code) {
@@ -820,11 +827,11 @@
         <div class="tear"></div>
         <div class="code-label">كود الخصم</div>
         <div class="code-box">
-          <button type="button" class="code-copy" id="copyCodeBtn" onclick="copyPromoCode()" aria-label="نسخ الكود">${ICON_COPY}</button>
           <div class="code-text" id="promoCodeText">${esc(promo.code)}</div>
         </div>
         ${d ? `<div class="ticket-exp">${ICON_CAL}<span>صالحة حتى ${esc(d)}</span></div>` : ''}
-      </div>`;
+      </div>
+      <button class="btn copy-btn" style="margin-top: 0.75rem;" onclick="copyPromoCode()">${ICON_COPY}<span>نسخ الكود</span></button>`;
     }
     return `
     <div class="res-card win">
@@ -875,13 +882,6 @@
         ok = document.execCommand('copy');
         ta.remove();
       } catch (e) {}
-    }
-    if (ok) {
-      const cb = document.getElementById('copyCodeBtn');
-      if (cb) {
-        cb.classList.add('done'); cb.innerHTML = ICON_CHECK;
-        setTimeout(() => { cb.classList.remove('done'); cb.innerHTML = ICON_COPY; }, 1800);
-      }
     }
     showToast(ok ? 'تم نسخ الكود بنجاح ✅' : 'تعذّر النسخ، اضغطي مطولاً على الكود وانسخيه');
   }
