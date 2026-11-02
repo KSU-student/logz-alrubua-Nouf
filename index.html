@@ -21,7 +21,6 @@
       --card-bg: rgba(43, 27, 44, 0.96);
       --line: rgba(210, 215, 223, 0.25);
       --logo-max-width: 9rem;
-      --logo-margin-y: -1.2rem;
     }
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
@@ -103,7 +102,8 @@
     .club-logo-container {
       text-align: center; margin: 0 auto; position: relative; width: 100%;
       display: flex; justify-content: center; align-items: center;
-      cursor: pointer; z-index: 10; padding: 0.4rem 0;
+      cursor: pointer; z-index: 10; padding: 0.6rem 0;
+      user-select: none; -webkit-tap-highlight-color: transparent;
     }
     .real-logo {
       position: relative; width: 100%; max-width: var(--logo-max-width); height: auto; display: block; margin: 0 auto;
@@ -229,21 +229,8 @@
       80% { transform: translateX(6px); } 100% { transform: translateX(0); }
     }
     .shaking { animation: shake 0.4s ease-in-out; }
-    .opt-btn.selected-correct { background: rgba(34, 197, 94, 0.35) !important; border-color: #22c55e !important; box-shadow: 0 0 16px rgba(34, 197, 94, 0.6) !important; }
-    .opt-btn.selected-wrong { background: rgba(239, 68, 68, 0.35) !important; border-color: #ef4444 !important; box-shadow: 0 0 16px rgba(239, 68, 68, 0.6) !important; }
 
     .result-box { margin-top: 0.875rem; padding: 1rem 0.75rem; border-radius: 0.625rem; text-align: center; line-height: 1.5; }
-    .result-box h3 { margin: 4px 0; font-size: 0.94rem; }
-    .result-box p { font-size: 0.8rem; white-space: pre-wrap; overflow-wrap: anywhere; }
-    .success { background: rgba(34, 197, 94, 0.15); border: 1.5px solid #22c55e; }
-    .error { background: rgba(239, 68, 68, 0.15); border: 1.5px solid #ef4444; }
-
-    .verdict-stamp {
-      display: inline-block; font-weight: 900; font-size: 0.8rem; letter-spacing: 1px;
-      padding: 2px 12px; border: 2px solid; border-radius: 6px; transform: rotate(-4deg); margin-bottom: 4px;
-    }
-    .success .verdict-stamp { color: #4ade80; border-color: #4ade80; }
-    .error .verdict-stamp { color: #f87171; border-color: #f87171; }
 
     .poster-page-card, .leaderboard-card { text-align: center; padding: 1.125rem 0.875rem; }
     .poster-img-container {
@@ -258,84 +245,35 @@
       padding: 0.44rem 0.75rem; border-radius: 0.5rem; margin-bottom: 0.625rem; text-align: center;
     }
 
-    .leaderboard-title {
-      font-size: 1.02rem;
-      font-weight: 800;
-      color: var(--white-soft);
-      margin-bottom: 0.75rem;
-      line-height: 1.6;
-    }
+    .leaderboard-title { font-size: 1.02rem; font-weight: 800; color: var(--white-soft); margin-bottom: 0.75rem; line-height: 1.6; }
 
     .rank-box {
-      background: rgba(142, 124, 147, 0.12);
-      border: 1.5px solid var(--violet);
-      border-radius: 0.75rem;
-      padding: 0.75rem 0.5rem;
-      margin-bottom: 0.75rem;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      gap: 8px;
+      background: rgba(142, 124, 147, 0.12); border: 1.5px solid var(--violet);
+      border-radius: 0.75rem; padding: 0.75rem 0.5rem; margin-bottom: 0.75rem;
+      display: flex; justify-content: space-around; align-items: center; gap: 8px;
     }
-    .rank-item {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .rank-divider {
-      width: 1.5px;
-      height: 2.2rem;
-      background: rgba(210, 215, 223, 0.25);
-    }
-    .rank-label {
-      font-size: 0.72rem;
-      color: var(--violet-soft);
-      font-weight: 700;
-      margin-bottom: 2px;
-    }
-    .rank-number {
-      font-size: 1.25rem;
-      font-weight: 900;
-      color: var(--white-soft);
-    }
+    .rank-item { flex: 1; display: flex; flex-direction: column; align-items: center; }
+    .rank-divider { width: 1.5px; height: 2.2rem; background: rgba(210, 215, 223, 0.25); }
+    .rank-label { font-size: 0.72rem; color: var(--violet-soft); font-weight: 700; margin-bottom: 2px; }
+    .rank-number { font-size: 1.25rem; font-weight: 900; color: var(--white-soft); }
 
     .points-info-box {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px dashed rgba(142, 124, 147, 0.6);
-      border-radius: 0.625rem;
-      padding: 0.625rem 0.75rem;
-      margin-bottom: 0.75rem;
-      text-align: right;
-      font-size: 0.72rem;
-      color: rgba(248, 249, 250, 0.84);
-      line-height: 1.6;
-      font-weight: 400;
+      background: rgba(255, 255, 255, 0.03); border: 1px dashed rgba(142, 124, 147, 0.6);
+      border-radius: 0.625rem; padding: 0.625rem 0.75rem; margin-bottom: 0.75rem;
+      text-align: right; font-size: 0.72rem; color: rgba(248, 249, 250, 0.84); line-height: 1.6; font-weight: 400;
     }
     .points-info-box strong { color: var(--violet-soft); font-weight: 700; }
 
     .hidden { display: none !important; }
-
     .admin-panel { background: rgba(43, 27, 44, 0.98); border: 2px solid var(--violet); margin-top: 0.75rem; }
 
-    /* ===== التوقيع والبيانات في ذيل الصفحة (خارج البوكس تماماً) ===== */
     .signature { 
-      margin-top: 1.25rem; 
-      text-align: center; 
-      font-size: 0.68rem; 
-      color: rgba(248,249,250,0.65); 
-      letter-spacing: 0.5px; 
-      line-height: 1.7; 
-      width: 100%;
+      margin-top: 1.25rem; text-align: center; font-size: 0.68rem; color: rgba(248,249,250,0.65); 
+      letter-spacing: 0.5px; line-height: 1.7; width: 100%;
     }
     .signature a { 
-      color: var(--violet-soft); 
-      font-weight: 800;
-      text-decoration: none; 
-      border-bottom: 1.5px dashed var(--violet); 
-      cursor: pointer; 
-      padding: 0 4px; 
-      transition: color 0.2s;
+      color: var(--violet-soft); font-weight: 800; text-decoration: none; 
+      border-bottom: 1.5px dashed var(--violet); cursor: pointer; padding: 0 4px; transition: color 0.2s;
     }
     .signature a:hover { color: #fff; border-bottom-style: solid; }
     .signature bdi { direction: ltr; unicode-bidi: isolate; }
@@ -349,7 +287,6 @@
     }
     .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-    /* ===== الصفحة بدون بوكس (البوكس للتسجيل فقط) ===== */
     #userInfoStep { max-width: 26.5rem; }
     .card.card-flat {
       background: none; border: none; box-shadow: none; border-radius: 0;
@@ -358,17 +295,13 @@
     }
     .card.card-flat .corner { display: none; }
 
-    /* ===== بطاقات النتيجة ===== */
     .res-card { width: 100%; display: flex; flex-direction: column; align-items: stretch; gap: 0.85rem; text-align: center; margin-top: 0.6rem; }
     .res-icon { align-self: center; width: 3.3rem; height: 3.3rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1.5px solid; }
     .res-icon svg { width: 52%; height: 52%; }
     
-    /* أيقونة الصحيح بلون أخضر ناصع وواضح */
     .res-icon.ok { 
-      border-color: #22c55e !important; 
-      color: #4ade80 !important; 
-      background: rgba(34, 197, 94, 0.2) !important; 
-      box-shadow: 0 0 22px rgba(34, 197, 94, 0.4) !important; 
+      border-color: #22c55e !important; color: #4ade80 !important; 
+      background: rgba(34, 197, 94, 0.2) !important; box-shadow: 0 0 22px rgba(34, 197, 94, 0.4) !important; 
     }
     .res-icon.no { width: 2.8rem; height: 2.8rem; border-color: #9b5f6a; color: #c08a93; background: rgba(155,95,106,0.14); }
     .res-title { margin: 0; font-size: 1.1rem; font-weight: 900; line-height: 1.7; color: var(--white-soft); overflow-wrap: anywhere; white-space: pre-wrap; }
@@ -429,7 +362,7 @@
     <div class="card" id="userInfoStep">
       <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
 
-      <div class="club-logo-container" onclick="triggerSecretAdminField()">
+      <div class="club-logo-container" id="adminTriggerLogo" onclick="triggerSecretAdminField()">
         <img src="Logo22.png" alt="وحدة الإرشاد الأكاديمي" class="real-logo">
       </div>
       <div class="divider"></div>
@@ -934,7 +867,7 @@
     showToast(ok ? 'تم نسخ الكود بنجاح ✅' : 'تعذّر النسخ، اضغطي مطولاً على الكود وانسخيه');
   }
 
-  /* ===== معالجة الشعار وضغطه ليكون بحجم صغير وخفيف جداً ===== */
+  /* ===== معالجة الشعار وضغطه ===== */
   function setLogoUI(i) {
     const prev = document.getElementById('p_logoPrev' + i);
     const del = document.getElementById('p_logoDel' + i);
@@ -954,7 +887,6 @@
     reader.onload = () => {
       const img = new Image();
       img.onload = () => {
-        // ضغط الصورة بقوة بحيث تكون أبعادها صغيرة وخفيفة جداً لمنع أي مشاكل في الحفظ
         const maxDim = 80;
         const k = Math.min(1, maxDim / Math.max(img.width, img.height));
         const c = document.createElement('canvas');
@@ -992,7 +924,10 @@
     const container = document.getElementById('secretAdminContainer');
     if (!container) return;
     container.classList.toggle('hidden');
-    if (!container.classList.contains('hidden')) document.getElementById('adminPassInput').focus();
+    if (!container.classList.contains('hidden')) {
+      const pInput = document.getElementById('adminPassInput');
+      if (pInput) pInput.focus();
+    }
   }
 
   async function api(payload) {
@@ -1038,12 +973,16 @@
   }
 
   function showFormError(msg, fieldId) {
-    document.getElementById('formError').textContent = msg;
+    const errEl = document.getElementById('formError');
+    if (errEl) errEl.textContent = msg;
     ['userName', 'userPhone', 'adminPassInput'].forEach(id => {
       const el = document.getElementById(id);
       if (el) el.classList.remove('invalid');
     });
-    if (fieldId) document.getElementById(fieldId).classList.add('invalid');
+    if (fieldId) {
+      const target = document.getElementById(fieldId);
+      if (target) target.classList.add('invalid');
+    }
   }
 
   async function loadRemoteConfig() {
@@ -1466,7 +1405,7 @@
       codes: codes,
       ruling: getVal('p_ruling'),
       successMsg: getVal('p_successMsg'),
-      wrongMsg: getVal('p_wrongMsg']
+      wrongMsg: getVal('p_wrongMsg')
     };
 
     const saveBtn = document.getElementById('saveSettingsBtn');
