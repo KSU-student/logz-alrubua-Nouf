@@ -314,7 +314,10 @@
       box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 24px rgba(142,124,147,0.25);
     }
     .ticket-brand { display: flex; flex-direction: column; align-items: center; gap: 4px; margin-bottom: 0.4rem; }
-    .ticket-logo { max-height: 3.2rem; max-width: 9rem; object-fit: contain; display: block; }
+    
+    /* تعديل عرض وطول الشعار في التذكرة ليكون نظيفاً وبدون خلفية سوداء */
+    .ticket-logo { max-height: 3.5rem; max-width: 10rem; object-fit: contain; display: block; background: transparent !important; }
+    
     .ticket-store { font-size: 0.95rem; font-weight: 900; color: #2B1B2C; }
     .ticket-desc { font-size: 0.88rem; font-weight: 800; color: #5c4762; line-height: 1.5; margin-bottom: 0.2rem; text-align: center; }
     .ticket-seal { width: 2.2rem; height: 2.2rem; color: var(--violet); }
@@ -586,8 +589,8 @@
           <div class="field" style="margin-bottom: 6px;"><input type="text" id="p_store0" placeholder="اسم الجهة / المحل (الأول)"></div>
           <div class="field" style="margin-bottom: 6px;"><input type="text" id="p_desc0" placeholder="وصف العرض / كم الخصم (مثال: خصم 10% والتوصيل مجاني)"></div>
           <div class="field" style="margin-bottom: 6px; display:flex; align-items:center; gap:8px;">
-            <img id="p_logoPrev0" class="hidden" alt="" style="height:2.2rem; max-width:4.5rem; object-fit:contain; background:#fff; border-radius:6px; padding:2px;">
-            <label for="p_logo0" class="admin-nav-btn" style="flex:1; margin:0; cursor:pointer;">🖼️ إرفاق شعار الجهة (اختياري)</label>
+            <img id="p_logoPrev0" class="hidden" alt="" style="height:2.2rem; max-width:4.5rem; object-fit:contain; background:transparent; border-radius:6px; padding:2px;">
+            <label for="p_logo0" class="admin-nav-btn" style="flex:1; margin:0; cursor:pointer;">🖼️ إرفاق شعار الجهة (بدون خلفية سوداء)</label>
             <input type="file" id="p_logo0" accept="image/*" class="hidden" onchange="onLogoPick(0, this)">
             <button type="button" id="p_logoDel0" class="admin-nav-btn hidden" style="flex:0 0 auto;" onclick="clearLogo(0)">حذف</button>
           </div>
@@ -599,8 +602,8 @@
           <div class="field" style="margin-bottom: 6px;"><input type="text" id="p_store1" placeholder="اسم الجهة / المحل (الثاني)"></div>
           <div class="field" style="margin-bottom: 6px;"><input type="text" id="p_desc1" placeholder="وصف العرض / كم الخصم"></div>
           <div class="field" style="margin-bottom: 6px; display:flex; align-items:center; gap:8px;">
-            <img id="p_logoPrev1" class="hidden" alt="" style="height:2.2rem; max-width:4.5rem; object-fit:contain; background:#fff; border-radius:6px; padding:2px;">
-            <label for="p_logo1" class="admin-nav-btn" style="flex:1; margin:0; cursor:pointer;">🖼️ إرفاق شعار الجهة (اختياري)</label>
+            <img id="p_logoPrev1" class="hidden" alt="" style="height:2.2rem; max-width:4.5rem; object-fit:contain; background:transparent; border-radius:6px; padding:2px;">
+            <label for="p_logo1" class="admin-nav-btn" style="flex:1; margin:0; cursor:pointer;">🖼️ إرفاق شعار الجهة (بدون خلفية سوداء)</label>
             <input type="file" id="p_logo1" accept="image/*" class="hidden" onchange="onLogoPick(1, this)">
             <button type="button" id="p_logoDel1" class="admin-nav-btn hidden" style="flex:0 0 auto;" onclick="clearLogo(1)">حذف</button>
           </div>
@@ -612,8 +615,8 @@
           <div class="field" style="margin-bottom: 6px;"><input type="text" id="p_store2" placeholder="اسم الجهة / المحل (الثالث)"></div>
           <div class="field" style="margin-bottom: 6px;"><input type="text" id="p_desc2" placeholder="وصف العرض / كم الخصم"></div>
           <div class="field" style="margin-bottom: 6px; display:flex; align-items:center; gap:8px;">
-            <img id="p_logoPrev2" class="hidden" alt="" style="height:2.2rem; max-width:4.5rem; object-fit:contain; background:#fff; border-radius:6px; padding:2px;">
-            <label for="p_logo2" class="admin-nav-btn" style="flex:1; margin:0; cursor:pointer;">🖼️ إرفاق شعار الجهة (اختياري)</label>
+            <img id="p_logoPrev2" class="hidden" alt="" style="height:2.2rem; max-width:4.5rem; object-fit:contain; background:transparent; border-radius:6px; padding:2px;">
+            <label for="p_logo2" class="admin-nav-btn" style="flex:1; margin:0; cursor:pointer;">🖼️ إرفاق شعار الجهة (بدون خلفية سوداء)</label>
             <input type="file" id="p_logo2" accept="image/*" class="hidden" onchange="onLogoPick(2, this)">
             <button type="button" id="p_logoDel2" class="admin-nav-btn hidden" style="flex:0 0 auto;" onclick="clearLogo(2)">حذف</button>
           </div>
@@ -625,8 +628,8 @@
           <div class="field" style="margin-bottom: 6px;"><input type="text" id="p_store3" placeholder="اسم الجهة / المحل (الرابع)"></div>
           <div class="field" style="margin-bottom: 6px;"><input type="text" id="p_desc3" placeholder="وصف العرض / كم الخصم"></div>
           <div class="field" style="margin-bottom: 6px; display:flex; align-items:center; gap:8px;">
-            <img id="p_logoPrev3" class="hidden" alt="" style="height:2.2rem; max-width:4.5rem; object-fit:contain; background:#fff; border-radius:6px; padding:2px;">
-            <label for="p_logo3" class="admin-nav-btn" style="flex:1; margin:0; cursor:pointer;">🖼️ إرفاق شعار الجهة (اختياري)</label>
+            <img id="p_logoPrev3" class="hidden" alt="" style="height:2.2rem; max-width:4.5rem; object-fit:contain; background:transparent; border-radius:6px; padding:2px;">
+            <label for="p_logo3" class="admin-nav-btn" style="flex:1; margin:0; cursor:pointer;">🖼️ إرفاق شعار الجهة (بدون خلفية سوداء)</label>
             <input type="file" id="p_logo3" accept="image/*" class="hidden" onchange="onLogoPick(3, this)">
             <button type="button" id="p_logoDel3" class="admin-nav-btn hidden" style="flex:0 0 auto;" onclick="clearLogo(3)">حذف</button>
           </div>
@@ -638,8 +641,8 @@
           <div class="field" style="margin-bottom: 6px;"><input type="text" id="p_store4" placeholder="اسم الجهة / المحل (الخامس)"></div>
           <div class="field" style="margin-bottom: 6px;"><input type="text" id="p_desc4" placeholder="وصف العرض / كم الخصم"></div>
           <div class="field" style="margin-bottom: 6px; display:flex; align-items:center; gap:8px;">
-            <img id="p_logoPrev4" class="hidden" alt="" style="height:2.2rem; max-width:4.5rem; object-fit:contain; background:#fff; border-radius:6px; padding:2px;">
-            <label for="p_logo4" class="admin-nav-btn" style="flex:1; margin:0; cursor:pointer;">🖼️ إرفاق شعار الجهة (اختياري)</label>
+            <img id="p_logoPrev4" class="hidden" alt="" style="height:2.2rem; max-width:4.5rem; object-fit:contain; background:transparent; border-radius:6px; padding:2px;">
+            <label for="p_logo4" class="admin-nav-btn" style="flex:1; margin:0; cursor:pointer;">🖼️ إرفاق شعار الجهة (بدون خلفية سوداء)</label>
             <input type="file" id="p_logo4" accept="image/*" class="hidden" onchange="onLogoPick(4, this)">
             <button type="button" id="p_logoDel4" class="admin-nav-btn hidden" style="flex:0 0 auto;" onclick="clearLogo(4)">حذف</button>
           </div>
@@ -791,7 +794,7 @@
     } catch (e) { return iso; }
   }
 
-  /* ===== بطاقة الجائزة (إجابة صحيحة) ===== */
+  /* ===== بطاقة الجائزة (إجابة صحيحة) مع الحفاظ على شفافية الشعار ===== */
   function buildWinHTML(promo) {
     let ticket = '';
     if (promo.code) {
@@ -867,7 +870,7 @@
     showToast(ok ? 'تم نسخ الكود بنجاح ✅' : 'تعذّر النسخ، اضغطي مطولاً على الكود وانسخيه');
   }
 
-  /* ===== معالجة الشعار وضغطه ===== */
+  /* ===== معالجة الشعار بدون ضغط يفقد الشفافية (الحفاظ على جودة الـ PNG الشفاف) ===== */
   function setLogoUI(i) {
     const prev = document.getElementById('p_logoPrev' + i);
     const del = document.getElementById('p_logoDel' + i);
@@ -885,22 +888,12 @@
     if (!file) return;
     const reader = new FileReader();
     reader.onload = () => {
-      const img = new Image();
-      img.onload = () => {
-        const maxDim = 80;
-        const k = Math.min(1, maxDim / Math.max(img.width, img.height));
-        const c = document.createElement('canvas');
-        c.width = Math.max(1, Math.round(img.width * k));
-        c.height = Math.max(1, Math.round(img.height * k));
-        c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
-        
-        logoData[i] = c.toDataURL('image/jpeg', 0.7);
-        setLogoUI(i);
-        showToast('تم إرفاق وضغط الشعار بنجاح ✅');
-      };
-      img.onerror = () => showToast('تعذّر قراءة الصورة');
-      img.src = reader.result;
+      // قراءة الملف بصيغته الأصلية (PNG أو غيره) لحفظ الشفافية والجودة العالية تماماً بدون خلفية سوداء
+      logoData[i] = reader.result;
+      setLogoUI(i);
+      showToast('تم إرفاق الشعار بجودة عالية وشفافية أصلية ✅');
     };
+    reader.onerror = () => showToast('تعذّر قراءة الصورة');
     reader.readAsDataURL(file);
   }
 
@@ -1422,7 +1415,7 @@
       document.getElementById('adminPanel').classList.add('hidden');
       initUI();
     } else {
-      showToast('فشل الحفظ، تأكدي من كلمة المرور أو حجم الشعارات');
+      showToast('فشل الحفظ، تأكدي من كلمة المرور');
     }
   }
 
