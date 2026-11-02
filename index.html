@@ -308,30 +308,30 @@
     .res-title.soft { font-size: 1rem; font-weight: 800; color: var(--violet-soft); }
 
     .ticket {
-      position: relative; width: 100%; padding: 1.1rem 1rem 0.9rem; border-radius: 1.1rem;
+      position: relative; width: 100%; padding: 1.35rem 1rem 0.9rem; border-radius: 1.1rem;
       background: linear-gradient(160deg, #F8F9FA 0%, #D2D7DF 100%);
       color: #2B1B2C; border: 1.5px solid var(--violet);
       box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 24px rgba(142,124,147,0.25);
     }
     .ticket-brand { display: flex; flex-direction: column; align-items: center; gap: 4px; margin-bottom: 0.4rem; }
-    
     .ticket-logo { max-height: 3.5rem; max-width: 10rem; object-fit: contain; display: block; background: transparent !important; }
-    
     .ticket-store { font-size: 0.95rem; font-weight: 900; color: #2B1B2C; }
     .ticket-desc { font-size: 0.88rem; font-weight: 800; color: #5c4762; line-height: 1.5; margin-bottom: 0.2rem; text-align: center; }
     .ticket-seal { width: 2.2rem; height: 2.2rem; color: var(--violet); }
     .ticket-brand:empty { display: none; }
     .logo-wrap { display: inline-flex; align-items: center; justify-content: center; }
     .logo-wrap.on-dark { background: #2B1B2C; border-radius: 0.85rem; padding: 0.5rem 0.9rem; box-shadow: inset 0 0 0 1px rgba(210,215,223,0.25), 0 4px 12px rgba(43,27,44,0.25); }
-    .ticket { padding-top: 1.35rem; }
+    
     .ticket-bow { position: absolute; top: -1.5rem; left: -1.2rem; width: 5.8rem; height: auto; pointer-events: none; z-index: 3; opacity: 0.94; filter: drop-shadow(0 7px 7px rgba(43,27,44,0.45)); }
     .bow-tails { transform-box: view-box; transform-origin: 60px 58px; animation: bowSway 5s ease-in-out infinite; }
     @keyframes bowSway { 0%, 100% { transform: rotate(-1.6deg); } 50% { transform: rotate(1.6deg); } }
+
     .code-copy { flex: 0 0 auto; width: 2.5rem; height: 2.5rem; border-radius: 0.7rem; border: 1px solid rgba(210,215,223,0.35); background: rgba(142,124,147,0.28); color: var(--white-soft); display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0; transition: 0.2s; }
     .code-copy:hover { background: rgba(142,124,147,0.5); }
     .code-copy:active { transform: scale(0.92); }
     .code-copy svg { width: 1.2rem; height: 1.2rem; }
     .code-copy.done { background: rgba(34,197,94,0.25); border-color: #22c55e; color: #4ade80; }
+
     .tear { position: relative; height: 0; margin: 0.85rem -1rem; border-top: 2px dashed rgba(142,124,147,0.7); }
     .tear::before, .tear::after { content: ""; position: absolute; top: -10px; width: 18px; height: 18px; border-radius: 50%; background: #2B1B2C; border: 1.5px solid var(--violet); }
     .tear::before { right: -10px; }
@@ -596,7 +596,7 @@
 
       <div style="background: rgba(142,124,147,0.07); border: 1px solid var(--line); border-radius: 0.5rem; padding: 0.5rem; margin-bottom: 0.75rem;">
         <label style="margin-bottom: 4px;">أكواد الخصم (حتى 5، مع الجهة والوصف والشعار):</label>
-        <div class="hint" style="margin-bottom: 8px;">للشعار: ارفعي صورته في GitHub بجانب ملفات الصفحة (بجودتها الأصلية بدون أي ضغط)، ثم اختاريها هنا أو اكتبي اسم الملف بالضبط.</div>
+        <div class="hint" style="margin-bottom: 8px;">للشعار: اكتبي اسم ملف الصورة المرفوع في GitHub (مثال: `brand1.png`)، وسيظهر بجودته الأصلية وشفافيته الكاملة في القسيمة.</div>
         <div id="codesContainer"></div>
       </div>
 
@@ -743,17 +743,17 @@
     } catch (e) { return iso; }
   }
 
-  /* ===== مسار الشعار: اسم ملف مرفوع في GitHub (بجودته الأصلية) ===== */
+  /* ===== مسار الشعار: اسم ملف مرفوع في GitHub بجودته الأصلية ===== */
   function logoSrc(name) {
     name = String(name || '').trim();
     if (!name) return '';
-    if (/^data:image\/(png|jpeg|webp|gif);base64,[A-Za-z0-9+\/=]+$/.test(name)) return name; // شعارات قديمة محفوظة سابقاً
+    if (/^data:image\/(png|jpeg|webp|gif);base64,[A-Za-z0-9+\/=]+$/.test(name)) return name;
     if (name.includes('..')) return '';
     if (!/^[\w\u0600-\u06FF\-. ()]+(\/[\w\u0600-\u06FF\-. ()]+)*\.(png|jpe?g|webp|gif|svg)$/i.test(name)) return '';
     return name.split('/').map(encodeURIComponent).join('/');
   }
 
-  /* ===== فيونكة القسيمة (بألوان الهوية، شفافة قليلاً مع ظل) ===== */
+  /* ===== فيونكة القسيمة الفاخرة ===== */
   const BOW_SVG = `<svg class="ticket-bow" viewBox="0 0 120 116" aria-hidden="true">
     <defs>
       <linearGradient id="bwL" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#B2A0B8"/><stop offset=".55" stop-color="#6a5a70"/><stop offset="1" stop-color="#2B1B2C"/></linearGradient>
@@ -779,9 +779,8 @@
     <path d="M55 45.5C58 43.5 62 43.5 65 45.5" fill="none" stroke="#F8F9FA" stroke-opacity=".5" stroke-width="1.3" stroke-linecap="round"/>
   </svg>`;
 
-  /* ===== التعامل مع الشعار داخل القسيمة ===== */
+  /* ===== تكييف الشعار تلقائياً إذا كان فاتحاً ليكون واضحاً ===== */
   function adaptLogo(img) {
-    // الشعار الأبيض الشفاف يوضع على شريحة داكنة عشان يبان فوق ورقة القسيمة الفاتحة
     try {
       const w = Math.min(64, img.naturalWidth || 64), h = Math.min(64, img.naturalHeight || 64);
       const c = document.createElement('canvas'); c.width = w; c.height = h;
@@ -907,7 +906,6 @@
       </div>`).join('');
   }
 
-  /* ===== الشعار: نخزّن اسم الملف فقط، والصورة نفسها في GitHub بدون أي ضغط ===== */
   const logoCheckTimers = {};
   function checkLogoRemote(i) {
     clearTimeout(logoCheckTimers[i]);
@@ -922,7 +920,7 @@
       stat.style.color = 'rgba(248,249,250,0.6)'; stat.textContent = '⏳ جاري فحص الملف في GitHub...';
       const im = new Image();
       im.onload = () => { stat.style.color = '#86efac'; stat.textContent = '✅ الملف موجود في GitHub وبيظهر في القسيمة'; };
-      im.onerror = () => { stat.style.color = '#fca5a5'; stat.textContent = '❌ ما لقيت هذا الملف في GitHub. ارفعيه بنفس الاسم بالضبط (الحروف الكبيرة والصغيرة والامتداد)، وانتظري دقيقة بعد الرفع'; };
+      im.onerror = () => { stat.style.color = '#fca5a5'; stat.textContent = '❌ ما لقيت هذا الملف في GitHub. ارفعيه بنفس الاسم بالضبط (الحروف الكبيرة والصغيرة والامتداد)'; };
       im.src = src + (src.includes('?') ? '&' : '?') + 't=' + Date.now();
     }, 450);
   }
@@ -1407,7 +1405,6 @@
       setVal('p_desc' + i, pr.desc);
       setVal('p_exp' + i, pr.exp);
       setVal('p_code' + i, pr.code);
-      // الشعارات القديمة المحفوظة كنص طويل لا تُعرض كاسم ملف، فنتركها فاضية لإعادة اختيارها
       setVal('p_logoFile' + i, /^data:/.test(pr.logo) ? '' : pr.logo);
       localLogoPreview[i] = '';
       refreshLogoPreview(i, false);
