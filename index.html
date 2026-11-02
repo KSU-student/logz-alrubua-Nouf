@@ -432,7 +432,6 @@
         <img src="Logo22.png" alt="وحدة الإرشاد الأكاديمي" class="real-logo">
       </div>
 
-      <!-- تم إزالة عنوان القضية تماماً بناءً على طلبك -->
       <div class="divider" style="margin-top: 4px;"></div>
       <div class="status-bar" id="statusBar"><i></i> <span id="adminNoticeBadge">قيد التحقيق</span></div>
 
@@ -623,7 +622,7 @@
   </div>
 
 <script>
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwoqR5vu-zSZKLlXvbPPLITFOVb3MpdQnxk9z0wA6C_IFBSDFJLMy7qcCtg_D8rHDE/exec";
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw-KYUVG1PGODv-2B0igc_uAxy8IjR4figa2fuZOfz3UPkRTprVLvZt8LJDhOA1LbRl/exec";
   const ADMIN_ID = "ADMIN";
   const MAIL_TO = "Noufalawad20@gmail.com";
   const CONFIG_CACHE_KEY = 'case_config_cache_v2';
@@ -1223,7 +1222,7 @@
 
     const r = await api(isAdmin
       ? { action: 'adminPreview', password: adminPassword, answerIndex: selectedIndex }
-      : { action: 'submitAnswer', name: userData.name, phone: userData.phone, answerIndex: selectedIndex });
+      : { action: 'submitAnswer', name: userData.name, phone: userData.phone, answerIndex: selectedIndex, caseTitle: caseTitle() });
 
     if (btn) btn.classList.remove('shaking');
 
@@ -1345,7 +1344,7 @@
 
   async function awardSharePoints() {
     if (isUserAdmin()) return null;
-    const r = await api({ action: 'sharePoster', phone: userData.phone });
+    const r = await api({ action: 'sharePoster', phone: userData.phone, caseTitle: caseTitle() });
     return (r && r.ok) ? r : null;
   }
 
