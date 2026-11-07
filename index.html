@@ -14,9 +14,6 @@
       --violet: #8E7C93;
       --violet-soft: #D2D7DF;
       --white-soft: #F8F9FA;
-      --amber: #e9a23b;
-      --amber-dark: #ac6d2d;
-      --amber-light: #f6c978;
       --card-bg: rgba(43, 27, 44, 0.96);
       --line: rgba(210, 215, 223, 0.25);
       --logo-max-width: 9rem;
@@ -48,13 +45,13 @@
     .transition-layer { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 999; }
     .transition-tape {
       position: absolute; top: 50%; left: -150%; width: 140%; height: 4rem;
-      background: repeating-linear-gradient(-45deg, var(--amber), var(--amber) 25px, #1a0f1b 25px, #1a0f1b 50px);
+      background: repeating-linear-gradient(-45deg, #8E7C93, #8E7C93 25px, #1a0f1b 25px, #1a0f1b 50px);
       transform: translateY(-50%) rotate(-8deg);
       box-shadow: 0 0 50px rgba(0,0,0,0.9);
       display: flex; align-items: center; justify-content: center;
       transition: left 0.4s ease-in-out; visibility: hidden;
     }
-    .transition-tape span { background: #1a0f1b; color: var(--amber); font-size: 1.1rem; font-weight: 900; padding: 4px 1.1rem; letter-spacing: 2px; }
+    .transition-tape span { background: #1a0f1b; color: var(--violet-soft); font-size: 1.1rem; font-weight: 900; padding: 4px 1.1rem; letter-spacing: 2px; }
     .transition-tape.active { left: -10%; visibility: visible; }
 
     .app-wrapper {
@@ -110,8 +107,7 @@
     }
     p.sub { text-align: center; color: rgba(248,249,250,0.78); margin: 0 0 1rem; font-size: 0.76rem; }
 
-    .field { margin-button: 0.7rem; }
-    .hint { font-size: 0.66rem; color: rgba(248,249,250,0.6); margin-top: 3px; line-height: 1.5; }
+    .field { margin-bottom: 0.7rem; }
     label { display: block; margin-bottom: 3px; font-weight: 700; font-size: 0.76rem; color: var(--violet-soft); }
     input[type="text"], input[type="tel"], input[type="password"], input[type="date"], textarea, select {
       width: 100%; padding: 0.6rem 0.75rem; border-radius: 0.625rem; border: 1.5px solid var(--line);
@@ -119,7 +115,6 @@
       outline: none; transition: 0.3s;
     }
     input:focus, textarea:focus, select:focus { border-color: var(--violet); box-shadow: 0 0 12px rgba(142, 124, 147, 0.35); }
-    input.invalid { border-color: #f87171; }
     textarea { resize: vertical; height: 3.75rem; line-height: 1.6; }
     textarea.tall { height: 9rem; }
     textarea.mid { height: 5rem; }
@@ -135,7 +130,6 @@
       box-shadow: 0 4px 16px rgba(142, 124, 147, 0.4);
     }
     .btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(142, 124, 147, 0.6); }
-    .btn-amber { background: linear-gradient(135deg, #9d8ca3, #6f5f75); border-bottom-color: var(--violet-soft); }
     .btn-violet { background: linear-gradient(135deg, var(--violet), #47374c); border-color: var(--violet-soft); }
 
     .admin-luxury-nav {
@@ -175,28 +169,27 @@
     }
     .question-zoom { font-size: 0.92rem; font-weight: 700; line-height: 1.7; color: var(--white-soft); white-space: pre-wrap; overflow-wrap: anywhere; }
 
-    /* تصميم زر اللمبة الجديد (مستوحى من صورتك بلون الهوية مع وميض نابض) */
-    .bulb-hint-container {
-      display: flex; align-items: center; justify-content: center; margin: 8px 0 12px; z-index: 5; position: relative;
+    /* تصميم زر التلميح المتناسق مع الهوية (بدون أصفر وبدون وميض مزعج) */
+    .hint-trigger-box {
+      display: flex; align-items: center; justify-content: center; margin: 8px 0 10px;
     }
-    .bulb-btn {
-      background: rgba(142, 124, 147, 0.15); border: 1.5px solid var(--violet-soft);
-      color: var(--amber-light); border-radius: 999px; padding: 6px 14px;
+    .hint-trigger-btn {
+      background: rgba(142, 124, 147, 0.18); border: 1.5px solid var(--violet-soft);
+      color: var(--violet-soft); border-radius: 0.75rem; padding: 0.55rem 1rem;
       display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
-      font-family: inherit; font-size: 0.78rem; font-weight: 800;
-      box-shadow: 0 0 15px rgba(233, 162, 59, 0.2);
-      animation: bulbPulse 2s infinite ease-in-out;
-      transition: 0.25s;
+      font-family: inherit; font-size: 0.8rem; font-weight: 800; transition: 0.25s;
+      width: 100%; justify-content: center;
     }
-    .bulb-btn:hover { background: rgba(142, 124, 147, 0.3); transform: scale(1.05); }
-    .bulb-btn svg { width: 1.25rem; height: 1.25rem; fill: currentColor; }
+    .hint-trigger-btn:hover { background: rgba(142, 124, 147, 0.35); color: #fff; border-color: #fff; }
 
-    @keyframes bulbPulse {
-      0%, 100% { box-shadow: 0 0 8px rgba(233,162,59,0.3), 0 0 2px rgba(142,124,147,0.2); transform: scale(1); }
-      50% { box-shadow: 0 0 22px rgba(233,162,59,0.7), 0 0 8px rgba(142,124,147,0.5); transform: scale(1.03); }
+    /* مربع التلميح الداخلي (بنفسجي ناعم بدون أطراف بارزة) */
+    .hint-box {
+      background: rgba(142, 124, 147, 0.12); border: 1px solid var(--violet);
+      border-radius: 0.75rem; padding: 0.8rem; margin-bottom: 0.8rem;
+      font-size: 0.82rem; font-weight: 700; color: var(--white-soft); line-height: 1.7; text-align: right;
     }
 
-    /* موديل إشعار التنبيه المنبثق للتلميح */
+    /* موديل إشعار التنبيه المنبثق (بنفسجي هادئ منسجم مع الهوية) */
     .modal-overlay {
       position: fixed; inset: 0; background: rgba(20, 10, 22, 0.8);
       backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
@@ -206,29 +199,22 @@
     .modal-overlay.active { opacity: 1; pointer-events: auto; }
     
     .modal-card {
-      background: linear-gradient(135deg, rgba(142,124,147,0.2), rgba(43,27,44,0.95));
+      background: linear-gradient(135deg, rgba(142,124,147,0.2), rgba(43,27,44,0.98));
       border: 1.5px solid var(--violet-soft); border-radius: 1.1rem;
       padding: 1.5rem 1.2rem; width: 100%; max-width: 22rem; text-align: center;
       box-shadow: 0 10px 40px rgba(0,0,0,0.8), 0 0 25px rgba(142,124,147,0.25);
       transform: translateY(15px); transition: transform 0.3s ease;
     }
     .modal-overlay.active .modal-card { transform: translateY(0); }
-    .modal-icon { font-size: 2.2rem; margin-bottom: 0.5rem; }
-    .modal-title { font-size: 1.05rem; font-weight: 900; color: var(--white-soft); margin-bottom: 0.5rem; }
+    .modal-icon { font-size: 2rem; margin-bottom: 0.4rem; color: var(--violet-soft); }
+    .modal-title { font-size: 1.05rem; font-weight: 900; color: var(--white-soft); margin-bottom: 0.4rem; }
     .modal-desc { font-size: 0.82rem; font-weight: 600; color: rgba(248,249,250,0.85); line-height: 1.7; margin-bottom: 1.2rem; }
     .modal-actions { display: flex; gap: 8px; }
     .modal-btn { flex: 1; padding: 0.65rem; border-radius: 0.6rem; font-family: inherit; font-weight: 800; font-size: 0.85rem; cursor: pointer; transition: 0.2s; }
     .modal-btn.cancel { background: rgba(255,255,255,0.08); border: 1.5px solid var(--line); color: var(--violet-soft); }
     .modal-btn.cancel:hover { background: rgba(255,255,255,0.15); color: #fff; }
-    .modal-btn.confirm { background: var(--violet); border: 1.5px solid var(--violet-soft); color: #fff; box-shadow: 0 4px 15px rgba(142,124,147,0.4); }
+    .modal-btn.confirm { background: var(--violet); border: 1.5px solid var(--violet-soft); color: #fff; }
     .modal-btn.confirm:hover { background: #7c6882; }
-
-    .hint-box {
-      background: rgba(142, 124, 147, 0.15); border: 1.5px dashed var(--violet);
-      border-radius: 0.75rem; padding: 0.8rem; margin-bottom: 0.8rem;
-      font-size: 0.85rem; font-weight: 700; color: var(--white-soft); line-height: 1.7; text-align: right;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    }
 
     .question-box .q-tag {
       position: absolute; top: -9px; right: 14px;
@@ -364,12 +350,12 @@
   </div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <!-- موديول إشعار التنبيه المنبثق للتلميح (أشعار في الوجه) -->
+  <!-- موديول إشعار التنبيه المنبثق للتلميح (ألوان الهوية البنفسجية) -->
   <div class="modal-overlay" id="hintModal">
     <div class="modal-card">
       <div class="modal-icon">💡</div>
       <div class="modal-title">تنبيه قانوني استقصائي</div>
-      <div class="modal-desc">هل أنتِ متأكدة من رغبتكِ في طلب التلميح؟<br><span style="color: #fca5a5; font-size: 0.76rem; display: block; margin-top: 4px;">* تنبيه: استخدام التلميح سيجعل احتساب الإجابة الصحيحة (0.5 نقطة) فقط.</span></div>
+      <div class="modal-desc">هل أنتِ متأكدة من رغبتكِ في طلب التلميح؟<br><span style="color: var(--violet-soft); font-size: 0.76rem; display: block; margin-top: 4px;">* تنبيه: استخدام التلميح سيجعل احتساب الإجابة الصحيحة (0.5 نقطة) فقط.</span></div>
       <div class="modal-actions">
         <button type="button" class="modal-btn cancel" onclick="closeHintModal()">إلغاء</button>
         <button type="button" class="modal-btn confirm" onclick="confirmShowHint()">موافق، أظهر التلميح</button>
@@ -426,7 +412,7 @@
 
     <!-- 2. واجهة اللغز -->
     <div class="card card-flat quiz-card hidden" id="quizStep">
-      <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+      <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br">`</span>
 
       <div class="club-logo-container" onclick="triggerSecretAdminField()">
         <img src="Logo22.png" alt="وحدة الإرشاد الأكاديمي" class="real-logo">
@@ -440,11 +426,10 @@
           <div class="question-zoom" id="qText"></div>
         </div>
 
-        <!-- زر اللمبة الجديد بأسلوب الإشراقة الوامضة في المكان المخصص تحت الوقائع -->
-        <div class="bulb-hint-container">
-          <button type="button" class="bulb-btn" onclick="openHintModal()">
-            <svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1m4-13.91V6h-2v1.09A5.002 5.002 0 0 0 7 12c0 1.66.83 3.12 2.1 4h5.8A4.99 4.99 0 0 0 17 12a5.002 5.002 0 0 0-4-4.91z"/></svg>
-            <span>تحتاجين تلميحاً للقضية؟ 💡</span>
+        <!-- زر تلميح أنيق متوافق تماماً مع الهوية وبدون أصفر أو وميض -->
+        <div class="hint-trigger-box">
+          <button type="button" class="hint-trigger-btn" onclick="openHintModal()">
+            <span>💡 تحتاجين تلميحاً للقضية؟</span>
           </button>
         </div>
 
@@ -500,7 +485,7 @@
         • <strong>معيار التساوي:</strong> من حلّت أولاً تتقدم في الترتيب.<br>
       </div>
 
-      <button class="btn btn-amber" id="posterFromBoardBtn" onclick="goToPosterFromLeaderboard()">
+      <button class="btn btn-violet" id="posterFromBoardBtn" onclick="goToPosterFromLeaderboard()">
         📸 عرض بوستر التحدي والإنجاز
       </button>
 
@@ -526,7 +511,7 @@
         شاركي بوستر إنجازكِ وتحدّي زميلاتكِ في الكلية على لوحة الصدارة:
       </p>
 
-      <button class="btn btn-amber" onclick="sharePosterFile()">
+      <button class="btn btn-violet" onclick="sharePosterFile()">
         🔗 مشاركة أو حفظ البوستر
       </button>
 
@@ -697,7 +682,7 @@
   const ICON_CAL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>';
 
   function triggerCelebrationConfetti() {
-    try { confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 }, colors: ['#e9a23b', '#8E7C93', '#ffffff', '#f6c978'] }); } catch (e) {}
+    try { confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 }, colors: ['#8E7C93', '#D2D7DF', '#ffffff', '#2B1B2C'] }); } catch (e) {}
   }
 
   function openHintModal() {
