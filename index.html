@@ -44,7 +44,7 @@
         radial-gradient(circle at center, #211322 0%, var(--bg-dark) 100%);
     }
 
-    /* شريط الانتقال أصفر كما طلبتِ */
+    /* شريط الانتقال أصفر */
     .transition-layer { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 999; }
     .transition-tape {
       position: absolute; top: 50%; left: -150%; width: 140%; height: 4rem;
@@ -172,25 +172,22 @@
     }
     .question-zoom { font-size: 0.92rem; font-weight: 700; line-height: 1.7; color: var(--white-soft); white-space: pre-wrap; overflow-wrap: anywhere; }
 
-    /* تصميم أيقونة اللمبة الشفافة والمضيئة تماماً عند مكان السؤال */
-    .question-header-row {
-      display: flex; align-items: center; justify-content: space-between; position: relative; margin-top: 6px;
+    /* تصميم أيقونة اللمبة داخل بوكس السؤال بدون أي إطار أو خلفية، وبأطراف نور بنفسجي منسجم مع الهوية */
+    .question-box {
+      position: relative; padding-left: 2.5rem !important;
     }
-    .bulb-icon-btn {
-      background: rgba(142, 124, 147, 0.12); border: 1.5px solid rgba(210, 215, 223, 0.4);
-      color: var(--white-soft); border-radius: 50%; width: 2.1rem; height: 2.1rem;
-      display: inline-flex; align-items: center; justify-content: center; cursor: pointer;
-      backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
-      box-shadow: 0 0 10px rgba(142, 124, 147, 0.3);
-      animation: bulbGlowPulse 1.2s infinite ease-in-out;
-      transition: 0.25s; flex: 0 0 auto;
+    .bulb-inline-icon {
+      position: absolute; left: 12px; bottom: 12px;
+      width: 1.6rem; height: 1.6rem; cursor: pointer; color: var(--violet-soft);
+      animation: violetBulbGlow 1.8s infinite ease-in-out;
+      transition: transform 0.2s ease; z-index: 5;
     }
-    .bulb-icon-btn:hover { background: rgba(142, 124, 147, 0.3); transform: scale(1.08); }
-    .bulb-icon-btn svg { width: 1.15rem; height: 1.15rem; fill: currentColor; }
+    .bulb-inline-icon:hover { transform: scale(1.15); color: #fff; }
+    .bulb-inline-icon svg { width: 100%; height: 100%; fill: currentColor; }
 
-    @keyframes bulbGlowPulse {
-      0%, 100% { opacity: 0.6; box-shadow: 0 0 5px rgba(239, 68, 68, 0.4), 0 0 2px rgba(142, 124, 147, 0.3); border-color: rgba(239, 68, 68, 0.6); }
-      50% { opacity: 1; box-shadow: 0 0 16px rgba(239, 68, 68, 0.9), 0 0 6px rgba(210, 215, 223, 0.8); border-color: #fff; }
+    @keyframes violetBulbGlow {
+      0%, 100% { filter: drop-shadow(0 0 2px rgba(142, 124, 147, 0.4)); opacity: 0.75; }
+      50% { filter: drop-shadow(0 0 10px rgba(142, 124, 147, 0.95)) drop-shadow(0 0 4px #D2D7DF); opacity: 1; }
     }
 
     /* مربع التلميح أو موديل التنبيه المستقل في الوجه */
@@ -221,7 +218,6 @@
     .modal-btn.confirm { background: var(--violet); border: 1.5px solid var(--violet-soft); color: #fff; }
     .modal-btn.confirm:hover { background: #7c6882; }
 
-    .question-box { position: relative; }
     .question-box .q-tag {
       position: absolute; top: -9px; right: 14px;
       background: var(--violet); color: var(--white-soft); font-size: 0.625rem; font-weight: 900;
@@ -356,7 +352,7 @@
   </div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <!-- موديول التلميح المستقل (يظهر في الوجه بنفس تصميم صندوق الموافقة، وإذا وافقت يظهر التسبيب بداخل نفس المربع فوراً) -->
+  <!-- موديول التلميح المستقل (يظهر في الوجه بنفس تصميم صندوق الموافقة) -->
   <div class="modal-overlay" id="hintModal">
     <div class="modal-card">
       <div class="modal-icon" id="hintModalIcon">
@@ -437,15 +433,14 @@
           <div class="question-zoom" id="qText"></div>
         </div>
 
-        <!-- صندوق السؤال مع زر أيقونة اللمبة المضيئة والشفافة بجانبه مباشرة بدون أي نص -->
-        <div class="question-header-row">
-          <div class="question-box" id="questionBox" style="flex:1; margin-top:0;">
-            <span class="q-tag">السؤال</span>
-            <div class="q-body" id="qQuestion"></div>
-          </div>
-          <button type="button" class="bulb-icon-btn" title="تلميح القضية" onclick="openHintModal()">
+        <!-- صندوق السؤال مع أيقونة اللمبة المضيئة داخله مباشرة بدون أي إطارات -->
+        <div class="question-box hidden" id="questionBox">
+          <span class="q-tag">السؤال</span>
+          <div class="q-body" id="qQuestion"></div>
+          <!-- أيقونة اللمبة الشفافة والمضيئة بأطراف بنفسجية -->
+          <div class="bulb-inline-icon hidden" id="bulbHintBtn" title="تلميح القضية" onclick="openHintModal()">
             <svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1m4-13.91V6h-2v1.09A5.002 5.002 0 0 0 7 12c0 1.66.83 3.12 2.1 4h5.8A4.99 4.99 0 0 0 17 12a5.002 5.002 0 0 0-4-4.91z"/></svg>
-          </button>
+          </div>
         </div>
 
         <div id="options" style="margin-top: 0.6rem;"></div>
@@ -579,8 +574,17 @@
       <div class="field"><label>الوقائع:</label><textarea id="p_text" class="tall"></textarea></div>
       <div class="field"><label>السؤال (اختياري):</label><textarea id="p_question" class="mid"></textarea></div>
       
+      <!-- إظهار أو إخفاء التلميح -->
+      <div class="field">
+        <label>حالة التلميح لهذه القضية:</label>
+        <select id="p_showHint">
+          <option value="true">إظهار التلميح (مفعل)</option>
+          <option value="false">إخفاء التلميح (غير مفعل لهذه القضية)</option>
+        </select>
+      </div>
+
       <!-- خانة التلميح في لوحة التحكم -->
-      <div class="field"><label>التلميح (يظهر في المربع المستقل بعد الموافقة):</label><textarea id="p_hint" class="mid" placeholder="اكتبي تلميحاً قانونياً يوجه المتسابقة..."></textarea></div>
+      <div class="field"><label>نص التلميح:</label><textarea id="p_hint" class="mid" placeholder="اكتبي تلميحاً قانونياً يوجه المتسابقة..."></textarea></div>
 
       <div style="background: rgba(142,124,147,0.07); border: 1px solid var(--line); border-radius: 0.5rem; padding: 0.5rem; margin-bottom: 0.75rem;">
         <label style="margin-bottom: 6px;">الخيارات:</label>
@@ -621,7 +625,7 @@
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwKLeoxfd80jCvmzyDWhnMPUwRiebDXmEoGALH5Vq31DQRrLFRAADzt7AwMDOUEEdMj/exec";
   const ADMIN_ID = "ADMIN";
   const MAIL_TO = "Noufalawad20@gmail.com";
-  const CONFIG_CACHE_KEY = 'case_config_cache_v3';
+  const CONFIG_CACHE_KEY = 'case_config_cache_v4';
   const LOGO_SIZE_KEY = 'custom_logo_size_v3';
   const OPT_LETTERS = ['أ', 'ب', 'ج', 'د'];
   const CODE_ORDINALS = ['الأول', 'الثاني', 'الثالث', 'الرابع', 'الخامس'];
@@ -648,6 +652,7 @@
     fileLabel: "الوقائع",
     facts: "",
     question: "",
+    showHint: true,
     hint: "",
     opts: [],
     ruling: "",
@@ -663,6 +668,7 @@
     c.facts = (d.facts !== undefined ? d.facts : d.text) || "";
     c.question = d.question || "";
     c.hint = d.hint || "";
+    c.showHint = d.showHint === undefined ? true : (d.showHint === true || d.showHint === 'true');
     c.opts = Array.isArray(d.opts) ? d.opts.filter(o => String(o || '').trim() !== '') : [];
     c.isOpen = d.isOpen === undefined ? true : (d.isOpen === true || d.isOpen === 'true');
     c.leaderboardActive = d.leaderboardActive === true || d.leaderboardActive === 'true';
@@ -696,6 +702,7 @@
   }
 
   function openHintModal() {
+    if (!config.showHint) return;
     const modal = document.getElementById('hintModal');
     const titleEl = document.getElementById('hintModalTitle');
     const descEl = document.getElementById('hintModalDesc');
@@ -931,6 +938,7 @@
     const lensEl = document.getElementById('lens');
     const qBox = document.getElementById('questionBox');
     const qQuestion = document.getElementById('qQuestion');
+    const bulbBtn = document.getElementById('bulbHintBtn');
 
     if (qTextEl) { qTextEl.classList.remove('typing'); qTextEl.textContent = config.facts; }
     if (lensEl) lensEl.setAttribute('data-label', config.fileLabel || defaultConfig.fileLabel);
@@ -938,6 +946,9 @@
     const hasQ = !!(config.question && config.question.trim());
     if (qBox) qBox.classList.toggle('hidden', !hasQ);
     if (qQuestion) qQuestion.textContent = config.question || '';
+    
+    // إظهار أو إخفاء أيقونة اللمبة بناءً على إعدادات لوحة التحكم
+    if (bulbBtn) bulbBtn.classList.toggle('hidden', !config.showHint);
 
     userUsedHint = false;
     renderOptions();
@@ -1157,6 +1168,7 @@
     setVal('p_label', cfg.fileLabel || defaultConfig.fileLabel);
     setVal('p_text', cfg.facts);
     setVal('p_question', cfg.question);
+    setVal('p_showHint', cfg.showHint === false ? "false" : "true");
     setVal('p_hint', cfg.hint || "");
     for (let i = 0; i < 4; i++) setVal('p_o' + i, cfg.opts[i] || "");
     const codes = cfg.codes || [];
@@ -1206,6 +1218,7 @@
       fileLabel: getVal('p_label'),
       facts: getVal('p_text'),
       question: getVal('p_question'),
+      showHint: getVal('p_showHint') === 'true',
       hint: getVal('p_hint'),
       opts: opts,
       corrIndex: parseInt(document.getElementById('p_corr').value) || 0,
