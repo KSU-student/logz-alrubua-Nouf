@@ -175,19 +175,48 @@
     }
     .question-zoom { font-size: 0.92rem; font-weight: 700; line-height: 1.7; color: var(--white-soft); white-space: pre-wrap; overflow-wrap: anywhere; }
 
-    /* تنسيق زر اللمبة التفاعلي */
+    /* تصميم زر اللمبة الجديد (موفي شفاف وأنيق) */
     .hint-btn {
-      position: absolute; top: 1rem; left: 1rem;
-      background: rgba(233, 162, 59, 0.15); border: 1.5px solid var(--amber);
-      color: var(--amber-light); border-radius: 50%; width: 2.4rem; height: 2.4rem;
+      position: absolute; top: 0.7rem; left: 0.7rem;
+      background: rgba(142, 124, 147, 0.18); border: 1.5px solid rgba(210, 215, 223, 0.4);
+      color: var(--violet-soft); border-radius: 50%; width: 2.3rem; height: 2.3rem;
       display: flex; align-items: center; justify-content: center; cursor: pointer;
-      transition: 0.25s; z-index: 10; box-shadow: 0 0 12px rgba(233,162,59,0.2);
+      transition: 0.25s; z-index: 10; backdrop-filter: blur(4px);
     }
-    .hint-btn:hover { background: var(--amber); color: #2B1B2C; transform: scale(1.08); }
+    .hint-btn:hover { background: rgba(142, 124, 147, 0.4); border-color: var(--violet-soft); color: #fff; transform: scale(1.08); }
+
+    /* تصميم إشعار التنبيه المنبثق (مودال أشعار) */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(20, 10, 22, 0.8);
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: center; z-index: 1000;
+      padding: 1rem; opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+    }
+    .modal-overlay.active { opacity: 1; pointer-events: auto; }
+    
+    .modal-card {
+      background: linear-gradient(135deg, rgba(142,124,147,0.2), rgba(43,27,44,0.95));
+      border: 1.5px solid var(--violet-soft); border-radius: 1.1rem;
+      padding: 1.5rem 1.2rem; width: 100%; max-width: 22rem; text-align: center;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.8), 0 0 25px rgba(142,124,147,0.25);
+      transform: translateY(15px); transition: transform 0.3s ease;
+    }
+    .modal-overlay.active .modal-card { transform: translateY(0); }
+    .modal-icon { font-size: 2.2rem; margin-bottom: 0.5rem; }
+    .modal-title { font-size: 1.05rem; font-weight: 900; color: var(--white-soft); margin-bottom: 0.5rem; }
+    .modal-desc { font-size: 0.82rem; font-weight: 600; color: rgba(248,249,250,0.85); line-height: 1.7; margin-bottom: 1.2rem; }
+    .modal-actions { display: flex; gap: 8px; }
+    .modal-btn { flex: 1; padding: 0.65rem; border-radius: 0.6rem; font-family: inherit; font-weight: 800; font-size: 0.85rem; cursor: pointer; transition: 0.2s; }
+    .modal-btn.cancel { background: rgba(255,255,255,0.08); border: 1.5px solid var(--line); color: var(--violet-soft); }
+    .modal-btn.cancel:hover { background: rgba(255,255,255,0.15); color: #fff; }
+    .modal-btn.confirm { background: var(--violet); border: 1.5px solid var(--violet-soft); color: #fff; box-shadow: 0 4px 15px rgba(142,124,147,0.4); }
+    .modal-btn.confirm:hover { background: #7c6882; }
+
     .hint-box {
-      background: rgba(233, 162, 59, 0.1); border: 1.5px dashed var(--amber);
-      border-radius: 0.75rem; padding: 0.75rem; margin-bottom: 0.8rem;
-      font-size: 0.82rem; font-weight: 700; color: var(--amber-light); line-height: 1.6; text-align: right;
+      background: rgba(142, 124, 147, 0.15); border: 1.5px dashed var(--violet);
+      border-radius: 0.75rem; padding: 0.8rem; margin-bottom: 0.8rem;
+      font-size: 0.85rem; font-weight: 700; color: var(--white-soft); line-height: 1.7; text-align: right;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
 
     .question-box .q-tag {
@@ -324,6 +353,19 @@
   </div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
+  <!-- موديول إشعار التنبيه المنبثق للتلميح (أشعار في الوجه) -->
+  <div class="modal-overlay" id="hintModal">
+    <div class="modal-card">
+      <div class="modal-icon">💡</div>
+      <div class="modal-title">تنبيه قانوني استقصائي</div>
+      <div class="modal-desc">هل أنتِ متأكدة من رغبتكِ في طلب التلميح؟<br><span style="color: #fca5a5; font-size: 0.76rem; display: block; margin-top: 4px;">* تنبيه: استخدام التلميح سيجعل احتساب الإجابة الصحيحة (0.5 نقطة) فقط.</span></div>
+      <div class="modal-actions">
+        <button type="button" class="modal-btn cancel" onclick="closeHintModal()">إلغاء</button>
+        <button type="button" class="modal-btn confirm" onclick="confirmShowHint()">موافق، أظهر التلميح</button>
+      </div>
+    </div>
+  </div>
+
   <div class="app-wrapper">
 
     <!-- 1. واجهة إدخال البيانات -->
@@ -384,8 +426,8 @@
 
       <div id="caseBody">
         <div class="magnifier-lens" id="lens" data-label="الوقائع">
-          <!-- زر اللمبة التفاعلي للتلميح -->
-          <button type="button" class="hint-btn" onclick="revealHint()" title="طلب تلميح (بحسم نصف نقطة)">💡</button>
+          <!-- زر اللمبة الجديد (موفي شفاف وأنيق) -->
+          <button type="button" class="hint-btn" onclick="openHintModal()" title="طلب تلميح">💡</button>
           <div class="question-zoom" id="qText"></div>
         </div>
 
@@ -525,8 +567,8 @@
       <div class="field"><label>الوقائع:</label><textarea id="p_text" class="tall"></textarea></div>
       <div class="field"><label>السؤال (اختياري):</label><textarea id="p_question" class="mid"></textarea></div>
       
-      <!-- خانة التلميح الجديدة في لوحة التحكم -->
-      <div class="field"><label>التلميح (يظهر عند الضغط على زر اللمبة 💡):</label><textarea id="p_hint" class="mid" placeholder="اكتبي تلميحاً يوجه المتسابقة للحل (استخدامه يحسب الإجابة بـ 0.5 نقطة)..."></textarea></div>
+      <!-- خانة التلميح في لوحة التحكم -->
+      <div class="field"><label>التلميح (يظهر بعد موافقة الطالبة على التنبيه):</label><textarea id="p_hint" class="mid" placeholder="اكتبي تلميحاً قانونياً يوجه المتسابقة..."></textarea></div>
 
       <div style="background: rgba(142,124,147,0.07); border: 1px solid var(--line); border-radius: 0.5rem; padding: 0.5rem; margin-bottom: 0.75rem;">
         <label style="margin-bottom: 6px;">الخيارات:</label>
@@ -625,7 +667,6 @@
   let answeredThisSession = false;
   let typingTimer = null;
   let toastTimer = null;
-  let lastAnswerCorrect = null;
 
   function normalizeDigits(s) { return String(s || '').replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d)); }
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch])); }
@@ -642,7 +683,20 @@
     try { confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 }, colors: ['#e9a23b', '#8E7C93', '#ffffff', '#f6c978'] }); } catch (e) {}
   }
 
-  function revealHint() {
+  /* وظائف ظهور وإغلاق موديل التنبيه (الأشعار في الوجه) */
+  function openHintModal() {
+    if (userUsedHint) return;
+    const modal = document.getElementById('hintModal');
+    if (modal) modal.classList.add('active');
+  }
+
+  function closeHintModal() {
+    const modal = document.getElementById('hintModal');
+    if (modal) modal.classList.remove('active');
+  }
+
+  function confirmShowHint() {
+    closeHintModal();
     if (userUsedHint) return;
     const hintText = config.hint || "لا يوجد تلميح متاح لهذه القضية حالياً.";
     
@@ -655,9 +709,9 @@
       if (optionsDiv) optionsDiv.parentNode.insertBefore(box, optionsDiv);
     }
     
-    box.innerHTML = `<strong>💡 تلميح استقصائي:</strong><br>${esc(hintText)}<br><span style="font-size:0.68rem; color:#fca5a5; display:block; margin-top:4px;">* تنبيه: استخدام هذا التلميح سيجعل احتساب النقاط (0.5 نقطة) فقط عند الإجابة الصحيحة.</span>`;
+    box.innerHTML = `<strong>💡 تلميح استقصائي:</strong><br>${esc(hintText)}`;
     userUsedHint = true;
-    showToast('تم فتح التلميح! ستُحتسب الإجابة بـ 0.5 نقطة 💡');
+    showToast('تم تفعيل التلميح (ستُحسب الإجابة بـ 0.5 نقطة) 💡');
   }
 
   function parsePromo(raw) {
