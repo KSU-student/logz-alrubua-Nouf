@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
   <title>لغز الربوع - لغز اليوم</title>
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-  <!-- مكتبة الكونفيتي الاحتفالية -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <style>
     :root {
@@ -32,13 +31,9 @@
     }
 
     body {
-      margin: 0;
-      width: 100%;
-      min-height: 100vh;
-      min-height: 100dvh;
+      margin: 0; width: 100%; min-height: 100vh; min-height: 100dvh;
       padding: clamp(16px, 4vw, 32px) 12px;
-      font-family: 'Tajawal', sans-serif;
-      color: var(--white-soft);
+      font-family: 'Tajawal', sans-serif; color: var(--white-soft);
       display: flex; flex-direction: column; align-items: center; justify-content: center;
     }
 
@@ -48,10 +43,6 @@
         radial-gradient(ellipse 60% 45% at 50% 0%, rgba(142, 124, 147, 0.12) 0%, transparent 70%),
         radial-gradient(circle at 50% 32%, rgba(43, 27, 44, 0.85) 0%, transparent 58%),
         radial-gradient(circle at center, #211322 0%, var(--bg-dark) 100%);
-    }
-    body::after {
-      content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
-      background: repeating-linear-gradient(0deg, rgba(248,249,250,0.015) 0, rgba(248,249,250,0.015) 1px, transparent 1px, transparent 4px);
     }
 
     .transition-layer { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 999; }
@@ -75,12 +66,9 @@
       background: linear-gradient(180deg, rgba(142,124,147,0.1) 0%, transparent 30%), var(--card-bg);
       border: 1.5px solid var(--violet-soft);
       backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-      border-radius: 1.25rem;
-      padding: 1.2rem 1.25rem 1.4rem;
-      width: 100%;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.7), 0 0 38px rgba(142, 124, 147, 0.2), inset 0 0 25px rgba(210, 215, 223, 0.05);
-      position: relative; z-index: 2;
-      overflow: hidden;
+      border-radius: 1.25rem; padding: 1.2rem 1.25rem 1.4rem; width: 100%;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.7), 0 0 38px rgba(142, 124, 147, 0.2);
+      position: relative; z-index: 2; overflow: hidden;
     }
     .card > *:not(.corner) { position: relative; z-index: 1; }
     .corner { position: absolute; width: 1rem; height: 1rem; border: 2.5px solid var(--violet); pointer-events: none; z-index: 2; }
@@ -103,14 +91,10 @@
       text-align: center; margin: 0 auto; position: relative; width: 100%;
       display: flex; justify-content: center; align-items: center;
       cursor: pointer; z-index: 10; padding: 0.6rem 0;
-      user-select: none; -webkit-tap-highlight-color: transparent;
     }
     .real-logo {
       position: relative; width: 100%; max-width: var(--logo-max-width); height: auto; display: block; margin: 0 auto;
-      filter: brightness(0) invert(1);
-      user-select: none; -webkit-user-drag: none;
-      transition: max-width 0.2s ease, margin 0.2s ease;
-      pointer-events: none;
+      filter: brightness(0) invert(1); user-select: none; pointer-events: none;
     }
 
     .divider {
@@ -151,8 +135,6 @@
       box-shadow: 0 4px 16px rgba(142, 124, 147, 0.4);
     }
     .btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(142, 124, 147, 0.6); }
-    .btn:disabled { opacity: 0.6; cursor: wait; transform: none; }
-
     .btn-amber { background: linear-gradient(135deg, #9d8ca3, #6f5f75); border-bottom-color: var(--violet-soft); }
     .btn-violet { background: linear-gradient(135deg, var(--violet), #47374c); border-color: var(--violet-soft); }
 
@@ -161,35 +143,29 @@
       background: linear-gradient(135deg, rgba(142,124,147,0.15), rgba(43,27,44,0.4));
       border: 1.5px solid var(--violet);
       display: flex; gap: 6px; justify-content: space-between; align-items: center;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
     }
     .admin-nav-btn {
       flex: 1; padding: 0.5rem 0.375rem; border-radius: 0.5rem; border: 1px solid rgba(142,124,147,0.5);
       background: rgba(0,0,0,0.4); color: var(--violet-soft); font-size: 0.72rem; font-weight: 800;
       cursor: pointer; font-family: inherit; text-align: center; transition: 0.25s;
     }
-    .admin-nav-btn:hover { background: var(--violet); color: var(--white-soft); box-shadow: 0 0 10px var(--violet); }
+    .admin-nav-btn:hover { background: var(--violet); color: var(--white-soft); }
     .admin-nav-btn.gold-hl { background: var(--violet); color: var(--white-soft); border-color: var(--white-soft); }
 
     .logo-control-box {
       display: flex; align-items: center; justify-content: space-between; gap: 10px;
-      background: rgba(0,0,0,0.3); padding: 0.5rem 0.75rem; border-radius: 0.625rem;
-      border: 1px solid var(--line);
+      background: rgba(0,0,0,0.3); padding: 0.5rem 0.75rem; border-radius: 0.625rem; border: 1px solid var(--line);
     }
     .logo-size-btn {
       width: 2.2rem; height: 2.2rem; border-radius: 0.5rem; border: 1.5px solid var(--violet);
       background: rgba(142, 124, 147, 0.2); color: var(--white-soft); font-size: 1.2rem; font-weight: 900;
       cursor: pointer; display: flex; align-items: center; justify-content: center;
-      transition: 0.2s;
     }
-    .logo-size-btn:hover { background: var(--violet); color: var(--white-soft); }
-    .logo-size-btn:active { transform: scale(0.92); }
 
     .magnifier-lens, .question-box {
       border: 1.5px solid var(--violet-soft); border-right: 4px solid var(--violet-soft);
       border-radius: 0.75rem; padding: 0.9rem 0.8rem 0.8rem;
       background: linear-gradient(135deg, rgba(142, 124, 147, 0.18), rgba(43, 27, 44, 0.35));
-      box-shadow: inset 0 0 20px rgba(142, 124, 147, 0.15), 0 0 16px rgba(142, 124, 147, 0.15);
       margin: 6px 0 0.8rem; position: relative; min-height: 4.2rem;
     }
     .magnifier-lens::before {
@@ -198,7 +174,21 @@
       padding: 1px 8px; border-radius: 4px;
     }
     .question-zoom { font-size: 0.92rem; font-weight: 700; line-height: 1.7; color: var(--white-soft); white-space: pre-wrap; overflow-wrap: anywhere; }
-    .question-zoom.typing::after { content: "▌"; color: var(--violet-soft); animation: blink 0.8s infinite; margin-right: 2px; }
+
+    /* تنسيق زر اللمبة التفاعلي */
+    .hint-btn {
+      position: absolute; top: 1rem; left: 1rem;
+      background: rgba(233, 162, 59, 0.15); border: 1.5px solid var(--amber);
+      color: var(--amber-light); border-radius: 50%; width: 2.4rem; height: 2.4rem;
+      display: flex; align-items: center; justify-content: center; cursor: pointer;
+      transition: 0.25s; z-index: 10; box-shadow: 0 0 12px rgba(233,162,59,0.2);
+    }
+    .hint-btn:hover { background: var(--amber); color: #2B1B2C; transform: scale(1.08); }
+    .hint-box {
+      background: rgba(233, 162, 59, 0.1); border: 1.5px dashed var(--amber);
+      border-radius: 0.75rem; padding: 0.75rem; margin-bottom: 0.8rem;
+      font-size: 0.82rem; font-weight: 700; color: var(--amber-light); line-height: 1.6; text-align: right;
+    }
 
     .question-box .q-tag {
       position: absolute; top: -9px; right: 14px;
@@ -230,13 +220,11 @@
     }
     .shaking { animation: shake 0.4s ease-in-out; }
 
-    .result-box { margin-top: 0.875rem; padding: 1rem 0.75rem; border-radius: 0.625rem; text-align: center; line-height: 1.5; }
-
+    .result-box { margin-top: 0.875rem; padding: 1rem 0.75rem; border-radius: 0.625rem; text-align: center; }
     .poster-page-card, .leaderboard-card { text-align: center; padding: 1.125rem 0.875rem; }
     .poster-img-container {
       position: relative; width: 100%; border-radius: 0.75rem; overflow: hidden;
-      border: 2px solid var(--violet); box-shadow: 0 0 25px rgba(142,124,147,0.3);
-      margin-bottom: 0.625rem; background: #000;
+      border: 2px solid var(--violet); margin-bottom: 0.625rem; background: #000;
     }
     .poster-img { width: 100%; height: auto; display: block; }
     .poster-user-box {
@@ -244,7 +232,6 @@
       color: var(--white-soft); font-weight: 800; font-size: 0.84rem;
       padding: 0.44rem 0.75rem; border-radius: 0.5rem; margin-bottom: 0.625rem; text-align: center;
     }
-
     .leaderboard-title { font-size: 1.02rem; font-weight: 800; color: var(--white-soft); margin-bottom: 0.75rem; line-height: 1.6; }
 
     .rank-box {
@@ -260,9 +247,9 @@
     .points-info-box {
       background: rgba(255, 255, 255, 0.03); border: 1px dashed rgba(142, 124, 147, 0.6);
       border-radius: 0.625rem; padding: 0.625rem 0.75rem; margin-bottom: 0.75rem;
-      text-align: right; font-size: 0.72rem; color: rgba(248, 249, 250, 0.84); line-height: 1.6; font-weight: 400;
+      text-align: right; font-size: 0.72rem; color: rgba(248, 249, 250, 0.84); line-height: 1.6;
     }
-    .points-info-box strong { color: var(--violet-soft); font-weight: 700; }
+    .points-info-box strong { color: var(--violet-soft); }
 
     .hidden { display: none !important; }
     .admin-panel { background: rgba(43, 27, 44, 0.98); border: 2px solid var(--violet); margin-top: 0.75rem; }
@@ -271,11 +258,7 @@
       margin-top: 1.25rem; text-align: center; font-size: 0.68rem; color: rgba(248,249,250,0.65); 
       letter-spacing: 0.5px; line-height: 1.7; width: 100%;
     }
-    .signature a { 
-      color: var(--violet-soft); font-weight: 800; text-decoration: none; 
-      border-bottom: 1.5px dashed var(--violet); cursor: pointer; padding: 0 4px; transition: color 0.2s;
-    }
-    .signature a:hover { color: #fff; border-bottom-style: solid; }
+    .signature a { color: var(--violet-soft); font-weight: 800; text-decoration: none; border-bottom: 1.5px dashed var(--violet); cursor: pointer; padding: 0 4px; }
     .signature bdi { direction: ltr; unicode-bidi: isolate; }
 
     .toast {
@@ -283,59 +266,35 @@
       background: #1a0f1b; color: var(--white-soft); border: 1.5px solid var(--violet);
       padding: 0.625rem 1rem; border-radius: 0.75rem; font-size: 0.8rem; font-weight: 700;
       max-width: 90vw; text-align: center; z-index: 1000; opacity: 0; pointer-events: none;
-      transition: opacity 0.3s, transform 0.3s; box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+      transition: opacity 0.3s, transform 0.3s;
     }
     .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-    #userInfoStep { max-width: 26.5rem; }
-    .card.card-flat {
-      background: none; border: none; box-shadow: none; border-radius: 0;
-      backdrop-filter: none; -webkit-backdrop-filter: none; overflow: visible;
-      padding: 0.4rem 0.1rem 1rem;
-    }
+    .card.card-flat { background: none; border: none; box-shadow: none; border-radius: 0; backdrop-filter: none; padding: 0.4rem 0.1rem 1rem; }
     .card.card-flat .corner { display: none; }
 
     .res-card { width: 100%; display: flex; flex-direction: column; align-items: stretch; gap: 0.85rem; text-align: center; margin-top: 0.6rem; }
     .res-icon { align-self: center; width: 3.3rem; height: 3.3rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1.5px solid; }
     .res-icon svg { width: 52%; height: 52%; }
-    
-    .res-icon.ok { 
-      border-color: #22c55e !important; color: #4ade80 !important; 
-      background: rgba(34, 197, 94, 0.2) !important; box-shadow: 0 0 22px rgba(34, 197, 94, 0.4) !important; 
-    }
+    .res-icon.ok { border-color: #22c55e !important; color: #4ade80 !important; background: rgba(34, 197, 94, 0.2) !important; }
     .res-icon.no { width: 2.8rem; height: 2.8rem; border-color: #9b5f6a; color: #c08a93; background: rgba(155,95,106,0.14); }
-    .res-title { margin: 0; font-size: 1.1rem; font-weight: 900; line-height: 1.7; color: var(--white-soft); overflow-wrap: anywhere; white-space: pre-wrap; }
+    .res-title { margin: 0; font-size: 1.1rem; font-weight: 900; line-height: 1.7; color: var(--white-soft); }
     .res-title.soft { font-size: 1rem; font-weight: 800; color: var(--violet-soft); }
 
-    /* البطاقة البيضاء النواصع مع فيونكة أكبر ومائلة على الزاوية */
     .ticket {
       position: relative; width: 100%; padding: 1.5rem 1.1rem 1.1rem; border-radius: 1.1rem;
-      background: #FFFFFF;
-      color: #2B1B2C; border: 1.5px solid var(--violet);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 24px rgba(142,124,147,0.25);
-      text-align: center;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      overflow: visible;
+      background: #FFFFFF; color: #2B1B2C; border: 1.5px solid var(--violet);
+      text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center;
     }
-    .ticket-brand { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; gap: 6px; margin-bottom: 0.5rem; text-align: center; }
-    .ticket-logo { max-height: 3.5rem; max-width: 10rem; object-fit: contain; display: block; background: transparent !important; margin: 0 auto; }
-    .ticket-store { font-size: 1rem; font-weight: 900; color: #2B1B2C; text-align: center; width: 100%; }
-    .ticket-desc { font-size: 0.88rem; font-weight: 700; color: #5c4762; line-height: 1.6; margin-top: 0.5rem; text-align: center; width: 100%; }
+    .ticket-brand { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; gap: 6px; margin-bottom: 0.5rem; }
+    .ticket-logo { max-height: 3.5rem; max-width: 10rem; object-fit: contain; display: block; margin: 0 auto; }
+    .ticket-store { font-size: 1rem; font-weight: 900; color: #2B1B2C; }
+    .ticket-desc { font-size: 0.88rem; font-weight: 700; color: #5c4762; line-height: 1.6; margin-top: 0.5rem; width: 100%; }
     .ticket-seal { width: 2.2rem; height: 2.2rem; color: var(--violet); margin: 0 auto; }
-    .ticket-brand:empty { display: none; }
-    .logo-wrap { display: inline-flex; align-items: center; justify-content: center; margin: 0 auto; }
-    .logo-wrap.on-dark { background: #2B1B2C; border-radius: 0.85rem; padding: 0.5rem 0.9rem; box-shadow: inset 0 0 0 1px rgba(210,215,223,0.25), 0 4px 12px rgba(43,27,44,0.25); }
+    .logo-wrap.on-dark { background: #2B1B2C; border-radius: 0.85rem; padding: 0.5rem 0.9rem; }
     
-    /* فيونكة أكبر حجماً ومائلة بأناقة على زاوية الكرت */
-    .ticket-bow { position: absolute; top: -1.7rem; left: -1.4rem; width: 6.8rem; height: auto; pointer-events: none; z-index: 5; opacity: 0.96; filter: drop-shadow(0 8px 8px rgba(43,27,44,0.45)); transform: rotate(-12deg); }
-    .bow-tails { transform-box: view-box; transform-origin: 60px 58px; animation: bowSway 5s ease-in-out infinite; }
-    @keyframes bowSway { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
-
-    /* زر النسخ المدمج داخل صندوق الكود في الزاوية */
-    .code-copy { flex: 0 0 auto; width: 2.3rem; height: 2.3rem; border-radius: 0.6rem; border: 1px solid rgba(210,215,223,0.35); background: rgba(142,124,147,0.3); color: var(--white-soft); display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0; transition: 0.2s; }
-    .code-copy:hover { background: rgba(142,124,147,0.6); }
-    .code-copy:active { transform: scale(0.92); }
-    .code-copy svg { width: 1.1rem; height: 1.1rem; }
+    .ticket-bow { position: absolute; top: -1.7rem; left: -1.4rem; width: 6.8rem; height: auto; pointer-events: none; z-index: 5; opacity: 0.96; transform: rotate(-12deg); }
+    .code-copy { flex: 0 0 auto; width: 2.3rem; height: 2.3rem; border-radius: 0.6rem; border: 1px solid rgba(210,215,223,0.35); background: rgba(142,124,147,0.3); color: var(--white-soft); display: flex; align-items: center; justify-content: center; cursor: pointer; }
     .code-copy.done { background: rgba(34,197,94,0.3); border-color: #22c55e; color: #4ade80; }
 
     .tear { position: relative; width: calc(100% + 2.2rem); height: 0; margin: 0.9rem -1.1rem; border-top: 2px dashed rgba(142,124,147,0.5); }
@@ -343,31 +302,19 @@
     .tear::before { right: -10px; }
     .tear::after { left: -10px; }
     
-    .code-label { font-size: 0.72rem; font-weight: 700; color: #6a5a70; margin-bottom: 4px; text-align: center; width: 100%; }
-    
-    /* صندوق الكود فوق وتفاصيل الوصف تحته، وزر النسخ مدمج في الزاوية تماماً */
-    .code-box { display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; background: #2B1B2C; border-radius: 0.8rem; padding: 0.5rem 0.6rem 0.5rem 0.8rem; width: 100%; box-shadow: inset 0 0 0 1px rgba(210,215,223,0.25); }
-    .code-text { flex: 1 1 auto; min-width: 0; text-align: center; font-size: 1.55rem; font-weight: 900; letter-spacing: 1.5px; color: var(--white-soft); unicode-bidi: plaintext; user-select: all; -webkit-user-select: all; }
-    
-    /* تاريخ الانتهاء منسق ومرتب بالوسط تماماً */
-    .ticket-exp { display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 0.8rem; font-size: 0.76rem; font-weight: 800; color: #47374c; width: 100%; text-align: center; }
-    .ticket-exp svg { width: 1.05rem; height: 1.05rem; color: var(--violet); flex: 0 0 auto; }
+    .code-label { font-size: 0.72rem; font-weight: 700; color: #6a5a70; margin-bottom: 4px; width: 100%; }
+    .code-box { display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; background: #2B1B2C; border-radius: 0.8rem; padding: 0.5rem 0.6rem 0.5rem 0.8rem; width: 100%; }
+    .code-text { flex: 1 1 auto; min-width: 0; text-align: center; font-size: 1.55rem; font-weight: 900; letter-spacing: 1.5px; color: var(--white-soft); user-select: all; }
+    .ticket-exp { display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 0.8rem; font-size: 0.76rem; font-weight: 800; color: #47374c; width: 100%; }
 
     .info-card { position: relative; width: 100%; border: 1.5px solid rgba(142,124,147,0.55); background: rgba(142,124,147,0.12); border-radius: 1.1rem; padding: 1.35rem 1rem 0.9rem; }
-    .info-tag { position: absolute; top: -0.85rem; right: 50%; transform: translateX(50%); display: inline-flex; align-items: center; gap: 6px; background: #2B1B2C; border: 1.5px solid var(--violet); color: var(--white-soft); border-radius: 999px; padding: 2px 12px; font-size: 0.74rem; font-weight: 800; white-space: nowrap; }
-    .info-tag svg { width: 0.95rem; height: 0.95rem; }
-    .info-card p { margin: 0; font-size: 0.86rem; font-weight: 600; line-height: 1.9; color: rgba(248,249,250,0.92); white-space: pre-wrap; overflow-wrap: anywhere; }
-    .info-card.pick { background: #FFFFFF; border-color: var(--violet); box-shadow: 0 6px 20px rgba(0,0,0,0.35); }
+    .info-tag { position: absolute; top: -0.85rem; right: 50%; transform: translateX(50%); display: inline-flex; align-items: center; gap: 6px; background: #2B1B2C; border: 1.5px solid var(--violet); color: var(--white-soft); border-radius: 999px; padding: 2px 12px; font-size: 0.74rem; font-weight: 800; }
+    .info-card p { margin: 0; font-size: 0.86rem; font-weight: 600; line-height: 1.9; color: rgba(248,249,250,0.92); white-space: pre-wrap; }
+    .info-card.pick { background: #FFFFFF; border-color: var(--violet); }
     .info-card.pick .info-tag { background: #D2D7DF; color: #2B1B2C; }
     .info-card.pick p { color: #2B1B2C; font-weight: 800; }
     .pick-letter { display: inline-flex; align-items: center; justify-content: center; width: 1.5rem; height: 1.5rem; margin-left: 6px; border-radius: 50%; background: var(--violet); color: #fff; font-size: 0.78rem; font-weight: 900; }
-    .btn-ghost { background: rgba(255,255,255,0.08) !important; border: 1px solid var(--line) !important; box-shadow: none !important; }
-
-    @media (prefers-reduced-motion: reduce) {
-      .status-bar i, .question-zoom.typing::after { animation: none; }
-      .shaking { animation: none; }
-      .bow-tails { animation: none; }
-    }
+    .btn-ghost { background: rgba(255,255,255,0.08) !important; border: 1px solid var(--line) !important; }
   </style>
 </head>
 <body>
@@ -436,16 +383,18 @@
       <div class="status-bar" id="statusBar"><i></i> <span id="adminNoticeBadge">قيد التحقيق</span></div>
 
       <div id="caseBody">
-      <div class="magnifier-lens" id="lens" data-label="الوقائع">
-        <div class="question-zoom" id="qText"></div>
-      </div>
+        <div class="magnifier-lens" id="lens" data-label="الوقائع">
+          <!-- زر اللمبة التفاعلي للتلميح -->
+          <button type="button" class="hint-btn" onclick="revealHint()" title="طلب تلميح (بحسم نصف نقطة)">💡</button>
+          <div class="question-zoom" id="qText"></div>
+        </div>
 
-      <div class="question-box hidden" id="questionBox">
-        <span class="q-tag">السؤال</span>
-        <div class="q-body" id="qQuestion"></div>
-      </div>
+        <div class="question-box hidden" id="questionBox">
+          <span class="q-tag">السؤال</span>
+          <div class="q-body" id="qQuestion"></div>
+        </div>
 
-      <div id="options"></div>
+        <div id="options"></div>
       </div>
 
       <div id="result" class="result-box hidden"></div>
@@ -487,9 +436,9 @@
 
       <div class="points-info-box">
         <strong>💡 آلية احتساب النقاط:</strong><br>
-        • <strong>نقطة واحدة</strong> لكل إجابة صحيحة.<br>
-        • <strong>نقطتان</strong> عند مشاركة بوستر الإنجاز (مرة واحدة لكل قضية).<br>
-        <span style="font-size: 0.66rem; opacity: 0.8; display: block; margin-top: 4px;">*(يرجى الدخول بنفس رقم الجوال دائماً لضمان احتساب النقاط)*</span>
+        • <strong>نقطة كاملة</strong> للإجابة الصحيحة بدون تلميح (أو <strong>0.5 نقطة</strong> عند استخدام التلميح).<br>
+        • <strong>نقطتان</strong> عند مشاركة بوستر الإنجاز.<br>
+        • <strong>معيار التساوي:</strong> من حلّت أولاً تتقدم في الترتيب.<br>
       </div>
 
       <button class="btn btn-amber" id="posterFromBoardBtn" onclick="goToPosterFromLeaderboard()">
@@ -522,7 +471,7 @@
         🔗 مشاركة أو حفظ البوستر
       </button>
 
-      <button class="btn" id="userBackFromPosterBtn" style="background: rgba(255,255,255,0.08); border: 1px solid var(--line); margin-top: 6px; box-shadow: none;" onclick="returnFromPosterForUser()">
+      <button class="btn" id="userBackFromPosterBtn" style="background: rgba(255,255,255,0.08); border: 1px solid var(--line); margin-top: 6px;" onclick="returnFromPosterForUser()">
         ↩️ العودة
       </button>
 
@@ -552,17 +501,17 @@
         <label>حالة الفعالية للعامة:</label>
         <select id="p_isOpen">
           <option value="true">مفتوحة للجميع</option>
-          <option value="false">مغلقة حالياً (مغلقة تماماً عن الطالبات)</option>
+          <option value="false">مغلقة حالياً</option>
         </select>
       </div>
 
-      <div class="field"><label>عنوان رسالة الإغلاق (الكبير):</label><input type="text" id="p_closedTitle"></div>
-      <div class="field"><label>نص تفاصيل الإغلاق (الصغير تحتها):</label><textarea id="p_closedText"></textarea></div>
+      <div class="field"><label>عنوان رسالة الإغلاق:</label><input type="text" id="p_closedTitle"></div>
+      <div class="field"><label>نص تفاصيل الإغلاق:</label><textarea id="p_closedText"></textarea></div>
 
       <div class="field">
-        <label>لوحة الصدارة (Leaderboard):</label>
+        <label>لوحة الصدارة:</label>
         <select id="p_leaderboardActive">
-          <option value="false">مخفية (غير مفعلة هذا الأسبوع)</option>
+          <option value="false">مخفية</option>
           <option value="true">مفعلة وتظهر للمشاركات</option>
         </select>
       </div>
@@ -570,22 +519,17 @@
       <div class="field">
         <label>عنوان القضية:</label>
         <input type="text" id="p_no">
-        <div class="hint">غيّريه مع كل قضية جديدة، لأن منع إعادة المشاركة مربوط بالعنوان.</div>
+        <div class="hint">غيّريه مع كل قضية جديدة.</div>
       </div>
       <div class="field"><label>عنوان خانة الوقائع:</label><input type="text" id="p_label" maxlength="25"></div>
-      <div class="field">
-        <label>الوقائع:</label>
-        <textarea id="p_text" class="tall"></textarea>
-        <div class="hint">اكتبي بحرية، وأسطرك الجديدة تظهر كما هي للطالبات.</div>
-      </div>
-      <div class="field">
-        <label>السؤال (اختياري):</label>
-        <textarea id="p_question" class="mid"></textarea>
-        <div class="hint">يظهر في خانة مستقلة تحت الوقائع. اتركيه فاضي إذا السؤال داخل الوقائع.</div>
-      </div>
+      <div class="field"><label>الوقائع:</label><textarea id="p_text" class="tall"></textarea></div>
+      <div class="field"><label>السؤال (اختياري):</label><textarea id="p_question" class="mid"></textarea></div>
+      
+      <!-- خانة التلميح الجديدة في لوحة التحكم -->
+      <div class="field"><label>التلميح (يظهر عند الضغط على زر اللمبة 💡):</label><textarea id="p_hint" class="mid" placeholder="اكتبي تلميحاً يوجه المتسابقة للحل (استخدامه يحسب الإجابة بـ 0.5 نقطة)..."></textarea></div>
 
       <div style="background: rgba(142,124,147,0.07); border: 1px solid var(--line); border-radius: 0.5rem; padding: 0.5rem; margin-bottom: 0.75rem;">
-        <label style="margin-bottom: 6px;">الخيارات (من 2 إلى 4، وتقبل إجابات طويلة وتحليل):</label>
+        <label style="margin-bottom: 6px;">الخيارات:</label>
         <div class="field" style="margin-bottom: 6px;"><textarea id="p_o0" class="mid" placeholder="الخيار 1"></textarea></div>
         <div class="field" style="margin-bottom: 6px;"><textarea id="p_o1" class="mid" placeholder="الخيار 2"></textarea></div>
         <div class="field" style="margin-bottom: 6px;"><textarea id="p_o2" class="mid" placeholder="الخيار 3 (اختياري)"></textarea></div>
@@ -600,8 +544,7 @@
       </div>
 
       <div style="background: rgba(142,124,147,0.07); border: 1px solid var(--line); border-radius: 0.5rem; padding: 0.5rem; margin-bottom: 0.75rem;">
-        <label style="margin-bottom: 4px;">أكواد الخصم (حتى 5، مع الجهة والوصف والشعار):</label>
-        <div class="hint" style="margin-bottom: 8px;">للشعار: اكتبي اسم ملف الصورة المرفوع في GitHub (مثال: `brand1.png`)، وسيظهر بجودته الأصلية وشفافيته الكاملة في القسيمة.</div>
+        <label style="margin-bottom: 4px;">أكواد الخصم (حتى 5):</label>
         <div id="codesContainer"></div>
       </div>
 
@@ -609,11 +552,10 @@
       <div class="field"><label>عبارة الإجابة الصحيحة:</label><input type="text" id="p_successMsg"></div>
       <div class="field"><label>عبارة الإجابة الخاطئة:</label><input type="text" id="p_wrongMsg"></div>
 
-      <button class="btn" id="saveSettingsBtn" style="background:#15803d; border-bottom-color:#4ade80;" onclick="saveAdminSettings()">حفظ وتحديث الفعالية</button>
-      <button class="btn" style="background:#b91c1c; border-bottom-color:#f87171; margin-top:5px;" onclick="toggleAdminPanel()">إغلاق اللوحة</button>
+      <button class="btn" id="saveSettingsBtn" style="background:#15803d;" onclick="saveAdminSettings()">حفظ وتحديث الفعالية</button>
+      <button class="btn" style="background:#b91c1c; margin-top:5px;" onclick="toggleAdminPanel()">إغلاق اللوحة</button>
     </div>
 
-    <!-- التوقيع والحقوق في ذيل الصفحة (خارج البوكس تماماً) -->
     <div class="signature">
       &copy; 2026 Nouf Alawad - نوف آل عواض<br>
       <span>لكل فكرة صدى.. نسعد بملاحظاتكم عبر:</span> <a role="button" tabindex="0" onclick="openMail(event)"><bdi>Noufalawad20@gmail.com</bdi></a>
@@ -622,15 +564,16 @@
   </div>
 
 <script>
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw-KYUVG1PGODv-2B0igc_uAxy8IjR4figa2fuZOfz3UPkRTprVLvZt8LJDhOA1LbRl/exec";
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwKLeoxfd80jCvmzyDWhnMPUwRiebDXmEoGALH5Vq31DQRrLFRAADzt7AwMDOUEEdMj/exec";
   const ADMIN_ID = "ADMIN";
   const MAIL_TO = "Noufalawad20@gmail.com";
-  const CONFIG_CACHE_KEY = 'case_config_cache_v2';
+  const CONFIG_CACHE_KEY = 'case_config_cache_v3';
   const LOGO_SIZE_KEY = 'custom_logo_size_v3';
   const OPT_LETTERS = ['أ', 'ب', 'ج', 'د'];
   const CODE_ORDINALS = ['الأول', 'الثاني', 'الثالث', 'الرابع', 'الخامس'];
 
   let currentLogoSize = parseFloat(localStorage.getItem(LOGO_SIZE_KEY)) || 9.0;
+  let userUsedHint = false;
 
   function updateLogoCSS(size) {
     currentLogoSize = Math.max(6, Math.min(35, size));
@@ -639,14 +582,8 @@
     if (labelEl) labelEl.textContent = currentLogoSize.toFixed(1) + ' rem';
     try { localStorage.setItem(LOGO_SIZE_KEY, currentLogoSize); } catch (e) {}
   }
-
-  function adjustLogoSize(delta) {
-    updateLogoCSS(currentLogoSize + delta * 0.5);
-  }
-
-  function resetLogoSize() {
-    updateLogoCSS(9.0);
-  }
+  function adjustLogoSize(delta) { updateLogoCSS(currentLogoSize + delta * 0.5); }
+  function resetLogoSize() { updateLogoCSS(9.0); }
 
   const defaultConfig = {
     isOpen: true,
@@ -657,6 +594,7 @@
     fileLabel: "الوقائع",
     facts: "",
     question: "",
+    hint: "",
     opts: [],
     ruling: "",
     successMsg: "عقل قانوني ما يطوفه شي! إجابتك في الصميم كفّو🔥",
@@ -670,6 +608,7 @@
     const c = Object.assign({}, defaultConfig, d);
     c.facts = (d.facts !== undefined ? d.facts : d.text) || "";
     c.question = d.question || "";
+    c.hint = d.hint || "";
     c.opts = Array.isArray(d.opts) ? d.opts.filter(o => String(o || '').trim() !== '') : [];
     c.isOpen = d.isOpen === undefined ? true : (d.isOpen === true || d.isOpen === 'true');
     c.leaderboardActive = d.leaderboardActive === true || d.leaderboardActive === 'true';
@@ -677,11 +616,7 @@
   }
 
   let config;
-  try {
-    config = normalizeConfig(JSON.parse(localStorage.getItem(CONFIG_CACHE_KEY)));
-  } catch (e) {
-    config = normalizeConfig(null);
-  }
+  try { config = normalizeConfig(JSON.parse(localStorage.getItem(CONFIG_CACHE_KEY))); } catch (e) { config = normalizeConfig(null); }
 
   let configReady = false;
   let userData = { name: "", phone: "", points: 0, rank: "--" };
@@ -691,40 +626,40 @@
   let typingTimer = null;
   let toastTimer = null;
   let lastAnswerCorrect = null;
-  const localLogoPreview = ['', '', '', '', ''];
 
-  function normalizeDigits(s) {
-    return String(s || '').replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d))
-                          .replace(/[۰-۹]/g, d => '۰۱۲۳۴۵٦۷۸۹'.indexOf(d));
-  }
-  function esc(s) {
-    return String(s == null ? '' : s).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
-  }
+  function normalizeDigits(s) { return String(s || '').replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d)); }
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch])); }
   function caseTitle() { return config.title || 'القضية'; }
   function isUserAdmin() { return currentAdminStatus === true; }
 
+  const ICON_CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+  const ICON_X = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M7 7l10 10M17 7L7 17"/></svg>';
+  const ICON_SCALE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 4v15M8 20h8M5 7h14M5 7l-2.5 6a3 3 0 0 0 5 0L5 7zM19 7l-2.5 6a3 3 0 0 0 5 0L19 7z"/></svg>';
+  const ICON_COPY = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11" rx="2.5"/><path d="M5 15V6.5A2.5 2.5 0 0 1 7.5 4H15"/></svg>';
+  const ICON_CAL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>';
 
-  /* ===== أيقونات ===== */
-  const ICON_CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
-  const ICON_X = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M7 7l10 10M17 7L7 17"/></svg>';
-  const ICON_SCALE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v15M8 20h8M5 7h14M5 7l-2.5 6a3 3 0 0 0 5 0L5 7zM19 7l-2.5 6a3 3 0 0 0 5 0L19 7z"/></svg>';
-  const ICON_COPY = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2.5"/><path d="M5 15V6.5A2.5 2.5 0 0 1 7.5 4H15"/></svg>';
-  const ICON_TAG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12.5V4h8.5L21 13.5 13.5 21 3 12.5z"/><circle cx="7.5" cy="8.5" r="1.2"/></svg>';
-  const ICON_CAL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>';
-
-  /* ===== تأثير الكونفيتي الاحتفالي الفاخر عند الفوز ===== */
   function triggerCelebrationConfetti() {
-    try {
-      confetti({
-        particleCount: 80,
-        spread: 70,
-        origin: { y: 0.6 },
-        colors: ['#e9a23b', '#8E7C93', '#ffffff', '#f6c978']
-      });
-    } catch (e) {}
+    try { confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 }, colors: ['#e9a23b', '#8E7C93', '#ffffff', '#f6c978'] }); } catch (e) {}
   }
 
-  /* ===== تنسيق بيانات كود الخصم: الجهة|||الوصف|||الكود|||التاريخ|||اسم ملف الشعار ===== */
+  function revealHint() {
+    if (userUsedHint) return;
+    const hintText = config.hint || "لا يوجد تلميح متاح لهذه القضية حالياً.";
+    
+    let box = document.getElementById('hintDisplayBox');
+    if (!box) {
+      box = document.createElement('div');
+      box.id = 'hintDisplayBox';
+      box.className = 'hint-box';
+      const optionsDiv = document.getElementById('options');
+      if (optionsDiv) optionsDiv.parentNode.insertBefore(box, optionsDiv);
+    }
+    
+    box.innerHTML = `<strong>💡 تلميح استقصائي:</strong><br>${esc(hintText)}<br><span style="font-size:0.68rem; color:#fca5a5; display:block; margin-top:4px;">* تنبيه: استخدام هذا التلميح سيجعل احتساب النقاط (0.5 نقطة) فقط عند الإجابة الصحيحة.</span>`;
+    userUsedHint = true;
+    showToast('تم فتح التلميح! ستُحتسب الإجابة بـ 0.5 نقطة 💡');
+  }
+
   function parsePromo(raw) {
     raw = String(raw == null ? '' : raw);
     const p = raw.split('|||');
@@ -732,59 +667,22 @@
     if (p.length === 4 && (!p[1] || p[1].includes('-') || p[1].length < 5)) {
       return { store: (p[0] || '').trim(), desc: '', code: (p[1] || '').trim(), exp: (p[2] || '').trim(), logo: (p[3] || '').trim() };
     }
-    return { 
-      store: (p[0] || '').trim(), 
-      desc: (p[1] || '').trim(), 
-      code: (p[2] || '').trim(), 
-      exp: (p[3] || '').trim(), 
-      logo: (p[4] || '').trim() 
-    };
+    return { store: (p[0] || '').trim(), desc: (p[1] || '').trim(), code: (p[2] || '').trim(), exp: (p[3] || '').trim(), logo: (p[4] || '').trim() };
   }
 
   function fmtDate(iso) {
     if (!/^\d{4}-\d{2}-\d{2}$/.test(iso || '')) return '';
-    try {
-      return new Date(iso + 'T00:00:00').toLocaleDateString('ar-SA-u-ca-gregory', { day: 'numeric', month: 'long', year: 'numeric' });
-    } catch (e) { return iso; }
+    try { return new Date(iso + 'T00:00:00').toLocaleDateString('ar-SA-u-ca-gregory', { day: 'numeric', month: 'long', year: 'numeric' }); } catch (e) { return iso; }
   }
 
-  /* ===== مسار الشعار: اسم ملف مرفوع في GitHub بجودته الأصلية ===== */
   function logoSrc(name) {
     name = String(name || '').trim();
     if (!name) return '';
     if (/^data:image\/(png|jpeg|webp|gif);base64,[A-Za-z0-9+\/=]+$/.test(name)) return name;
     if (name.includes('..')) return '';
-    if (!/^[\w\u0600-\u06FF\-. ()]+(\/[\w\u0600-\u06FF\-. ()]+)*\.(png|jpe?g|webp|gif|svg)$/i.test(name)) return '';
     return name.split('/').map(encodeURIComponent).join('/');
   }
 
-  /* ===== فيونكة القسيمة الفاخرة الأكبر حجماً والمائلة على الزاوية ===== */
-  const BOW_SVG = `<svg class="ticket-bow" viewBox="0 0 120 116" aria-hidden="true">
-    <defs>
-      <linearGradient id="bwL" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#B2A0B8"/><stop offset=".55" stop-color="#6a5a70"/><stop offset="1" stop-color="#2B1B2C"/></linearGradient>
-      <linearGradient id="bwR" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B2A0B8"/><stop offset=".55" stop-color="#6a5a70"/><stop offset="1" stop-color="#2B1B2C"/></linearGradient>
-      <linearGradient id="bwT" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7a6a80"/><stop offset="1" stop-color="#2B1B2C"/></linearGradient>
-      <radialGradient id="bwK" cx=".35" cy=".3" r=".85"><stop offset="0" stop-color="#C4B4C9"/><stop offset=".5" stop-color="#6a5a70"/><stop offset="1" stop-color="#2B1B2C"/></radialGradient>
-    </defs>
-    <g class="bow-tails" opacity=".92">
-      <path d="M56 58C52 74 41 90 28 108L40 103L47 111C58 94 63 77 65 60Z" fill="url(#bwT)"/>
-      <path d="M64 58C68 74 79 90 92 108L80 103L73 111C62 94 57 77 55 60Z" fill="url(#bwT)"/>
-      <path d="M52 68C48 81 41 92 34 101" fill="none" stroke="#F8F9FA" stroke-opacity=".3" stroke-width="1.2" stroke-linecap="round"/>
-      <path d="M68 68C72 81 79 92 86 101" fill="none" stroke="#F8F9FA" stroke-opacity=".3" stroke-width="1.2" stroke-linecap="round"/>
-    </g>
-    <g opacity=".9">
-      <path d="M55 47C43 21 14 12 7 29C1 44 19 63 55 54Z" fill="url(#bwL)"/>
-      <path d="M65 47C77 21 106 12 113 29C119 44 101 63 65 54Z" fill="url(#bwR)"/>
-      <path d="M53 49C42 33 24 26 17 33C13 41 27 53 53 52" fill="none" stroke="#F8F9FA" stroke-opacity=".38" stroke-width="1.4" stroke-linecap="round"/>
-      <path d="M67 49C78 33 96 26 103 33C107 41 93 53 67 52" fill="none" stroke="#F8F9FA" stroke-opacity=".38" stroke-width="1.4" stroke-linecap="round"/>
-      <path d="M46 40C36 29 24 25 15 27" fill="none" stroke="#F8F9FA" stroke-opacity=".28" stroke-width="2.2" stroke-linecap="round"/>
-      <path d="M74 40C84 29 96 25 105 27" fill="none" stroke="#F8F9FA" stroke-opacity=".28" stroke-width="2.2" stroke-linecap="round"/>
-    </g>
-    <path d="M52 44C54 39 66 39 68 44L70.5 55C70.5 61 49.5 61 49.5 55Z" fill="url(#bwK)"/>
-    <path d="M55 45.5C58 43.5 62 43.5 65 45.5" fill="none" stroke="#F8F9FA" stroke-opacity=".5" stroke-width="1.3" stroke-linecap="round"/>
-  </svg>`;
-
-  /* ===== تكييف الشعار تلقائياً إذا كان فاتحاً ليكون واضحاً ===== */
   function adaptLogo(img) {
     try {
       const w = Math.min(64, img.naturalWidth || 64), h = Math.min(64, img.naturalHeight || 64);
@@ -795,8 +693,7 @@
       for (let i = 0; i < d.length; i += 4) {
         if (d[i + 3] > 40) { sum += 0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2]; solid++; }
       }
-      const total = d.length / 4;
-      if (solid > 20 && sum / solid > 200 && solid / total < 0.9 && img.parentNode) img.parentNode.classList.add('on-dark');
+      if (solid > 20 && sum / solid > 200 && img.parentNode) img.parentNode.classList.add('on-dark');
     } catch (e) {}
   }
   function logoFailed(img) {
@@ -805,57 +702,28 @@
     if (brand && !brand.querySelector('.ticket-store')) brand.innerHTML = `<div class="ticket-seal">${ICON_SCALE}</div>`;
   }
 
-  /* ===== بطاقة الجائزة: زر النسخ مدمج داخل كود الخصم في الزاوية ===== */
+  const BOW_SVG = `<svg class="ticket-bow" viewBox="0 0 120 116" aria-hidden="true"><defs><linearGradient id="bwL" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#B2A0B8"/><stop offset=".55" stop-color="#6a5a70"/><stop offset="1" stop-color="#2B1B2C"/></linearGradient><linearGradient id="bwR" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B2A0B8"/><stop offset=".55" stop-color="#6a5a70"/><stop offset="1" stop-color="#2B1B2C"/></linearGradient></defs><path d="M55 47C43 21 14 12 7 29C1 44 19 63 55 54Z" fill="url(#bwL)"/><path d="M65 47C77 21 106 12 113 29C119 44 101 63 65 54Z" fill="url(#bwR)"/></svg>`;
+
   function buildWinHTML(promo) {
     let ticket = '';
     if (promo.code) {
       const src = logoSrc(promo.logo);
-      const brand = (src || promo.store)
-        ? `<div class="ticket-brand">${src ? `<span class="logo-wrap"><img class="ticket-logo" src="${src}" alt="" onload="adaptLogo(this)" onerror="logoFailed(this)"></span>` : ''}${promo.store ? `<div class="ticket-store">${esc(promo.store)}</div>` : ''}</div>`
-        : `<div class="ticket-brand"><div class="ticket-seal">${ICON_SCALE}</div></div>`;
-
+      const brand = (src || promo.store) ? `<div class="ticket-brand">${src ? `<span class="logo-wrap"><img class="ticket-logo" src="${src}" alt="" onload="adaptLogo(this)" onerror="logoFailed(this)"></span>` : ''}${promo.store ? `<div class="ticket-store">${esc(promo.store)}</div>` : ''}</div>` : `<div class="ticket-brand"><div class="ticket-seal">${ICON_SCALE}</div></div>`;
       const descText = promo.desc ? esc(promo.desc) : '';
       const d = fmtDate(promo.exp);
 
-      ticket = `
-      <div class="ticket">
-        ${BOW_SVG}
-        ${brand}
-        <div class="code-label">كود الخصم</div>
-        <div class="code-box">
-          <div class="code-text" id="promoCodeText">${esc(promo.code)}</div>
-          <button type="button" class="code-copy" id="copyCodeBtn" onclick="copyPromoCode()" aria-label="نسخ الكود">${ICON_COPY}</button>
-        </div>
-        ${descText ? `<div class="ticket-desc">${descText}</div>` : ''}
-        <div class="tear"></div>
-        ${d ? `<div class="ticket-exp">${ICON_CAL}<span>صالحة حتى ${esc(d)}</span></div>` : ''}
-      </div>`;
+      ticket = `<div class="ticket">${BOW_SVG}${brand}<div class="code-label">كود الخصم</div><div class="code-box"><div class="code-text" id="promoCodeText">${esc(promo.code)}</div><button type="button" class="code-copy" id="copyCodeBtn" onclick="copyPromoCode()">${ICON_COPY}</button></div>${descText ? `<div class="ticket-desc">${descText}</div>` : ''}<div class="tear"></div>${d ? `<div class="ticket-exp">${ICON_CAL}<span>صالحة حتى ${esc(d)}</span></div>` : ''}</div>`;
     }
-    return `
-    <div class="res-card win">
-      <div class="res-icon ok">${ICON_CHECK}</div>
-      <h2 class="res-title">${esc(config.successMsg || 'إجابة صحيحة!')}</h2>
-      ${ticket}
-    </div>`;
+    return `<div class="res-card win"><div class="res-icon ok">${ICON_CHECK}</div><h2 class="res-title">${esc(config.successMsg || 'إجابة صحيحة!')}</h2>${ticket}</div>`;
   }
 
-  /* ===== بطاقات الإجابة الخاطئة ===== */
   function buildLoseHTML(r, isAdmin) {
     const ruling = String(r.ruling || '').trim();
     let ci = [r.correctIndex, r.corrIndex, r.correct_index, r.correctAnswerIndex].find(v => v !== undefined && v !== null && v !== '');
     ci = ci === undefined ? -1 : parseInt(ci, 10);
     let pickText = '';
     if (ci >= 0 && config.opts[ci] !== undefined) pickText = `<span class="pick-letter">${OPT_LETTERS[ci] || (ci + 1)}</span>${esc(config.opts[ci])}`;
-    else if (r.correctAnswer) pickText = esc(r.correctAnswer);
-    return `
-    <div class="res-card lose">
-      <div class="res-icon no">${ICON_X}</div>
-      <h2 class="res-title soft">${esc(config.wrongMsg || 'إجابة خاطئة')}</h2>
-      ${ruling ? `<div class="info-card"><span class="info-tag">${ICON_SCALE}<span>التسبيب</span></span><p>${esc(ruling)}</p></div>` : ''}
-      ${pickText ? `<div class="info-card pick"><span class="info-tag">${ICON_CHECK}<span>الإجابة الصحيحة</span></span><p>${pickText}</p></div>` : ''}
-      <button class="btn" onclick="proceedAfterWrong()">متابعة المسابقة ‹</button>
-      ${isAdmin ? '<button class="btn btn-ghost" onclick="backToQuizOrRestart()">🔄 تجربة إجابة أخرى</button>' : ''}
-    </div>`;
+    return `<div class="res-card lose"><div class="res-icon no">${ICON_X}</div><h2 class="res-title soft">${esc(config.wrongMsg || 'إجابة خاطئة')}</h2>${ruling ? `<div class="info-card"><span class="info-tag">${ICON_SCALE}<span>التسبيب</span></span><p>${esc(ruling)}</p></div>` : ''}${pickText ? `<div class="info-card pick"><span class="info-tag">${ICON_CHECK}<span>الإجابة الصحيحة</span></span><p>${pickText}</p></div>` : ''}<button class="btn" onclick="proceedAfterWrong()">متابعة المسابقة ‹</button>${isAdmin ? '<button class="btn btn-ghost" onclick="backToQuizOrRestart()">🔄 تجربة إجابة أخرى</button>' : ''}</div>`;
   }
 
   function proceedAfterWrong() {
@@ -863,153 +731,61 @@
     else location.reload();
   }
 
-  /* ===== نسخ الكود ===== */
   async function copyPromoCode() {
     const el = document.getElementById('promoCodeText');
     const code = el ? el.textContent.trim() : '';
     if (!code) return;
     let ok = false;
     try { await navigator.clipboard.writeText(code); ok = true; } catch (e) {}
-    if (!ok) {
-      try {
-        const ta = document.createElement('textarea');
-        ta.value = code; ta.setAttribute('readonly', '');
-        ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0;font-size:16px;';
-        document.body.appendChild(ta);
-        ta.focus(); ta.select(); ta.setSelectionRange(0, ta.value.length);
-        ok = document.execCommand('copy');
-        ta.remove();
-      } catch (e) {}
-    }
     if (ok) {
       const cb = document.getElementById('copyCodeBtn');
-      if (cb) {
-        cb.classList.add('done'); cb.innerHTML = ICON_CHECK;
-        setTimeout(() => { cb.classList.remove('done'); cb.innerHTML = ICON_COPY; }, 1800);
-      }
+      if (cb) { cb.classList.add('done'); cb.innerHTML = ICON_CHECK; setTimeout(() => { cb.classList.remove('done'); cb.innerHTML = ICON_COPY; }, 1800); }
     }
-    showToast(ok ? 'تم نسخ الكود بنجاح ✅' : 'تعذّر النسخ، اضغطي مطولاً على الكود وانسخيه');
+    showToast(ok ? 'تم نسخ الكود بنجاح ✅' : 'تعذّر النسخ');
   }
 
-  /* ===== حقول أكواد الخصم في لوحة التحكم ===== */
   function buildCodeFields() {
     const box = document.getElementById('codesContainer');
     if (!box) return;
     box.innerHTML = CODE_ORDINALS.map((n, i) => `
       <div style="border: 1px dashed var(--line); border-radius: 0.5rem; padding: 0.5rem; margin-bottom: 8px;">
-        <div class="field" style="margin-bottom: 6px;"><input type="text" id="p_store${i}" placeholder="اسم الجهة / المحل (${n})"></div>
-        <div class="field" style="margin-bottom: 6px;"><input type="text" id="p_desc${i}" placeholder="وصف العرض (مثال: قسيمة خصم 10% خاصة لكِ)"></div>
-        <div class="field" style="margin-bottom: 6px; display:flex; align-items:center; gap:8px;">
-          <img id="p_logoPrev${i}" class="hidden" alt="" style="height:2.4rem; max-width:4.5rem; object-fit:contain; background:rgba(255,255,255,0.92); border-radius:6px; padding:2px;">
-          <label for="p_logoPick${i}" class="admin-nav-btn" style="flex:1; margin:0; cursor:pointer;">🖼️ اختيار شعار الجهة</label>
-          <input type="file" id="p_logoPick${i}" accept="image/*" class="hidden" onchange="onLogoPick(${i}, this)">
-          <button type="button" id="p_logoDel${i}" class="admin-nav-btn hidden" style="flex:0 0 auto;" onclick="clearLogo(${i})">حذف</button>
-        </div>
-        <div class="field" style="margin-bottom: 6px;"><input type="text" id="p_logoFile${i}" placeholder="اسم ملف الشعار في GitHub (مثال: nice-one.png)" style="direction:ltr; text-align:left;" oninput="refreshLogoPreview(${i}, true)"><div class="hint" id="p_logoStat${i}" style="font-weight:700;"></div></div>
-        <div class="field" style="margin-bottom: 6px;"><label style="font-size:0.68rem;">تاريخ انتهاء الصلاحية (اختياري):</label><input type="date" id="p_exp${i}" style="direction:ltr;"></div>
+        <div class="field" style="margin-bottom: 6px;"><input type="text" id="p_store${i}" placeholder="اسم الجهة (${n})"></div>
+        <div class="field" style="margin-bottom: 6px;"><input type="text" id="p_desc${i}" placeholder="وصف العرض (${n})"></div>
+        <div class="field" style="margin-bottom: 6px;"><input type="text" id="p_logoFile${i}" placeholder="اسم ملف الشعار في GitHub (مثال: nice-one.png)" style="direction:ltr; text-align:left;"></div>
+        <div class="field" style="margin-bottom: 6px;"><input type="date" id="p_exp${i}" style="direction:ltr;"></div>
         <div class="field" style="margin-bottom: 0;"><input type="text" id="p_code${i}" placeholder="كود الخصم (${n})"></div>
       </div>`).join('');
-  }
-
-  const logoCheckTimers = {};
-  function checkLogoRemote(i) {
-    clearTimeout(logoCheckTimers[i]);
-    logoCheckTimers[i] = setTimeout(() => {
-      const input = document.getElementById('p_logoFile' + i);
-      const stat = document.getElementById('p_logoStat' + i);
-      if (!input || !stat) return;
-      const name = input.value.trim();
-      if (!name) { stat.textContent = ''; return; }
-      const src = logoSrc(name);
-      if (!src || /^data:/.test(src)) { stat.style.color = '#fca5a5'; stat.textContent = '❌ اسم الملف غير صحيح، لازم ينتهي بـ .png أو .jpg أو .webp'; return; }
-      stat.style.color = 'rgba(248,249,250,0.6)'; stat.textContent = '⏳ جاري فحص الملف في GitHub...';
-      const im = new Image();
-      im.onload = () => { stat.style.color = '#86efac'; stat.textContent = '✅ الملف موجود في GitHub وبيظهر في القسيمة'; };
-      im.onerror = () => { stat.style.color = '#fca5a5'; stat.textContent = '❌ ما لقيت هذا الملف في GitHub. ارفعيه بنفس الاسم بالضبط (الحروف الكبيرة والصغيرة والامتداد)'; };
-      im.src = src + (src.includes('?') ? '&' : '?') + 't=' + Date.now();
-    }, 450);
-  }
-  function refreshLogoPreview(i, fromTyping) {
-    checkLogoRemote(i);
-    const input = document.getElementById('p_logoFile' + i);
-    const prev = document.getElementById('p_logoPrev' + i);
-    const del = document.getElementById('p_logoDel' + i);
-    if (!input || !prev) return;
-    const name = input.value.trim();
-    if (fromTyping) localLogoPreview[i] = '';
-    const src = localLogoPreview[i] || logoSrc(name);
-    if (!name || !src) {
-      prev.classList.add('hidden');
-      if (del) del.classList.toggle('hidden', !name);
-      return;
-    }
-    prev.onerror = () => prev.classList.add('hidden');
-    prev.onload = () => prev.classList.remove('hidden');
-    prev.src = src;
-    if (del) del.classList.remove('hidden');
-  }
-  function clearLogo(i) {
-    const input = document.getElementById('p_logoFile' + i);
-    const pick = document.getElementById('p_logoPick' + i);
-    if (input) input.value = '';
-    if (pick) pick.value = '';
-    if (localLogoPreview[i]) { try { URL.revokeObjectURL(localLogoPreview[i]); } catch (e) {} }
-    localLogoPreview[i] = '';
-    refreshLogoPreview(i, false);
-  }
-  function onLogoPick(i, input) {
-    const file = input.files && input.files[0];
-    if (!file) return;
-    const nameEl = document.getElementById('p_logoFile' + i);
-    if (nameEl) nameEl.value = file.name;
-    if (localLogoPreview[i]) { try { URL.revokeObjectURL(localLogoPreview[i]); } catch (e) {} }
-    localLogoPreview[i] = URL.createObjectURL(file);
-    refreshLogoPreview(i, false);
-    showToast('تذكّري ترفعين الملف "' + file.name + '" في GitHub بنفس الاسم عشان يظهر للطالبات');
   }
 
   function showToast(msg) {
     const el = document.getElementById('toast');
     if (!el) return;
-    el.textContent = msg;
-    el.classList.add('show');
+    el.textContent = msg; el.classList.add('show');
     clearTimeout(toastTimer);
     toastTimer = setTimeout(() => el.classList.remove('show'), 3800);
   }
 
   function openMail(e) {
     if (e) e.preventDefault();
-    const subject = encodeURIComponent("بشأن | لغز الربوع");
-    const mailTo = encodeURIComponent(MAIL_TO);
-    window.location.href = `googlegmail:///co?to=${mailTo}&subject=${subject}`;
+    window.location.href = `googlegmail:///co?to=${encodeURIComponent(MAIL_TO)}&subject=${encodeURIComponent("بشأن | لغز الربوع")}`;
   }
 
   function triggerSecretAdminField() {
     const container = document.getElementById('secretAdminContainer');
     if (!container) return;
     container.classList.toggle('hidden');
-    if (!container.classList.contains('hidden')) {
-      const pInput = document.getElementById('adminPassInput');
-      if (pInput) pInput.focus();
-    }
+    if (!container.classList.contains('hidden')) document.getElementById('adminPassInput').focus();
   }
 
   async function api(payload) {
-    const ctrl = new AbortController();
-    const timer = setTimeout(() => ctrl.abort(), 20000);
     try {
       const res = await fetch(SCRIPT_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify(payload),
-        signal: ctrl.signal
+        body: JSON.stringify(payload)
       });
       return await res.json();
-    } catch (e) {
-      return null;
-    } finally {
-      clearTimeout(timer);
-    }
+    } catch (e) { return null; }
   }
 
   async function verifyAdminSecret() {
@@ -1018,7 +794,6 @@
     if (!entered) return;
 
     const r = await api({ action: 'verifyAdmin', password: entered });
-
     if (r && r.ok) {
       currentAdminStatus = true;
       adminPassword = entered;
@@ -1029,8 +804,6 @@
       showToast('أهلاً بكِ يا ملكة القانون نوف 👑 تم تفعيل وضع الإشراف');
       initUI();
       navigateToStep('quizStep');
-    } else if (r && r.error === 'locked') {
-      showToast('محاولات كثيرة خاطئة، انتظري 10 دقائق');
     } else {
       showToast('كلمة المرور غير صحيحة');
     }
@@ -1039,30 +812,18 @@
   function showFormError(msg, fieldId) {
     const errEl = document.getElementById('formError');
     if (errEl) errEl.textContent = msg;
-    ['userName', 'userPhone', 'adminPassInput'].forEach(id => {
-      const el = document.getElementById(id);
-      if (el) el.classList.remove('invalid');
-    });
-    if (fieldId) {
-      const target = document.getElementById(fieldId);
-      if (target) target.classList.add('invalid');
-    }
   }
 
   async function loadRemoteConfig() {
-    const ctrl = new AbortController();
-    const timer = setTimeout(() => ctrl.abort(), 9000);
     try {
-      const res = await fetch(SCRIPT_URL + '?action=config&t=' + Date.now(), { cache: 'no-store', signal: ctrl.signal });
+      const res = await fetch(SCRIPT_URL + '?action=config&t=' + Date.now(), { cache: 'no-store' });
       const data = await res.json();
       if (data && (data.facts || data.text)) {
         config = normalizeConfig(data);
         try { localStorage.setItem(CONFIG_CACHE_KEY, JSON.stringify(data)); } catch (e) {}
       }
     } catch (e) {}
-    clearTimeout(timer);
     configReady = true;
-    showFormError('');
     initUI();
   }
 
@@ -1076,14 +837,7 @@
       b.className = 'opt-btn';
       b.dataset.i = i;
       b.addEventListener('click', () => submitAnswerInteractive(i));
-      const letter = document.createElement('span');
-      letter.className = 'opt-letter';
-      letter.textContent = OPT_LETTERS[i] || (i + 1);
-      const t = document.createElement('span');
-      t.className = 'opt-text';
-      t.textContent = text;
-      b.appendChild(letter);
-      b.appendChild(t);
+      b.innerHTML = `<span class="opt-letter">${OPT_LETTERS[i] || (i + 1)}</span><span class="opt-text">${text}</span>`;
       box.appendChild(b);
     });
   }
@@ -1102,27 +856,17 @@
     if (qBox) qBox.classList.toggle('hidden', !hasQ);
     if (qQuestion) qQuestion.textContent = config.question || '';
 
-    renderOptions();
-  }
+    userUsedHint = false;
+    const hintBox = document.getElementById('hintDisplayBox');
+    if (hintBox) hintBox.remove();
 
-  function typeText(el, text, speed) {
-    if (!el) return;
-    clearInterval(typingTimer);
-    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduce || !text) { el.textContent = text || ''; el.classList.remove('typing'); return; }
-    el.textContent = "";
-    el.classList.add('typing');
-    let i = 0;
-    typingTimer = setInterval(() => {
-      el.textContent = text.slice(0, ++i);
-      if (i >= text.length) { clearInterval(typingTimer); el.classList.remove('typing'); }
-    }, speed);
+    renderOptions();
   }
 
   function startFactsTyping() {
     const text = config.facts || '';
-    const speed = Math.max(4, Math.min(28, Math.floor(2600 / Math.max(text.length, 1))));
-    typeText(document.getElementById('qText'), text, speed);
+    const el = document.getElementById('qText');
+    if (el) el.textContent = text;
   }
 
   function initUI() {
@@ -1161,41 +905,23 @@
     const phoneInput = document.getElementById('userPhone');
     if (!nameInput || !phoneInput) return;
 
-    if (!configReady) { showFormError('لحظة، جاري تحميل القضية..'); return; }
-    if (!config.facts || config.opts.length < 2) {
-      showFormError('تعذّر تحميل القضية. حدّثي الصفحة وحاولي مرة ثانية.');
-      return;
-    }
-
     const name = nameInput.value.trim().replace(/\s+/g, ' ');
     const phone = normalizeDigits(phoneInput.value.trim());
 
-    if (name.split(' ').length < 2 || name.length < 5) {
-      showFormError('فضلاً اكتبي اسمك الثلاثي كاملاً', 'userName'); return;
-    }
-    if (!/^05\d{8}$/.test(phone)) {
-      showFormError('رقم الجوال لازم يبدأ بـ 05 ويتكون من 10 أرقام', 'userPhone'); return;
-    }
-    if (!config.isOpen) {
-      showFormError('الفعالية مغلقة حالياً. انتظرونا قريباً!', 'userPhone'); return;
-    }
+    if (name.split(' ').length < 2 || name.length < 5) { showFormError('فضلاً اكتبي اسمك الثلاثي كاملاً', 'userName'); return; }
+    if (!/^05\d{8}$/.test(phone)) { showFormError('رقم الجوال لازم يبدأ بـ 05', 'userPhone'); return; }
 
-    showFormError('جاري التحقق..');
     try {
-      const res = await fetch(SCRIPT_URL + '?action=check&phone=' + encodeURIComponent(phone) +
-        '&title=' + encodeURIComponent(caseTitle()) + '&t=' + Date.now(), { cache: 'no-store' });
+      const res = await fetch(SCRIPT_URL + '?action=check&phone=' + encodeURIComponent(phone) + '&title=' + encodeURIComponent(caseTitle()) + '&t=' + Date.now(), { cache: 'no-store' });
       const st = await res.json();
       if (st && st.answered) {
-        showFormError('سبق وشاركتي في لغز هذا الأسبوع 🌸 انتظرينا الأربعاء القادم!', 'userPhone');
+        showFormError('سبق وشاركتي في لغز هذا الأسبوع 🌸', 'userPhone');
         return;
       }
     } catch (e) {}
-    showFormError('');
 
     userData.name = name;
     userData.phone = phone;
-    userData.points = 0;
-    userData.rank = "--";
 
     const tape = document.getElementById('transitionTape');
     tape.classList.add('active');
@@ -1222,38 +948,25 @@
 
     const r = await api(isAdmin
       ? { action: 'adminPreview', password: adminPassword, answerIndex: selectedIndex }
-      : { action: 'submitAnswer', name: userData.name, phone: userData.phone, answerIndex: selectedIndex, caseTitle: caseTitle() });
+      : { action: 'submitAnswer', name: userData.name, phone: userData.phone, answerIndex: selectedIndex, caseTitle: caseTitle(), usedHint: userUsedHint });
 
     if (btn) btn.classList.remove('shaking');
 
     if (!r || !r.ok) {
       answeredThisSession = false;
       if (optionsDiv) optionsDiv.style.pointerEvents = 'auto';
-      if (r && r.error === 'already_answered') {
-        showToast('سبق وشاركتي في هذه القضية 🌸');
-        setTimeout(() => location.reload(), 1800);
-      } else {
-        showToast('تعذّر الاتصال بالسيرفر، حاولي مرة ثانية');
-      }
+      showToast('تعذّر الاتصال بالسيرفر');
       return;
     }
 
     lastAnswerCorrect = !!r.correct;
-    resultDiv.className = 'result-wrap';
-
     if (r.correct) {
       resultDiv.innerHTML = buildWinHTML(parsePromo(r.code));
       triggerCelebrationConfetti();
-      const posterUserBox = document.getElementById('posterUserName');
-      if (posterUserBox) posterUserBox.textContent = "المحققة: " + userData.name;
-      if (!isAdmin) {
-        userData.points = r.points;
-        userData.rank = r.rank;
-      }
+      document.getElementById('posterUserName').textContent = "المحققة: " + userData.name;
+      if (!isAdmin) { userData.points = r.points; userData.rank = r.rank; }
       if (nextStepBtn) {
-        nextStepBtn.textContent = config.leaderboardActive
-          ? "🏆 عرض لوحة الصدارة والتنافس"
-          : "📸 عرض بوستر التحدي والمشاركة";
+        nextStepBtn.textContent = config.leaderboardActive ? "🏆 عرض لوحة الصدارة والتنافس" : "📸 عرض بوستر التحدي والمشاركة";
         nextStepBtn.classList.remove('hidden');
       }
     } else {
@@ -1261,61 +974,45 @@
       if (nextStepBtn) nextStepBtn.classList.add('hidden');
     }
 
-    const caseBody = document.getElementById('caseBody');
-    const statusBar = document.getElementById('statusBar');
-    if (caseBody) caseBody.classList.add('hidden');
-    if (statusBar) statusBar.classList.add('hidden');
+    document.getElementById('caseBody').classList.add('hidden');
+    document.getElementById('statusBar').classList.add('hidden');
     resultDiv.classList.remove('hidden');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   function backToQuizOrRestart() {
     if (isUserAdmin()) {
-      const resultDiv = document.getElementById('result');
-      const nextStepBtn = document.getElementById('nextStepBtn');
       answeredThisSession = false;
       renderOptions();
-      const cb = document.getElementById('caseBody'); if (cb) cb.classList.remove('hidden');
-      const sb = document.getElementById('statusBar'); if (sb) sb.classList.remove('hidden');
-      if (resultDiv) resultDiv.classList.add('hidden');
-      if (nextStepBtn) nextStepBtn.classList.add('hidden');
-    } else {
-      location.reload();
-    }
+      document.getElementById('caseBody').classList.remove('hidden');
+      document.getElementById('statusBar').classList.remove('hidden');
+      document.getElementById('result').classList.add('hidden');
+      document.getElementById('nextStepBtn').classList.add('hidden');
+    } else { location.reload(); }
   }
 
   function navigateToStep(stepId) {
     const tape = document.getElementById('transitionTape');
-    if (tape) tape.classList.add('active');
+    tape.classList.add('active');
 
     setTimeout(() => {
       ['userInfoStep', 'quizStep', 'leaderboardStep', 'posterStep'].forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.classList.add('hidden');
+        document.getElementById(id).classList.add('hidden');
       });
-      const target = document.getElementById(stepId);
-      if (target) target.classList.remove('hidden');
+      document.getElementById(stepId).classList.remove('hidden');
       window.scrollTo({ top: 0, behavior: 'smooth' });
       if (stepId === 'quizStep' && !answeredThisSession) startFactsTyping();
-      
       if (stepId === 'leaderboardStep') {
-        const pb = document.getElementById('posterFromBoardBtn');
-        if (pb) pb.classList.toggle('hidden', lastAnswerCorrect === false && !isUserAdmin());
-      }
-      if (stepId === 'leaderboardStep' && !isUserAdmin()) {
-        fetchUserPointsFromSheet(userData.phone);
+        document.getElementById('posterFromBoardBtn').classList.toggle('hidden', lastAnswerCorrect === false && !isUserAdmin());
+        if (!isUserAdmin()) fetchUserPointsFromSheet(userData.phone);
       }
     }, 400);
 
-    setTimeout(() => { if (tape) tape.classList.remove('active'); }, 850);
+    setTimeout(() => tape.classList.remove('active'), 850);
   }
 
   function proceedAfterAnswer() {
-    if (config.leaderboardActive) {
-      navigateToStep('leaderboardStep');
-    } else {
-      navigateToStep('posterStep');
-    }
+    navigateToStep(config.leaderboardActive ? 'leaderboardStep' : 'posterStep');
   }
 
   function fetchUserPointsFromSheet(phone) {
@@ -1337,36 +1034,22 @@
   }
 
   function goToPosterFromLeaderboard() { navigateToStep('posterStep'); }
-
-  function returnFromPosterForUser() {
-    navigateToStep(config.leaderboardActive ? 'leaderboardStep' : 'userInfoStep');
-  }
-
-  async function awardSharePoints() {
-    if (isUserAdmin()) return null;
-    const r = await api({ action: 'sharePoster', phone: userData.phone, caseTitle: caseTitle() });
-    return (r && r.ok) ? r : null;
-  }
+  function returnFromPosterForUser() { navigateToStep(config.leaderboardActive ? 'leaderboardStep' : 'userInfoStep'); }
 
   async function sharePosterFile() {
     const shareText = `حلّيت لغز اليوم في كلية الحقوق والعلوم السياسية! ⚖️🔍\n#لغز_الربوع`;
-    const currentUrl = window.location.href;
     let done = false;
-
     try {
       const response = await fetch('IMG_2042.png');
       const blob = await response.blob();
       const file = new File([blob], 'لغز_الربوع.png', { type: 'image/png' });
       if (navigator.canShare && navigator.canShare({ files: [file] })) {
-        await navigator.share({ files: [file], title: 'لغز الربوع', text: shareText + '\n' + currentUrl });
+        await navigator.share({ files: [file], title: 'لغز الربوع', text: shareText });
         done = true;
       }
-    } catch (e) {
-      if (e && e.name === 'AbortError') return;
-    }
+    } catch (e) {}
 
     if (!done) {
-      try { await navigator.clipboard.writeText(shareText + '\n' + currentUrl); } catch (e) {}
       const link = document.createElement('a');
       link.href = 'IMG_2042.png';
       link.download = 'بوستر_لغز_الربوع.png';
@@ -1375,17 +1058,11 @@
       link.remove();
     }
 
-    if (isUserAdmin()) {
-      showToast(done ? 'تمت المشاركة (وضع الإشراف: بدون نقاط)' : 'تم تحميل البوستر');
-    } else {
-      const r = await awardSharePoints();
+    if (!isUserAdmin()) {
+      const r = await api({ action: 'sharePoster', phone: userData.phone, caseTitle: caseTitle() });
       if (r && r.awarded) {
         userData.points = r.points;
-        showToast('تمت المشاركة! تم احتساب نقطتين إضافيتين 🏆✨');
-      } else if (r && r.error === 'must_solve_correctly') {
-        showToast('لا يمكن احتساب نقاط البوستر إلا بعد حل القضية بنجاح ✅');
-      } else {
-        showToast('تمت المشاركة ✅ (سُجلت مسبقاً)');
+        showToast('تمت المشاركة! تم احتساب نقطتين إضافيتين للبوستر 🏆✨');
       }
     }
   }
@@ -1400,6 +1077,7 @@
     setVal('p_label', cfg.fileLabel || defaultConfig.fileLabel);
     setVal('p_text', cfg.facts);
     setVal('p_question', cfg.question);
+    setVal('p_hint', cfg.hint || "");
     for (let i = 0; i < 4; i++) setVal('p_o' + i, cfg.opts[i] || "");
     const codes = cfg.codes || [];
     for (let i = 0; i < 5; i++) {
@@ -1408,9 +1086,7 @@
       setVal('p_desc' + i, pr.desc);
       setVal('p_exp' + i, pr.exp);
       setVal('p_code' + i, pr.code);
-      setVal('p_logoFile' + i, /^data:/.test(pr.logo) ? '' : pr.logo);
-      localLogoPreview[i] = '';
-      refreshLogoPreview(i, false);
+      setVal('p_logoFile' + i, pr.logo);
     }
     setVal('p_ruling', cfg.ruling);
     setVal('p_successMsg', cfg.successMsg || defaultConfig.successMsg);
@@ -1421,52 +1097,36 @@
     const panel = document.getElementById('adminPanel');
     if (!panel) return;
     if (panel.classList.contains('hidden')) {
-      showToast('جاري جلب الإعدادات السرية..');
       const r = await api({ action: 'adminConfig', password: adminPassword });
-      if (!r || !r.ok) { showToast('كلمة السر غير صحيحة أو غير مصرح'); return; }
+      if (!r || !r.ok) { showToast('كلمة السر غير صحيحة'); return; }
       fillAdminPanel(normalizeConfig(r.config));
       panel.classList.remove('hidden');
       panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    } else {
-      panel.classList.add('hidden');
-    }
+    } else { panel.classList.add('hidden'); }
   }
 
   async function saveAdminSettings() {
     const getVal = (id) => { const el = document.getElementById(id); return el ? el.value.trim() : ""; };
-    const facts = getVal('p_text');
-    if (!facts) { showToast('اكتبي الوقائع أولاً'); return; }
-    if (!getVal('p_no')) { showToast('اكتبي عنوان القضية أولاً'); return; }
-
     const opts = [0, 1, 2, 3].map(i => getVal('p_o' + i)).filter(o => o !== "");
-    if (opts.length < 2) { showToast('أدخلي خيارين على الأقل'); return; }
-
+    
     const codes = [];
-    const clean = (t) => String(t || '').replace(/\|\|\|/g, '');
     for (let i = 0; i < 5; i++) {
       const v = getVal('p_code' + i);
-      const st = clean(getVal('p_store' + i));
-      const ds = clean(getVal('p_desc' + i));
-      const ex = getVal('p_exp' + i);
-      const lgRaw = clean(getVal('p_logoFile' + i));
-      if (lgRaw && !logoSrc(lgRaw)) {
-        showToast('اسم ملف الشعار في الكود ' + CODE_ORDINALS[i] + ' غير صحيح، لازم ينتهي بـ .png أو .jpg أو .webp');
-        return;
-      }
       if (v) {
-        codes.push([st, ds, clean(v), ex, lgRaw].join('|||'));
+        codes.push([getVal('p_store' + i), getVal('p_desc' + i), v, getVal('p_exp' + i), getVal('p_logoFile' + i)].join('|||'));
       }
     }
 
     const newConfig = {
       isOpen: getVal('p_isOpen') === 'true',
-      closedTitle: getVal('p_closedTitle') || defaultConfig.closedTitle,
-      closedText: getVal('p_closedText') || defaultConfig.closedText,
+      closedTitle: getVal('p_closedTitle'),
+      closedText: getVal('p_closedText'),
       leaderboardActive: getVal('p_leaderboardActive') === 'true',
       title: getVal('p_no'),
-      fileLabel: getVal('p_label') || defaultConfig.fileLabel,
-      facts: facts,
+      fileLabel: getVal('p_label'),
+      facts: getVal('p_text'),
       question: getVal('p_question'),
+      hint: getVal('p_hint'),
       opts: opts,
       corrIndex: parseInt(document.getElementById('p_corr').value) || 0,
       codes: codes,
@@ -1475,12 +1135,7 @@
       wrongMsg: getVal('p_wrongMsg')
     };
 
-    const saveBtn = document.getElementById('saveSettingsBtn');
-    if (saveBtn) { saveBtn.disabled = true; saveBtn.textContent = 'جاري الحفظ...'; }
-
     const result = await api({ action: 'saveConfig', password: adminPassword, config: newConfig });
-    if (saveBtn) { saveBtn.disabled = false; saveBtn.textContent = 'حفظ وتحديث الفعالية'; }
-
     if (result && result.ok) {
       config = normalizeConfig(result.publicConfig);
       try { localStorage.setItem(CONFIG_CACHE_KEY, JSON.stringify(result.publicConfig)); } catch (e) {}
@@ -1488,16 +1143,11 @@
       showToast('تم الحفظ وتحديث الفعالية بنجاح ✅');
       document.getElementById('adminPanel').classList.add('hidden');
       initUI();
-    } else {
-      showToast(result
-        ? 'فشل الحفظ: ' + (result.error || 'تأكدي من كلمة المرور')
-        : 'تعذّر الاتصال بالسيرفر، حاولي مرة ثانية');
-    }
+    } else { showToast('فشل الحفظ'); }
   }
 
   window.addEventListener('DOMContentLoaded', () => {
     buildCodeFields();
-    showFormError('جاري تحميل القضية..');
     initUI();
     loadRemoteConfig();
   });
