@@ -245,7 +245,7 @@
     }
     .shaking { animation: shake 0.4s ease-in-out; }
 
-    .result-box { margin-top: 0.875rem; padding: 1rem 0.75rem; border-radius: 0.625rem; text-align: center; }
+    .result-box { margin-top: 0.875rem; padding: 1rem 0.75rem; border-radius: 0.625rem; text-align: center; overflow: visible !important; }
     .poster-page-card, .leaderboard-card { text-align: center; padding: 1.125rem 0.875rem; }
     .poster-img-container {
       position: relative; width: 100%; border-radius: 0.75rem; overflow: hidden;
@@ -295,10 +295,10 @@
     }
     .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-    .card.card-flat { background: none; border: none; box-shadow: none; border-radius: 0; backdrop-filter: none; padding: 0.4rem 0.1rem 1rem; }
+    .card.card-flat { background: none; border: none; box-shadow: none; border-radius: 0; backdrop-filter: none; padding: 0.4rem 0.1rem 1rem; overflow: visible !important; }
     .card.card-flat .corner { display: none; }
 
-    .res-card { width: 100%; display: flex; flex-direction: column; align-items: stretch; gap: 0.85rem; text-align: center; margin-top: 0.6rem; }
+    .res-card { width: 100%; display: flex; flex-direction: column; align-items: stretch; gap: 0.85rem; text-align: center; margin-top: 0.6rem; overflow: visible !important; }
     .res-icon { align-self: center; width: 3.3rem; height: 3.3rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1.5px solid; }
     .res-icon svg { width: 52%; height: 52%; }
     .res-icon.ok { border-color: #22c55e !important; color: #4ade80 !important; background: rgba(34, 197, 94, 0.2) !important; }
@@ -306,12 +306,12 @@
     .res-title { margin: 0; font-size: 1.1rem; font-weight: 900; line-height: 1.7; color: var(--white-soft); }
     .res-title.soft { font-size: 1rem; font-weight: 800; color: var(--violet-soft); }
 
-    /* البطاقة البيضاء للسماح للفيونكة بالظهور كاملة وخارج الحدود */
+    /* تصميم التذكرة البيضاء للسماح ببروز الفيونكة فوقها بشكل جميل ومكشوف */
     .ticket {
       position: relative; width: 100%; padding: 1.5rem 1.1rem 1.1rem; border-radius: 1.1rem;
       background: #FFFFFF; color: #2B1B2C; border: 1.5px solid var(--violet);
       text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center;
-      overflow: visible !important;
+      overflow: visible !important; margin-top: 1.2rem;
     }
     .ticket-brand { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; gap: 6px; margin-bottom: 0.5rem; }
     
@@ -321,37 +321,41 @@
     .ticket-seal { width: 2.2rem; height: 2.2rem; color: var(--violet); margin: 0 auto; }
     .logo-wrap { background: transparent !important; border: none !important; padding: 0 !important; box-shadow: none !important; }
     
-    /* الفيونكة البارزة والكاملة بالزاوية */
-    .ticket-bow { position: absolute; top: -1.7rem; left: -1.4rem; width: 6.8rem; height: auto; pointer-events: none; z-index: 5; opacity: 0.96; transform: rotate(-12deg); }
+    /* الفيونكة البارزة بالحجم الطبيعي والموقع الدقيق من الصورة */
+    .ticket-bow {
+      position: absolute; top: -1.75rem; left: -1.45rem; width: 5.5rem; height: auto;
+      pointer-events: none; z-index: 10; opacity: 0.98; transform: rotate(-8deg);
+    }
 
     .tear { position: relative; width: calc(100% + 2.2rem); height: 0; margin: 0.9rem -1.1rem; border-top: 2px dashed rgba(142,124,147,0.5); }
     .tear::before, .tear::after { content: ""; position: absolute; top: -10px; width: 18px; height: 18px; border-radius: 50%; background: #FFFFFF; border: 1.5px solid var(--violet); }
     .tear::before { right: -10px; }
     .tear::after { left: -10px; }
     
-    .code-label { font-size: 0.72rem; font-weight: 700; color: #6a5a70; margin-bottom: 4px; width: 100%; text-align: right; }
+    .code-label { font-size: 0.72rem; font-weight: 700; color: #6a5a70; margin-bottom: 6px; width: 100%; text-align: center; }
     
-    /* صندوق الكود الغامق وزر النسخ بداخله على اليسار تماماً مثل ما حددتيه */
+    /* صندوق الكود الغامق والمربع الشفاف للنسخ على اليمين تماماً مثل الصورة بالضبط */
     .code-box {
-      display: flex; align-items: center; justify-content: space-between; gap: 0.5rem;
-      background: #2B1B2C; border-radius: 0.8rem; padding: 0.4rem 0.4rem 0.4rem 0.8rem; width: 100%;
+      display: flex; align-items: center; justify-content: space-between;
+      background: #2B1B2C; border-radius: 0.75rem; padding: 0.45rem 0.6rem 0.45rem 0.8rem; width: 100%;
+      position: relative;
     }
     .code-text {
-      flex: 1 1 auto; min-width: 0; text-align: center; font-size: 1.5rem; font-weight: 900;
-      letter-spacing: 1.5px; color: var(--white-soft); user-select: all;
+      flex: 1 1 auto; text-align: center; font-size: 1.45rem; font-weight: 900;
+      letter-spacing: 2px; color: var(--white-soft); user-select: all;
     }
-    .code-copy {
-      flex: 0 0 auto; width: 2.4rem; height: 2.4rem; border-radius: 0.6rem;
-      border: 1px solid rgba(210,215,223,0.35); background: rgba(142,124,147,0.3);
+    .code-copy-icon-btn {
+      flex: 0 0 auto; width: 2.2rem; height: 2.2rem; border-radius: 0.5rem;
+      border: 1px solid rgba(210, 215, 223, 0.25); background: rgba(255, 255, 255, 0.12);
       color: var(--white-soft); display: flex; align-items: center; justify-content: center;
-      cursor: pointer; transition: 0.2s;
+      cursor: pointer; transition: 0.2s; margin-left: 2px;
     }
-    .code-copy:hover { background: var(--violet); border-color: #fff; }
-    .code-copy.done { background: rgba(34,197,94,0.3); border-color: #22c55e; color: #4ade80; }
-    .code-copy svg { width: 1.15rem; height: 1.15rem; fill: currentColor; }
+    .code-copy-icon-btn:hover { background: rgba(255, 255, 255, 0.25); }
+    .code-copy-icon-btn.done { background: rgba(34, 197, 94, 0.4); border-color: #22c55e; color: #4ade80; }
+    .code-copy-icon-btn svg { width: 1.05rem; height: 1.05rem; fill: currentColor; }
     
     .ticket-exp { display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 0.8rem; font-size: 0.76rem; font-weight: 800; color: #47374c; width: 100%; }
-    .ticket-exp svg { width: 1.15rem; height: 1.15rem; flex: 0 0 auto; color: #47374c; }
+    .ticket-exp svg { width: 1.1rem; height: 1.1rem; flex: 0 0 auto; color: #47374c; }
 
     .info-card { position: relative; width: 100%; border: 1.5px solid rgba(142,124,147,0.55); background: rgba(142,124,147,0.12); border-radius: 1.1rem; padding: 1.35rem 1rem 0.9rem; }
     .info-tag { position: absolute; top: -0.85rem; right: 50%; transform: translateX(50%); display: inline-flex; align-items: center; gap: 6px; background: #2B1B2C; border: 1.5px solid var(--violet); color: var(--white-soft); border-radius: 999px; padding: 2px 12px; font-size: 0.74rem; font-weight: 800; }
@@ -802,7 +806,7 @@
       const descText = promo.desc ? esc(promo.desc) : '';
       const d = fmtDate(promo.exp);
 
-      ticket = `<div class="ticket">${BOW_SVG}${brand}<div class="code-label">كود الخصم</div><div class="code-box"><div class="code-text" id="promoCodeText">${esc(promo.code)}</div><button type="button" class="code-copy" id="copyCodeBtn" onclick="copyPromoCode()">${ICON_COPY}</button></div>${descText ? `<div class="ticket-desc">${descText}</div>` : ''}<div class="tear"></div>${d ? `<div class="ticket-exp">${ICON_CAL}<span>صالحة حتى ${esc(d)}</span></div>` : ''}</div>`;
+      ticket = `<div class="ticket">${BOW_SVG}${brand}${descText ? `<div class="ticket-desc">${descText}</div>` : ''}<div class="code-label">كود الخصم</div><div class="code-box"><div class="code-text" id="promoCodeText">${esc(promo.code)}</div><button type="button" class="code-copy-icon-btn" id="copyCodeBtn" onclick="copyPromoCode()">${ICON_COPY}</button></div><div class="tear"></div>${d ? `<div class="ticket-exp">${ICON_CAL}<span>صالحة حتى ${esc(d)}</span></div>` : ''}</div>`;
     }
     return `<div class="res-card win"><div class="res-icon ok">${ICON_CHECK}</div><h2 class="res-title">${esc(config.successMsg || 'إجابة صحيحة!')}</h2>${ticket}</div>`;
   }
