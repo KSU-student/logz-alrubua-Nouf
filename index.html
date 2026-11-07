@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
   <title>لغز الربوع - لغز اليوم</title>
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/canvas-confetti.browser.min.js"></script>
   <style>
     :root {
       --bg-dark: #2B1B2C;
@@ -172,7 +172,6 @@
     }
     .question-zoom { font-size: 0.92rem; font-weight: 700; line-height: 1.7; color: var(--white-soft); white-space: pre-wrap; overflow-wrap: anywhere; }
 
-    /* تصميم أيقونة اللمبة داخل بوكس السؤال بدون أي إطار أو خلفية، وبأطراف نور بنفسجي منسجم مع الهوية */
     .question-box {
       position: relative; padding-left: 2.5rem !important;
     }
@@ -190,7 +189,6 @@
       50% { filter: drop-shadow(0 0 10px rgba(142, 124, 147, 0.95)) drop-shadow(0 0 4px #D2D7DF); opacity: 1; }
     }
 
-    /* مربع التلميح أو موديل التنبيه المستقل في الوجه */
     .modal-overlay {
       position: fixed; inset: 0; background: rgba(20, 10, 22, 0.8);
       backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
@@ -309,21 +307,34 @@
     .res-title { margin: 0; font-size: 1.1rem; font-weight: 900; line-height: 1.7; color: var(--white-soft); }
     .res-title.soft { font-size: 1rem; font-weight: 800; color: var(--violet-soft); }
 
+    /* تعديل بطاقة التذكرة البيضاء للسماح للفيونكة بالظهور بسلاسة وبدون قص */
     .ticket {
       position: relative; width: 100%; padding: 1.5rem 1.1rem 1.1rem; border-radius: 1.1rem;
       background: #FFFFFF; color: #2B1B2C; border: 1.5px solid var(--violet);
       text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      overflow: visible !important;
     }
     .ticket-brand { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; gap: 6px; margin-bottom: 0.5rem; }
-    .ticket-logo { max-height: 3.5rem; max-width: 10rem; object-fit: contain; display: block; margin: 0 auto; }
+    
+    /* جعل خلفية الشعار شفافة تماماً بدون أي مربعات أو ألوان خلفية */
+    .ticket-logo { max-height: 3.5rem; max-width: 10rem; object-fit: contain; display: block; margin: 0 auto; background: transparent !important; border: none !important; box-shadow: none !important; padding: 0 !important; }
     .ticket-store { font-size: 1rem; font-weight: 900; color: #2B1B2C; }
     .ticket-desc { font-size: 0.88rem; font-weight: 700; color: #5c4762; line-height: 1.6; margin-top: 0.5rem; width: 100%; }
     .ticket-seal { width: 2.2rem; height: 2.2rem; color: var(--violet); margin: 0 auto; }
-    .logo-wrap.on-dark { background: #2B1B2C; border-radius: 0.85rem; padding: 0.5rem 0.9rem; }
+    .logo-wrap { background: transparent !important; border: none !important; padding: 0 !important; box-shadow: none !important; }
     
     .ticket-bow { position: absolute; top: -1.7rem; left: -1.4rem; width: 6.8rem; height: auto; pointer-events: none; z-index: 5; opacity: 0.96; transform: rotate(-12deg); }
-    .code-copy { flex: 0 0 auto; width: 2.3rem; height: 2.3rem; border-radius: 0.6rem; border: 1px solid rgba(210,215,223,0.35); background: rgba(142,124,147,0.3); color: var(--white-soft); display: flex; align-items: center; justify-content: center; cursor: pointer; }
-    .code-copy.done { background: rgba(34,197,94,0.3); border-color: #22c55e; color: #4ade80; }
+    
+    /* زر النسخ المنفصل تحت البطاقة */
+    .code-copy-btn {
+      width: 100%; padding: 0.7rem; border: 1.5px solid var(--violet-soft); border-radius: 0.625rem;
+      background: rgba(142, 124, 147, 0.25); color: var(--white-soft); font-size: 0.92rem; font-weight: 800;
+      font-family: inherit; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;
+      transition: 0.3s; margin-top: 0.6rem; box-shadow: 0 4px 16px rgba(142, 124, 147, 0.3);
+    }
+    .code-copy-btn:hover { background: rgba(142, 124, 147, 0.4); border-color: #fff; }
+    .code-copy-btn.done { background: rgba(34,197,94,0.3); border-color: #22c55e; color: #4ade80; }
+    .code-copy-btn svg { width: 1.1rem; height: 1.1rem; fill: currentColor; }
 
     .tear { position: relative; width: calc(100% + 2.2rem); height: 0; margin: 0.9rem -1.1rem; border-top: 2px dashed rgba(142,124,147,0.5); }
     .tear::before, .tear::after { content: ""; position: absolute; top: -10px; width: 18px; height: 18px; border-radius: 50%; background: #FFFFFF; border: 1.5px solid var(--violet); }
@@ -331,8 +342,11 @@
     .tear::after { left: -10px; }
     
     .code-label { font-size: 0.72rem; font-weight: 700; color: #6a5a70; margin-bottom: 4px; width: 100%; }
-    .code-box { display: flex; align-items: center; justify-content: space-between; gap: 0.6rem; background: #2B1B2C; border-radius: 0.8rem; padding: 0.5rem 0.6rem 0.5rem 0.8rem; width: 100%; }
-    .code-text { flex: 1 1 auto; min-width: 0; text-align: center; font-size: 1.55rem; font-weight: 900; letter-spacing: 1.5px; color: var(--white-soft); user-select: all; }
+    
+    /* صندوق الكود الغامق بدون أي مربعات داخلية أو عناصر غريبة */
+    .code-box { display: flex; align-items: center; justify-content: center; background: #2B1B2C; border-radius: 0.8rem; padding: 0.6rem 0.8rem; width: 100%; }
+    .code-text { text-align: center; font-size: 1.55rem; font-weight: 900; letter-spacing: 1.5px; color: var(--white-soft); user-select: all; width: 100%; }
+    
     .ticket-exp { display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 0.8rem; font-size: 0.76rem; font-weight: 800; color: #47374c; width: 100%; }
 
     .info-card { position: relative; width: 100%; border: 1.5px solid rgba(142,124,147,0.55); background: rgba(142,124,147,0.12); border-radius: 1.1rem; padding: 1.35rem 1rem 0.9rem; }
@@ -352,7 +366,7 @@
   </div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <!-- موديول التلميح المستقل (يظهر في الوجه بنفس تصميم صندوق الموافقة) -->
+  <!-- موديول التلميح المستقل -->
   <div class="modal-overlay" id="hintModal">
     <div class="modal-card">
       <div class="modal-icon" id="hintModalIcon">
@@ -433,11 +447,9 @@
           <div class="question-zoom" id="qText"></div>
         </div>
 
-        <!-- صندوق السؤال مع أيقونة اللمبة المضيئة داخله مباشرة بدون أي إطارات -->
         <div class="question-box hidden" id="questionBox">
           <span class="q-tag">السؤال</span>
           <div class="q-body" id="qQuestion"></div>
-          <!-- أيقونة اللمبة الشفافة والمضيئة بأطراف بنفسجية -->
           <div class="bulb-inline-icon hidden" id="bulbHintBtn" title="تلميح القضية" onclick="openHintModal()">
             <svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1m4-13.91V6h-2v1.09A5.002 5.002 0 0 0 7 12c0 1.66.83 3.12 2.1 4h5.8A4.99 4.99 0 0 0 17 12a5.002 5.002 0 0 0-4-4.91z"/></svg>
           </div>
@@ -574,7 +586,6 @@
       <div class="field"><label>الوقائع:</label><textarea id="p_text" class="tall"></textarea></div>
       <div class="field"><label>السؤال (اختياري):</label><textarea id="p_question" class="mid"></textarea></div>
       
-      <!-- إظهار أو إخفاء التلميح -->
       <div class="field">
         <label>حالة التلميح لهذه القضية:</label>
         <select id="p_showHint">
@@ -583,7 +594,6 @@
         </select>
       </div>
 
-      <!-- خانة التلميح في لوحة التحكم -->
       <div class="field"><label>نص التلميح:</label><textarea id="p_hint" class="mid" placeholder="اكتبي تلميحاً قانونياً يوجه المتسابقة..."></textarea></div>
 
       <div style="background: rgba(142,124,147,0.07); border: 1px solid var(--line); border-radius: 0.5rem; padding: 0.5rem; margin-bottom: 0.75rem;">
@@ -700,8 +710,11 @@
   const ICON_COPY = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11" rx="2.5"/><path d="M5 15V6.5A2.5 2.5 0 0 1 7.5 4H15"/></svg>';
   const ICON_CAL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>';
 
+  // تشغيل البالونات تلقائياً عند ظهور شاشة الفوز
   function triggerCelebrationConfetti() {
-    try { confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 }, colors: ['#8E7C93', '#D2D7DF', '#ffffff', '#2B1B2C'] }); } catch (e) {}
+    try {
+      confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 }, colors: ['#8E7C93', '#D2D7DF', '#ffffff', '#2B1B2C'], zIndex: 9999 });
+    } catch (e) {}
   }
 
   function openHintModal() {
@@ -764,7 +777,7 @@
   }
 
   function fmtDate(iso) {
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(iso || '')) return '';
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(iso || '')) return iso || '';
     try { return new Date(iso + 'T00:00:00').toLocaleDateString('ar-SA-u-ca-gregory', { day: 'numeric', month: 'long', year: 'numeric' }); } catch (e) { return iso; }
   }
 
@@ -776,36 +789,17 @@
     return name.split('/').map(encodeURIComponent).join('/');
   }
 
-  function adaptLogo(img) {
-    try {
-      const w = Math.min(64, img.naturalWidth || 64), h = Math.min(64, img.naturalHeight || 64);
-      const c = document.createElement('canvas'); c.width = w; c.height = h;
-      const ctx = c.getContext('2d'); ctx.drawImage(img, 0, 0, w, h);
-      const d = ctx.getImageData(0, 0, w, h).data;
-      let sum = 0, solid = 0;
-      for (let i = 0; i < d.length; i += 4) {
-        if (d[i + 3] > 40) { sum += 0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2]; solid++; }
-      }
-      if (solid > 20 && sum / solid > 200 && img.parentNode) img.parentNode.classList.add('on-dark');
-    } catch (e) {}
-  }
-  function logoFailed(img) {
-    const wrap = img.parentNode, brand = wrap ? wrap.parentNode : null;
-    if (wrap) wrap.remove();
-    if (brand && !brand.querySelector('.ticket-store')) brand.innerHTML = `<div class="ticket-seal">${ICON_SCALE}</div>`;
-  }
-
   const BOW_SVG = `<svg class="ticket-bow" viewBox="0 0 120 116" aria-hidden="true"><defs><linearGradient id="bwL" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#B2A0B8"/><stop offset=".55" stop-color="#6a5a70"/><stop offset="1" stop-color="#2B1B2C"/></linearGradient><linearGradient id="bwR" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B2A0B8"/><stop offset=".55" stop-color="#6a5a70"/><stop offset="1" stop-color="#2B1B2C"/></linearGradient></defs><path d="M55 47C43 21 14 12 7 29C1 44 19 63 55 54Z" fill="url(#bwL)"/><path d="M65 47C77 21 106 12 113 29C119 44 101 63 65 54Z" fill="url(#bwR)"/></svg>`;
 
   function buildWinHTML(promo) {
     let ticket = '';
     if (promo.code) {
       const src = logoSrc(promo.logo);
-      const brand = (src || promo.store) ? `<div class="ticket-brand">${src ? `<span class="logo-wrap"><img class="ticket-logo" src="${src}" alt="" onload="adaptLogo(this)" onerror="logoFailed(this)"></span>` : ''}${promo.store ? `<div class="ticket-store">${esc(promo.store)}</div>` : ''}</div>` : `<div class="ticket-brand"><div class="ticket-seal">${ICON_SCALE}</div></div>`;
+      const brand = (src || promo.store) ? `<div class="ticket-brand">${src ? `<span class="logo-wrap"><img class="ticket-logo" src="${src}" alt=""></span>` : ''}${promo.store ? `<div class="ticket-store">${esc(promo.store)}</div>` : ''}</div>` : `<div class="ticket-brand"><div class="ticket-seal">${ICON_SCALE}</div></div>`;
       const descText = promo.desc ? esc(promo.desc) : '';
       const d = fmtDate(promo.exp);
 
-      ticket = `<div class="ticket">${BOW_SVG}${brand}<div class="code-label">كود الخصم</div><div class="code-box"><div class="code-text" id="promoCodeText">${esc(promo.code)}</div><button type="button" class="code-copy" id="copyCodeBtn" onclick="copyPromoCode()">${ICON_COPY}</button></div>${descText ? `<div class="ticket-desc">${descText}</div>` : ''}<div class="tear"></div>${d ? `<div class="ticket-exp">${ICON_CAL}<span>صالحة حتى ${esc(d)}</span></div>` : ''}</div>`;
+      ticket = `<div class="ticket">${BOW_SVG}${brand}<div class="code-label">كود الخصم</div><div class="code-box"><div class="code-text" id="promoCodeText">${esc(promo.code)}</div></div>${descText ? `<div class="ticket-desc">${descText}</div>` : ''}<div class="tear"></div>${d ? `<div class="ticket-exp">${ICON_CAL}<span>صالحة حتى ${esc(d)}</span></div>` : ''}</div><button type="button" class="code-copy-btn" id="copyCodeBtn" onclick="copyPromoCode()">${ICON_COPY} نسخ الكود</button>`;
     }
     return `<div class="res-card win"><div class="res-icon ok">${ICON_CHECK}</div><h2 class="res-title">${esc(config.successMsg || 'إجابة صحيحة!')}</h2>${ticket}</div>`;
   }
@@ -832,7 +826,7 @@
     try { await navigator.clipboard.writeText(code); ok = true; } catch (e) {}
     if (ok) {
       const cb = document.getElementById('copyCodeBtn');
-      if (cb) { cb.classList.add('done'); cb.innerHTML = ICON_CHECK; setTimeout(() => { cb.classList.remove('done'); cb.innerHTML = ICON_COPY; }, 1800); }
+      if (cb) { cb.classList.add('done'); cb.innerHTML = `${ICON_CHECK} تم نسخ الكود بنجاح`; setTimeout(() => { cb.classList.remove('done'); cb.innerHTML = `${ICON_COPY} نسخ الكود`; }, 1800); }
     }
     showToast(ok ? 'تم نسخ الكود بنجاح ✅' : 'تعذّر النسخ');
   }
