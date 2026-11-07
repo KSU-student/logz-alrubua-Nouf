@@ -15,7 +15,6 @@
       --violet-soft: #D2D7DF;
       --white-soft: #F8F9FA;
       --amber: #e9a23b;
-      --amber-dark: #ac6d2d;
       --amber-light: #f6c978;
       --card-bg: rgba(43, 27, 44, 0.96);
       --line: rgba(210, 215, 223, 0.25);
@@ -173,28 +172,28 @@
     }
     .question-zoom { font-size: 0.92rem; font-weight: 700; line-height: 1.7; color: var(--white-soft); white-space: pre-wrap; overflow-wrap: anywhere; }
 
-    /* زر تلميح اللمبة المضيء والبارز بجانب عنوان أو مكان السؤال (برسيم هندسي SVG بدون إيموجي وبألوان الهوية مع وميض ملون) */
-    .bulb-trigger-container {
-      display: flex; align-items: center; justify-content: flex-end; margin: 4px 0 8px;
+    /* تصميم أيقونة اللمبة الشفافة والمضيئة تماماً عند مكان السؤال */
+    .question-header-row {
+      display: flex; align-items: center; justify-content: space-between; position: relative; margin-top: 6px;
     }
-    .bulb-trigger-btn {
-      background: rgba(142, 124, 147, 0.2); border: 1.5px solid var(--violet-soft);
-      color: var(--white-soft); border-radius: 0.6rem; padding: 0.4rem 0.75rem;
-      display: inline-flex; align-items: center; gap: 6px; cursor: pointer;
-      font-family: inherit; font-size: 0.76rem; font-weight: 800;
-      box-shadow: 0 0 12px rgba(142, 124, 147, 0.4);
-      animation: bulbGlowPulse 2s infinite ease-in-out;
-      transition: 0.25s;
+    .bulb-icon-btn {
+      background: rgba(142, 124, 147, 0.12); border: 1.5px solid rgba(210, 215, 223, 0.4);
+      color: var(--white-soft); border-radius: 50%; width: 2.1rem; height: 2.1rem;
+      display: inline-flex; align-items: center; justify-content: center; cursor: pointer;
+      backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+      box-shadow: 0 0 10px rgba(142, 124, 147, 0.3);
+      animation: bulbGlowPulse 1.2s infinite ease-in-out;
+      transition: 0.25s; flex: 0 0 auto;
     }
-    .bulb-trigger-btn:hover { background: rgba(142, 124, 147, 0.4); transform: scale(1.03); }
-    .bulb-trigger-btn svg { width: 1.1rem; height: 1.1rem; fill: currentColor; }
+    .bulb-icon-btn:hover { background: rgba(142, 124, 147, 0.3); transform: scale(1.08); }
+    .bulb-icon-btn svg { width: 1.15rem; height: 1.15rem; fill: currentColor; }
 
     @keyframes bulbGlowPulse {
-      0%, 100% { box-shadow: 0 0 6px rgba(142,124,147,0.3), 0 0 2px rgba(210,215,223,0.2); border-color: var(--violet-soft); }
-      50% { box-shadow: 0 0 18px rgba(142,124,147,0.8), 0 0 8px rgba(210,215,223,0.6); border-color: #fff; }
+      0%, 100% { opacity: 0.6; box-shadow: 0 0 5px rgba(239, 68, 68, 0.4), 0 0 2px rgba(142, 124, 147, 0.3); border-color: rgba(239, 68, 68, 0.6); }
+      50% { opacity: 1; box-shadow: 0 0 16px rgba(239, 68, 68, 0.9), 0 0 6px rgba(210, 215, 223, 0.8); border-color: #fff; }
     }
 
-    /* مربع التلميح أو موديل التنبيه المستقل في الوجه (نفس تصميم مربع الموافقة) */
+    /* مربع التلميح أو موديل التنبيه المستقل في الوجه */
     .modal-overlay {
       position: fixed; inset: 0; background: rgba(20, 10, 22, 0.8);
       backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
@@ -222,6 +221,7 @@
     .modal-btn.confirm { background: var(--violet); border: 1.5px solid var(--violet-soft); color: #fff; }
     .modal-btn.confirm:hover { background: #7c6882; }
 
+    .question-box { position: relative; }
     .question-box .q-tag {
       position: absolute; top: -9px; right: 14px;
       background: var(--violet); color: var(--white-soft); font-size: 0.625rem; font-weight: 900;
@@ -437,20 +437,18 @@
           <div class="question-zoom" id="qText"></div>
         </div>
 
-        <!-- زر اللمبة بجانب السؤال بتصميم هندسي ووميض مخصص -->
-        <div class="bulb-trigger-container">
-          <button type="button" class="bulb-trigger-btn" onclick="openHintModal()">
+        <!-- صندوق السؤال مع زر أيقونة اللمبة المضيئة والشفافة بجانبه مباشرة بدون أي نص -->
+        <div class="question-header-row">
+          <div class="question-box" id="questionBox" style="flex:1; margin-top:0;">
+            <span class="q-tag">السؤال</span>
+            <div class="q-body" id="qQuestion"></div>
+          </div>
+          <button type="button" class="bulb-icon-btn" title="تلميح القضية" onclick="openHintModal()">
             <svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1m4-13.91V6h-2v1.09A5.002 5.002 0 0 0 7 12c0 1.66.83 3.12 2.1 4h5.8A4.99 4.99 0 0 0 17 12a5.002 5.002 0 0 0-4-4.91z"/></svg>
-            <span>تلميح القضية</span>
           </button>
         </div>
 
-        <div class="question-box hidden" id="questionBox">
-          <span class="q-tag">السؤال</span>
-          <div class="q-body" id="qQuestion"></div>
-        </div>
-
-        <div id="options"></div>
+        <div id="options" style="margin-top: 0.6rem;"></div>
       </div>
 
       <div id="result" class="result-box hidden"></div>
@@ -707,14 +705,12 @@
     if (!modal) return;
 
     if (userUsedHint) {
-      // إذا قد فعلت التلميح سابقاً، اعرض التلميح مباشرة في المربع المستقل
       const hintText = config.hint || "لا يوجد تلميح متاح لهذه القضية حالياً.";
       iconEl.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1m4-13.91V6h-2v1.09A5.002 5.002 0 0 0 7 12c0 1.66.83 3.12 2.1 4h5.8A4.99 4.99 0 0 0 17 12a5.002 5.002 0 0 0-4-4.91z"/></svg>';
       titleEl.textContent = "تلميح استقصائي";
       descEl.innerHTML = `<div style="text-align: right; line-height: 1.8; font-weight: 700;">${esc(hintText)}</div>`;
       actionsEl.innerHTML = `<button type="button" class="modal-btn confirm" onclick="closeHintModal()">حسناً، فهمت</button>`;
     } else {
-      // عرض رسالة التأكيد
       iconEl.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1m4-13.91V6h-2v1.09A5.002 5.002 0 0 0 7 12c0 1.66.83 3.12 2.1 4h5.8A4.99 4.99 0 0 0 17 12a5.002 5.002 0 0 0-4-4.91z"/></svg>';
       titleEl.textContent = "تنبيه قانوني استقصائي";
       descEl.innerHTML = `هل أنتِ متأكدة من رغبتكِ في طلب التلميح؟<br><span style="color: var(--violet-soft); font-size: 0.76rem; display: block; margin-top: 4px;">* تنبيه: استخدام التلميح سيجعل احتساب الإجابة الصحيحة (0.5 نقطة) فقط.</span>`;
@@ -736,7 +732,6 @@
     userUsedHint = true;
     const hintText = config.hint || "لا يوجد تلميح متاح لهذه القضية حالياً.";
     
-    // التحديث الفوري لنفس المربع المنبثق ليعرض التسبيب/التلميح
     const titleEl = document.getElementById('hintModalTitle');
     const descEl = document.getElementById('hintModalDesc');
     const actionsEl = document.getElementById('hintModalActions');
