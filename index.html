@@ -110,7 +110,7 @@
     }
     p.sub { text-align: center; color: rgba(248,249,250,0.78); margin: 0 0 1rem; font-size: 0.76rem; }
 
-    .field { margin-bottom: 0.7rem; }
+    .field { margin-button: 0.7rem; }
     .hint { font-size: 0.66rem; color: rgba(248,249,250,0.6); margin-top: 3px; line-height: 1.5; }
     label { display: block; margin-bottom: 3px; font-weight: 700; font-size: 0.76rem; color: var(--violet-soft); }
     input[type="text"], input[type="tel"], input[type="password"], input[type="date"], textarea, select {
@@ -175,17 +175,28 @@
     }
     .question-zoom { font-size: 0.92rem; font-weight: 700; line-height: 1.7; color: var(--white-soft); white-space: pre-wrap; overflow-wrap: anywhere; }
 
-    /* تصميم زر اللمبة الجديد (موفي شفاف وأنيق) */
-    .hint-btn {
-      position: absolute; top: 0.7rem; left: 0.7rem;
-      background: rgba(142, 124, 147, 0.18); border: 1.5px solid rgba(210, 215, 223, 0.4);
-      color: var(--violet-soft); border-radius: 50%; width: 2.3rem; height: 2.3rem;
-      display: flex; align-items: center; justify-content: center; cursor: pointer;
-      transition: 0.25s; z-index: 10; backdrop-filter: blur(4px);
+    /* تصميم زر اللمبة الجديد (مستوحى من صورتك بلون الهوية مع وميض نابض) */
+    .bulb-hint-container {
+      display: flex; align-items: center; justify-content: center; margin: 8px 0 12px; z-index: 5; position: relative;
     }
-    .hint-btn:hover { background: rgba(142, 124, 147, 0.4); border-color: var(--violet-soft); color: #fff; transform: scale(1.08); }
+    .bulb-btn {
+      background: rgba(142, 124, 147, 0.15); border: 1.5px solid var(--violet-soft);
+      color: var(--amber-light); border-radius: 999px; padding: 6px 14px;
+      display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
+      font-family: inherit; font-size: 0.78rem; font-weight: 800;
+      box-shadow: 0 0 15px rgba(233, 162, 59, 0.2);
+      animation: bulbPulse 2s infinite ease-in-out;
+      transition: 0.25s;
+    }
+    .bulb-btn:hover { background: rgba(142, 124, 147, 0.3); transform: scale(1.05); }
+    .bulb-btn svg { width: 1.25rem; height: 1.25rem; fill: currentColor; }
 
-    /* تصميم إشعار التنبيه المنبثق (مودال أشعار) */
+    @keyframes bulbPulse {
+      0%, 100% { box-shadow: 0 0 8px rgba(233,162,59,0.3), 0 0 2px rgba(142,124,147,0.2); transform: scale(1); }
+      50% { box-shadow: 0 0 22px rgba(233,162,59,0.7), 0 0 8px rgba(142,124,147,0.5); transform: scale(1.03); }
+    }
+
+    /* موديل إشعار التنبيه المنبثق للتلميح */
     .modal-overlay {
       position: fixed; inset: 0; background: rgba(20, 10, 22, 0.8);
       backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
@@ -426,9 +437,15 @@
 
       <div id="caseBody">
         <div class="magnifier-lens" id="lens" data-label="الوقائع">
-          <!-- زر اللمبة الجديد (موفي شفاف وأنيق) -->
-          <button type="button" class="hint-btn" onclick="openHintModal()" title="طلب تلميح">💡</button>
           <div class="question-zoom" id="qText"></div>
+        </div>
+
+        <!-- زر اللمبة الجديد بأسلوب الإشراقة الوامضة في المكان المخصص تحت الوقائع -->
+        <div class="bulb-hint-container">
+          <button type="button" class="bulb-btn" onclick="openHintModal()">
+            <svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1m4-13.91V6h-2v1.09A5.002 5.002 0 0 0 7 12c0 1.66.83 3.12 2.1 4h5.8A4.99 4.99 0 0 0 17 12a5.002 5.002 0 0 0-4-4.91z"/></svg>
+            <span>تحتاجين تلميحاً للقضية؟ 💡</span>
+          </button>
         </div>
 
         <div class="question-box hidden" id="questionBox">
@@ -683,7 +700,6 @@
     try { confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 }, colors: ['#e9a23b', '#8E7C93', '#ffffff', '#f6c978'] }); } catch (e) {}
   }
 
-  /* وظائف ظهور وإغلاق موديل التنبيه (الأشعار في الوجه) */
   function openHintModal() {
     if (userUsedHint) return;
     const modal = document.getElementById('hintModal');
@@ -705,8 +721,8 @@
       box = document.createElement('div');
       box.id = 'hintDisplayBox';
       box.className = 'hint-box';
-      const optionsDiv = document.getElementById('options');
-      if (optionsDiv) optionsDiv.parentNode.insertBefore(box, optionsDiv);
+      const questionBox = document.getElementById('questionBox');
+      if (questionBox) questionBox.parentNode.insertBefore(box, questionBox);
     }
     
     box.innerHTML = `<strong>💡 تلميح استقصائي:</strong><br>${esc(hintText)}`;
